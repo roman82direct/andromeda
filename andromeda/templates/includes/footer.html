@@ -1,8 +1,66 @@
 {% load static %}
-<footer class="border-top text-center py-3 fixed-bottom">
-  <div class="container-fluid">
-    <span class="navbar-text">
-      © Andromeda Shop
-    </span>
+
+<footer id="footer" class="">
+  <div class="footer-top">
+      <div class="container">
+          <div class="row">
+            <div class="col-lg-4 col-md-6">
+              <div class="footer-info shadow">
+                <a class="navbar-brand flex justify-center" href="{% url "goods:index" %}">
+                  Andromeda
+                </a>
+                <p class="pb-2"><em>Online-магазин "Andromeda"</em></p>
+                <p class="pb-4"><em>Товары для дома и не только...</em></p>
+                <p>
+                  <p class="pb-2"><strong>Email:</strong> info@andromeda.ru</p><br>
+                </p>
+                <div class="social-links mt-3">
+                  <a href="" class="facebook" target="_blank"><i class="bi bi-facebook"></i></a>
+                  <a href="" class="instagram" target="_blank"><i class="bi bi-instagram"></i></a>
+                  <a href="" class="linkedin" target="_blank"><i class="bi bi-youtube"></i></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-6 footer-links">
+              <h4>Навигация</h4>
+              <ul>
+                {% comment %} <li><i class="bx bx-chevron-right"></i> <a href="{{ route('nav::catalog') }}">{{ __('menu.catalog') }}</a></li>
+                  @foreach(\App\Models\Maincategory::all() as $item)
+                    <li><i class="bx bx-chevron-right"></i> <a href="{{ route('nav::maincategory', ['id' => $item->id]) }}">{{$item->name}}</a></li>
+                  @endforeach {% endcomment %}
+              </ul>
+            </div>
+
+            <div class="col-lg-2 col-md-6 footer-links">
+              <h4>Полезные ссылки</h4>
+              <ul>
+                <li><a href="" target="_blank" class="gc-link">link_1</a></li>
+                <li><a href="" target="_blank" class="gc-link">link_2</a></li>
+                <li>
+                  <a href="" target="_blank" class="by-link align-items-center" style="display: flex; color: black">link_3</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="col-lg-4 col-md-6 footer-newsletter">
+              <h4>Наши новости</h4>
+              <p>Подпишитесь, чтобы быть в курсе...</p>
+              <form action="" method="post">
+                <input type="email" name="email">
+                <input type="submit" value="Подписаться">
+              </form>
+            </div>
+
+          </div>
+      </div>
+  </div>
+  <div class="container">
+      <div class="copyright">
+        {% comment %} &copy; {{ timezone.now() }} {% endcomment %}
+        <strong><span>Andromeda</span></strong>
+      </div>
+      <div class="credits">
+        Разработано: <a data-bs-toggle="modal" data-bs-target="#paromModal" href="#"><strong>AndRomeda</strong></a>
+      </div>
   </div>
 </footer>
