@@ -1,10 +1,14 @@
 asgiref==3.10.0
+certifi==2025.11.12
+charset-normalizer==3.4.4
 Django==5.1.1
 django-bootstrap5==24.3
 django-debug-toolbar==6.1.0
+django-google-fonts==0.0.3
 Faker==12.0.1
 flake8==7.1.1
 flake8-docstrings==1.7.0
+idna==3.11
 mccabe==0.7.0
 pep8-naming==0.14.1
 pillow==11.0.0
@@ -14,7 +18,11 @@ pydocstyle==6.3.0
 pyflakes==3.2.0
 python-dateutil==2.9.0.post0
 pytz==2024.2
+requests==2.32.5
 six==1.17.0
 snowballstemmer==3.0.1
 sqlparse==0.5.3
+tinycss2==1.4.0
 tzdata==2025.2
+urllib3==2.5.0
+webencodings==0.5.1

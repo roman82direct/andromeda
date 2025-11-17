@@ -24,10 +24,7 @@
             <div class="col-lg-2 col-md-6 footer-links">
               <h4>Навигация</h4>
               <ul>
-                {% comment %} <li><i class="bx bx-chevron-right"></i> <a href="{{ route('nav::catalog') }}">{{ __('menu.catalog') }}</a></li>
-                  @foreach(\App\Models\Maincategory::all() as $item)
-                    <li><i class="bx bx-chevron-right"></i> <a href="{{ route('nav::maincategory', ['id' => $item->id]) }}">{{$item->name}}</a></li>
-                  @endforeach {% endcomment %}
+                  Сюда сделать навигацию по группам товаров
               </ul>
             </div>
 
@@ -56,8 +53,7 @@
   </div>
   <div class="container">
       <div class="copyright">
-        {% comment %} &copy; {{ timezone.now() }} {% endcomment %}
-        <strong><span>Andromeda</span></strong>
+        &copy;<strong><span>Andromeda</span></strong>
       </div>
       <div class="credits">
         Разработано: <a data-bs-toggle="modal" data-bs-target="#paromModal" href="#"><strong>AndRomeda</strong></a>
