@@ -3,5 +3,17 @@
 {% block title %}Andromeda: Главная{% endblock title %}
 
 {% block content %}
-    Main Page
+  Main Page
 {% endblock content %}
+
+{% block about %}
+  {% include "includes/about_section.html" %}
+{% endblock about %}
+
+{% block collections %}
+  {% include "includes/collections_section.html" %}
+{% endblock collections %}
+
+{% block hits %}{% endblock  %}
+
+{% block comments %}{% endblock comments %}
