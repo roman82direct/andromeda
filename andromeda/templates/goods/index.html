@@ -2,9 +2,9 @@
 
 {% block title %}Andromeda: Главная{% endblock title %}
 
-{% block content %}
-  Main Page
-{% endblock content %}
+{% block main %}
+  {% include "includes/main_section.html" %}
+{% endblock%}
 
 {% block about %}
   {% include "includes/about_section.html" %}
@@ -14,6 +14,14 @@
   {% include "includes/collections_section.html" %}
 {% endblock collections %}
 
-{% block hits %}{% endblock  %}
+{% block new_products %}
+  {% include "includes/new_products_section.html" %}
+{% endblock  %}
 
-{% block comments %}{% endblock comments %}
+{% block hits %}
+  {% include "includes/hits_section.html" %}
+{% endblock %}
+
+{% block comments %}
+  {% include "includes/comments_section.html" %}
+{% endblock comments %}
