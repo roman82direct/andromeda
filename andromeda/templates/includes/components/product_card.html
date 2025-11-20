@@ -1,0 +1,24 @@
+<div class="card m-2 p-1" style="width: 18rem;" data-aos="fade-up" data-aos-delay="200">
+   <img src="{{ product.url }}" onError="" alt="">
+  <div class="card-body">
+    <h5 class="card-title">{{ product.name }}</h5>
+    <p class="card-text">Some quick example text about product.</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">{{ product.category }}</li>
+    <li class="list-group-item">{{ product.collection }}</li>
+    <li class="list-group-item">{{ product.price }} руб.</li>
+  </ul>
+  <div class="card-body">
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a>
+  </div>
+</div>
+{% comment %} @auth()
+    @if(Auth::user()->hasRole('admin'))
+        <div class="md:inline-flex mypd">
+            <a class="btn btn-outline-secondary mymrgleft" href="{{route('admin::good::update', ['id' => $item->id])}}">{{ __('buttons.update') }}</a>
+            <a class="btn btn-outline-danger mymrgleft" href="{{route('admin::good::delete', ['id' => $item->id])}}">{{ __('buttons.delete') }}</a>
+        </div>
+    @endif
+@endauth {% endcomment %}

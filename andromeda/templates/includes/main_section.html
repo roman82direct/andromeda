@@ -1,7 +1,12 @@
 <section id="services" class="services vh-100">
   <div class="container">
     <div class="section-title" data-aos="fade-in" data-aos-delay="200">
-      <h2>Main section</h2>
+      <h2>Наши товары</h2>
+    </div>
+    <div class="row portfolio-container mt-4">
+      {% for product in products %}
+        {% include "includes/components/product_card.html" %}
+      {% endfor %}
     </div>
   </div>
 </section>
