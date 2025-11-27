@@ -37,11 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'goods.apps.GoodsConfig',
     'users.apps.UsersConfig',
     'django_bootstrap5',
     'debug_toolbar',
     'django_google_fonts',
+    'products',
 ]
 
 MIDDLEWARE = [
@@ -74,7 +74,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'products',
             ],
         },
     },
@@ -91,7 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'andromeda_db',
         'USER': 'postgres',
-        'PASSWORD': 'admin',
+        'PASSWORD': 'root',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
