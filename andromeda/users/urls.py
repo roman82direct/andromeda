@@ -1,7 +1,7 @@
 from django.urls import path, reverse_lazy
 from django.views.generic.edit import CreateView
 
-from users.forms import RegistrationForm
+from .forms import RegistrationForm
 
 app_name = 'user'
 
