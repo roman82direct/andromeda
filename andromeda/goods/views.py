@@ -5,7 +5,7 @@ class CollectionsList(ListView):
     """Test View."""
 
     template_name = 'goods/index.html'
-
+    # Add some kjbnkjxcbj
     def get_queryset(self):
         pass
 
