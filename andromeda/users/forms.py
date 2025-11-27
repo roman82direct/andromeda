@@ -3,7 +3,6 @@ import phonenumbers
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
-from django.core.exceptions import ValidationError
 
 
 User = get_user_model()
@@ -19,7 +18,7 @@ class RegistrationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'phone', 'password1', 'password2')
+        fields = ('phone', 'email', 'password1', 'password2')
 
     def clean_phone(self):
         phone = self.cleaned_data['phone']

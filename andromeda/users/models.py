@@ -17,5 +17,10 @@ class User(AbstractUser):
         return self.phone
 
     def save(self, *args, **kwargs):
+        """
+        Метод модели User.
+
+        Переопределен так, чтобы в поле username сохранялся номер телефона.
+        """
         self.username = self.phone
         super().save(*args, **kwargs)
