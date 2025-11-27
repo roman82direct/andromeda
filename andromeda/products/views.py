@@ -1,10 +1,12 @@
+from django.shortcuts import render
+
 from django.views.generic import ListView
 
 
 class CollectionsList(ListView):
     """Test View."""
 
-    template_name = 'goods/index.html'
+    template_name = 'products/index.html'
 
     def get_queryset(self):
         pass
