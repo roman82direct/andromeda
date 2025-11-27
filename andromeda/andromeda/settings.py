@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django_bootstrap5',
     'debug_toolbar',
     'django_google_fonts',
-    'products',
+    'products.apps.ProductsConfig',
 ]
 
 MIDDLEWARE = [
