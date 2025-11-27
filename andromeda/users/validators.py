@@ -12,4 +12,3 @@ def validate_phone_number(value):
     except phonenumbers.NumberParseException:
         raise ValidationError("Некорректный формат номера.")
 
-# ToDo: 

@@ -17,10 +17,23 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include, path
+from django.views.generic.edit import CreateView
+from django.urls import include, path, reverse_lazy
+
+from users.forms import RegistrationForm
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path(
+        'auth/registration/',
+        CreateView.as_view(
+            template_name='user/registration_form.html',
+            form_class=RegistrationForm,
+            success_url=reverse_lazy('products:index'),
+        ),
+        name='registration',
+    ),
     path('', include('products.urls'))
 ]
 
