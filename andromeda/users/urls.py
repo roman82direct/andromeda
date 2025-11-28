@@ -1,18 +1,12 @@
-from django.urls import path, reverse_lazy
-from django.views.generic.edit import CreateView
+from django.contrib.auth import views as auth_views
+from django.urls import path
 
-from .forms import RegistrationForm
+from . import views
 
 app_name = 'user'
 
 urlpatterns = [
-    path(
-        'registration/',
-        CreateView.as_view(
-            template_name='user/registration_form.html',
-            form_class=RegistrationForm,
-            success_url=reverse_lazy('products:index'),
-        ),
-        name='registration',
-    ),
+    path('register/', views.RegisterView.as_view(), name='register'),
+    path('login/', views.LoginView.as_view(), name="login"),
+    path('logout/', auth_views.LogoutView.as_view(), name="logout"),
 ]

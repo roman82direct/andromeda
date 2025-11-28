@@ -2,7 +2,7 @@ import phonenumbers
 
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 
 User = get_user_model()
@@ -31,3 +31,10 @@ class RegistrationForm(UserCreationForm):
             )
         except phonenumbers.NumberParseException:
             raise forms.ValidationError("Неверный формат номера.")
+
+
+class PhoneLoginForm(AuthenticationForm):
+    username = forms.CharField(
+        label="Номер телефона",
+        widget=forms.TextInput(attrs={'placeholder': '+79991234567'})
+    )
