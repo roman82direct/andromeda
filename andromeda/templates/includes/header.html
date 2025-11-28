@@ -16,8 +16,25 @@
               Главная
             </a>
           </li>
-        {% endwith %}
+          {% endwith %}
       </ul>
+      {% if user.is_authenticated %}
+        <div class="">
+          <a class="text-decoration-none text-reset"
+              href="">{{ user.username }}</a>
+          <form method="post" action="{% url 'user:logout' %}" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-primary">Выйти</button>
+          </form>
+        </div>
+      {% else %}
+        <div class="">
+          <a class="text-decoration-none text-reset"
+              href="{% url 'user:login' %}">Войти</a>
+          <a class="text-decoration-none text-reset"
+              href="{% url "user:register" %}">Регистрация</a>
+        </div>
+      {% endif %}
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
         <button class="btn btn-secondary" type="submit">Поиск</button>
