@@ -28,7 +28,7 @@
         {% endif %}
       </div>
       <div class="card-body">
-        <form method="post" action="{% url 'user:login' %}">
+        <form method="post">
           {% csrf_token %}
           {% bootstrap_form form %}
           <input type="hidden" name="next" value="{{ next }}">

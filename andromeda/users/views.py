@@ -1,11 +1,11 @@
-from django.shortcuts import render, redirect
 from django.contrib import messages, auth
+from django.contrib.auth.views import LogoutView
 from django.urls import reverse_lazy
 from django.views.generic import FormView, CreateView
 from .forms import PhoneLoginForm, RegistrationForm
 
 
-class LoginView(FormView):
+class UserLoginView(FormView):
     form_class = PhoneLoginForm
     template_name = 'user/login.html'
     success_url = reverse_lazy('two-factor:setup')
@@ -28,7 +28,11 @@ class LoginView(FormView):
             return self.form_invalid(form)
 
 
-class RegisterView(CreateView):
+class UserRegisterView(CreateView):
     form_class = RegistrationForm
     template_name = 'user/registration_form.html'
-    success_url = reverse_lazy('products:index')
+    success_url = reverse_lazy('two_factor:login')
+
+
+class UserLogoutView(LogoutView):
+    pass
