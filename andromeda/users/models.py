@@ -10,11 +10,8 @@ class User(AbstractUser):
         max_length=17,
         unique=True,
         validators=[validate_phone_number],
-        help_text="Формат: +79991234567",
+        help_text='Формат: +79991234567',
     )
-
-    def __str__(self):
-        return self.phone
 
     def save(self, *args, **kwargs):
         """

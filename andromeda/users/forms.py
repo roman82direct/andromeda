@@ -13,7 +13,7 @@ class RegistrationForm(UserCreationForm):
     phone = forms.CharField(
         max_length=17,
         widget=forms.TextInput(attrs={'placeholder': '+79991234567'}),
-        label="Номер телефона"
+        label='Номер телефона'
     )
 
     class Meta:
@@ -23,18 +23,18 @@ class RegistrationForm(UserCreationForm):
     def clean_phone(self):
         phone = self.cleaned_data['phone']
         try:
-            parsed = phonenumbers.parse(phone, "RU")
+            parsed = phonenumbers.parse(phone, 'RU')
             if not phonenumbers.is_valid_number(parsed):
-                raise forms.ValidationError("Некорректный номер телефона.")
+                raise forms.ValidationError('Некорректный номер телефона.')
             return phonenumbers.format_number(
                 parsed, phonenumbers.PhoneNumberFormat.E164
             )
         except phonenumbers.NumberParseException:
-            raise forms.ValidationError("Неверный формат номера.")
+            raise forms.ValidationError('Неверный формат номера.')
 
 
 class PhoneLoginForm(AuthenticationForm):
     username = forms.CharField(
-        label="Номер телефона",
+        label='Номер телефона',
         widget=forms.TextInput(attrs={'placeholder': '+79991234567'})
     )

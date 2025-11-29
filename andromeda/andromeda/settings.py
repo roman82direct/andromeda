@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'products.apps.ProductsConfig',
     'django_bootstrap5',
     'django_google_fonts',
-    # two_factor_auth
     'django_otp',
     'django_otp.plugins.otp_static',
     'django_otp.plugins.otp_totp',
@@ -49,7 +48,6 @@ INSTALLED_APPS = [
     'two_factor',
     'two_factor.plugins.phonenumber',  # <- if you want phone number capability.
     'two_factor.plugins.email',  # <- if you want email capability.
-    # 'two_factor.plugins.yubikey',  # <- for yubikey capability.
     'debug_toolbar',
 ]
 
