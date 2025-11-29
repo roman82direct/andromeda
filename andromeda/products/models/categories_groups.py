@@ -1,36 +1,75 @@
 from django.db import models
 
-#from .products import SecondCategories
-from .abstracts import BaseModel, PublishedModel
+
+from .abstracts import TitleDescriptionAbstract
 
 
-class Groups(PublishedModel, BaseModel):
+class Group(TitleDescriptionAbstract):
+    """Модель с данными о группе.
+
+    Группа - общевидовой признак принадлежности товара()
+    (пример:посуда, текстить).
+    Наследует от абстрактной модели поля:
+    - created_at,
+    - is_published,
+    - update_at,
+    - title,
+    - description.
+    """
 
     class Meta:
         verbose_name = 'Группа'
         verbose_name_plural = 'Группы'
 
+    def __str__(self):
+        return self.title
 
-class MainCategories(PublishedModel, BaseModel):
+
+class MainCategory(TitleDescriptionAbstract):
+    """Модель с данными о категории товара.
+
+    Деление внутри группы товаров.
+    Наследует от абстрактной модели поля:
+    - created_at,
+    - is_published,
+    - update_at,
+    - title,
+    - description,
+    - метод str().
+    """
+
     group = models.ForeignKey(
-        Groups,
+        Group,
         on_delete=models.CASCADE,
         verbose_name="Группа"
-    ),
+    )
 
     class Meta:
-        verbose_name = 'Группа'
-        verbose_name_plural = 'Группы'
+        verbose_name = 'Категория товаров'
+        verbose_name_plural = 'Категории товаров'
+        default_related_name = 'maincategories'
 
 
-class SecondCategories(PublishedModel, BaseModel):
+class SecondCategory(TitleDescriptionAbstract):
+    """Модель с данными о подкатегории товара.
+
+    Деление внутри категориитовара.
+    Наследует от абстрактной модели поля:
+    - created_at,
+    - is_published,
+    - update_at,
+    - title,
+    - description,
+    - метод str().
+    """
+
     main_category = models.ForeignKey(
-        MainCategories,
+        MainCategory,
         on_delete=models.CASCADE,
-        related_name="categories",
-        verbose_name="Первичная категория"
-    ),
+        verbose_name='Категория товаров'
+    )
 
     class Meta:
-        verbose_name = 'Вторичная категория'
-        verbose_name_plural = 'Вторичные категории'
+        verbose_name = 'Подкатегория'
+        verbose_name_plural = 'Подкатегории'
+        default_related_name = 'secondcategories'
