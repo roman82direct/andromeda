@@ -2,101 +2,85 @@ from django.core.validators import MinValueValidator
 from django.db import models
 
 from .categories_groups import SecondCategories
-from .abstracts import PublishedModel
+from .abstracts import BaseModel, PublishedModel
 
 
-class Collections(PublishedModel):
-    title = models.CharField("Название", max_length=50, null=False),
-    description = models.TextField("Описание"),
+class Collections(PublishedModel, BaseModel):
 
     class Meta:
         verbose_name = 'Коллекция'
         verbose_name_plural = 'Коллекции'
 
-    def __str__(self):
-        return self.title
 
-
-class Brands(PublishedModel):
-    title = models.CharField("Название", max_length=50, null=False),
-    description = models.TextField("Описание"),
+class Brands(PublishedModel, BaseModel):
 
     class Meta:
         verbose_name = 'Брэнд'
-        verbose_name_plural = 'Брэнды' 
-
-    def __str__(self):
-        return self.title
+        verbose_name_plural = 'Брэнды'
 
 
-class Products(PublishedModel):
-    item_number = models.PositiveIntegerField(
-        null=False,
+class Products(PublishedModel, BaseModel):
+    item_number = models.CharField(
+        max_length=50,
         unique=True,
-        validators=[
-            MinValueValidator(
-                limit_value=0,
-                message="Артикул не может быть отрицательным числом"
-            )
-        ],
         verbose_name='Артикул'
     )
-    title = models.CharField("Название", max_length=50, null=False),
-    description = models.TextField("Описание"),
-    price = models.PositiveIntegerField(
+    price = models.DecimalField(
         "Розничная цена",
-        null=False,
+        max_digits=8,
+        decimal_places=2,
+        default=0.0,
         validators=[
             MinValueValidator(
-                limit_value=0,
+                limit_value=0.0,
                 message="Цена не может быть отрицательным числом"
             )
         ]
     ),
-    cost_price = models.PositiveIntegerField(
+    cost_price = models.DecimalField(
         "Закупочная цена",
-        null=False,
+        max_digits=8,
+        decimal_places=2,
+        default=0.0,
         validators=[
             MinValueValidator(
-                limit_value=0,
+                limit_value=0.0,
                 message="Цена не может быть отрицательным числом"
             )
-        ],
+        ]
     ),
     second_category = models.ForeignKey(
         SecondCategories,
         on_delete=models.SET_NULL,
         null=True,
-        related_name="products",
         verbose_name="Вторичная категория"
     ),
     brand = models.ForeignKey(
         Brands,
         on_delete=models.SET_NULL,
         null=True,
-        related_name="products",
         verbose_name="Брэнд",
     ),
-    collections = models.ManyToManyField(
+    collections = models.ForeignKey(
         Collections,
+        on_delete=models.SET_NULL,
+        null=True,
         verbose_name="Коллекция",
         blank=True
     )
 
     class Meta:
+        default_related_name = 'products'
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
-        ordering = ('-created_at', '-update_at')
-
-    def __str__(self):
-        return self.title
+        ordering = ('-item_number')
 
 
 class Images(PublishedModel):
     product = models.ForeignKey(
         Products,
         on_delete=models.CASCADE,
-        related_name="products",
+        related_name="images",
         verbose_name="Картинка",
     ),
     img_url = models.ImageField(
@@ -105,7 +89,7 @@ class Images(PublishedModel):
         blank=True
     )
     is_main = models.BooleanField("Заглавная картинка"),
-    is_pack = models.BooleanField("Пачка")
+    is_pack = models.BooleanField("Упаковка")
 
     class Meta:
         verbose_name = 'Картинка'

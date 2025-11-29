@@ -20,3 +20,13 @@ class PublishedModel(models.Model):
 
     class Meta:
         abstract = True
+
+
+class BaseModel(models.Model):
+    """Абстрактная модель. Добвляет title, description."""
+
+    title = models.CharField("Название", max_length=50),
+    description = models.TextField("Описание"),
+
+    def __str__(self):
+        return self.title
