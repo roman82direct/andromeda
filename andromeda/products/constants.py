@@ -1,0 +1,12 @@
+"""
+Константы приложения products.
+
+Содержат настройки значений(магические цифры).
+"""
+
+MAX_LENGTH_CHARFIELD = 50
+MAX_DIGITS_DECIMALFIELD = 8
+DECIMAL_PLACES_DECIMALFIELD = 2
+DEFAULT_DECIMALFIELD = 0.0
+LIMIT_VALUE_MINVALUEVALIDATOR_PRICES = 0.0
+SLICE_OUTPUT_STR_METHOD = 20
