@@ -55,11 +55,11 @@ class TitleDescriptionAbstract(IsPublishedUpdateAtAbstract):
     - флаг is_published(Опубликовано) и поле update_at(Обновление)
     """
 
-    title = models.CharField('Название', MAX_LENGTH_CHARFIELD),
-    description = models.TextField('Описание'),
-
-    class Meta:
-        abstract = True
+    title = models.CharField('Название', max_length=MAX_LENGTH_CHARFIELD)
+    description = models.TextField('Описание')
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        abstract = True
