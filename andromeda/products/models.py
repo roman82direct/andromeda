@@ -1,12 +1,13 @@
-from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
+from django.contrib.auth import get_user_model
+from django.core.validators import MinValueValidator, MaxValueValidator
 
-from .abstracts import (
+from .base_models.abstracts import (
     IsPublishedUpdateAtAbstract,
     CreatedAtAbstract,
     TitleDescriptionAbstract
 )
-from .categories_groups import SecondCategory
+from .base_models.categories_groups import SecondCategory
 from products.constants import (
     MAX_LENGTH_CHARFIELD,
     MAX_DIGITS_DECIMALFIELD,
@@ -15,13 +16,16 @@ from products.constants import (
     LIMIT_VALUE_MINVALUEVALIDATOR_PRICES,
     SLICE_OUTPUT_STR_METHOD
 )
-from users.models import User
+
+
+User = get_user_model()
 
 
 class Collection(TitleDescriptionAbstract):
-    """Модель с информацией о коллекции, к которой принадлежит товар.
+    """
+    Модель с информацией о коллекции, к которой принадлежит товар.
 
-        Наследует от абстрактной модели поля:
+    Наследует от абстрактной модели поля:
     - created_at,
     - is_published,
     - update_at,
@@ -36,7 +40,8 @@ class Collection(TitleDescriptionAbstract):
 
 
 class Brand(TitleDescriptionAbstract):
-    """Модель с данными о бренде товара.
+    """
+    Модель с данными о бренде товара.
 
     Наследует от абстрактной модели поля:
     - created_at,
@@ -48,12 +53,13 @@ class Brand(TitleDescriptionAbstract):
     """
 
     class Meta:
-        verbose_name = 'Брэнд'
-        verbose_name_plural = 'Брэнды'
+        verbose_name = 'Бренд'
+        verbose_name_plural = 'Бренды'
 
 
 class Product(TitleDescriptionAbstract):
-    """Модель с данными о товаре.
+    """
+    Модель с данными о товаре.
 
     Наследует от абстрактной модели поля:
     - created_at,
@@ -97,13 +103,13 @@ class Product(TitleDescriptionAbstract):
         SecondCategory,
         on_delete=models.SET_NULL,
         null=True,
-        verbose_name='Вторичная категория'
+        verbose_name='Подкатегория'
     )
     brand = models.ForeignKey(
         Brand,
         on_delete=models.SET_NULL,
         null=True,
-        verbose_name='Брэнд',
+        verbose_name='Бренд',
     )
     collection = models.ForeignKey(
         Collection,
@@ -117,11 +123,12 @@ class Product(TitleDescriptionAbstract):
         default_related_name = 'products'
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
-        ordering = ('-item_number')
+        ordering = ('item_number',)
 
 
 class Image(IsPublishedUpdateAtAbstract):
-    """Модель с данными об изображениях товара.
+    """
+    Модель с данными об изображениях товара.
 
     Наследует от абстрактной модели поля:
     - created_at,
@@ -152,7 +159,8 @@ class Image(IsPublishedUpdateAtAbstract):
 
 
 class Comment(CreatedAtAbstract):
-    """Модель с отзывами о товаре.
+    """
+    Модель с отзывами о товаре.
 
     Наследует от абстрактной модели поле
     - created_at.
@@ -181,7 +189,7 @@ class Comment(CreatedAtAbstract):
 
     class Meta():
         verbose_name = 'Отзыв на товар'
-        verbose_name_plural = 'Отзывы натовар'
+        verbose_name_plural = 'Отзывы на товар'
         default_related_name = 'comments'
         ordering = ('-created_at',)
 

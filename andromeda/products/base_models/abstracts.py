@@ -5,7 +5,8 @@ from products.constants import MAX_LENGTH_CHARFIELD
 
 
 class CreatedAtAbstract(models.Model):
-    """Абстрактная модель.
+    """
+    Абстрактная модель.
 
     Добавляет дату и время создания записи в наследуемой модели.
     """
@@ -20,7 +21,8 @@ class CreatedAtAbstract(models.Model):
 
 
 class IsPublishedUpdateAtAbstract(CreatedAtAbstract):
-    """Абстрактная модель.
+    """
+    Абстрактная модель.
 
     Добавляет флаг is_published(Опубликовано) и поле update_at(Обновление)
     к наследуемой модели.
@@ -44,7 +46,8 @@ class IsPublishedUpdateAtAbstract(CreatedAtAbstract):
 
 
 class TitleDescriptionAbstract(IsPublishedUpdateAtAbstract):
-    """Абстрактная модель.
+    """
+    Абстрактная модель.
 
     Добавляет поля title (наименование), description(Описание).
     Наследует от других абстрактных моделей, добавляя:
@@ -54,6 +57,9 @@ class TitleDescriptionAbstract(IsPublishedUpdateAtAbstract):
 
     title = models.CharField('Название', MAX_LENGTH_CHARFIELD),
     description = models.TextField('Описание'),
+
+    class Meta:
+        abstract = True
 
     def __str__(self):
         return self.title

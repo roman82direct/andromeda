@@ -5,7 +5,8 @@ from .abstracts import TitleDescriptionAbstract
 
 
 class Group(TitleDescriptionAbstract):
-    """Модель с данными о группе.
+    """
+    Модель с данными о группе.
 
     Группа - общевидовой признак принадлежности товара()
     (пример:посуда, текстить).
@@ -21,12 +22,10 @@ class Group(TitleDescriptionAbstract):
         verbose_name = 'Группа'
         verbose_name_plural = 'Группы'
 
-    def __str__(self):
-        return self.title
-
 
 class MainCategory(TitleDescriptionAbstract):
-    """Модель с данными о категории товара.
+    """
+    Модель с данными о категории товара.
 
     Деление внутри группы товаров.
     Наследует от абстрактной модели поля:
