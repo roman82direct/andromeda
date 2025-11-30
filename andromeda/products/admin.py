@@ -69,12 +69,12 @@ class ProductAdmin(CommonSettingsAdmin):
     list_display = (
         'title',
         'item_number',
+        'is_published',
         'price',
         'cost_price',
-        'brand',
         'second_category',
+        'brand',
         'collection',
-        'is_published',
     )
     search_fields = (
         'title',
@@ -85,7 +85,7 @@ class ProductAdmin(CommonSettingsAdmin):
         'second_category',
         'collection',
     )
-    list_editable = ('is_published', 'second_category',)
+    list_editable = ('is_published', 'second_category', 'price')
 
 
 @admin.register(Brand)
