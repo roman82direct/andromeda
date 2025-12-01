@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 
 from django.views.generic import ListView
 
-from .models import Image, Product
+from .models import Product
 
 
 User = get_user_model()
