@@ -59,7 +59,7 @@ class GroupCategoryAdmin(CommonCategoriesFieldsAdmin):
 
 class ImageInline(admin.TabularInline):
     model = Image
-    extra = 6
+    extra = 1
     show_change_link = True
 
 
