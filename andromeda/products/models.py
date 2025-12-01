@@ -8,6 +8,7 @@ from .base_models.abstracts import (
     TitleDescriptionAbstract
 )
 from .base_models.categories_groups import SecondCategory
+from .services import image_path
 from products.constants import (
     MAX_LENGTH_CHARFIELD,
     MAX_DIGITS_DECIMALFIELD,
@@ -148,7 +149,7 @@ class Image(IsPublishedUpdateAtAbstract):
     )
     img_url = models.ImageField(
         'Путь к картинке',
-        upload_to='products_img',
+        upload_to=image_path,
         blank=True
     )
     is_main = models.BooleanField('Заглавная картинка')
