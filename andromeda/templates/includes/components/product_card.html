@@ -5,6 +5,7 @@
     <p class="card-text">{{ product.description|truncatewords:10 }}</p>
   </div>
   <ul class="list-group list-group-flush">
+    <li class="list-group-item">{{ product.item_number }}</li>
     <li class="list-group-item">{{ product.second_category }}</li>
     <li class="list-group-item">{{ product.collection }}</li>
     <li class="list-group-item">{{ product.price }} руб.</li>
