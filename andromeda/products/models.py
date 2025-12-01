@@ -17,6 +17,7 @@ from products.constants import (
     LIMIT_VALUE_MINVALUEVALIDATOR_PRICES,
     SLICE_OUTPUT_STR_METHOD
 )
+from .managers import ProductManager
 
 
 User = get_user_model()
@@ -125,6 +126,9 @@ class Product(TitleDescriptionAbstract):
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
         ordering = ('item_number',)
+
+    objects = models.Manager()
+    get_products = ProductManager()
 
 
 class Image(IsPublishedUpdateAtAbstract):
