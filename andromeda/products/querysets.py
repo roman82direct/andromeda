@@ -7,7 +7,7 @@ class ProductQuerySet(models.QuerySet):
         return self.select_related(
             'second_category',
             'brand',
-            'collection'
+            'collection',
         )
 
     def annotated_comments(self):

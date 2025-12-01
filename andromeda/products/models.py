@@ -24,17 +24,7 @@ User = get_user_model()
 
 
 class Collection(TitleDescriptionAbstract):
-    """
-    Модель с информацией о коллекции, к которой принадлежит товар.
-
-    Наследует от абстрактной модели поля:
-    - created_at,
-    - is_published,
-    - update_at,
-    - title,
-    - description,
-    - метод str().
-    """
+    """Модель с информацией о коллекции, к которой принадлежит товар."""
 
     class Meta:
         verbose_name = 'Коллекция'
@@ -42,17 +32,7 @@ class Collection(TitleDescriptionAbstract):
 
 
 class Brand(TitleDescriptionAbstract):
-    """
-    Модель с данными о бренде товара.
-
-    Наследует от абстрактной модели поля:
-    - created_at,
-    - is_published,
-    - update_at,
-    - title,
-    - description,
-    - метод str().
-    """
+    """Модель с данными о бренде товара."""
 
     class Meta:
         verbose_name = 'Бренд'
@@ -60,17 +40,7 @@ class Brand(TitleDescriptionAbstract):
 
 
 class Product(TitleDescriptionAbstract):
-    """
-    Модель с данными о товаре.
-
-    Наследует от абстрактной модели поля:
-    - created_at,
-    - is_published,
-    - update_at,
-    - title,
-    - description,
-    - метод str().
-    """
+    """Модель с данными о товаре."""
 
     item_number = models.CharField(
         'Артикул',
@@ -132,14 +102,7 @@ class Product(TitleDescriptionAbstract):
 
 
 class Image(IsPublishedUpdateAtAbstract):
-    """
-    Модель с данными об изображениях товара.
-
-    Наследует от абстрактной модели поля:
-    - created_at,
-    - is_published,
-    - update_at.
-    """
+    """Модель с данными об изображениях товара."""
 
     product = models.ForeignKey(
         Product,
@@ -164,12 +127,7 @@ class Image(IsPublishedUpdateAtAbstract):
 
 
 class Comment(CreatedAtAbstract):
-    """
-    Модель с отзывами о товаре.
-
-    Наследует от абстрактной модели поле
-    - created_at.
-    """
+    """Модель с отзывами о товаре."""
 
     text = models.TextField('Комментарий')
     product = models.ForeignKey(

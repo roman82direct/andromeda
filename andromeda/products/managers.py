@@ -1,10 +1,11 @@
 from django.db import models
 
-from .queryset import ProductQuerySet
+from .querysets import ProductQuerySet
 
 
 class ProductManager(models.Manager):
-    """Основной менеджер с доступом ко всем методам"""
+    """Кастомный менеджер модели Product."""
+
     def get_queryset(self):
         return ProductQuerySet(self.model, using=self._db)
 
