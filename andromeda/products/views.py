@@ -14,12 +14,4 @@ class CollectionsList(ListView):
     context_object_name = 'products'
 
     def get_queryset(self):
-        return (
-            Product.get_products.with_related(
-
-            ).published(
-
-            ).ordered_products(
-
-            ).prefetch_related('images')
-        )
+        return Product.card_objects.get_card_products()

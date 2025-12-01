@@ -98,7 +98,7 @@ class Product(TitleDescriptionAbstract):
         ordering = ('item_number',)
 
     objects = models.Manager()
-    get_products = ProductManager()
+    card_objects = ProductManager()
 
 
 class Image(IsPublishedUpdateAtAbstract):
