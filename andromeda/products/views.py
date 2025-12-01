@@ -16,7 +16,10 @@ class CollectionsList(ListView):
     context_object_name = 'products'
 
     def get_queryset(self):
-        return Product.published.all()
+        return (
+            Product.get_products.with_related().published().ordered_products()
+        )
+
 
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)
