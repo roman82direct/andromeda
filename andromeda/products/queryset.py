@@ -25,6 +25,8 @@ class ProductQuerySet(models.QuerySet):
                 & Q(second_category__is_published=True)
                 & Q(brand__is_published=True)
             )
-            & Q(collection_id=None)
-            | Q(collection__is_published=True)
+            & (
+                Q(collection_id=None)
+                | Q(collection__is_published=True)
+            )
         )
