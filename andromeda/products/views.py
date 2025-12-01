@@ -15,5 +15,11 @@ class CollectionsList(ListView):
 
     def get_queryset(self):
         return (
-            Product.get_products.with_related().published().ordered_products()
+            Product.get_products.with_related(
+
+            ).published(
+
+            ).ordered_products(
+
+            ).prefetch_related('images')
         )
