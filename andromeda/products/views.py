@@ -1,44 +1,22 @@
 from django.contrib.auth import get_user_model
-from django.db.models import Count
 
 from django.views.generic import ListView
 
-from .models import Product, Brand, Collection, SecondCategory
+from .models import Product
 
 
 User = get_user_model()
-
-
-def get_filtered_product(manager):
-    query = get_product_without_filter(manager).filter(
-        is_published=True,
-        second_category__is_published=True,
-        brand__is_published=True,
-        collection__is_published=True
-    )
-    return query
-
-
-def get_product_without_filter(manager):
-    query = manager.select_related(
-        'second_category',
-        'brand',
-        'collection'
-    ).order_by('item_number').annotate(comment_count=Count('comments'))
-    return query
 
 
 class CollectionsList(ListView):
     """
     Листинг основной страницы сайта, на данный момент выводит только products.
     """
-    model = Product
     template_name = 'products/index.html'
     context_object_name = 'products'
 
     def get_queryset(self):
-        products = get_filtered_product(Product.objects)
-        return products
+        return Product.published.all()
 
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)
