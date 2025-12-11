@@ -17,7 +17,7 @@ class PhoneForm(forms.Form):
     def clean_phone(self):
         phone = self.cleaned_data['phone']
         try:
-            parsed = phonenumbers.parse(phone, "RU")
+            parsed = phonenumbers.parse(phone, 'RU')
             if not phonenumbers.is_valid_number(parsed):
                 raise forms.ValidationError('Некорректный номер телефона.')
             return phonenumbers.format_number(
@@ -30,9 +30,3 @@ class PhoneForm(forms.Form):
 class SmsCodeForm(forms.Form):
     phone = forms.CharField(widget=forms.HiddenInput)
     code = forms.CharField(max_length=6, label='Введите полученный код')
-
-
-class UsernameForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['username']
