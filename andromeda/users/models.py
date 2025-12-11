@@ -38,7 +38,6 @@ class SmsCode(models.Model):
         obj = cls.objects.create(phone=phone, code=code)
         # здесь вызываешь отправку SMS
         # send_sms(phone, f"Ваш код: {code}")
-        print(code)
         return obj
 
     def is_expired(self) -> bool:

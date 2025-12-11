@@ -16,7 +16,8 @@ class SendSmsCodeView(FormView):
 
     def form_valid(self, form):
         phone = form.cleaned_data['phone']
-        SmsCode.generate_code(phone)
+        sms_code = SmsCode.generate_code(phone)
+        print(sms_code.code)
         self.request.session['phone'] = phone
         return super().form_valid(form)
 
