@@ -8,12 +8,12 @@
         {% for collection in collections %}
           <div class="swiper-slide p-4">
             <div class="hero-container" data-aos="fade-up">
-              <h2>{{ collection.name }}</h2>
+              <h2>{{ collection.title }}</h2>
               <a href="#" class="btn-get-started">
                 <i style="color: white" class="bx bx-chevrons-down"></i>
               </a>
             </div>
-            <img style="margin: 0 auto" src="{{ collection.url }}" alt="">
+            <img style="margin: 0 auto" src="{{ collection.img_url }}" alt="">
           </div>
         {% endfor %}
       </div>
