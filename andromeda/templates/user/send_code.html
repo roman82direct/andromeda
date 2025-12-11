@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <title>Вход по телефону</title>
+  </head>
+  <body>
+    <h1>Вход по телефону</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+      {{ form.as_p }}
+      <button type="submit">Отправить код</button>
+    </form>
+  </body>
+</html>

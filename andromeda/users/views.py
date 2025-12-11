@@ -1,34 +1,52 @@
-from django.shortcuts import render, redirect
-from django.contrib import messages, auth
+from django.contrib.auth import login, get_user_model
 from django.urls import reverse_lazy
-from django.views.generic import FormView, CreateView
-from .forms import PhoneLoginForm, RegistrationForm
+from django.views.generic import FormView
+
+from .forms import PhoneForm, SmsCodeForm
+from .models import SmsCode
 
 
-class LoginView(FormView):
-    form_class = PhoneLoginForm
-    template_name = 'user/login.html'
-    success_url = reverse_lazy('two-factor:setup')
+User = get_user_model()
+
+
+class SendSmsCodeView(FormView):
+    template_name = 'user/send_code.html'
+    form_class = PhoneForm
+    success_url = reverse_lazy('user:verify_code')
 
     def form_valid(self, form):
-        username = form.cleaned_data['username']
-        password = form.cleaned_data['password']
+        phone = form.cleaned_data['phone']
+        SmsCode.generate_code(phone)
+        self.request.session['phone'] = phone
+        return super().form_valid(form)
 
-        user = auth.authenticate(
-            request=self.request,
-            username=username,
-            password=password
+
+class VerifySmsCodeView(FormView):
+    template_name = 'user/verify_code.html'
+    form_class = SmsCodeForm
+    success_url = reverse_lazy('products:index')
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['phone'] = self.request.session.get('phone')
+        return initial
+
+    def form_valid(self, form):
+        phone = form.cleaned_data['phone']
+        code = form.cleaned_data['code']
+        sms = (
+            SmsCode.objects
+            .filter(phone=phone, code=code)
+            .order_by('-created_at')
+            .first()
         )
-
-        if user is not None:
-            self.request.session['two_factor_user_id'] = user.id
-            return super().form_valid(form)
-        else:
-            messages.error(self.request, 'Неверный номер телефона или пароль.')
+        if not sms or sms.is_expired():
+            form.add_error('code', 'Неверный или просроченный код')
             return self.form_invalid(form)
 
-
-class RegisterView(CreateView):
-    form_class = RegistrationForm
-    template_name = 'user/registration_form.html'
-    success_url = reverse_lazy('products:index')
+        user, created = User.objects.get_or_create(phone=phone)
+        if created:
+            user.username = phone
+            user.save()
+        login(self.request, user)
+        return super().form_valid(form)
