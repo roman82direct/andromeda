@@ -9,7 +9,6 @@ User = get_user_model()
 
 
 class MainList(ListView):
-
     template_name = 'products/index.html'
     context_object_name = 'products'
 

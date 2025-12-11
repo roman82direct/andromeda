@@ -8,7 +8,8 @@ class ProductsAdminSite(admin.AdminSite):
     Переопределяем отображение интерфейса админки.
     """
 
-    site_title = "Andromeda"
-    index_title = "Админ-панель"
-    site_header = "Andromeda: Панель Администратора"
-    empty_value_display = "Не задано"
+    site_title = 'Andromeda'
+    index_title = 'Админ-панель'
+    site_header = 'Andromeda: Панель Администратора'
+    empty_value_display = 'Не задано'
+    index_template = 'admin/index.html'

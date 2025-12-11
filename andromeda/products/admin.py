@@ -25,9 +25,10 @@ class CommonCategoriesFieldsAdmin(CommonSettingsAdmin):
 
     list_display = (
         'title',
-        'description',
         'is_published',
+        'description',
     )
+    list_editable = ('is_published',)
 
 
 @admin.register(SecondCategory)
@@ -88,6 +89,12 @@ class ProductAdmin(CommonSettingsAdmin):
     list_editable = ('is_published', 'second_category', 'price')
 
 
+class ProductInline(admin.TabularInline):
+    model = Product
+    extra = 1
+    show_change_link = True
+
+
 @admin.register(Brand)
 class BrandAdmin(CommonCategoriesFieldsAdmin):
     pass
@@ -95,4 +102,12 @@ class BrandAdmin(CommonCategoriesFieldsAdmin):
 
 @admin.register(Collection)
 class CollectionAdmin(CommonCategoriesFieldsAdmin):
-    pass
+    inlines = (ProductInline,)
+    list_display = (
+        'title',
+        'is_published',
+        'description',
+    )
+    search_fields = (
+        'title',
+    )
