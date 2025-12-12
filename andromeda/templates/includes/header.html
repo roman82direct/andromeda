@@ -34,9 +34,9 @@
       {% else %}
         <div class="">
           <a class="text-decoration-none text-reset"
-              href="{% url 'user:login' %}">Войти</a>
-          <a class="text-decoration-none text-reset"
-              href="{% url "user:register" %}">Регистрация</a>
+              href="{% url 'user:send_code' %}">Войти</a>
+          {% comment %} <a class="text-decoration-none text-reset"
+              href="{% url "user:register" %}">Регистрация</a> {% endcomment %}
         </div>
       {% endif %}
       <form class="d-flex" role="search">
