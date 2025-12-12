@@ -21,3 +21,6 @@ class ProductManager(models.Manager):
         ).ordered_products(
 
         ).prefetch_related('images')
+
+    def get_published(self):
+        return self.get_queryset().published()
