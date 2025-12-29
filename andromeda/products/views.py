@@ -3,7 +3,7 @@ from django.db.models import CharField, OuterRef, Subquery
 from django.views.generic import ListView
 
 from .models import Collection, Image, Product
-
+from .base_models.categories_groups import Group
 
 User = get_user_model()
 
@@ -31,4 +31,5 @@ class MainList(ListView):
             )
         )
         context['collections'] = collections
+        context['nav_bar'] = Group.navigation.get_navbar_items()
         return context

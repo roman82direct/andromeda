@@ -1,7 +1,33 @@
 from django.db import models
 
-
 from .abstracts import TitleDescriptionAbstract
+
+
+class GroupManager(models.Manager):
+    """Кастомный менеджер модели Group."""
+
+    def get_navbar_items(self):
+        """Функция получения ссылок для меню."""
+        return (
+            self.filter(is_published=True)
+            .prefetch_related(
+                models.Prefetch(
+                    'maincategories',
+                    queryset=MainCategory.objects
+                    .filter(is_published=True)
+                    .prefetch_related(
+                        models.Prefetch(
+                            'secondcategories',
+                            queryset=SecondCategory.objects.filter(
+                                is_published=True
+                            ),
+                        )
+                    )
+                    .order_by('articul'),
+                    to_attr='main_cats',
+                )
+            ).order_by('articul')
+        )
 
 
 class Group(TitleDescriptionAbstract):
@@ -11,6 +37,9 @@ class Group(TitleDescriptionAbstract):
     Группа - общевидовой признак принадлежности товара
     (пример: посуда, текстиль).
     """
+
+    objects = models.Manager()
+    navigation = GroupManager()
 
     class Meta:
         verbose_name = 'Группа'
