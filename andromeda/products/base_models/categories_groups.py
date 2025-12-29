@@ -8,14 +8,8 @@ class Group(TitleDescriptionAbstract):
     """
     Модель с данными о группе.
 
-    Группа - общевидовой признак принадлежности товара()
-    (пример:посуда, текстить).
-    Наследует от абстрактной модели поля:
-    - created_at,
-    - is_published,
-    - update_at,
-    - title,
-    - description.
+    Группа - общевидовой признак принадлежности товара
+    (пример: посуда, текстиль).
     """
 
     class Meta:
@@ -28,13 +22,6 @@ class MainCategory(TitleDescriptionAbstract):
     Модель с данными о категории товара.
 
     Деление внутри группы товаров.
-    Наследует от абстрактной модели поля:
-    - created_at,
-    - is_published,
-    - update_at,
-    - title,
-    - description,
-    - метод str().
     """
 
     group = models.ForeignKey(
@@ -50,16 +37,10 @@ class MainCategory(TitleDescriptionAbstract):
 
 
 class SecondCategory(TitleDescriptionAbstract):
-    """Модель с данными о подкатегории товара.
+    """
+    Модель с данными о подкатегории товара.
 
-    Деление внутри категориитовара.
-    Наследует от абстрактной модели поля:
-    - created_at,
-    - is_published,
-    - update_at,
-    - title,
-    - description,
-    - метод str().
+    Деление внутри категории товара.
     """
 
     main_category = models.ForeignKey(
