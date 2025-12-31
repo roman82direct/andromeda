@@ -24,7 +24,9 @@
             <div class="col-lg-2 col-md-6 footer-links">
               <h4>Навигация</h4>
               <ul>
-                  Сюда сделать навигацию по группам товаров
+                {% for group in nav_bar %}
+                  <li><a class="dropdown-item" href="#">{{ group.title }}</a></li>
+                {% endfor %}
               </ul>
             </div>
 

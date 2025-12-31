@@ -1,4 +1,5 @@
 {% load static %}
+{% load django_bootstrap5 %}
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="{% url "products:index" %}">
@@ -16,12 +17,56 @@
               Главная
             </a>
           </li>
-          {% endwith %}
+          {% if nav_bar %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Наши товары
+              </a>
+              <ul class="dropdown-menu">
+                {% for group in nav_bar %}
+                  <li class="dropdown-submenu">
+                    <a class="dropdown-item dropdown-toggle" href="#" data-bs-toggle="collapse">
+                      {{ group.title }}
+                    </a>
+                    <ul class="dropdown-menu submenu">
+                      {% for main_cat in group.main_cats %}
+                        <li class="dropdown-submenu">
+                          <a class="dropdown-item dropdown-toggle" href="#">
+                            {{ main_cat.title }}
+                          </a>
+                          <ul class="dropdown-menu sub-submenu">
+                            {% for second_cat in main_cat.secondcategories.all %}
+                              <li>
+                                <a class="dropdown-item" href="#">
+                                  {{ second_cat.title }}
+                                </a>
+                              </li>
+                              {% empty %}
+                              <li><span class="dropdown-item-text disabled">Нет подкатегорий</span></li>
+                            {% endfor %}
+                          </ul>
+                        </li>
+                        {% empty %}
+                        <li><span class="dropdown-item-text disabled">Нет подкатегорий</span></li>
+                      {% endfor %}
+                    </ul>
+                  </li>
+                  {% empty %}
+                  <li><span class="dropdown-item-text disabled">Нет групп товаров</span></li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% endif %}
+        {% endwith %}
       </ul>
       {% if user.is_authenticated %}
         <div class="">
           <a class="text-decoration-none text-reset"
               href="">{{ user.username }}</a>
+          {% if user.is_superuser %}
+            <a class="text-decoration-none text-reset"
+                href="{% url "admin:index" %}">Админка</a>
+          {% endif %}
           <form method="post" action="{% url 'user:logout' %}" class="d-inline">
             {% csrf_token %}
             <button type="submit" class="btn btn-outline-primary">Выйти</button>
@@ -30,9 +75,9 @@
       {% else %}
         <div class="">
           <a class="text-decoration-none text-reset"
-              href="{% url 'user:login' %}">Войти</a>
-          <a class="text-decoration-none text-reset"
-              href="{% url "user:register" %}">Регистрация</a>
+              href="{% url 'user:send_code' %}">Войти</a>
+          {% comment %} <a class="text-decoration-none text-reset"
+              href="{% url "user:register" %}">Регистрация</a> {% endcomment %}
         </div>
       {% endif %}
       <form class="d-flex" role="search">

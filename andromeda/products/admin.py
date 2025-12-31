@@ -13,6 +13,7 @@ class CommonSettingsAdmin(admin.ModelAdmin):
     """
 
     list_display_links = ('title',)
+    ordering = ('articul',)
     list_per_page = 10
 
 
@@ -24,15 +25,21 @@ class CommonCategoriesFieldsAdmin(CommonSettingsAdmin):
     """
 
     list_display = (
+        'articul',
         'title',
-        'description',
         'is_published',
+        'description',
     )
+    list_editable = ('is_published',)
 
 
 @admin.register(SecondCategory)
 class SecondCategoryAdmin(CommonCategoriesFieldsAdmin):
-    pass
+    search_fields = (
+        'title', 'articul', 'main_category__title', 'main_category__articul',
+    )
+    list_filter = ('main_category',)
+    list_select_related = ('main_category',)
 
 
 class SecondCategoryInline(admin.TabularInline):
@@ -44,6 +51,9 @@ class SecondCategoryInline(admin.TabularInline):
 @admin.register(MainCategory)
 class MaincategoryAdmin(CommonCategoriesFieldsAdmin):
     inlines = (SecondCategoryInline,)
+    search_fields = ('title', 'articul', 'group__title', 'group__articul',)
+    list_filter = ('group',)
+    list_select_related = ('group',)
 
 
 class MainCategoryInline(admin.TabularInline):
@@ -67,8 +77,8 @@ class ImageInline(admin.TabularInline):
 class ProductAdmin(CommonSettingsAdmin):
     inlines = (ImageInline,)
     list_display = (
+        'articul',
         'title',
-        'item_number',
         'is_published',
         'price',
         'cost_price',
@@ -78,7 +88,7 @@ class ProductAdmin(CommonSettingsAdmin):
     )
     search_fields = (
         'title',
-        'item_number',
+        'articul',
     )
     list_filter = (
         'brand',
@@ -95,4 +105,11 @@ class BrandAdmin(CommonCategoriesFieldsAdmin):
 
 @admin.register(Collection)
 class CollectionAdmin(CommonCategoriesFieldsAdmin):
-    pass
+    list_display = (
+        'title',
+        'is_published',
+        'description',
+    )
+    search_fields = (
+        'title',
+    )

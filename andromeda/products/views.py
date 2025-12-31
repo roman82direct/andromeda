@@ -1,42 +1,35 @@
-from django.shortcuts import render
-
+from django.contrib.auth import get_user_model
+from django.db.models import CharField, OuterRef, Subquery
 from django.views.generic import ListView
 
+from .models import Collection, Image, Product
+from .base_models.categories_groups import Group
 
-class CollectionsList(ListView):
-    """Test View."""
+User = get_user_model()
 
+
+class MainList(ListView):
     template_name = 'products/index.html'
+    context_object_name = 'products'
 
     def get_queryset(self):
-        pass
+        return Product.card_objects.get_card_products()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['products'] = [
-            {
-                'name': 'Product_1',
-                'category': 'Category_1',
-                'collection': 'Collection_1',
-                'price': 100,
-                'url': 'products_img/plug_1.jpg'
-            },
-            {
-                'name': 'Product_2',
-                'category': 'Category_2',
-                'collection': 'Collection_2',
-                'price': 200,
-                'url': 'products_img/plug_2.jpg'
-            },
-        ]
-        context['collections'] = [
-            {
-                'name': 'Collection_1',
-                'url': 'collections_img/plug_1.jpg'
-            },
-            {
-                'name': 'Collection_2',
-                'url': 'collections_img/plug_2.jpg'
-            },
-        ]
+        main_img_subquery = (
+            Image.objects
+            .filter(product__collection=OuterRef('pk'), is_main=True)
+            .order_by('-update_at')
+            .values('img_url')[:1]
+        )
+        collections = (
+            Collection.objects.filter(
+                is_published=True
+            ).annotate(
+                img_url=Subquery(main_img_subquery, output_field=CharField())
+            )
+        )
+        context['collections'] = collections
+        context['nav_bar'] = Group.navigation.get_navbar_items()
         return context

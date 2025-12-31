@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% block main %}
+  <div class="d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="col-auto">
+      <div class="card" style="width: 30rem;">
+        <div class="card-header">
+          <h3>Вход по номеру телефона</h1>
+        </div>
+        <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            {% bootstrap_form form %}
+            {% bootstrap_button button_type="submit" content="Отправить код" %}
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

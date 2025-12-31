@@ -10,30 +10,20 @@ from .base_models.abstracts import (
 from .base_models.categories_groups import SecondCategory
 from .services import image_path
 from products.constants import (
-    MAX_LENGTH_CHARFIELD,
     MAX_DIGITS_DECIMALFIELD,
     DECIMAL_PLACES_DECIMALFIELD,
     DEFAULT_DECIMALFIELD,
     LIMIT_VALUE_MINVALUEVALIDATOR_PRICES,
     SLICE_OUTPUT_STR_METHOD
 )
+from .managers import ProductManager
 
 
 User = get_user_model()
 
 
 class Collection(TitleDescriptionAbstract):
-    """
-    Модель с информацией о коллекции, к которой принадлежит товар.
-
-    Наследует от абстрактной модели поля:
-    - created_at,
-    - is_published,
-    - update_at,
-    - title,
-    - description,
-    - метод str().
-    """
+    """Модель с информацией о коллекции, к которой принадлежит товар."""
 
     class Meta:
         verbose_name = 'Коллекция'
@@ -41,17 +31,7 @@ class Collection(TitleDescriptionAbstract):
 
 
 class Brand(TitleDescriptionAbstract):
-    """
-    Модель с данными о бренде товара.
-
-    Наследует от абстрактной модели поля:
-    - created_at,
-    - is_published,
-    - update_at,
-    - title,
-    - description,
-    - метод str().
-    """
+    """Модель с данными о бренде товара."""
 
     class Meta:
         verbose_name = 'Бренд'
@@ -59,23 +39,8 @@ class Brand(TitleDescriptionAbstract):
 
 
 class Product(TitleDescriptionAbstract):
-    """
-    Модель с данными о товаре.
+    """Модель с данными о товаре."""
 
-    Наследует от абстрактной модели поля:
-    - created_at,
-    - is_published,
-    - update_at,
-    - title,
-    - description,
-    - метод str().
-    """
-
-    item_number = models.CharField(
-        'Артикул',
-        max_length=MAX_LENGTH_CHARFIELD,
-        unique=True,
-    )
     price = models.DecimalField(
         'Розничная цена',
         max_digits=MAX_DIGITS_DECIMALFIELD,
@@ -102,8 +67,7 @@ class Product(TitleDescriptionAbstract):
     )
     second_category = models.ForeignKey(
         SecondCategory,
-        on_delete=models.SET_NULL,
-        null=True,
+        on_delete=models.CASCADE,
         verbose_name='Подкатегория'
     )
     brand = models.ForeignKey(
@@ -124,18 +88,13 @@ class Product(TitleDescriptionAbstract):
         default_related_name = 'products'
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
-        ordering = ('item_number',)
+
+    objects = models.Manager()
+    card_objects = ProductManager()
 
 
 class Image(IsPublishedUpdateAtAbstract):
-    """
-    Модель с данными об изображениях товара.
-
-    Наследует от абстрактной модели поля:
-    - created_at,
-    - is_published,
-    - update_at.
-    """
+    """Модель с данными об изображениях товара."""
 
     product = models.ForeignKey(
         Product,
@@ -160,12 +119,7 @@ class Image(IsPublishedUpdateAtAbstract):
 
 
 class Comment(CreatedAtAbstract):
-    """
-    Модель с отзывами о товаре.
-
-    Наследует от абстрактной модели поле
-    - created_at.
-    """
+    """Модель с отзывами о товаре."""
 
     text = models.TextField('Комментарий')
     product = models.ForeignKey(
