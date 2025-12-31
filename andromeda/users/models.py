@@ -70,6 +70,3 @@ class Address(models.Model):
 
     def __str__(self):
         return f'{self.country}, {self.city}, {self.street}.'
-
-    def is_expired(self) -> bool:
-        return self.created_at < timezone.now() - timedelta(minutes=5)
