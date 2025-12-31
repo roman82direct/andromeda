@@ -20,6 +20,22 @@ class CreatedAtAbstract(models.Model):
         abstract = True
 
 
+class UpdatedAtAbstract(models.Model):
+    """
+    Абстрактная модель.
+
+    Добавляет дату и время обновления записи в наследуемой модели.
+    """
+
+    updated_at = models.DateTimeField(
+        default=timezone.now,
+        verbose_name='Изменено'
+    )
+
+    class Meta:
+        abstract = True
+
+
 class IsPublishedUpdateAtAbstract(CreatedAtAbstract):
     """
     Абстрактная модель.
@@ -64,9 +80,12 @@ class TitleDescriptionAbstract(IsPublishedUpdateAtAbstract):
         ordering = ('articul')
         constraints = [
             models.UniqueConstraint(
-                fields=['articul', 'title'],
+                fields=('articul', 'title'),
                 name='unique_articul_title'
             )
+        ]
+        indexes = [
+            models.Index(fields=('articul', 'created_at',))
         ]
 
     def __str__(self):
