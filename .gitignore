@@ -211,3 +211,5 @@ andromeda/static/storage/img
 
 
 *.xlsx
+
+requirements_local.txt
