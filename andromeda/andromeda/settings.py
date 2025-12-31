@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'django_google_fonts',
     'products.apps.ProductsConfig',
+    'orders.apps.OrdersConfig',
+    'deliveries.apps.DeliveriesConfig',
 ]
 
 MIDDLEWARE = [
