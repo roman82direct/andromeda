@@ -1,7 +1,3 @@
-from dataclasses import field
-from tabnanny import verbose
-from tkinter import NO
-from turtle import mode
 import random
 
 from datetime import timedelta
@@ -42,19 +38,16 @@ class SmsCode(models.Model):
         code = f'{random.randint(0, 999999):06d}'
         obj = cls.objects.create(phone=phone, code=code)
         # здесь вызываешь отправку SMS
-        # send_sms(phone, f"Ваш код: {code}")
+        # send_sms(phone, f'Ваш код: {code}')
         return obj
 
-        Переопределен так, чтобы в поле username сохранялся номер телефона.
-        """
-        self.username = self.phone
-        super().save(*args, **kwargs)
+    def is_expired(self) -> bool:
+        return self.created_at < timezone.now() - timedelta(minutes=5)
 
 
 class Address(models.Model):
-    """Модель с адресами пользователей.
+    """Модель с адресами пользователей."""
 
-    """
     user = models.ForeignKey(User,
                              on_delete=models.CASCADE,
                              verbose_name='Пользователь')
@@ -77,5 +70,6 @@ class Address(models.Model):
 
     def __str__(self):
         return f'{self.country}, {self.city}, {self.street}.'
+
     def is_expired(self) -> bool:
         return self.created_at < timezone.now() - timedelta(minutes=5)

@@ -1,6 +1,3 @@
-from asyncio.windows_events import NULL
-from statistics import mode
-from tabnanny import verbose
 from django.db import models
 from django.utils import timezone
 
@@ -9,9 +6,8 @@ from . import constants
 
 
 class Order(models.Model):
-    """Модель с заказами пользователей
+    """Модель с заказами пользователей."""
 
-    """
     user = models.ForeignKey(User,
                              on_delete=models.CASCADE,
                              verbose_name='Пользователь')
@@ -29,7 +25,7 @@ class Order(models.Model):
     paid_at = models.DateField(null=True, blank=True, verbose_name='Оплачено')
 
     class Meta:
-        verbose_name = 'заказ'
+        verbose_name = 'Заказ'
         verbose_name_plural = 'Заказы'
         default_related_name = 'orders'
 

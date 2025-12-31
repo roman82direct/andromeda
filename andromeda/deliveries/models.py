@@ -1,5 +1,3 @@
-from pyexpat import model
-from tabnanny import verbose
 from django.db import models
 from django.utils import timezone
 
@@ -15,7 +13,7 @@ class Delivery(models.Model):
                                       )
 
     class Meta:
-        verbose_name = 'доставка'
+        verbose_name = 'Доставка'
         verbose_name_plural = 'Доставки'
         default_related_name = 'deliveries'
 
