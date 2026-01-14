@@ -1,3 +1,19 @@
-a {
-  color: inherit;
+@font-face {
+  font-family: "Cormorant SC";
+  src: url("../assets/fonts/CormorantSC-SemiBold.woff2") format("woff2"),
+        url("../assets/fonts/CormorantSC-SemiBold.woff") format("woff");
+  font-weight: 600; /* Только SemiBold начертание */
+  font-style: normal;
+  font-display: swap;
+}
+
+
+@font-face {
+  font-family: "Raleway";
+  src:  local("Raleway"),
+        url("../assets/fonts/Raleway-VariableFont_wght.woff2") format("woff2"),
+        url("../assets/fonts/Raleway-VariableFont_wght.woff") format("woff");
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
 }
