@@ -10,7 +10,7 @@ def image_path(instance, filename):
     Включая имя файла с нужным префиксом.
     """
     image = cast('models.Image', instance)
-    product_title = image.product.item_number
+    product_title = image.product.articul
 
     ext = filename.split('.')[-1].lower()
     if image.is_main:

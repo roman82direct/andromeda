@@ -1,22 +1,45 @@
 from django.db import models
 
-
 from .abstracts import TitleDescriptionAbstract
+
+
+class GroupManager(models.Manager):
+    """Кастомный менеджер модели Group."""
+
+    def get_navbar_items(self):
+        """Функция получения ссылок для меню."""
+        return (
+            self.filter(is_published=True)
+            .prefetch_related(
+                models.Prefetch(
+                    'maincategories',
+                    queryset=MainCategory.objects
+                    .filter(is_published=True)
+                    .prefetch_related(
+                        models.Prefetch(
+                            'secondcategories',
+                            queryset=SecondCategory.objects.filter(
+                                is_published=True
+                            ),
+                        )
+                    )
+                    .order_by('articul'),
+                    to_attr='main_cats',
+                )
+            ).order_by('articul')
+        )
 
 
 class Group(TitleDescriptionAbstract):
     """
     Модель с данными о группе.
 
-    Группа - общевидовой признак принадлежности товара()
-    (пример:посуда, текстить).
-    Наследует от абстрактной модели поля:
-    - created_at,
-    - is_published,
-    - update_at,
-    - title,
-    - description.
+    Группа - общевидовой признак принадлежности товара
+    (пример: посуда, текстиль).
     """
+
+    objects = models.Manager()
+    navigation = GroupManager()
 
     class Meta:
         verbose_name = 'Группа'
@@ -28,13 +51,6 @@ class MainCategory(TitleDescriptionAbstract):
     Модель с данными о категории товара.
 
     Деление внутри группы товаров.
-    Наследует от абстрактной модели поля:
-    - created_at,
-    - is_published,
-    - update_at,
-    - title,
-    - description,
-    - метод str().
     """
 
     group = models.ForeignKey(
@@ -50,16 +66,10 @@ class MainCategory(TitleDescriptionAbstract):
 
 
 class SecondCategory(TitleDescriptionAbstract):
-    """Модель с данными о подкатегории товара.
+    """
+    Модель с данными о подкатегории товара.
 
-    Деление внутри категориитовара.
-    Наследует от абстрактной модели поля:
-    - created_at,
-    - is_published,
-    - update_at,
-    - title,
-    - description,
-    - метод str().
+    Деление внутри категории товара.
     """
 
     main_category = models.ForeignKey(

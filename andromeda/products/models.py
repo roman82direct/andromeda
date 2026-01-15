@@ -10,7 +10,6 @@ from .base_models.abstracts import (
 from .base_models.categories_groups import SecondCategory
 from .services import image_path
 from products.constants import (
-    MAX_LENGTH_CHARFIELD,
     MAX_DIGITS_DECIMALFIELD,
     DECIMAL_PLACES_DECIMALFIELD,
     DEFAULT_DECIMALFIELD,
@@ -42,11 +41,6 @@ class Brand(TitleDescriptionAbstract):
 class Product(TitleDescriptionAbstract):
     """Модель с данными о товаре."""
 
-    item_number = models.CharField(
-        'Артикул',
-        max_length=MAX_LENGTH_CHARFIELD,
-        unique=True,
-    )
     price = models.DecimalField(
         'Розничная цена',
         max_digits=MAX_DIGITS_DECIMALFIELD,
@@ -73,8 +67,7 @@ class Product(TitleDescriptionAbstract):
     )
     second_category = models.ForeignKey(
         SecondCategory,
-        on_delete=models.SET_NULL,
-        null=True,
+        on_delete=models.CASCADE,
         verbose_name='Подкатегория'
     )
     brand = models.ForeignKey(
@@ -95,7 +88,6 @@ class Product(TitleDescriptionAbstract):
         default_related_name = 'products'
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
-        ordering = ('item_number',)
 
     objects = models.Manager()
     card_objects = ProductManager()

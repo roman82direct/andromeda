@@ -39,9 +39,12 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'products.apps.ProductsConfig',
     'products.apps.ProductsAdminConfig',
+    'carts',
     'django_bootstrap5',
     'debug_toolbar',
     'django_google_fonts',
+    'orders.apps.OrdersConfig',
+    'deliveries.apps.DeliveriesConfig',
 ]
 
 MIDDLEWARE = [

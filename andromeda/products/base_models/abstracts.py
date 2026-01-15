@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
-from products.constants import MAX_LENGTH_CHARFIELD
+from products.constants import ART_LENGTH, MAX_LENGTH_CHARFIELD
 
 
 class CreatedAtAbstract(models.Model):
@@ -14,6 +14,22 @@ class CreatedAtAbstract(models.Model):
     created_at = models.DateTimeField(
         default=timezone.now,
         verbose_name='Добавлено'
+    )
+
+    class Meta:
+        abstract = True
+
+
+class UpdatedAtAbstract(models.Model):
+    """
+    Абстрактная модель.
+
+    Добавляет дату и время обновления записи в наследуемой модели.
+    """
+
+    updated_at = models.DateTimeField(
+        default=timezone.now,
+        verbose_name='Изменено'
     )
 
     class Meta:
@@ -49,17 +65,28 @@ class TitleDescriptionAbstract(IsPublishedUpdateAtAbstract):
     """
     Абстрактная модель.
 
-    Добавляет поля title (наименование), description(Описание).
+    Добавляет поля articul, title(наименование), description(Описание).
     Наследует от других абстрактных моделей, добавляя:
     - автоматическое заполнение даты и время создания записи,
     - флаг is_published(Опубликовано) и поле update_at(Обновление)
     """
 
+    articul = models.CharField('Артикул', unique=True, max_length=ART_LENGTH)
     title = models.CharField('Название', max_length=MAX_LENGTH_CHARFIELD)
-    description = models.TextField('Описание')
-
-    def __str__(self):
-        return self.title
+    description = models.TextField('Описание', blank=True)
 
     class Meta:
         abstract = True
+        ordering = ('articul')
+        constraints = [
+            models.UniqueConstraint(
+                fields=('articul', 'title'),
+                name='unique_articul_title'
+            )
+        ]
+        indexes = [
+            models.Index(fields=('articul', 'created_at',))
+        ]
+
+    def __str__(self):
+        return self.title

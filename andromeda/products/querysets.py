@@ -16,7 +16,7 @@ class ProductQuerySet(models.QuerySet):
         )
 
     def ordered_products(self):
-        return self.order_by('item_number')
+        return self.order_by('articul')
 
     def published(self):
         return self.filter(

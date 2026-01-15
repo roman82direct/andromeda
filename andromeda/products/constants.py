@@ -4,6 +4,7 @@
 Содержат настройки значений(магические цифры).
 """
 
+ART_LENGTH = 7
 MAX_LENGTH_CHARFIELD = 50
 MAX_DIGITS_DECIMALFIELD = 8
 DECIMAL_PLACES_DECIMALFIELD = 2
