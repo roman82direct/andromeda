@@ -1,4 +1,34 @@
 :root {
-  --color-primary:#fff;
-  --color-secondary:#000;
+  --main-font: "Raleway";
+  --title-font: "Cormorant SC";
+  --fw-text: 400;
+  --fw-title: 600;
+  
+  --color-primary:#15242A;
+  --color-primary-disabled: #848484;
+  --color-secondary:#F8F9FA;
+  --color-accent: #67B0D1;
+  --color-dark-accent: #2F4D5A;
+  --color-tertiary: #000;
+  --color-red-acccent: #C83333;
+  --color-orange-accent: #E1700E;
+
+  /* filters  - наверное надо будет убрать к стилям самого компонента фильтра потом?*/
+  --color-beige-filter: #E5DBC0;
+  --color-yellow-filter: #EDE860;
+  --color-brown-filter: #58260B;
+  --color-pink-filter: #EE84C4;
+  --color-blue-filter: #617FCA;
+  --color-black-filter: var(--color-primary, #15242A);
+  --color-white-filter: var(--color-secondary, #F8F9FA);
+  --color-green-filter: #79B37B;
+  --color-red-filter: var(--color-red-acccent,#C83333);
+  --color-gray-filter: #929292;
+  --color-lilac-filter: #E4C2E6;
+  --color-slider-filter: #CEDADF;
 }
+
+
+
+
+
