@@ -1,3 +1,13 @@
 @import './normalize.css';
 @import './variables.css';
 @import './font.css';
+
+
+.page {
+  font-family: var(--main-font, "Raleway"), Arial, sans-serif;
+  background-color: var(--color-secondary, #F8F9FA);
+  font-size: 16px;
+  font-weight: var(--fw-text, 400);
+  line-height: 1.2;
+}
+
