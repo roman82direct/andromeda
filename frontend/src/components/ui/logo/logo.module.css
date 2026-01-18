@@ -1,0 +1,35 @@
+.logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  max-width: 127px;
+  color: var(--color-primary, #15242a);
+  font-family: var(--title-font, "Cormorant SC"), Arial, Helvetica, sans-serif;
+  font-weight: var(--fw-title, 600);
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.logoProject {
+  position: relative;
+  padding-bottom:4px;
+  font-size: 20px;
+}
+
+.logoProject::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
+}
+
+.logoEntity {
+  font-size: 16px;
+}
+
