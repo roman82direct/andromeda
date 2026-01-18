@@ -10,8 +10,8 @@
   --color-accent: #67b0d1;
   --color-dark-accent: #2f4d5a;
   --color-tertiary: #000;
-  --color-red-acccent: #c83333;
-  --color-orange-accent: #e1700e;
+  --color-warning: #c83333;
+  --color-sailing: #e1700e;
 
   /* filters  - наверное надо будет убрать к стилям самого компонента фильтра потом?*/
   --color-beige-filter: #e5dbc0;
@@ -22,7 +22,7 @@
   --color-black-filter: var(--color-primary, #15242a);
   --color-white-filter: var(--color-secondary, #f8f9fa);
   --color-green-filter: #79b37b;
-  --color-red-filter: var(--color-red-acccent, #c83333);
+  --color-red-filter: var(--color-warning, #c83333);
   --color-gray-filter: #929292;
   --color-lilac-filter: #e4c2e6;
   --color-slider-filter: #cedadf;
