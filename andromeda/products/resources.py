@@ -7,6 +7,8 @@ from .base_models.categories_groups import Group, MainCategory, SecondCategory
 
 
 class GroupResource(ModelResource):
+    """Ресурс класс для отдельного импорта групп. Пока не рабочая еще"""
+
     group_articul = Field(
         attribute='group_articul',
         column_name='group_articul'
@@ -28,6 +30,8 @@ class GroupResource(ModelResource):
 
 
 class MainCategoryResource(ModelResource):
+    """Ресурс класс для отдельного импорта Категорий. Пока не рабочая еще"""
+
     MainCategory_articul = Field(
         attribute='MainCategory_articul',
         column_name='MainCategory_articul'
@@ -49,6 +53,8 @@ class MainCategoryResource(ModelResource):
 
 
 class SecondCategoryResource(ModelResource):
+    """Ресурс класс для отдельного импорта Подкатегорий. Пока не рабочая еще"""
+
     SecondCategory_articul = Field(
         attribute='SecondCategory_articul',
         column_name='SecondCategory_articul'
@@ -73,6 +79,12 @@ class SecondCategoryResource(ModelResource):
 class ProductResource(GroupResource,
                       MainCategoryResource,
                       SecondCategoryResource):
+    """
+    Ресурс класс для импорта Продуктов.
+    Импортирует все зависимые группы, категории, подкатегории,
+    также обновляет данные.
+    """
+
     articul = Field(attribute='articul', column_name='Product_articul')
     title = Field(attribute='title', column_name='Product_title')
     description = Field(
