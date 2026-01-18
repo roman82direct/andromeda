@@ -1,0 +1,179 @@
+from import_export.fields import Field
+from import_export.resources import ModelResource
+from import_export.widgets import ForeignKeyWidget
+
+from .models import Product, Brand, Collection
+from .base_models.categories_groups import Group, MainCategory, SecondCategory
+
+
+class GroupResource(ModelResource):
+    group_articul = Field(
+        attribute='group_articul',
+        column_name='group_articul'
+    )
+    group_tittle = Field(
+        attribute='group_title',
+        column_name='group_title'
+    )
+    group_description = Field(
+        attribute='group_description',
+        column_name='group_description'
+    )
+
+    class Meta:
+        fields = ('group_articul',
+                  'group_title',
+                  'group_description')
+        model = Group
+
+
+class MainCategoryResource(ModelResource):
+    MainCategory_articul = Field(
+        attribute='MainCategory_articul',
+        column_name='MainCategory_articul'
+    )
+    MainCategory_tittle = Field(
+        attribute='MainCategory_title',
+        column_name='MainCategory_title'
+    )
+    MainCategory_description = Field(
+        attribute='MainCategory_description',
+        column_name='MainCategory_description'
+    )
+
+    class Meta:
+        fields = ('MainCategory_articul',
+                  'MainCategory_title',
+                  'MainCategory_description')
+        model = MainCategory
+
+
+class SecondCategoryResource(ModelResource):
+    SecondCategory_articul = Field(
+        attribute='SecondCategory_articul',
+        column_name='SecondCategory_articul'
+    )
+    SecondCategory_tittle = Field(
+        attribute='SecondCategory_title',
+        column_name='SecondCategory_title'
+    )
+    SecondCategory_description = Field(
+        attribute='SecondCategory_description',
+        column_name='SecondCategory_description'
+    )
+
+    class Meta:
+        fields = ('SecondCategory_articul',
+                  'SecondCategory_title',
+                  'SecondCategory_description')
+        model = SecondCategory
+        import_id_fields = ['SecondCategory_articul']
+
+
+class ProductResource(GroupResource,
+                      MainCategoryResource,
+                      SecondCategoryResource):
+    articul = Field(attribute='articul', column_name='Product_articul')
+    title = Field(attribute='title', column_name='Product_title')
+    description = Field(
+        attribute='description',
+        column_name='Product_description'
+    )
+    price = Field(attribute='price', column_name='Product_price')
+    cost_price = Field(attribute='cost_price',
+                       column_name='Product_cost_price')
+    brand = Field(
+        attribute='brand',
+        column_name='Product_brand',
+        widget=ForeignKeyWidget(Brand, field='articul')
+    )
+    collection = Field(
+        attribute='collection',
+        column_name='Product_collection',
+        widget=ForeignKeyWidget(Collection, field='articul')
+    )
+    second_category = Field(attribute='second_category',
+                            column_name='SecondCategory_id')
+
+    class Meta:
+        fields = ('group_articul', 'group_tittle', 'group_description',
+                  'MainCategory_articul', 'MainCategory_tittle',
+                  'MainCategory_description', 'SecondCategory_articul',
+                  'SecondCategory_tittle', 'SecondCategory_description',
+                  'articul', 'title', 'description', 'price',
+                  'cost_price', 'brand', 'collection', 'second_category')
+        model = Product
+        import_id_fields = ['articul']
+
+    def before_import(self, dataset, **kwargs):
+        dataset.headers.append('SecondCategory_id')
+        super().before_import(dataset, **kwargs)
+
+    def before_import_row(self, row, **kwargs):
+
+        def update_group_category(object, field_part, model, row=row):
+            fields_to_update = {}
+
+            for field_name in [f'{field_part}_articul', f'{field_part}_title',
+                               f'{field_part}_description']:
+                if field_name in row:
+                    current_value = getattr(object, field_name.split('_')[1],
+                                            None)
+                    new_value = row[field_name]
+
+                    if current_value != new_value:
+                        fields_to_update[field_name.split('_')[1]] = new_value
+
+            if fields_to_update:
+                model.objects.filter(id=object.pk).update(**fields_to_update)
+
+        group = Group.objects.filter(articul=row['group_articul']).first()
+
+        if not group:
+            Group.objects.create(
+                articul=row['group_articul'],
+                title=row['group_tittle'],
+                description=row['group_description'],
+                is_published=False
+            )
+        else:
+            update_group_category(group, 'group', Group)
+        maincategory = MainCategory.objects.filter(
+            articul=row['MainCategory_articul']
+        ).first()
+        if not maincategory:
+            MainCategory.objects.create(
+                articul=row['MainCategory_articul'],
+                title=row['MainCategory_tittle'],
+                description=row['MainCategory_description'],
+                group=Group.objects.get(articul=row['group_articul']),
+                is_published=False
+            )
+        else:
+            update_group_category(maincategory, 'MainCategory', MainCategory)
+
+        secondcategory = SecondCategory.objects.filter(
+            articul=row['SecondCategory_articul']
+        ).first()
+        if not secondcategory:
+            secondcategory = SecondCategory.objects.create(
+                articul=row['SecondCategory_articul'],
+                title=row['SecondCategory_tittle'],
+                description=row['SecondCategory_description'],
+                main_category=MainCategory.objects.get
+                (
+                    articul=row['MainCategory_articul']
+                ),
+                is_published=False
+            )
+        else:
+            update_group_category(secondcategory, 'SecondCategory',
+                                  SecondCategory)
+            secondcategory = SecondCategory.objects.get(
+                articul=row['SecondCategory_articul']
+            )
+        row['SecondCategory_id'] = secondcategory
+        return super().before_import_row(row, **kwargs)
+
+    def before_save_instance(self, instance, row, **kwargs):
+        instance.is_published = False
