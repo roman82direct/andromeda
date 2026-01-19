@@ -36,16 +36,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'django_google_fonts',
+    'django_bootstrap5',
+    'debug_toolbar',
+    'import_export',
+    'api',
     'users.apps.UsersConfig',
     'products.apps.ProductsConfig',
     'products.apps.ProductsAdminConfig',
     'carts',
-    'django_bootstrap5',
-    'debug_toolbar',
-    'django_google_fonts',
     'orders.apps.OrdersConfig',
     'deliveries.apps.DeliveriesConfig',
-    'import_export',
 ]
 
 MIDDLEWARE = [
@@ -134,11 +136,6 @@ USE_TZ = True
 
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-MEDIA_ROOT = BASE_DIR / 'media'
-
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
@@ -151,6 +148,12 @@ GOOGLE_FONTS = ["Nunito"]
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly'
+    ]
+}
 
 LOGGING = {
     'version': 1,
