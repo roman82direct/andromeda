@@ -9,13 +9,13 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+from import_export.formats.base_formats import CSV, XLSX
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+IMPORT_FORMATS = [CSV, XLSX]
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django_google_fonts',
     'orders.apps.OrdersConfig',
     'deliveries.apps.DeliveriesConfig',
+    'import_export',
 ]
 
 MIDDLEWARE = [
@@ -150,3 +151,19 @@ GOOGLE_FONTS = ["Nunito"]
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING = {
+    'version': 1,
+    'handlers': {
+        'console': {'level': 'DEBUG',
+                    'class': 'logging.StreamHandler'
+                    },
+    },
+    'loggers': {
+        'django.db.backends': {'level': 'INFO', 'handlers': ['console']},
+        'import_export': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+    },
+}
