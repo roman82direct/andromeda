@@ -11,3 +11,4 @@ class ProductViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Product.card_objects.get_card_products()
     serializer_class = ProductSerializer
     pagination_class = LimitOffsetPagination
+    lookup_field = 'articul'
