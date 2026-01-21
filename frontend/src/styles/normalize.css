@@ -68,6 +68,43 @@ li {
   padding: 0;
 }
 
+input {
+  border: none;
+  padding: 0;
+  outline: none;
+  background-color: transparent;
+}
+
+input::-webkit-search-cancel-button {
+display: none;
+-webkit-appearance: none;
+appearance: none;
+}
+
+input::-moz-search-cancel-button {
+  display: none;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+
+input[type="search"]::-webkit-search-cancel-button {
+  display: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Firefox */
+input[type="search"]::-moz-search-clear-button {
+  display: none;
+}
+
+input:focus {
+  outline: none;
+}
+
 img,
 picture,
 video,
@@ -137,3 +174,14 @@ button {
     animation-duration: 0.01ms !important;
   }
 }
+
+.visuallyHidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  inline-size: 1px;
+  block-size: 1px;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
