@@ -1,7 +1,9 @@
+from import_export.admin import ImportExportModelAdmin
 from django.contrib import admin
 
 from .models import Brand, Collection, Image, Product
 from .base_models.categories_groups import Group, MainCategory, SecondCategory
+from .resources import ProductResource
 
 
 class CommonSettingsAdmin(admin.ModelAdmin):
@@ -74,7 +76,7 @@ class ImageInline(admin.TabularInline):
 
 
 @admin.register(Product)
-class ProductAdmin(CommonSettingsAdmin):
+class ProductAdmin(CommonSettingsAdmin, ImportExportModelAdmin):
     inlines = (ImageInline,)
     list_display = (
         'articul',
@@ -96,6 +98,7 @@ class ProductAdmin(CommonSettingsAdmin):
         'collection',
     )
     list_editable = ('is_published', 'second_category', 'price')
+    resource_classes = (ProductResource,)
 
 
 @admin.register(Brand)

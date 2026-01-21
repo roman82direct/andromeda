@@ -1,0 +1,345 @@
+openapi: 3.0.3
+info:
+  title: Andromeda API
+  version: 1.0.0
+  description: Программный интерфейс интернет-магазина Andromeda
+paths:
+  /api/schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - ht
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - ug
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/products/:
+    get:
+      operationId: v1_products_list
+      description: Возвращает список опубликованных товаров с пагинацией.
+      summary: Получить список товаров
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProductList'
+          description: ''
+  /api/v1/products/{articul}/:
+    get:
+      operationId: v1_products_retrieve
+      description: Возвращает информацию о товаре по его артикулу.
+      summary: Получить товар по артикулу
+      parameters:
+      - in: path
+        name: articul
+        schema:
+          type: string
+          title: Артикул
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: ''
+components:
+  schemas:
+    Brand:
+      type: object
+      description: Сериализатор модели Brand.
+      properties:
+        title:
+          type: string
+          title: Название
+          maxLength: 50
+        description:
+          type: string
+          title: Описание
+      required:
+      - title
+    Collection:
+      type: object
+      description: Сериализатор модели Collection.
+      properties:
+        title:
+          type: string
+          title: Название
+          maxLength: 50
+        description:
+          type: string
+          title: Описание
+      required:
+      - title
+    Image:
+      type: object
+      description: Сериализатор модели Image.
+      properties:
+        img_url:
+          type: string
+          format: uri
+          title: Путь к картинке
+        is_main:
+          type: boolean
+          title: Заглавная картинка
+        is_pack:
+          type: boolean
+          title: Упаковка
+      required:
+      - is_main
+      - is_pack
+    PaginatedProductList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+    Product:
+      type: object
+      description: Сериализатор модели Product.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        articul:
+          type: string
+          title: Артикул
+          maxLength: 7
+        title:
+          type: string
+          title: Название
+          maxLength: 50
+        description:
+          type: string
+          title: Описание
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,6}(?:\.\d{0,2})?$
+          title: Розничная цена
+        is_published:
+          type: boolean
+          title: Опубликовано
+          description: Снимите галочку, чтобы скрыть публикацию.
+        collection:
+          allOf:
+          - $ref: '#/components/schemas/Collection'
+          readOnly: true
+        brand:
+          allOf:
+          - $ref: '#/components/schemas/Brand'
+          readOnly: true
+        second_category:
+          type: string
+          title: Название
+          readOnly: true
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          title: Добавлено
+        update_at:
+          type: string
+          format: date-time
+          title: Обновлено
+      required:
+      - articul
+      - brand
+      - collection
+      - id
+      - images
+      - second_category
+      - title
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid

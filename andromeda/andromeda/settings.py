@@ -9,13 +9,13 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+from import_export.formats.base_formats import CSV, XLSX
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+IMPORT_FORMATS = [CSV, XLSX]
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -36,13 +36,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'corsheaders',
+    'drf_spectacular',
+    'django_google_fonts',
+    'django_bootstrap5',
+    'debug_toolbar',
+    'import_export',
+    'api',
     'users.apps.UsersConfig',
     'products.apps.ProductsConfig',
     'products.apps.ProductsAdminConfig',
     'carts',
-    'django_bootstrap5',
-    'debug_toolbar',
-    'django_google_fonts',
     'orders.apps.OrdersConfig',
     'deliveries.apps.DeliveriesConfig',
 ]
@@ -50,6 +55,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -133,11 +139,6 @@ USE_TZ = True
 
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-MEDIA_ROOT = BASE_DIR / 'media'
-
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
@@ -150,3 +151,39 @@ GOOGLE_FONTS = ["Nunito"]
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly'
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Andromeda API',
+    'DESCRIPTION': 'Программный интерфейс интернет-магазина Andromeda',
+    'VERSION': '1.0.0',
+}
+
+# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173',
+]
+
+CORS_URLS_REGEX = r'^/api/.*$'
+
+LOGGING = {
+    'version': 1,
+    'handlers': {
+        'console': {'level': 'DEBUG',
+                    'class': 'logging.StreamHandler'
+                    },
+    },
+    'loggers': {
+        'django.db.backends': {'level': 'INFO', 'handlers': ['console']},
+        'import_export': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+    },
+}
