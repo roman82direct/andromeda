@@ -3,7 +3,6 @@
   --title-font: "Cormorant SC";
   --fw-text: 400;
   --fw-title: 600;
-
   --color-primary: #15242a;
   --color-primary-disabled: #848484;
   --color-secondary: #f8f9fa;
@@ -12,7 +11,7 @@
   --color-tertiary: #000;
   --color-warning: #c83333;
   --color-sailing: #e1700e;
-
+  --color-light: #fff;
   /* filters  - наверное надо будет убрать к стилям самого компонента фильтра потом?*/
   --color-beige-filter: #e5dbc0;
   --color-yellow-filter: #ede860;
