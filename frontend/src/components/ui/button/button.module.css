@@ -1,0 +1,62 @@
+.button {
+padding: 12px 32px;
+font-family: 'Raleway';
+font-weight: 400;
+font-size: 16px;
+font-style: normal;
+line-height: 1.2;
+text-align: center;
+transition: color .2s ease-in, background-color .2s ease-in-out, border .2s  ease-out;
+}
+
+.button:disabled {
+  pointer-events: none;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-accent, #67b0d1);
+}
+
+.btnColorPrimary {
+  color: var(--color-secondary, #F8F9FA);
+  background-color: var(--color-primary, #15242A);
+}
+
+.btnColorPrimary:hover {
+  color: var(--color-secondary, #F8F9FA);
+  background-color: var(--color-accent, #67b0d1);
+}
+
+.btnColorPrimary:disabled {
+  color: var(--color-secondary, #F8F9FA);
+  background-color: var(--color-primary-disabled, #848484);
+}
+
+.btnColorPrimary:active {
+  background-color: var(--color-sailing, #e1700e);
+}
+
+.btnColorSecondary {
+  border: 1px solid var(--color-primary, #15242A);
+  color: var(--color-primary, #15242A);
+  background-color: var(--color-secondary, #F8F9FA);
+}
+
+.btnColorSecondary:hover {
+  border: 1px solid var(--color-accent, #67b0d1);
+  color: var(--color-accent, #67b0d1);
+}
+
+.btnColorSecondary:disabled {
+  border: 1px solid var(--color-primary-disabled, #848484);
+  color: var(--color-primary-disabled, #848484);
+}
+
+.btnColorSecondary:active {
+  color: var(--color-secondary, #F8F9FA);
+  background-color: var(--color-sailing, #e1700e);
+}
+
+.fullWidthBtn {
+  width: 100%;
+}
