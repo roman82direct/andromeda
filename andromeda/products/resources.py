@@ -6,14 +6,18 @@ from .models import Product, Brand, Collection
 from .base_models.categories_groups import Group, MainCategory, SecondCategory
 
 
-class GroupResource(ModelResource):
-    """Ресурс класс для отдельного импорта групп. Пока не рабочая еще"""
+class ProductResource(ModelResource):
+    """
+    Ресурс класс для импорта Продуктов.
+    Импортирует все зависимые группы, категории, подкатегории,
+    также обновляет данные.
+    """
 
     group_articul = Field(
         attribute='group_articul',
         column_name='group_articul'
     )
-    group_tittle = Field(
+    group_title = Field(
         attribute='group_title',
         column_name='group_title'
     )
@@ -21,22 +25,11 @@ class GroupResource(ModelResource):
         attribute='group_description',
         column_name='group_description'
     )
-
-    class Meta:
-        fields = ('group_articul',
-                  'group_title',
-                  'group_description')
-        model = Group
-
-
-class MainCategoryResource(ModelResource):
-    """Ресурс класс для отдельного импорта Категорий. Пока не рабочая еще"""
-
     MainCategory_articul = Field(
         attribute='MainCategory_articul',
         column_name='MainCategory_articul'
     )
-    MainCategory_tittle = Field(
+    MainCategory_title = Field(
         attribute='MainCategory_title',
         column_name='MainCategory_title'
     )
@@ -44,22 +37,11 @@ class MainCategoryResource(ModelResource):
         attribute='MainCategory_description',
         column_name='MainCategory_description'
     )
-
-    class Meta:
-        fields = ('MainCategory_articul',
-                  'MainCategory_title',
-                  'MainCategory_description')
-        model = MainCategory
-
-
-class SecondCategoryResource(ModelResource):
-    """Ресурс класс для отдельного импорта Подкатегорий. Пока не рабочая еще"""
-
     SecondCategory_articul = Field(
         attribute='SecondCategory_articul',
         column_name='SecondCategory_articul'
     )
-    SecondCategory_tittle = Field(
+    SecondCategory_title = Field(
         attribute='SecondCategory_title',
         column_name='SecondCategory_title'
     )
@@ -67,24 +49,6 @@ class SecondCategoryResource(ModelResource):
         attribute='SecondCategory_description',
         column_name='SecondCategory_description'
     )
-
-    class Meta:
-        fields = ('SecondCategory_articul',
-                  'SecondCategory_title',
-                  'SecondCategory_description')
-        model = SecondCategory
-        import_id_fields = ['SecondCategory_articul']
-
-
-class ProductResource(GroupResource,
-                      MainCategoryResource,
-                      SecondCategoryResource):
-    """
-    Ресурс класс для импорта Продуктов.
-    Импортирует все зависимые группы, категории, подкатегории,
-    также обновляет данные.
-    """
-
     articul = Field(attribute='articul', column_name='Product_articul')
     title = Field(attribute='title', column_name='Product_title')
     description = Field(
@@ -108,10 +72,10 @@ class ProductResource(GroupResource,
                             column_name='SecondCategory_id')
 
     class Meta:
-        fields = ('group_articul', 'group_tittle', 'group_description',
-                  'MainCategory_articul', 'MainCategory_tittle',
+        fields = ('group_articul', 'group_title', 'group_description',
+                  'MainCategory_articul', 'MainCategory_title',
                   'MainCategory_description', 'SecondCategory_articul',
-                  'SecondCategory_tittle', 'SecondCategory_description',
+                  'SecondCategory_title', 'SecondCategory_description',
                   'articul', 'title', 'description', 'price',
                   'cost_price', 'brand', 'collection', 'second_category')
         model = Product
