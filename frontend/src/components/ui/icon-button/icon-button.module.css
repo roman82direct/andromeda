@@ -1,0 +1,144 @@
+.iconButton {
+  --active-color-icon: var(--color-primary, #15242a);
+  --hover-color-icon: var(--color-accent, #67b0d1);
+  --pressed-color-icon: var(--color-tertiary, #000);
+  --current-color-icon: var(--active-color-icon, #15242a);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  /* padding: 8px; */
+  background: transparent;
+}
+
+.iconButton:hover {
+  /*  переменная для ховер */
+   --current-color-icon: var(--hover-color-icon, #67b0d1);
+}
+
+.iconButton:focus {  
+  outline: none;
+}
+
+.iconButton:active{
+  --current-color-icon: var(--pressed-color-icon, #000);
+}
+
+.iconButton:focus-visible{
+  border-radius: 5px;
+  outline: 2px solid  var(--color-accent,#67b0d1);
+  outline-offset: 2px;
+}
+
+.iconButton:disabled {
+  --current-color-icon: var(--color-primary-disabled, #848484);
+  pointer-events: none;
+}
+
+.icon {
+  --turn: 1;
+  width: calc(var(--size-icon) * 1px);
+  background-color: var(--current-color-icon,  #15242a);
+  transition: background-color 0.3s ease;
+  transform: scaleX(var(--turn));
+  aspect-ratio: 1/1;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-image: var(--icon-url);
+  mask-image: var(--icon-url);
+  mask-size: contain;
+  mask-repeat: no-repeat;
+}
+/*  если добавить scss можно это сделать через цикл ?ниже */
+/*  пути иконок */
+.close {
+  --icon-url: url('../../../assets/icons/icon-close.svg');
+}
+
+/* иконка входа */
+
+.come-in {
+  --icon-url: url('../../../assets/icons/come-in.svg');
+}
+/* поиск*/
+.search {
+  --icon-url: url('../../../assets/icons/search.svg');
+}
+/* глобус */
+.global {
+  --icon-url: url('../../../assets/icons/global.svg');
+}
+/* чтение */
+.read {
+  --icon-url: url('../../../assets/icons/read.svg');
+}
+/* информация */
+.info {
+  --icon-url: url('../../../assets/icons/info.svg');
+}
+
+.clock {
+  --icon-url: url('../../../assets/icons/clock.svg');
+}
+
+.cart {
+  --icon-url: url('../../../assets/icons/cart.svg');
+}
+
+.heart {
+  --icon-url: url('../../../assets/icons/heart.svg');
+}
+
+.full-heart {
+  --icon-url: url('../../../assets/icons/full-heart.svg');
+}
+
+.location {
+  --icon-url: url('../../../assets/icons/location.svg');
+}
+
+.cart {
+  --icon-url: url('../../../assets/icons/cart.svg');
+}
+
+.profile {
+  --icon-url: url('../../../assets/icons/profile.svg');
+}
+.home {
+  --icon-url: url('../../../assets/icons/home.svg');
+}
+
+.youtube {
+  --icon-url: url('../../../assets/icons/youtube.svg');
+}
+
+.facebook {
+  --icon-url: url('../../../assets/icons/facebook.svg');
+}
+
+.instagram {
+  --icon-url: url('../../../assets/icons/instagram.svg');
+}
+
+.mastercard {
+  --icon-url: url('../../../assets/icons/mastercard.svg');
+}
+
+.visa {
+  --icon-url: url('../../../assets/icons/visa.svg');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
