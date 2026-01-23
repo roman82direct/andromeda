@@ -1,14 +1,14 @@
 .queries {
   min-width: 208px;
   max-width: 436px;
-  padding:16px 8px;
+  padding: 16px 8px;
   opacity: 0;
   /* overflow: hidden;   */
-  transition:  opacity 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .queriesOpened {
- opacity: 1;
+  opacity: 1;
 }
 
 .queryHeader {
@@ -17,14 +17,14 @@
   align-items: center;
 }
 
-.queryHeader:not(:last-child){
+.queryHeader:not(:last-child) {
   margin-bottom: 8px;
 }
 
 .queryTitle {
-  color: var(--color-dark-accent, #2F4D5A);
-  font-family: var(--main-font, 'Raleway');
-  font-weight: var( --fw-text, 400);
+  color: var(--color-dark-accent, #2f4d5a);
+  font-family: var(--main-font, "Raleway");
+  font-weight: var(--fw-text, 400);
   font-size: 16px;
   line-height: 1.2;
   background-color: #fff;
@@ -32,22 +32,22 @@
 
 .queriesBtn {
   position: relative;
-  color: var(--color-dark-accent, #2F4D5A);
-  font-family: var(--main-font, 'Raleway');
-  font-weight: var( --fw-text, 400);
+  color: var(--color-dark-accent, #2f4d5a);
+  font-family: var(--main-font, "Raleway");
+  font-weight: var(--fw-text, 400);
   font-size: 16px;
   line-height: 1.2;
 }
 
 .queriesBtn::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 1px;
   background-color: currentColor;
-  transition: transform .2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: transform 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
   transform: scaleX(0);
 }
 
@@ -65,13 +65,15 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding-inline:6px;
+  padding-inline: 6px;
   opacity: 1;
-  transition: background-color .4s ease-in, color .4s ease;
+  transition:
+    background-color 0.4s ease-in,
+    color 0.4s ease;
   cursor: pointer;
 }
 
-.query:hover{
+.query:hover {
   /* opacity: 0.3; */
   background-color: var(--color-dark-accent, #2f4d5a);
 }
@@ -91,11 +93,11 @@
   display: block;
   overflow: hidden;
   color: var(--color-tertiary, #000000);
-  font-family: var(--main-font, 'Raleway');
-  font-weight: var( --fw-text, 400);
+  font-family: var(--main-font, "Raleway");
+  font-weight: var(--fw-text, 400);
   font-size: 16px;
   line-height: 1.2;
-  text-overflow: ellipsis;  
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
@@ -105,22 +107,3 @@
   align-items: center;
   padding-inline-start: 5px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

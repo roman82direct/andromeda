@@ -76,9 +76,9 @@ input {
 }
 
 input::-webkit-search-cancel-button {
-display: none;
--webkit-appearance: none;
-appearance: none;
+  display: none;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 input::-moz-search-cancel-button {
@@ -88,7 +88,6 @@ input::-moz-search-cancel-button {
 input::-ms-clear {
   display: none;
 }
-
 
 input[type="search"]::-webkit-search-cancel-button {
   display: none;
@@ -184,4 +183,3 @@ button {
   clip-path: inset(50%);
   white-space: nowrap;
 }
-

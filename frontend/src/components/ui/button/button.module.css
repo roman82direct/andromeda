@@ -1,12 +1,15 @@
 .button {
-padding: 12px 32px;
-font-family: 'Raleway';
-font-weight: 400;
-font-size: 16px;
-font-style: normal;
-line-height: 1.2;
-text-align: center;
-transition: color .2s ease-in, background-color .2s ease-in-out, border .2s  ease-out;
+  padding: 12px 32px;
+  font-family: "Raleway";
+  font-weight: 400;
+  font-size: 16px;
+  font-style: normal;
+  line-height: 1.2;
+  text-align: center;
+  transition:
+    color 0.2s ease-in,
+    background-color 0.2s ease-in-out,
+    border 0.2s ease-out;
 }
 
 .button:disabled {
@@ -18,17 +21,17 @@ transition: color .2s ease-in, background-color .2s ease-in-out, border .2s  eas
 }
 
 .btnColorPrimary {
-  color: var(--color-secondary, #F8F9FA);
-  background-color: var(--color-primary, #15242A);
+  color: var(--color-secondary, #f8f9fa);
+  background-color: var(--color-primary, #15242a);
 }
 
 .btnColorPrimary:hover {
-  color: var(--color-secondary, #F8F9FA);
+  color: var(--color-secondary, #f8f9fa);
   background-color: var(--color-accent, #67b0d1);
 }
 
 .btnColorPrimary:disabled {
-  color: var(--color-secondary, #F8F9FA);
+  color: var(--color-secondary, #f8f9fa);
   background-color: var(--color-primary-disabled, #848484);
 }
 
@@ -37,9 +40,9 @@ transition: color .2s ease-in, background-color .2s ease-in-out, border .2s  eas
 }
 
 .btnColorSecondary {
-  border: 1px solid var(--color-primary, #15242A);
-  color: var(--color-primary, #15242A);
-  background-color: var(--color-secondary, #F8F9FA);
+  border: 1px solid var(--color-primary, #15242a);
+  color: var(--color-primary, #15242a);
+  background-color: var(--color-secondary, #f8f9fa);
 }
 
 .btnColorSecondary:hover {
@@ -53,7 +56,7 @@ transition: color .2s ease-in, background-color .2s ease-in-out, border .2s  eas
 }
 
 .btnColorSecondary:active {
-  color: var(--color-secondary, #F8F9FA);
+  color: var(--color-secondary, #f8f9fa);
   background-color: var(--color-sailing, #e1700e);
 }
 

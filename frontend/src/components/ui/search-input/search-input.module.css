@@ -1,7 +1,7 @@
 .wrapperForm {
-    width: 100%;
-    padding-inline: 5px;
-    background-color: var(--color-secondary, #F8F9FA);
+  width: 100%;
+  padding-inline: 5px;
+  background-color: var(--color-secondary, #f8f9fa);
 }
 
 .searchForm {
@@ -23,16 +23,18 @@
 }
 .searchForm:hover .searchIconWrapper {
   /* padding-left: 12px; */
-   /* Сдвигаем иконку вправо на всю ширину формы минус её собственный размер */
-  transform: translateX(calc(var(--base-width-form) - var(--icon-wrap-width,18px)));
+  /* Сдвигаем иконку вправо на всю ширину формы минус её собственный размер */
+  transform: translateX(
+    calc(var(--base-width-form) - var(--icon-wrap-width, 18px))
+  );
 }
 
-.searchForm:hover  .searchInputContainer {
-    /* Сдвигаем инпут влево на место, где была иконка */
-    transform: translateX(calc(var(--icon-wrap-width) * -1));
+.searchForm:hover .searchInputContainer {
+  /* Сдвигаем инпут влево на место, где была иконка */
+  transform: translateX(calc(var(--icon-wrap-width) * -1));
 }
-.searchForm:hover .searchInputContainer::after{
-    transform: scaleX(1);
+.searchForm:hover .searchInputContainer::after {
+  transform: scaleX(1);
 }
 
 .searchForm:hover .searchInput::placeholder {
@@ -45,14 +47,14 @@
   background-color: var(--color-accent, #67b0d1);
 }
 
-.searchForm:disabled .searchInputContainer::after{
+.searchForm:disabled .searchInputContainer::after {
   background-color: var(--color-primary-disabled, #848484);
 }
 
 .searchIconWrapper {
-  z-index:2;
+  z-index: 2;
   display: flex;
-  justify-content:  center;
+  justify-content: center;
   width: var(--icon-wrap-width);
   /* padding-left: 12px; */
   transition: transform 0.4s ease-in-out;
@@ -62,22 +64,24 @@
   position: relative;
   z-index: 1;
   display: flex;
-  flex:1;
+  flex: 1;
   justify-content: space-between;
   height: 100%;
-  transition: transform 0.4s ease-in-out; 
+  transition: transform 0.4s ease-in-out;
 }
 
 .searchInputContainer::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 1px;
   /* opacity: 0; */
-  background-color: var(--color-primary, #15242A);
-  transition: transform .35s ease-out, opacity .2s ease;
+  background-color: var(--color-primary, #15242a);
+  transition:
+    transform 0.35s ease-out,
+    opacity 0.2s ease;
   transform: scaleX(0);
   transform-origin: left;
 }
@@ -85,7 +89,7 @@
 .searchInput {
   width: 100%;
   color: var(--color-tertiary);
-  font-family: var(--main-font, 'Raleway');
+  font-family: var(--main-font, "Raleway");
   font-weight: var(--fw-text, 400);
   font-size: 16px;
   line-height: 1.2;
@@ -93,39 +97,38 @@
   background-color: transparent;
 }
 
-.searchInput::placeholder{
+.searchInput::placeholder {
   opacity: 1;
   color: var(--color-tertiary);
-  font-family: var(--main-font, 'Raleway');
+  font-family: var(--main-font, "Raleway");
   font-weight: var(--fw-text, 400);
   font-size: 16px;
   line-height: 1.2;
   letter-spacing: -0.7px;
-  transition: opacity .2s ease-in;
+  transition: opacity 0.2s ease-in;
 }
-
 
 /* популярные запросы */
 .popQueries {
-  padding:16px 8px;
-  opacity: 0;  
-  transition:  opacity 0.3s ease-in-out;
+  padding: 16px 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .popQueriesOpened {
- opacity: 1;
+  opacity: 1;
 }
-  
+
 .popQuTitle {
-  color: var(--color-dark-accent, #2F4D5A);
-  font-family: var(--main-font, 'Raleway');
-  font-weight: var( --fw-text, 400);
+  color: var(--color-dark-accent, #2f4d5a);
+  font-family: var(--main-font, "Raleway");
+  font-weight: var(--fw-text, 400);
   font-size: 16px;
   line-height: 1.2;
   background-color: #fff;
 }
 
-.popQuTitle:not(:last-child){
+.popQuTitle:not(:last-child) {
   margin-bottom: 8px;
 }
 
@@ -140,11 +143,11 @@
   justify-content: space-between;
   padding: 2px;
   opacity: 1;
-  transition: background-color .3s ease-in;
+  transition: background-color 0.3s ease-in;
   cursor: pointer;
 }
 
-.popQuery:hover{
+.popQuery:hover {
   /* opacity: 0.3; */
   background-color: var(--color-dark-accent, #2f4d5a);
 }
@@ -153,34 +156,13 @@
   color: var(--color-light, #fff);
 }
 
-
-
 .popQueryText {
   color: var(--color-tertiary, #000000);
-  font-family: var(--main-font, 'Raleway');
-  font-weight: var( --fw-text, 400);
+  font-family: var(--main-font, "Raleway");
+  font-weight: var(--fw-text, 400);
   font-size: 16px;
   line-height: 1.2;
-  
 }
 
 .popQueryText:hover {
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

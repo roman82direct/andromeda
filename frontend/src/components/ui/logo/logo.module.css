@@ -11,7 +11,7 @@
   font-weight: var(--fw-title, 600);
   line-height: 1.2;
   text-transform: uppercase;
-  transition: color .15s ease-in-out;
+  transition: color 0.15s ease-in-out;
   cursor: pointer;
 }
 
@@ -21,22 +21,21 @@
 
 .logo:focus-visible {
   border-radius: 5px;
-  outline: 1px solid  var(--color-accent,#67b0d1);
+  outline: 1px solid var(--color-accent, #67b0d1);
 }
 
-.logo:active{
+.logo:active {
   color: var(--color-tertiary);
 }
 
-
 .logoProject {
   position: relative;
-  padding-bottom:4px;
+  padding-bottom: 4px;
   font-size: 20px;
 }
 
 .logoProject::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
@@ -48,4 +47,3 @@
 .logoEntity {
   font-size: 16px;
 }
-

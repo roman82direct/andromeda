@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import  styles  from "./logo.module.css";
+import styles from "./logo.module.css";
 
 export const LogoUI: FC = () => {
   return (

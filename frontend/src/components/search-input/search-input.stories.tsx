@@ -1,22 +1,21 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import {SearchInput} from './search-input';
-import {MemoryRouter} from 'react-router-dom';
+import { SearchInput } from "./search-input";
+import { MemoryRouter } from "react-router-dom";
 
 const meta: Meta<typeof SearchInput> = {
   component: SearchInput,
-  title: 'Components/ui/SearchInput',
+  title: "Components/ui/SearchInput",
   parameters: {
-    layout: 'centered',
-
+    layout: "centered",
   },
   argTypes: {},
   decorators: [
     (Story) => (
       <MemoryRouter>
-        <Story/>
+        <Story />
       </MemoryRouter>
-    )
-  ]
+    ),
+  ],
 };
 
 export default meta;
@@ -24,5 +23,5 @@ export default meta;
 type Story = StoryObj<typeof SearchInput>;
 
 export const searchStory: Story = {
-  args: {}
+  args: {},
 };

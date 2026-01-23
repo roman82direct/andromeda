@@ -13,7 +13,7 @@
   overflow: hidden;
   color: var(--color-secondary, #f8f9fa);
   background-color: var(--color-accent, #67b0d1);
-  transition: background-color .2s ease-in-out;
+  transition: background-color 0.2s ease-in-out;
   aspect-ratio: 1/1;
 }
 
@@ -25,6 +25,3 @@
   font-size: var(--font-size, 12px);
   line-height: 1;
 }
-
-
-

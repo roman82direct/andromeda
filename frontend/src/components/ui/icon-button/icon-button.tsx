@@ -1,24 +1,42 @@
 import type { CSSProperties, FC, ReactNode } from "react";
-import  styles  from "./icon-button.module.css";
+import styles from "./icon-button.module.css";
 import clsx from "clsx";
 import { IconUI } from "../icon/icon";
 
 //  работа со сложными иконками
-type IconClassCssIcon = 'close' | 'come-in' | 'search' | 'global' | 'read' | 'info' | 'clock' | 'location' | 'cart' | 'heart' | 'full-heart' | 'profile' | 'home' | 'youtube' | 'facebook' | 'visa' | 'instagram' | 'mastercard';
+type IconClassCssIcon =
+  | "close"
+  | "come-in"
+  | "search"
+  | "global"
+  | "read"
+  | "info"
+  | "clock"
+  | "location"
+  | "cart"
+  | "heart"
+  | "full-heart"
+  | "profile"
+  | "home"
+  | "youtube"
+  | "facebook"
+  | "visa"
+  | "instagram"
+  | "mastercard";
 
 //  возможно добавить кастомное изменение цвета иконки + псевдоклассы
 type IconButtonUIProps = {
   isActive: boolean;
   iconActiveClass?: IconClassCssIcon;
   iconClass: IconClassCssIcon;
-  onClick?: ()=> void;
-  label?: string
+  onClick?: () => void;
+  label?: string;
   sizeIcon?: number;
-  type?: 'button' | 'submit' | 'reset'
+  type?: "button" | "submit" | "reset";
   turnIcon?: number;
-  isDisabled?: boolean
+  isDisabled?: boolean;
   children?: ReactNode;
-}
+};
 
 export const IconButtonUI: FC<IconButtonUIProps> = ({
   isActive = false,
@@ -27,17 +45,29 @@ export const IconButtonUI: FC<IconButtonUIProps> = ({
   onClick,
   label,
   sizeIcon = 20,
-  type ='button',
+  type = "button",
   turnIcon = 1,
   isDisabled = false,
-  children
-
+  children,
 }) => {
-  const currentIconClass =  isActive && iconActiveClass ? iconActiveClass :  iconClass;
+  const currentIconClass =
+    isActive && iconActiveClass ? iconActiveClass : iconClass;
   return (
-    <button disabled={isDisabled} aria-label={label} className={styles.iconButton} type={type} onClick={onClick}>
+    <button
+      disabled={isDisabled}
+      aria-label={label}
+      className={styles.iconButton}
+      type={type}
+      onClick={onClick}
+    >
       {children}
-    <IconUI sizeIcon={sizeIcon} turnIcon={turnIcon} iconClass={currentIconClass} interactiveMode isDisabledState={isDisabled}/>
+      <IconUI
+        sizeIcon={sizeIcon}
+        turnIcon={turnIcon}
+        iconClass={currentIconClass}
+        interactiveMode
+        isDisabledState={isDisabled}
+      />
     </button>
   );
 };
