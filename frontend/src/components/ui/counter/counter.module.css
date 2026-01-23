@@ -1,0 +1,30 @@
+.counter {
+  --font-size: 10px;
+  --width-container: 28px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(var(--width-container, 28) / 1.75);
+  border-radius: 999px;
+  overflow: hidden;
+  color: var(--color-secondary, #f8f9fa);
+  background-color: var(--color-accent, #67b0d1);
+  transition: background-color .2s ease-in-out;
+  aspect-ratio: 1/1;
+}
+
+.counter:hover {
+  background-color: var(--color-dark-accent, #2f4d5a);
+}
+
+.iconCartNum {
+  font-size: var(--font-size, 12px);
+  line-height: 1;
+}
+
+
+
