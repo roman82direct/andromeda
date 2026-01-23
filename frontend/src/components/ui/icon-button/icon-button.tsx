@@ -1,6 +1,7 @@
-import type { CSSProperties, FC } from "react";
+import type { CSSProperties, FC, ReactNode } from "react";
 import  styles  from "./icon-button.module.css";
 import clsx from "clsx";
+import { IconUI } from "../icon/icon";
 
 //  работа со сложными иконками
 type IconClassCssIcon = 'close' | 'come-in' | 'search' | 'global' | 'read' | 'info' | 'clock' | 'location' | 'cart' | 'heart' | 'full-heart' | 'profile' | 'home' | 'youtube' | 'facebook' | 'visa' | 'instagram' | 'mastercard';
@@ -9,36 +10,34 @@ type IconClassCssIcon = 'close' | 'come-in' | 'search' | 'global' | 'read' | 'in
 type IconButtonUIProps = {
   isActive: boolean;
   iconActiveClass?: IconClassCssIcon;
-  iconClass?: string;
+  iconClass: IconClassCssIcon;
   onClick?: ()=> void;
   label?: string
   sizeIcon?: number;
   type?: 'button' | 'submit' | 'reset'
   turnIcon?: number;
   isDisabled?: boolean
+  children?: ReactNode;
 }
 
 export const IconButtonUI: FC<IconButtonUIProps> = ({
   isActive = false,
   iconActiveClass,
-  iconClass ='',
+  iconClass,
   onClick,
   label,
   sizeIcon = 20,
   type ='button',
   turnIcon = 1,
-  isDisabled = false
+  isDisabled = false,
+  children
 
 }) => {
   const currentIconClass =  isActive && iconActiveClass ? iconActiveClass :  iconClass;
-  const iconStyle = {
-    '--size-icon': sizeIcon,
-    '--turn': turnIcon
-  } as CSSProperties
   return (
     <button disabled={isDisabled} aria-label={label} className={styles.iconButton} type={type} onClick={onClick}>
-      {/*  отделить компонент иконки */}
-      <div style={iconStyle} className={clsx(styles.icon, styles[currentIconClass])} aria-hidden = {true}/>
+      {children}
+    <IconUI sizeIcon={sizeIcon} turnIcon={turnIcon} iconClass={currentIconClass} interactiveMode isDisabledState={isDisabled}/>
     </button>
   );
 };
