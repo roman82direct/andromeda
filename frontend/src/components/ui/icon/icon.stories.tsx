@@ -27,10 +27,46 @@ export const IconSearch: Story = {
   },
 };
 
+export const IconLikes: Story = {
+  args: {
+    iconClass: "heart",
+    sizeIcon: 20,
+    counterQuantity:5
+  },
+};
+
+export const IconCart: Story = {
+  args: {
+    iconClass: "cart",
+    sizeIcon: 20,
+    counterQuantity:7,
+    interactiveMode: true,
+  },
+};
+
+export const IconCartBigNumber: Story = {
+  args: {
+    iconClass: "cart",
+    sizeIcon: 20,
+    counterQuantity:50,
+    interactiveMode: true,
+  },
+};
+
+export const IconCartBiggestNumber: Story = {
+  args: {
+    iconClass: "cart",
+    sizeIcon: 20,
+    counterQuantity:200,
+    interactiveMode: true,
+  },
+};
+
 export const IconNetwork: Story = {
   args: {
     iconClass: "global",
     sizeIcon: 20,
+    interactiveMode: true,
   },
 };
 
