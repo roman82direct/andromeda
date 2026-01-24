@@ -1,9 +1,0 @@
-.iconCartContainer {
-  --widthContainer: 28px;
-  position: relative;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: var(--widthContainer, 28px);
-  aspect-ratio: 1/1;
-}
