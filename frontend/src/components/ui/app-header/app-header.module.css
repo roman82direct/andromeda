@@ -1,0 +1,43 @@
+  /* grid-template-columns: min-content 1fr min-content; что это вспомни */
+  /* max-content средний конетент - см первую работу */
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width:100%;
+    padding: 8px 24px ;
+    background-color: var(--color-secondary, #F8F9FA);
+  }
+
+  .nav {
+    display: grid;
+    grid-template-columns: 1fr min-content 1fr;
+    align-items: center;
+  }
+
+  .menu {
+      /* max-width:  120px; */
+      display: flex;
+      justify-content: flex-end;
+  }
+
+   .menu-list {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: space-between;
+  }
+
+.menu-link:focus{
+  outline: none;
+}
+
+.menuLink {
+  display: inline-flex;
+  border-radius: 5px;
+  /* outline: 2px solid #67b0d1; */
+}
+.menuLink:focus-within {
+  outline: 2px solid #67b0d1;
+}
