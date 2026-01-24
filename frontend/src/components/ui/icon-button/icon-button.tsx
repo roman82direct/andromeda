@@ -1,28 +1,6 @@
-import type { CSSProperties, FC, ReactNode } from "react";
+import type { FC, ReactNode } from "react";
 import styles from "./icon-button.module.css";
-import clsx from "clsx";
-import { IconUI } from "../icon/icon";
-
-//  работа со сложными иконками
-type IconClassCssIcon =
-  | "close"
-  | "come-in"
-  | "search"
-  | "global"
-  | "read"
-  | "info"
-  | "clock"
-  | "location"
-  | "cart"
-  | "heart"
-  | "full-heart"
-  | "profile"
-  | "home"
-  | "youtube"
-  | "facebook"
-  | "visa"
-  | "instagram"
-  | "mastercard";
+import { IconUI, type IconClassCssIcon } from "../icon/icon";
 
 //  возможно добавить кастомное изменение цвета иконки + псевдоклассы
 type IconButtonUIProps = {
