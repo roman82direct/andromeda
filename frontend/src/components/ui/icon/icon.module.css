@@ -1,3 +1,20 @@
+.icon-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 28px;
+  height: 28px;
+}
+/*  стилизуем родителя при наличии кокретного ребенка */
+.icon-container:has(.icon-interactive-disabled) {
+   cursor: not-allowed;
+}
+
+.icon-container:has(.counter-container) {
+  width: 32px;
+}
+
 .icon {
   --size-icon: 20px;
   --active-color-icon: var(--color-primary, #15242a);
@@ -16,6 +33,7 @@
   mask-image: var(--icon-url);
   mask-size: contain;
   mask-repeat: no-repeat;
+  mask-position: center;
 }
 
 .icon-interactive {
