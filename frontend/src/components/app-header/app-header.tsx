@@ -10,28 +10,28 @@ import { NavLink } from "react-router-dom";
 // export type TIconType = {typeIcon:IconClassCssIcon, counter?: number, path: string}
 // const navIcons: TIconType [] = [
 //   //  если мы вошли - то смена иконки 'come-in' допустим на profile
-//   {typeIcon:'come-in', path:"/"}, 
-//   {typeIcon:'heart', path: "/"}, 
+//   {typeIcon:'come-in', path:"/"},
+//   {typeIcon:'heart', path: "/"},
 //   {typeIcon: 'cart', path: "/", }
 // ];
 
 type AppHeaderProps = {
-    // navIcons?: TIconType [];
+  // navIcons?: TIconType [];
 };
 
 // const navIcons: TIconType [] = [
 //   //  если мы вошли - то смена иконки 'come-in' допустим на profile
-//   {typeIcon:'come-in', path:"/"}, 
-//   {typeIcon:'heart', path: "/"}, 
+//   {typeIcon:'come-in', path:"/"},
+//   {typeIcon:'heart', path: "/"},
 //   {typeIcon: 'cart', path: "/", }
 // ];
 
-export const AppHeader: FC<AppHeaderProps> = ({
-
-  // менять иконки - выход и вход
-
-  // navIcons
-}) => {
+export const AppHeader: FC<AppHeaderProps> = (
+  {
+    // менять иконки - выход и вход
+    // navIcons
+  },
+) => {
   //  контекст
   //  посмотри макет петровича адаптив
   //  шапка по макету + адаптивность шапки
@@ -39,9 +39,5 @@ export const AppHeader: FC<AppHeaderProps> = ({
   //  сделать кнопку сменить тему - на ночную
   // исправить фокус у иконок
   // сделать компоненты доступными
-  return (
-    <header className={styles.header}>
-     
-    </header>
-  );
+  return <header className={styles.header}></header>;
 };

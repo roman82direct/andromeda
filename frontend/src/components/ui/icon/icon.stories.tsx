@@ -31,7 +31,7 @@ export const IconLikes: Story = {
   args: {
     iconClass: "heart",
     sizeIcon: 20,
-    counterQuantity:5
+    counterQuantity: 5,
   },
 };
 
@@ -39,7 +39,7 @@ export const IconCart: Story = {
   args: {
     iconClass: "cart",
     sizeIcon: 20,
-    counterQuantity:7,
+    counterQuantity: 7,
     interactiveMode: true,
   },
 };
@@ -48,7 +48,7 @@ export const IconCartBigNumber: Story = {
   args: {
     iconClass: "cart",
     sizeIcon: 20,
-    counterQuantity:50,
+    counterQuantity: 50,
     interactiveMode: true,
   },
 };
@@ -57,7 +57,7 @@ export const IconCartBiggestNumber: Story = {
   args: {
     iconClass: "cart",
     sizeIcon: 20,
-    counterQuantity:200,
+    counterQuantity: 200,
     interactiveMode: true,
   },
 };

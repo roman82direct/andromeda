@@ -8,7 +8,7 @@
 }
 /*  стилизуем родителя при наличии кокретного ребенка */
 .icon-container:has(.icon-interactive-disabled) {
-   cursor: not-allowed;
+  cursor: not-allowed;
 }
 
 .icon-container:has(.counter-container) {

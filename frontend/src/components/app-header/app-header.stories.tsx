@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { AppHeader} from "./app-header";
-import {MemoryRouter} from 'react-router-dom';
+import { AppHeader } from "./app-header";
+import { MemoryRouter } from "react-router-dom";
 
 const meta: Meta<typeof AppHeader> = {
   component: AppHeader,
@@ -8,15 +8,14 @@ const meta: Meta<typeof AppHeader> = {
   parameters: {
     layout: "centered",
   },
-  argTypes: {
-  },
+  argTypes: {},
   decorators: [
-    (Story)=>(
+    (Story) => (
       <MemoryRouter>
-        <Story/>
+        <Story />
       </MemoryRouter>
-    )
-  ]
+    ),
+  ],
 };
 
 export default meta;
@@ -40,8 +39,5 @@ export const appHeader: Story = {
   //     </div>
   //   );
   // },
-  args: {
-   
-  },
+  args: {},
 };
-

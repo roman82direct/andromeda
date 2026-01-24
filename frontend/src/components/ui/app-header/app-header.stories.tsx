@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { AppHeaderUI } from "./app-header";
-import {MemoryRouter} from 'react-router-dom';
+import { MemoryRouter } from "react-router-dom";
 import type { TIconType } from "./app-header";
 
 const meta: Meta<typeof AppHeaderUI> = {
@@ -9,32 +9,29 @@ const meta: Meta<typeof AppHeaderUI> = {
   parameters: {
     layout: "centered",
   },
-  argTypes: {
-  },
+  argTypes: {},
   decorators: [
-    (Story)=>(
+    (Story) => (
       <MemoryRouter>
-        <Story/>
+        <Story />
       </MemoryRouter>
-    )
-  ]
+    ),
+  ],
 };
 
 export default meta;
 
 type Story = StoryObj<typeof AppHeaderUI>;
 
-
-const navIcons: TIconType [] = [
+const navIcons: TIconType[] = [
   //  если мы вошли - то смена иконки 'come-in' допустим на profile
-  {typeIcon:'come-in', path:"/", typeEvent: 'route'}, 
-  {typeIcon:'full-heart', path: "/", counterNum: 5,  typeEvent: 'route'}, 
-  {typeIcon: 'cart', path: "/", counterNum: 9,  typeEvent: 'route'},
-  {typeIcon: 'clock',  typeEvent: "action-on-page"}
+  { typeIcon: "come-in", path: "/", typeEvent: "route" },
+  { typeIcon: "full-heart", path: "/", counterNum: 5, typeEvent: "route" },
+  { typeIcon: "cart", path: "/", counterNum: 9, typeEvent: "route" },
+  { typeIcon: "clock", typeEvent: "action-on-page" },
 ];
 export const appHeaderUI: Story = {
   args: {
-    navIcons
-  }
+    navIcons,
+  },
 };
-

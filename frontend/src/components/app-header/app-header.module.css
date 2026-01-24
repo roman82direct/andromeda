@@ -1,31 +1,30 @@
-  /* grid-template-columns: min-content 1fr min-content; что это вспомни */
-  /* max-content средний конетент - см первую работу */
-  .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    width:100%;
-    border: 1px solid black;
-    padding: 8px 24px ;
-    background-color: var(--color-secondary, #F8F9FA);
-  }
+/* grid-template-columns: min-content 1fr min-content; что это вспомни */
+/* max-content средний конетент - см первую работу */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  border: 1px solid black;
+  padding: 8px 24px;
+  background-color: var(--color-secondary, #f8f9fa);
+}
 
-  .nav {
-    display: grid;
-    grid-template-columns: 1fr min-content 1fr;
-    align-items: center;
-  }
+.nav {
+  display: grid;
+  grid-template-columns: 1fr min-content 1fr;
+  align-items: center;
+}
 
-  .menu {
-      /* max-width:  120px; */
-      display: flex;
-      justify-content: flex-end;
-  }
+.menu {
+  /* max-width:  120px; */
+  display: flex;
+  justify-content: flex-end;
+}
 
-   .menu-list {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    
-  }
+.menu-list {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}

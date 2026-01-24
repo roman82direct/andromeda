@@ -40,7 +40,7 @@ export const IconUI: FC<IconUIProps> = ({
   turnIcon = 1,
   interactiveMode,
   isDisabledState,
-  counterQuantity
+  counterQuantity,
 }) => {
   const className = clsx(
     styles.icon,
@@ -53,15 +53,13 @@ export const IconUI: FC<IconUIProps> = ({
     "--turn": turnIcon,
   } as CSSProperties;
   return (
-    <div className={styles['icon-container']}>
-      <div style={iconStyle} className={className} aria-hidden={true}>
-      </div>
+    <div className={styles["icon-container"]}>
+      <div style={iconStyle} className={className} aria-hidden={true}></div>
       {counterQuantity && counterQuantity > 0 && (
-          <div className={styles['counter-container']}>
-            <CounterUI counterQuantity={counterQuantity} />
-          </div>
-           
-          )}
+        <div className={styles["counter-container"]}>
+          <CounterUI counterQuantity={counterQuantity} />
+        </div>
+      )}
     </div>
   );
 };
