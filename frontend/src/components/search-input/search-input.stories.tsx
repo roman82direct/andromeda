@@ -4,7 +4,7 @@ import { MemoryRouter } from "react-router-dom";
 
 const meta: Meta<typeof SearchInput> = {
   component: SearchInput,
-  title: "Components/ui/SearchInput",
+  title: "Components/SearchInput",
   parameters: {
     layout: "centered",
   },
