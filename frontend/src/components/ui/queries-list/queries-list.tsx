@@ -3,11 +3,12 @@ import styles from "./queries-list.module.css";
 import { IconButtonUI } from "../icon-button/";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
+import {v4 as uuidv4} from 'uuid';
 
 export type TQuery = {
   path: string;
-  id: string;
   name: string;
+  id: string;
 };
 
 export type ListQueriesProps = {
@@ -37,7 +38,7 @@ export const ListQueriesUI: FC<ListQueriesProps> = ({
       </div>
       <ul className={styles.queryList}>
         {listQueries.map((query) => (
-          <li key={query.id} className={styles.query}>
+          <li key={uuidv4()} className={styles.query}>
             <Link to={`/${query.path}`} className={styles.queryLink}>
               <span className={styles.queryText}>{query.name}</span>
             </Link>
