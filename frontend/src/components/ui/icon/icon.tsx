@@ -1,9 +1,10 @@
 import type { CSSProperties, FC } from "react";
 import styles from "./icon.module.css";
 import clsx from "clsx";
+import { CounterUI } from "../counter";
 
 //  работа со сложными иконками
-type IconClassCssIcon =
+export type IconClassCssIcon =
   | "close"
   | "come-in"
   | "search"
@@ -24,12 +25,13 @@ type IconClassCssIcon =
   | "mastercard";
 
 //  возможно добавить кастомное изменение цвета иконки + псевдоклассы
-type IconUIProps = {
+export type IconUIProps = {
   iconClass: IconClassCssIcon;
   sizeIcon?: number;
   turnIcon?: number;
   interactiveMode?: boolean;
   isDisabledState?: boolean;
+  counterQuantity?: number;
 };
 
 export const IconUI: FC<IconUIProps> = ({
@@ -38,6 +40,7 @@ export const IconUI: FC<IconUIProps> = ({
   turnIcon = 1,
   interactiveMode,
   isDisabledState,
+  counterQuantity
 }) => {
   const className = clsx(
     styles.icon,
@@ -49,5 +52,16 @@ export const IconUI: FC<IconUIProps> = ({
     "--size-icon": sizeIcon,
     "--turn": turnIcon,
   } as CSSProperties;
-  return <div style={iconStyle} className={className} aria-hidden={true} />;
+  return (
+    <div className={styles['icon-container']}>
+      <div style={iconStyle} className={className} aria-hidden={true}>
+      </div>
+      {counterQuantity && counterQuantity > 0 && (
+          <div className={styles['counter-container']}>
+            <CounterUI counterQuantity={counterQuantity} />
+          </div>
+           
+          )}
+    </div>
+  );
 };
