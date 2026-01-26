@@ -38,6 +38,6 @@
   border-radius: 5px;
   /* outline: 2px solid #67b0d1; */
 }
-.menuLink:focus-within {
+.menuLink:focus-visible {
   outline: 2px solid #67b0d1;
 }
