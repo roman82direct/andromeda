@@ -1,43 +1,50 @@
 import { type FC } from "react";
-import styles from "./app-header.module.css";
-import { NavLink } from "react-router-dom";
-// import { IconUI } from "../icon";
-// import { Logo } from "../../logo/logo";
-// import { SearchInput } from "../../search-input";
-// import  type {IconClassCssIcon} from '../icon/icon';
-// import {v4 as uuidv4} from 'uuid';
+import { AppHeaderUI } from "../ui/app-header";
+import type { TIconType } from "../ui/app-header/app-header";
 
-// export type TIconType = {typeIcon:IconClassCssIcon, counter?: number, path: string}
-// const navIcons: TIconType [] = [
-//   //  если мы вошли - то смена иконки 'come-in' допустим на profile
-//   {typeIcon:'come-in', path:"/"},
-//   {typeIcon:'heart', path: "/"},
-//   {typeIcon: 'cart', path: "/", }
-// ];
+type TNavIconsParams = {
+  counterCart: number;
+  counterFavorites:number;
+}
 
-type AppHeaderProps = {
-  // navIcons?: TIconType [];
+//  логика работы все иконок в зависимости от того вошел ползьователь в систему или нет
+//  положить getIcons  в отдельную папку utils импортировать оттуда
+const getIcons = (isAuthenticated: boolean, { counterCart, counterFavorites }: TNavIconsParams): TIconType[]=>{
+    if(!isAuthenticated) {
+      return [
+        // просим залогиниться если не вошли 
+        {typeIcon:'come-in', typeEvent: {trigger:'route', path:'/login'} },
+        {typeIcon:'heart', typeEvent: {trigger:'route', path: "/login"}},
+        {typeIcon: 'cart', typeEvent: {trigger:'route', path: "/login"}},
+      ]
+    } 
+    return  [
+      // если вошли предоставляем маршруты и счетчики 
+      {typeIcon:'profile', typeEvent: {trigger:'route', path: "/profile",}},
+      {typeIcon: 'full-heart', typeEvent: {trigger:'route', path: "/favorite"} , counterNum: counterFavorites},
+      {typeIcon: 'cart', typeEvent: {trigger:'route', path: "/cart"}, counterNum: counterCart}
+    ]
+} 
+
+//  сделать хук useNavIcons на основе getIcons и там менять состояния в зависимости от счетчиков и авторизации юсера
+
+export const AppHeader: FC = () => {
+  const isAuthenticated = false; // прошел ли пользователь авторзацию
+  //  const isAuthenticated = useSelector(isAuthenticated);
+  const counterCart = 0;
+  // const counterCart= useSelector(counterCart)
+  const counterFavorites = 0;
+  // const counterFavorites = useSelector(counterCart)
+  const navIconsDefaultSetting = getIcons(isAuthenticated, {counterCart, counterFavorites});
+ 
+  return <AppHeaderUI navIcons={navIconsDefaultSetting}/>
 };
 
-// const navIcons: TIconType [] = [
-//   //  если мы вошли - то смена иконки 'come-in' допустим на profile
-//   {typeIcon:'come-in', path:"/"},
-//   {typeIcon:'heart', path: "/"},
-//   {typeIcon: 'cart', path: "/", }
-// ];
-
-export const AppHeader: FC<AppHeaderProps> = (
-  {
-    // менять иконки - выход и вход
-    // navIcons
-  },
-) => {
-  //  контекст
-  //  посмотри макет петровича адаптив
-  //  шапка по макету + адаптивность шапки
-  // найти норм иконку для title header
-  //  сделать кнопку сменить тему - на ночную
-  // исправить фокус у иконок
-  // сделать компоненты доступными
-  return <header className={styles.header}></header>;
-};
+// cхема
+// Redux / State <=> Api проекта
+//    ↓
+// AppHeader (адаптер)
+//    ↓
+// getIcons (чистая логика)
+//    ↓
+// AppHeaderUI (презентация)
