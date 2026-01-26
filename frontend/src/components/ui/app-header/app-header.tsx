@@ -8,14 +8,15 @@ import type { IconClassCssIcon } from "../icon/icon";
 import { v4 as uuidv4 } from "uuid";
 import { IconButtonUI } from "../icon-button";
 
-
-export type TEventType = {
-  trigger: "route",
-  path: string
-} | {
-  trigger: "action-on-page", 
-  callback:()=>void
-}
+export type TEventType =
+  | {
+      trigger: "route";
+      path: string;
+    }
+  | {
+      trigger: "action-on-page";
+      callback: () => void;
+    };
 
 export type TIconType = {
   typeIcon: IconClassCssIcon;
@@ -65,8 +66,8 @@ export const AppHeaderUI: FC<AppHeaderUIProps> = ({ navIcons }) => {
                     ) : (
                       // если ссылка - передаем маршрут
                       <NavLink
-                      // доработать активную ссылку
-                      //  чтобы иконка могла менять цвет - допустим цвет bacground черный  у активной сслыки - иконка белая
+                        // доработать активную ссылку
+                        //  чтобы иконка могла менять цвет - допустим цвет bacground черный  у активной сслыки - иконка белая
                         className={styles.menuLink}
                         to={`${navIcon.typeEvent.path}`}
                       >

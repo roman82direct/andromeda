@@ -8,7 +8,7 @@
   cursor: not-allowed;
 }
 
-.iconButton:focus{
+.iconButton:focus {
   outline: none;
 }
 .iconButton:focus-visible {
