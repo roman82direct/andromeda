@@ -25,13 +25,21 @@ type Story = StoryObj<typeof AppHeaderUI>;
 
 const navIcons: TIconType[] = [
   //  если мы вошли - то смена иконки 'come-in' допустим на profile
-  { typeIcon: "come-in", path: "/", typeEvent: "route" },
-  { typeIcon: "full-heart", path: "/", counterNum: 5, typeEvent: "route" },
-  { typeIcon: "cart", path: "/", counterNum: 9, typeEvent: "route" },
-  { typeIcon: "clock", typeEvent: "action-on-page" },
+  { typeIcon: "come-in", typeEvent: {trigger:"route", path:'' } },
+  { typeIcon: "full-heart", counterNum: 5, typeEvent: {trigger:"route", path:'' } },
+  { typeIcon: "cart",  counterNum: 9, typeEvent: {trigger:"route", path:'' }},
 ];
+
 export const appHeaderUI: Story = {
   args: {
     navIcons,
   },
 };
+
+export const appHeaderUIWithBtn: Story = {
+  args: {
+    navIcons: [...navIcons, { typeIcon: "clock", typeEvent: {trigger:"action-on-page", callback:()=>{alert('действие на странице')}} }]
+  },
+};
+
+
