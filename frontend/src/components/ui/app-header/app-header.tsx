@@ -8,19 +8,26 @@ import type { IconClassCssIcon } from "../icon/icon";
 import { v4 as uuidv4 } from "uuid";
 import { IconButtonUI } from "../icon-button";
 
+
+export type TEventType = {
+  trigger: "route",
+  path: string
+} | {
+  trigger: "action-on-page", 
+  callback:()=>void
+}
+
 export type TIconType = {
   typeIcon: IconClassCssIcon;
   counterNum?: number;
-  path?: string;
-  typeEvent: "route" | "action-on-page";
-  callback?: () => void;
+  typeEvent: TEventType;
 };
 
-type AppHeaderUIUIProps = {
+type AppHeaderUIProps = {
   navIcons?: TIconType[];
 };
 
-export const AppHeaderUI: FC<AppHeaderUIUIProps> = ({ navIcons }) => {
+export const AppHeaderUI: FC<AppHeaderUIProps> = ({ navIcons }) => {
   //  контекст
   //  посмотри макет петровича адаптив
   //  шапка по макету + адаптивность шапки
@@ -49,17 +56,19 @@ export const AppHeaderUI: FC<AppHeaderUIUIProps> = ({ navIcons }) => {
                   {/* скачать иконку для смены темы и обернуть ее в button c кликом компонент IconButton */}
                   {
                     //  если кнопка - передаем callback
-                    navIcon.typeEvent === "action-on-page" ? (
+                    navIcon.typeEvent.trigger === "action-on-page" ? (
                       <IconButtonUI
-                        onClick={navIcon.callback}
+                        onClick={navIcon.typeEvent.callback}
                         iconClass={navIcon.typeIcon}
                         isActive={false}
                       />
                     ) : (
                       // если ссылка - передаем маршрут
                       <NavLink
+                      // доработать активную ссылку
+                      //  чтобы иконка могла менять цвет - допустим цвет bacground черный  у активной сслыки - иконка белая
                         className={styles.menuLink}
-                        to={`${navIcon.path}`}
+                        to={`${navIcon.typeEvent.path}`}
                       >
                         <IconUI
                           counterQuantity={navIcon.counterNum}
