@@ -68,7 +68,7 @@ export const AppHeaderUI: FC<AppHeaderUIProps> = ({ navIcons }) => {
                       <NavLink
                         // доработать активную ссылку
                         //  чтобы иконка могла менять цвет - допустим цвет bacground черный  у активной сслыки - иконка белая
-                        className={styles.menuLink}
+                        className={styles['menu-link']}
                         to={`${navIcon.typeEvent.path}`}
                       >
                         <IconUI

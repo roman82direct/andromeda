@@ -1,5 +1,3 @@
-/* grid-template-columns: min-content 1fr min-content; что это вспомни */
-/* max-content средний конетент - см первую работу */
 .header {
   position: fixed;
   top: 0;
@@ -24,20 +22,29 @@
 
 .menu-list {
   display: flex;
-  align-items: center;
-  gap: 16px;
   justify-content: space-between;
+  gap: 16px;
+  padding-top: 2px;
+  padding-right: 2px;
 }
 
+/* .menu-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+.menu-link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width:28px;
+  height: 28px;
+  border-radius: 5px;
+}
 .menu-link:focus {
   outline: none;
 }
 
-.menuLink {
-  display: inline-flex;
-  border-radius: 5px;
-  /* outline: 2px solid #67b0d1; */
-}
-.menuLink:focus-visible {
+.menu-link:focus-visible {
   outline: 2px solid #67b0d1;
 }

@@ -36,7 +36,7 @@ export type IconUIProps = {
 
 export const IconUI: FC<IconUIProps> = ({
   iconClass,
-  sizeIcon = 20,
+  sizeIcon = 24,
   turnIcon = 1,
   interactiveMode,
   isDisabledState,

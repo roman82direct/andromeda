@@ -3,8 +3,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 20px;
 }
 /*  стилизуем родителя при наличии кокретного ребенка */
 .icon-container:has(.icon-interactive-disabled) {
@@ -16,17 +16,18 @@
 }
 
 .icon {
-  --size-icon: 20px;
+  --size-icon: 24px;
   --active-color-icon: var(--color-primary, #15242a);
   --hover-color-icon: var(--color-accent, #67b0d1);
   --pressed-color-icon: var(--color-tertiary, #000);
   --current-color-icon: var(--active-color-icon, #15242a);
   --turn: 1;
-  width: calc(var(--size-icon) * 1px);
+  width: 100%;
+  /* aspect-ratio: 1/1; */
+  height: 100%;
   background-color: var(--current-color-icon, #15242a);
   transition: background-color 0.3s ease;
   transform: scaleX(var(--turn));
-  aspect-ratio: 1/1;
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-image: var(--icon-url);
