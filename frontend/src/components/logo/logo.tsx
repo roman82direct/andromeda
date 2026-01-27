@@ -3,14 +3,18 @@ import { LogoUI } from "../ui/logo";
 import type { FC } from "react";
 import styles from "./logo.module.css";
 
-export const Logo: FC = () => {
+type LogoProps = {
+  color: 'dark-background' | 'light-background';
+}
+
+export const Logo: FC<LogoProps> = ({color}) => {
   return (
     <Link
       className={styles["logo-link"]}
       aria-label="логотип сайта - переход на главную страницу сайта"
       to={"/"}
     >
-      <LogoUI />
+      <LogoUI color={color} />
     </Link>
   );
 };

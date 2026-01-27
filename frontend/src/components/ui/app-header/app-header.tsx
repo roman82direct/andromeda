@@ -44,10 +44,10 @@ export const AppHeaderUI: FC<AppHeaderUIProps> = ({ navIcons }) => {
           <SearchInput />
         </div>
         <div className={styles.logo}>
-          {/* есть 2 логотип - подумать как кастомизировать ? */}
-          <Logo />
+          <Logo color='light-background' />
         </div>
         <div className={styles.menu}>
+          {/*  весь список превратить в чилрен функцию */}
           <ul className={styles["menu-list"]}>
             {navIcons &&
               navIcons.length > 0 &&
