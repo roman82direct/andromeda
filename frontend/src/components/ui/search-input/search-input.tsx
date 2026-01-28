@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent, type FC } from "react";
+import { useState, type ChangeEvent, type CSSProperties, type FC } from "react";
 import styles from "./search-input.module.css";
 import { IconButtonUI } from "../icon-button/";
 import { ListQueriesUI } from "../queries-list";
@@ -49,16 +49,21 @@ export const SearchInputUI: FC<SearchUIProps> = ({
   };
   const isHistory = (listsQueries?.history?.length ?? 0) > 0;
   const isPopular = (listsQueries?.popular?.length ?? 0) > 0;
+  const iconSearchSize = 18;
+  const iconClearSize = 12;
+  const styleForIconSearch = {
+    '--icon-search-width': `${iconSearchSize}px`
+  } as CSSProperties
   return (
     <>
-      <div className={styles.wrapperForm}>
+      <div style={styleForIconSearch} className={styles.wrapperForm}>
         <form onSubmit={handleSubmit} className={styles.searchForm}>
           <div className={styles.searchIconWrapper}>
             <IconButtonUI
               isDisabled={disabled}
               turnIcon={-1}
               type={"submit"}
-              sizeIcon={18}
+              sizeIcon={iconSearchSize}
               isActive={false}
               iconClass={"search"}
             />
@@ -74,9 +79,9 @@ export const SearchInputUI: FC<SearchUIProps> = ({
               placeholder={placeholder}
               value={value}
             />
-              <div className={styles['search-bnt-close']}>
+              <div className={styles['search-btn-close']}>
                 <IconButtonUI
-                  sizeIcon={12}
+                  sizeIcon={iconClearSize}
                   onClick={onClear}
                   isActive={false}
                   iconClass={"close"}
