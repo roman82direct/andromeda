@@ -36,7 +36,7 @@ export const searchInputUI: Story = {
 export const withText: Story = {
   args: {
     placeholder: "Поиск",
-    value: "Заполнено",
+    value: "Text",
   },
 };
 

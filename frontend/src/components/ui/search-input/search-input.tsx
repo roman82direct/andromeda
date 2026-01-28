@@ -74,15 +74,15 @@ export const SearchInputUI: FC<SearchUIProps> = ({
               placeholder={placeholder}
               value={value}
             />
-            {value && (
-              // IconButtonUI  - возможно продумать кастомное изменение цвета иконки через пропсы
-              <IconButtonUI
-                sizeIcon={13}
-                onClick={onClear}
-                isActive={false}
-                iconClass={"close"}
-              />
-            )}
+              <div className={styles['search-bnt-close']}>
+                <IconButtonUI
+                  sizeIcon={12}
+                  onClick={onClear}
+                  isActive={false}
+                  iconClass={"close"}
+                />
+              </div>
+           
           </div>
         </form>
       </div>
