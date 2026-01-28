@@ -1,19 +1,19 @@
 .wrapperForm {
-  width:208px;
-  --base-width-form: 208px
-  /* padding-inline: 5px; */
+  --base-width-form: 208px;
+   --icon-wrap-width: 18px;
+  width:var(--base-width-form, 208px);
+  padding-inline:5px;
   background-color: var(--color-secondary, #f8f9fa);
+
 }
 
 .searchForm {
-  --base-width-form: 208px;
-  --icon-wrap-width: 18px;
   position: relative;
   display: flex;
   justify-content: flex-start; 
   align-items: center;
   gap: 10px;
-  width: 100%;
+  /* width: 100%; */
   max-width: var(--base-width-form, 208px);
   height: 28px;
   border-bottom: 1px solid transparent;
@@ -31,7 +31,7 @@
 }
 .searchForm:hover .search-bnt-close {
   opacity: 1;
-  transform: translateX(-32px);
+  transform: translateX(-21px);
 }
 .searchForm:hover .searchInputContainer {
   /* Сдвигаем инпут влево на место, где была иконка */
