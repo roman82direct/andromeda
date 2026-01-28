@@ -36,7 +36,7 @@ export type IconUIProps = {
 
 export const IconUI: FC<IconUIProps> = ({
   iconClass,
-  sizeIcon = 24,
+  sizeIcon = 20,
   turnIcon = 1,
   interactiveMode,
   isDisabledState,
@@ -49,12 +49,12 @@ export const IconUI: FC<IconUIProps> = ({
     isDisabledState ? styles["icon-interactive-disabled"] : "",
   );
   const iconStyle = {
-    "--size-icon": sizeIcon,
+    "--size-icon": `${sizeIcon}px`,
     "--turn": turnIcon,
   } as CSSProperties;
   return (
-    <div className={styles["icon-container"]}>
-      <div style={iconStyle} className={className} aria-hidden={true}></div>
+    <div style={iconStyle} className={styles["icon-container"]}>
+      <div  className={className} aria-hidden={true}></div>
       {counterQuantity && counterQuantity > 0 && (
         <div className={styles["counter-container"]}>
           <CounterUI counterQuantity={counterQuantity} />

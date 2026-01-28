@@ -15,7 +15,6 @@
 }
 
 .menu {
-  /* max-width:  120px; */
   display: flex;
   justify-content: flex-end;
 }
@@ -28,11 +27,6 @@
   padding-right: 2px;
 }
 
-/* .menu-item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
 .menu-link {
   display: inline-flex;
   justify-content: center;
