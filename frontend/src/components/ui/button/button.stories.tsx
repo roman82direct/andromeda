@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { ButtonUI } from "./button";
+import { IconUI } from "../icon";
 
 const meta: Meta<typeof ButtonUI> = {
   component: ButtonUI,
@@ -10,6 +11,8 @@ const meta: Meta<typeof ButtonUI> = {
   argTypes: {
     isDisabled: { control: "boolean" },
     fullSize: { control: "boolean" },
+    variant: {control: 'text'},
+    color: {control: 'text'}
   },
 };
 
@@ -37,6 +40,7 @@ export const primaryButtonUI: Story = {
   args: {
     children: "Button",
     color: "primary",
+    variant: 'filled'
   },
 };
 
@@ -60,5 +64,61 @@ export const secondaryButtonUI: Story = {
   args: {
     children: "Button",
     color: "secondary",
+    variant: 'outlined'
   },
 };
+
+
+export const forFormSubscribeButton: Story = {
+  render: (args) => {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "400px",
+          padding: "20px",
+          border: "2px solid black",
+          background: '#2F4D5A'
+        }}
+      >
+        <ButtonUI {...args} />
+      </div>
+    );
+  },
+  args: {
+    children: "Подписаться",
+    color: "subscribe",
+    variant: 'outlined'
+  },
+};
+
+//  необходимо переделать компонент iconUi : добавить возмонжость цвета и 
+//  и реакцию на псевдокласс родителя что типа currentColor
+export const ButtonUIWithIconCart: Story = {
+  render: (args) => {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "400px",
+          padding: "20px",
+          border: "2px solid black",
+        }}
+      >
+        <ButtonUI {...args} />
+      </div>
+    );
+  },
+  args: {
+    children: <><IconUI sizeIcon={15} inheritColor iconClass="cart"/><span>Купить</span></>,
+    color: "secondary",
+    variant: 'outlined'
+  },
+};
+
+
+

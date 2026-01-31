@@ -1,4 +1,8 @@
 .button {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap:5px;
   padding: 12px 32px;
   font-family: "Raleway";
   font-weight: 400;
@@ -12,6 +16,7 @@
     border 0.2s ease-out;
 }
 
+
 .button:disabled {
   pointer-events: none;
 }
@@ -19,46 +24,88 @@
 .button:focus-visible {
   outline: 2px solid var(--color-accent, #67b0d1);
 }
-
-.btnColorPrimary {
-  color: var(--color-secondary, #f8f9fa);
-  background-color: var(--color-primary, #15242a);
+/*  определяем структуру кнопок */
+.button-filled {
+  border: none;
+  color: var(--color-btn, #f8f9fa);
+  background-color: var(--bg-btn, #15242a);
 }
 
-.btnColorPrimary:hover {
-  color: var(--color-secondary, #f8f9fa);
-  background-color: var(--color-accent, #67b0d1);
+.button-outlined {
+  border: 1px solid var(--border-color-btn, #15242a);
+  color: var(--color-btn ,#15242a);
+  background-color: transparent;
+}
+/*  на будущее */
+.button-text {
+  border: none;
+  color: var(--color-btn);
+  background-color: transparent;
 }
 
-.btnColorPrimary:disabled {
-  color: var(--color-secondary, #f8f9fa);
-  background-color: var(--color-primary-disabled, #848484);
+/*  меняем переменные в зависимости от 'типа цвета' */
+
+.btn-color-primary {
+  --color-btn: var(--color-secondary, #f8f9fa);
+  --bg-btn: var(--color-primary, #15242a);
 }
 
-.btnColorPrimary:active {
-  background-color: var(--color-sailing, #e1700e);
+.btn-color-primary:hover {
+  --color-btn: var(--color-secondary, #f8f9fa);
+  --bg-btn: var(--color-accent, #67b0d1);
 }
 
-.btnColorSecondary {
-  border: 1px solid var(--color-primary, #15242a);
-  color: var(--color-primary, #15242a);
-  background-color: var(--color-secondary, #f8f9fa);
+.btn-color-primary:disabled {
+  --color-btn: var(--color-secondary, #f8f9fa);
+  --bg-btn: var(--color-primary-disabled, #848484);
 }
 
-.btnColorSecondary:hover {
-  border: 1px solid var(--color-accent, #67b0d1);
-  color: var(--color-accent, #67b0d1);
+.btn-color-primary:active {
+  --bg-btn: var(--color-sailing, #e1700e);
 }
 
-.btnColorSecondary:disabled {
-  border: 1px solid var(--color-primary-disabled, #848484);
-  color: var(--color-primary-disabled, #848484);
+.btn-color-secondary {
+  --color-btn:var(--color-primary, #15242a);;
+  --border-color-btn: var(--color-primary, #15242a);
+
 }
 
-.btnColorSecondary:active {
-  color: var(--color-secondary, #f8f9fa);
-  background-color: var(--color-sailing, #e1700e);
+.btn-color-secondary:hover {
+  --color-btn: var(--color-accent, #67b0d1);;
+  --border-color-btn: var(--color-accent, #67b0d1);
 }
+
+.btn-color-secondary:disabled {
+  --color-btn: var(--color-primary-disabled, #848484);;
+  --border-color-btn: var(--color-primary-disabled, #848484);
+}
+
+.btn-color-secondary:active {
+  --color-btn: var(--color-sailing, #e1700e);;
+  --border-color-btn:  var(--color-sailing, #e1700e);
+}
+
+.btn-form-subscribe {
+  --color-btn: var(--color-secondary, #F8F9FA);;
+  --border-color-btn:  var(--color-secondary, #F8F9FA);
+}
+
+.btn-form-subscribe:hover {
+  --color-btn: var(--color-accent, #67b0d1);;
+  --border-color-btn: var(--color-accent, #67b0d1);
+}
+
+.btn-form-subscribe:disabled {
+  --color-btn: var(--color-primary-disabled, #848484);;
+  --border-color-btn: var(--color-primary-disabled, #848484);
+}
+
+.btn-form-subscribe:active {
+  --color-btn: var(--color-sailing, #e1700e);;
+  --border-color-btn:  var(--color-sailing, #e1700e);
+}
+
+
 
 .fullWidthBtn {
   width: 100%;
