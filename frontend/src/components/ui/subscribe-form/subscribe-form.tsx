@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent, type FC, type FormEvent } from "react";
+import {  type ChangeEvent, type FC, type FormEvent } from "react";
 import { IconButtonUI } from "../icon-button";
 import { ButtonUI } from "../button";
 import styles from "./subscribe-form.module.css";
@@ -37,7 +37,7 @@ export const SubscribeFormUI: FC<SubscribeFormUIProps> = ({
       />
       <div>
         {/* Масштабирование кнопки */}
-        <ButtonUI type={"submit"} onClick={() => {}} color={"secondary"}>
+        <ButtonUI variant={'outlined'} color={'secondary'} type={"submit"} onClick={() => {}}>
           Подписаться
         </ButtonUI>
       </div>
