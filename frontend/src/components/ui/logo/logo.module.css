@@ -18,7 +18,7 @@
 }
 
 .logo-dark {
-    --current-color: var(--color-secondary, #F8F9FA);
+  --current-color: var(--color-secondary, #f8f9fa);
 }
 
 .logo-light {

@@ -4,10 +4,10 @@ import type { FC } from "react";
 import styles from "./logo.module.css";
 
 type LogoProps = {
-  color: 'dark-background' | 'light-background';
-}
+  color: "dark-background" | "light-background";
+};
 
-export const Logo: FC<LogoProps> = ({color}) => {
+export const Logo: FC<LogoProps> = ({ color }) => {
   return (
     <Link
       className={styles["logo-link"]}

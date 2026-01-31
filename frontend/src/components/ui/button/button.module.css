@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: baseline;
-  gap:5px;
+  gap: 5px;
   padding: 12px 32px;
   font-family: "Raleway";
   font-weight: 400;
@@ -15,7 +15,6 @@
     background-color 0.2s ease-in-out,
     border 0.2s ease-out;
 }
-
 
 .button:disabled {
   pointer-events: none;
@@ -33,7 +32,7 @@
 
 .button-outlined {
   border: 1px solid var(--border-color-btn, #15242a);
-  color: var(--color-btn ,#15242a);
+  color: var(--color-btn, #15242a);
   background-color: transparent;
 }
 /*  на будущее */
@@ -65,47 +64,44 @@
 }
 
 .btn-color-secondary {
-  --color-btn:var(--color-primary, #15242a);;
+  --color-btn: var(--color-primary, #15242a);
   --border-color-btn: var(--color-primary, #15242a);
-
 }
 
 .btn-color-secondary:hover {
-  --color-btn: var(--color-accent, #67b0d1);;
+  --color-btn: var(--color-accent, #67b0d1);
   --border-color-btn: var(--color-accent, #67b0d1);
 }
 
 .btn-color-secondary:disabled {
-  --color-btn: var(--color-primary-disabled, #848484);;
+  --color-btn: var(--color-primary-disabled, #848484);
   --border-color-btn: var(--color-primary-disabled, #848484);
 }
 
 .btn-color-secondary:active {
-  --color-btn: var(--color-sailing, #e1700e);;
-  --border-color-btn:  var(--color-sailing, #e1700e);
+  --color-btn: var(--color-sailing, #e1700e);
+  --border-color-btn: var(--color-sailing, #e1700e);
 }
 
 .btn-form-subscribe {
-  --color-btn: var(--color-secondary, #F8F9FA);;
-  --border-color-btn:  var(--color-secondary, #F8F9FA);
+  --color-btn: var(--color-secondary, #f8f9fa);
+  --border-color-btn: var(--color-secondary, #f8f9fa);
 }
 
 .btn-form-subscribe:hover {
-  --color-btn: var(--color-accent, #67b0d1);;
+  --color-btn: var(--color-accent, #67b0d1);
   --border-color-btn: var(--color-accent, #67b0d1);
 }
 
 .btn-form-subscribe:disabled {
-  --color-btn: var(--color-primary-disabled, #848484);;
+  --color-btn: var(--color-primary-disabled, #848484);
   --border-color-btn: var(--color-primary-disabled, #848484);
 }
 
 .btn-form-subscribe:active {
-  --color-btn: var(--color-sailing, #e1700e);;
-  --border-color-btn:  var(--color-sailing, #e1700e);
+  --color-btn: var(--color-sailing, #e1700e);
+  --border-color-btn: var(--color-sailing, #e1700e);
 }
-
-
 
 .fullWidthBtn {
   width: 100%;

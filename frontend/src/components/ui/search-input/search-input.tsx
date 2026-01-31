@@ -52,12 +52,16 @@ export const SearchInputUI: FC<SearchUIProps> = ({
   const iconSearchSize = 18;
   const iconClearSize = 12;
   const styleForIconSearch = {
-    '--icon-search-width': `${iconSearchSize}px`
-  } as CSSProperties
+    "--icon-search-width": `${iconSearchSize}px`,
+  } as CSSProperties;
   return (
     <>
       <div style={styleForIconSearch} className={styles.wrapperForm}>
-        <form name={'search'} onSubmit={handleSubmit} className={styles.searchForm}>
+        <form
+          name={"search"}
+          onSubmit={handleSubmit}
+          className={styles.searchForm}
+        >
           <div className={styles.searchIconWrapper}>
             <IconButtonUI
               isDisabled={disabled}
@@ -80,15 +84,14 @@ export const SearchInputUI: FC<SearchUIProps> = ({
               placeholder={placeholder}
               value={value}
             />
-              <div className={styles['search-btn-close']}>
-                <IconButtonUI
-                  sizeIcon={iconClearSize}
-                  onClick={onClear}
-                  isActive={false}
-                  iconClass={"close"}
-                />
-              </div>
-           
+            <div className={styles["search-btn-close"]}>
+              <IconButtonUI
+                sizeIcon={iconClearSize}
+                onClick={onClear}
+                isActive={false}
+                iconClass={"close"}
+              />
+            </div>
           </div>
         </form>
       </div>

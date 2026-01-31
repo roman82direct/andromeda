@@ -44,7 +44,7 @@ export const AppHeaderUI: FC<AppHeaderUIProps> = ({ navIcons }) => {
           <SearchInput />
         </div>
         <div className={styles.logo}>
-          <Logo color='light-background' />
+          <Logo color="light-background" />
         </div>
         <div className={styles.menu}>
           {/*  весь список превратить в чилрен функцию */}
@@ -68,7 +68,7 @@ export const AppHeaderUI: FC<AppHeaderUIProps> = ({ navIcons }) => {
                       <NavLink
                         // доработать активную ссылку
                         //  чтобы иконка могла менять цвет - допустим цвет bacground черный  у активной сслыки - иконка белая
-                        className={styles['menu-link']}
+                        className={styles["menu-link"]}
                         to={`${navIcon.typeEvent.path}`}
                       >
                         <IconUI

@@ -11,8 +11,8 @@ const meta: Meta<typeof ButtonUI> = {
   argTypes: {
     isDisabled: { control: "boolean" },
     fullSize: { control: "boolean" },
-    variant: {control: 'text'},
-    color: {control: 'text'}
+    variant: { control: "text" },
+    color: { control: "text" },
   },
 };
 
@@ -40,7 +40,7 @@ export const primaryButtonUI: Story = {
   args: {
     children: "Button",
     color: "primary",
-    variant: 'filled'
+    variant: "filled",
   },
 };
 
@@ -64,10 +64,9 @@ export const secondaryButtonUI: Story = {
   args: {
     children: "Button",
     color: "secondary",
-    variant: 'outlined'
+    variant: "outlined",
   },
 };
-
 
 export const forFormSubscribeButton: Story = {
   render: (args) => {
@@ -80,7 +79,7 @@ export const forFormSubscribeButton: Story = {
           width: "400px",
           padding: "20px",
           border: "2px solid black",
-          background: '#2F4D5A'
+          background: "#2F4D5A",
         }}
       >
         <ButtonUI {...args} />
@@ -90,11 +89,11 @@ export const forFormSubscribeButton: Story = {
   args: {
     children: "Подписаться",
     color: "subscribe",
-    variant: 'outlined'
+    variant: "outlined",
   },
 };
 
-//  необходимо переделать компонент iconUi : добавить возмонжость цвета и 
+//  необходимо переделать компонент iconUi : добавить возмонжость цвета и
 //  и реакцию на псевдокласс родителя что типа currentColor
 export const ButtonUIWithIconCart: Story = {
   render: (args) => {
@@ -114,11 +113,13 @@ export const ButtonUIWithIconCart: Story = {
     );
   },
   args: {
-    children: <><IconUI sizeIcon={15} inheritColor iconClass="cart"/><span>Купить</span></>,
+    children: (
+      <>
+        <IconUI sizeIcon={15} inheritColor iconClass="cart" />
+        <span>Купить</span>
+      </>
+    ),
     color: "secondary",
-    variant: 'outlined'
+    variant: "outlined",
   },
 };
-
-
-

@@ -1,17 +1,10 @@
-import {type FC, type ReactNode } from "react";
+import { type FC, type ReactNode } from "react";
 import styles from "./button.module.css";
 import clsx from "clsx";
 
+type TButtonVariant = "filled" | "outlined" | "text";
 
-type TButtonVariant =
-  | 'filled'    
-  | 'outlined'
-  | 'text' ; 
-
-  type TButtonColor =
-  | 'primary'
-  | 'secondary'
-  | 'subscribe';
+type TButtonColor = "primary" | "secondary" | "subscribe";
 
 type ButtonUIProps = {
   onClick: () => void;
@@ -20,24 +13,24 @@ type ButtonUIProps = {
   color: TButtonColor;
   fullSize?: boolean;
   isDisabled?: boolean;
-  variant: TButtonVariant
+  variant: TButtonVariant;
 };
 
- type classCssBtn = string;
-  // определяем 'cтруктуру кнопки' 
-  const typesButton:Record<TButtonVariant, classCssBtn> ={
-    filled: 'button-filled',
-    outlined:'button-outlined',
-    text: 'button-text'
-  }
+type classCssBtn = string;
+// определяем 'cтруктуру кнопки'
+const typesButton: Record<TButtonVariant, classCssBtn> = {
+  filled: "button-filled",
+  outlined: "button-outlined",
+  text: "button-text",
+};
 
-  //  задаем цвета кнопки
+//  задаем цвета кнопки
 
-  const colorsButton: Record<TButtonColor,classCssBtn> = {
-    primary: 'btn-color-primary',
-    secondary: 'btn-color-secondary',
-    subscribe: 'btn-form-subscribe'
-  }
+const colorsButton: Record<TButtonColor, classCssBtn> = {
+  primary: "btn-color-primary",
+  secondary: "btn-color-secondary",
+  subscribe: "btn-form-subscribe",
+};
 
 export const ButtonUI: FC<ButtonUIProps> = ({
   onClick,
@@ -46,9 +39,8 @@ export const ButtonUI: FC<ButtonUIProps> = ({
   color,
   fullSize,
   isDisabled,
-  variant
+  variant,
 }) => {
- 
   const className = clsx(
     styles.button,
     styles[colorsButton[color]],

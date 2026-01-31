@@ -42,14 +42,14 @@ export const IconUI: FC<IconUIProps> = ({
   interactiveMode = false,
   isDisabledState,
   counterQuantity,
-  inheritColor = false
+  inheritColor = false,
 }) => {
   const className = clsx(
     styles.icon,
     styles[iconClass],
     interactiveMode ? styles["icon-interactive"] : "",
     isDisabledState ? styles["icon-interactive-disabled"] : "",
-    inheritColor && !interactiveMode ?  styles['icon-current-color']  : ''
+    inheritColor && !interactiveMode ? styles["icon-current-color"] : "",
   );
   const iconStyle = {
     "--size-icon": `${sizeIcon}px`,
@@ -57,7 +57,7 @@ export const IconUI: FC<IconUIProps> = ({
   } as CSSProperties;
   return (
     <div style={iconStyle} className={styles["icon-container"]}>
-      <div  className={className} aria-hidden={true}></div>
+      <div className={className} aria-hidden={true}></div>
       {counterQuantity && counterQuantity > 0 && (
         <div className={styles["counter-container"]}>
           <CounterUI counterQuantity={counterQuantity} />

@@ -3,12 +3,12 @@ import styles from "./logo.module.css";
 import clsx from "clsx";
 
 type TLogoUIProps = {
-  color: 'dark-background' | 'light-background';
-}
+  color: "dark-background" | "light-background";
+};
 
-
-export const LogoUI: FC<TLogoUIProps> = ({color}) => {
-  const styleColorClass = color === 'light-background' ? styles['logo-light'] : styles['logo-dark'];
+export const LogoUI: FC<TLogoUIProps> = ({ color }) => {
+  const styleColorClass =
+    color === "light-background" ? styles["logo-light"] : styles["logo-dark"];
   return (
     <div className={clsx(styles.logo, styleColorClass)}>
       <span className={styles.logoProject}>Andromeda</span>
