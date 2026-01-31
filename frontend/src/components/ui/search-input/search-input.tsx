@@ -57,7 +57,7 @@ export const SearchInputUI: FC<SearchUIProps> = ({
   return (
     <>
       <div style={styleForIconSearch} className={styles.wrapperForm}>
-        <form onSubmit={handleSubmit} className={styles.searchForm}>
+        <form name={'search'} onSubmit={handleSubmit} className={styles.searchForm}>
           <div className={styles.searchIconWrapper}>
             <IconButtonUI
               isDisabled={disabled}
@@ -75,6 +75,7 @@ export const SearchInputUI: FC<SearchUIProps> = ({
               disabled={disabled}
               className={styles.searchInput}
               type="search"
+              name="search-input"
               onChange={handleChange}
               placeholder={placeholder}
               value={value}
