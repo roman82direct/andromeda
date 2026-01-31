@@ -34,6 +34,10 @@
   mask-position: center;
 }
 
+.icon.icon-current-color {
+  --current-color-icon: currentColor;
+}
+
 .icon-interactive {
   cursor: pointer;
 }

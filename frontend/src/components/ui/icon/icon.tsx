@@ -32,21 +32,24 @@ export type IconUIProps = {
   interactiveMode?: boolean;
   isDisabledState?: boolean;
   counterQuantity?: number;
+  inheritColor?: boolean;
 };
 
 export const IconUI: FC<IconUIProps> = ({
   iconClass,
   sizeIcon = 20,
   turnIcon = 1,
-  interactiveMode,
+  interactiveMode = false,
   isDisabledState,
   counterQuantity,
+  inheritColor = false
 }) => {
   const className = clsx(
     styles.icon,
     styles[iconClass],
     interactiveMode ? styles["icon-interactive"] : "",
     isDisabledState ? styles["icon-interactive-disabled"] : "",
+    inheritColor && !interactiveMode ?  styles['icon-current-color']  : ''
   );
   const iconStyle = {
     "--size-icon": `${sizeIcon}px`,
