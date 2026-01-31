@@ -24,7 +24,16 @@ export type IconClassCssIcon =
   | "instagram"
   | "mastercard";
 
-//  возможно добавить кастомное изменение цвета иконки + псевдоклассы
+
+//  ????
+// type toggleInteractiveOrCurrentColor = {
+//   interactiveMode: true;
+//   inheritColor: false;
+// } | {
+//   interactiveMode: false;
+//   inheritColor: true;
+// }
+
 export type IconUIProps = {
   iconClass: IconClassCssIcon;
   sizeIcon?: number;
@@ -33,7 +42,7 @@ export type IconUIProps = {
   isDisabledState?: boolean;
   counterQuantity?: number;
   inheritColor?: boolean;
-};
+}
 
 export const IconUI: FC<IconUIProps> = ({
   iconClass,
@@ -42,12 +51,12 @@ export const IconUI: FC<IconUIProps> = ({
   interactiveMode = false,
   isDisabledState,
   counterQuantity,
-  inheritColor = false,
+  inheritColor,
 }) => {
   const className = clsx(
     styles.icon,
     styles[iconClass],
-    interactiveMode ? styles["icon-interactive"] : "",
+    !inheritColor && interactiveMode ? styles["icon-interactive"] : "",
     isDisabledState ? styles["icon-interactive-disabled"] : "",
     inheritColor && !interactiveMode ? styles["icon-current-color"] : "",
   );
