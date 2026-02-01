@@ -1,5 +1,6 @@
 .icon-container {
   position: relative;
+  z-index: 30;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,10 +11,6 @@
 .icon-container:has(.icon-interactive-disabled) {
   cursor: not-allowed;
 }
-
-/* .icon-container:has(.counter-container) {
-  width: 32px;
-} */
 
 .icon {
   --active-color-icon: var(--color-primary, #15242a);
