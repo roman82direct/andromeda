@@ -53,6 +53,7 @@ export const SearchInputUI: FC<SearchUIProps> = ({
   const iconClearSize = 12;
   const styleForIconSearch = {
     "--icon-search-width": `${iconSearchSize}px`,
+    "--icon-close-width": `${iconClearSize}px`
   } as CSSProperties;
   return (
     <>
