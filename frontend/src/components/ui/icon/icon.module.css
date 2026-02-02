@@ -5,6 +5,7 @@
   justify-content: center;
   align-items: center;
   width: var(--size-icon, 20px);
+  background-color: transparent;
   aspect-ratio: 1;
 }
 /*  стилизуем родителя при наличии кокретного ребенка */
@@ -13,10 +14,7 @@
 }
 
 .icon {
-  --active-color-icon: var(--color-primary, #15242a);
-  --hover-color-icon: var(--color-accent, #67b0d1);
-  --pressed-color-icon: var(--color-tertiary, #000);
-  --current-color-icon: var(--active-color-icon, #15242a);
+  /* --current-color-icon определяется компонентом react */
   width: 100%;
   height: 100%;
   background-color: var(--current-color-icon, #15242a);
@@ -36,16 +34,18 @@
 }
 
 .icon-interactive {
+  --hover-color-icon: var(--color-accent, #67b0d1);
+  --pressed-color-icon: var(--color-tertiary, #000);
   cursor: pointer;
 }
+
 .icon-interactive:hover {
-  /*  переменная для ховер */
   --current-color-icon: var(--hover-color-icon, #67b0d1);
 }
 
 .icon-interactive:active {
   --current-color-icon: var(--pressed-color-icon, #000);
-}
+  }
 
 .icon-interactive-disabled {
   --current-color-icon: var(--color-primary-disabled, #848484);
