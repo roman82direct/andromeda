@@ -71,6 +71,7 @@ export const SearchInputUI: FC<SearchUIProps> = ({
               sizeIcon={iconSearchSize}
               isActive={false}
               iconClass={"search"}
+              colorIcon={'primary'}
             />
           </div>
           <div className={styles.searchInputContainer}>
@@ -91,6 +92,7 @@ export const SearchInputUI: FC<SearchUIProps> = ({
                 onClick={onClear}
                 isActive={false}
                 iconClass={"close"}
+                colorIcon={'primary'}
               />
             </div>
           </div>
