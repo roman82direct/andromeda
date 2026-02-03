@@ -1,1 +1,1 @@
-export {InputUI} from './input';
+export { InputUI } from "./input";

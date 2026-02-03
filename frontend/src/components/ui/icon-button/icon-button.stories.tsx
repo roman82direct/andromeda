@@ -23,24 +23,24 @@ export default meta;
 type Story = StoryObj<typeof IconButtonUI>;
 
 export const IconButtonClose: Story = {
-    render: (args) => {
-      return (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "300px",
-            paddingBlock: "20px",
-            paddingInline:'5px',
-            border: "2px solid black",
-            background:'#15242a'
-          }}
-        >
-          <IconButtonUI {...args} />
-        </div>
-      );
-    },
+  render: (args) => {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "300px",
+          paddingBlock: "20px",
+          paddingInline: "5px",
+          border: "2px solid black",
+          background: "#15242a",
+        }}
+      >
+        <IconButtonUI {...args} />
+      </div>
+    );
+  },
   args: {
     onClick: () => {
       alert("вы кликнули по кнопке с иконкой");
@@ -49,7 +49,7 @@ export const IconButtonClose: Story = {
     iconClass: "close",
     label: "кнопка закрытия",
     sizeIcon: 20,
-    colorIcon:'secondary'
+    colorIcon: "secondary",
   },
 };
 
@@ -63,7 +63,7 @@ export const IconButtonCloseDisabled: Story = {
     label: "кнопка закрытия",
     sizeIcon: 20,
     isDisabled: true,
-    colorIcon:'primary'
+    colorIcon: "primary",
   },
 };
 
@@ -76,7 +76,7 @@ export const IconButtonSearch: Story = {
     iconActiveClass: "search",
     label: "поиск",
     sizeIcon: 20,
-    colorIcon:'primary'
+    colorIcon: "primary",
   },
 };
 
@@ -89,7 +89,7 @@ export const IconButtonInfo: Story = {
     iconActiveClass: "info",
     label: "кнопка закрытия",
     sizeIcon: 20,
-    colorIcon:'primary'
+    colorIcon: "primary",
   },
 };
 
@@ -102,7 +102,7 @@ export const IconButtonLocationPoint: Story = {
     iconActiveClass: "location",
     label: "иконка локации",
     sizeIcon: 20,
-    colorIcon:'primary'
+    colorIcon: "primary",
   },
 };
 
@@ -115,7 +115,7 @@ export const IconButtonCart: Story = {
     iconActiveClass: "cart",
     label: "корзина товаров",
     sizeIcon: 20,
-    colorIcon:'primary'
+    colorIcon: "primary",
   },
 };
 
@@ -123,23 +123,23 @@ export const IconButtonCart: Story = {
 
 export const IconButtonUnLikedLikedTrue: Story = {
   render: (args) => {
-      return (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "200px",
-            paddingBlock: "20px",
-            paddingInline:'5px',
-            border: "2px solid black",
-            background:'orange'
-          }}
-        >
-          <IconButtonUI {...args} />
-        </div>
-      );
-    },
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "200px",
+          paddingBlock: "20px",
+          paddingInline: "5px",
+          border: "2px solid black",
+          background: "orange",
+        }}
+      >
+        <IconButtonUI {...args} />
+      </div>
+    );
+  },
   args: {
     onClick: () => {
       alert("вы кликнули по иконке");
@@ -149,6 +149,6 @@ export const IconButtonUnLikedLikedTrue: Story = {
     iconClass: "heart",
     label: "лайкнутая кнопка",
     sizeIcon: 20,
-    colorIcon:'primary'
+    colorIcon: "primary",
   },
 };

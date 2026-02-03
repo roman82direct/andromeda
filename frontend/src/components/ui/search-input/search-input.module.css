@@ -24,9 +24,7 @@
 }
 .searchForm:hover .searchIconWrapper {
   /* Сдвигаем иконку поиска вправо на всю ширину формы минус требуемое в макета расстояние */
-  transform: translateX(
-    calc(var(--base-width-form) - 38px)
-  );
+  transform: translateX(calc(var(--base-width-form) - 38px));
 }
 .searchForm:hover .search-btn-close {
   /* сдвигаем иконку очистки инпута на треб в макете расстояние */

@@ -53,7 +53,7 @@ export const SearchInputUI: FC<SearchUIProps> = ({
   const iconClearSize = 12;
   const styleForIconSearch = {
     "--icon-search-width": `${iconSearchSize}px`,
-    "--icon-close-width": `${iconClearSize}px`
+    "--icon-close-width": `${iconClearSize}px`,
   } as CSSProperties;
   return (
     <>
@@ -71,7 +71,7 @@ export const SearchInputUI: FC<SearchUIProps> = ({
               sizeIcon={iconSearchSize}
               isActive={false}
               iconClass={"search"}
-              colorIcon={'primary'}
+              colorIcon={"primary"}
             />
           </div>
           <div className={styles.searchInputContainer}>
@@ -92,7 +92,7 @@ export const SearchInputUI: FC<SearchUIProps> = ({
                 onClick={onClear}
                 isActive={false}
                 iconClass={"close"}
-                colorIcon={'primary'}
+                colorIcon={"primary"}
               />
             </div>
           </div>

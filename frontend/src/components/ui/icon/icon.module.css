@@ -45,7 +45,7 @@
 
 .icon-interactive:active {
   --current-color-icon: var(--pressed-color-icon, #000);
-  }
+}
 
 .icon-interactive-disabled {
   --current-color-icon: var(--color-primary-disabled, #848484);

@@ -24,7 +24,7 @@ export const IconSearch: Story = {
   args: {
     iconClass: "search",
     sizeIcon: 20,
-    colorIcon:'primary'
+    colorIcon: "primary",
   },
 };
 
@@ -33,7 +33,7 @@ export const IconLikes: Story = {
     iconClass: "heart",
     sizeIcon: 20,
     counterQuantity: 5,
-    colorIcon:'primary'
+    colorIcon: "primary",
   },
 };
 
@@ -43,7 +43,7 @@ export const IconCart: Story = {
     sizeIcon: 20,
     counterQuantity: 7,
     interactiveMode: true,
-    colorIcon:'primary'
+    colorIcon: "primary",
   },
 };
 
@@ -53,7 +53,7 @@ export const IconCartBigNumber: Story = {
     sizeIcon: 20,
     counterQuantity: 50,
     interactiveMode: true,
-    colorIcon:'primary'
+    colorIcon: "primary",
   },
 };
 
@@ -63,7 +63,7 @@ export const IconCartBiggestNumber: Story = {
     sizeIcon: 20,
     counterQuantity: 200,
     interactiveMode: true,
-    colorIcon:'primary'
+    colorIcon: "primary",
   },
 };
 
@@ -72,7 +72,7 @@ export const IconNetwork: Story = {
     iconClass: "global",
     sizeIcon: 20,
     interactiveMode: true,
-    colorIcon:'primary'
+    colorIcon: "primary",
   },
 };
 
@@ -81,7 +81,7 @@ export const IconInteractiveForBtn: Story = {
     iconClass: "close",
     sizeIcon: 30,
     interactiveMode: true,
-    colorIcon:'primary'
+    colorIcon: "primary",
   },
 };
 
@@ -91,6 +91,6 @@ export const IconInteractiveDisabledForBtn: Story = {
     sizeIcon: 30,
     interactiveMode: true,
     isDisabledState: true,
-    colorIcon:'primary'
+    colorIcon: "primary",
   },
 };

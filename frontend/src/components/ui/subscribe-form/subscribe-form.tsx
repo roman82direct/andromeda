@@ -1,5 +1,4 @@
-import {  type ChangeEvent, type FC, type FormEvent } from "react";
-import { IconButtonUI } from "../icon-button";
+import { type ChangeEvent, type FC, type FormEvent } from "react";
 import { ButtonUI } from "../button";
 import styles from "./subscribe-form.module.css";
 import { InputUI } from "../input";
@@ -10,7 +9,7 @@ type SubscribeFormUIProps = {
   email: string;
   onSubmit?: (e: FormEvent<HTMLFormElement>) => void;
   isDisabled: boolean;
-  errorMessage?: string
+  errorMessage?: string;
 };
 
 export const SubscribeFormUI: FC<SubscribeFormUIProps> = ({
@@ -19,37 +18,41 @@ export const SubscribeFormUI: FC<SubscribeFormUIProps> = ({
   onClear,
   onSubmit,
   isDisabled,
-  errorMessage
+  errorMessage,
 }) => {
-
-
-
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSubmit?.(e);
-    console.log(e.currentTarget)
-  }
- 
+    console.log(e.currentTarget);
+  };
+
   return (
     <form
       onSubmit={handleSubmit}
       name={"subscribe"}
       className={styles["subscribe-form"]}
     >
-      <div className={styles['wrapper-subscribe-input']}>
-        <InputUI 
-          onChange={onChange} 
-          type="email" 
-          placeHolder={'Ваш e-mail'}
+      <div className={styles["wrapper-subscribe-input"]}>
+        <InputUI
+          onChange={onChange}
+          type="email"
+          placeHolder={"Ваш e-mail"}
           value={email}
-          variant={'secondary'}
+          variant={"secondary"}
           nameInput="email"
           onClear={onClear}
           errorMessage={errorMessage}
-          />
+        />
       </div>
-      <div className={styles['wrapper-btn-subscribe']}>
-        <ButtonUI isDisabled={isDisabled} fullSize variant={'outlined'} color={'subscribe'} type={"submit"} onClick={() => {}}>
+      <div className={styles["wrapper-btn-subscribe"]}>
+        <ButtonUI
+          isDisabled={isDisabled}
+          fullSize
+          variant={"outlined"}
+          color={"subscribe"}
+          type={"submit"}
+          onClick={() => {}}
+        >
           Подписаться
         </ButtonUI>
       </div>

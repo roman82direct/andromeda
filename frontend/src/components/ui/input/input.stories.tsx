@@ -1,15 +1,13 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { InputUI } from "./index";
 
-
 const meta: Meta<typeof InputUI> = {
   component: InputUI,
   title: "Components/ui/InputUI",
   parameters: {
     layout: "centered",
   },
-  argTypes: {
-  },
+  argTypes: {},
 };
 
 export default meta;
@@ -17,30 +15,7 @@ export default meta;
 type Story = StoryObj<typeof InputUI>;
 
 export const primaryInputUI: Story = {
-    render: (args) => {
-    return (
-      <div
-         style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "500px",
-          paddingBlock: "20px",
-          paddingInline:'10px',
-          border: "2px solid black",
-          background:'transparent'
-        }}
-      >
-        <InputUI {...args} />
-      </div>
-    );
-  },
-  args: {
-    variant:'primary'
-  }
-}
-export const secondaryInputUI: Story = {
-    render: (args) => {
+  render: (args) => {
     return (
       <div
         style={{
@@ -49,9 +24,9 @@ export const secondaryInputUI: Story = {
           alignItems: "center",
           width: "500px",
           paddingBlock: "20px",
-          paddingInline:'10px',
+          paddingInline: "10px",
           border: "2px solid black",
-          background:'#15242a'
+          background: "transparent",
         }}
       >
         <InputUI {...args} />
@@ -59,38 +34,35 @@ export const secondaryInputUI: Story = {
     );
   },
   args: {
-    variant: 'secondary'
-  }
-}
+    variant: "primary",
+  },
+};
+export const secondaryInputUI: Story = {
+  render: (args) => {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "500px",
+          paddingBlock: "20px",
+          paddingInline: "10px",
+          border: "2px solid black",
+          background: "#15242a",
+        }}
+      >
+        <InputUI {...args} />
+      </div>
+    );
+  },
+  args: {
+    variant: "secondary",
+  },
+};
 
 export const InputUIWithErrorMesage: Story = {
-    render: (args) => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          width:'500px',
-          paddingBlock: "20px",
-          paddingInline:'10px',
-          border: "2px solid black",
-          background:'#15242a'
-        }}
-      >
-        <InputUI {...args} />
-      </div>
-    );
-  },
-  args: {
-    variant: 'secondary',
-    errorMessage: 'Введите корректный email',
-    value:'Hello,world Hello,world Hello,world Hello,world Hello,world'
-  }
-}
-
-export const disabledInputUI: Story = {
-    render: (args) => {
+  render: (args) => {
     return (
       <div
         style={{
@@ -99,9 +71,9 @@ export const disabledInputUI: Story = {
           alignItems: "center",
           width: "500px",
           paddingBlock: "20px",
-          paddingInline:'10px',
+          paddingInline: "10px",
           border: "2px solid black",
-          background:'#15242a'
+          background: "#15242a",
         }}
       >
         <InputUI {...args} />
@@ -109,9 +81,34 @@ export const disabledInputUI: Story = {
     );
   },
   args: {
-    variant: 'secondary',
-    isDisabled: true,
-    value:'Ввод запрещен'
-  }
-}
+    variant: "secondary",
+    errorMessage: "Введите корректный email",
+    value: "Hello,world Hello,world Hello,world Hello,world Hello,world",
+  },
+};
 
+export const disabledInputUI: Story = {
+  render: (args) => {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "500px",
+          paddingBlock: "20px",
+          paddingInline: "10px",
+          border: "2px solid black",
+          background: "#15242a",
+        }}
+      >
+        <InputUI {...args} />
+      </div>
+    );
+  },
+  args: {
+    variant: "secondary",
+    isDisabled: true,
+    value: "Ввод запрещен",
+  },
+};

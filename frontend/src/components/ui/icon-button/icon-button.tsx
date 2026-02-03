@@ -14,7 +14,7 @@ type IconButtonUIProps = {
   turnIcon?: number;
   isDisabled?: boolean;
   children?: ReactNode;
-  colorIcon:  'primary' | 'secondary'
+  colorIcon: "primary" | "secondary";
 };
 
 export const IconButtonUI: FC<IconButtonUIProps> = ({
@@ -28,7 +28,7 @@ export const IconButtonUI: FC<IconButtonUIProps> = ({
   turnIcon = 1,
   isDisabled = false,
   children,
-  colorIcon = 'primary'
+  colorIcon = "primary",
 }) => {
   const currentIconClass =
     isActive && iconActiveClass ? iconActiveClass : iconClass;
@@ -47,7 +47,7 @@ export const IconButtonUI: FC<IconButtonUIProps> = ({
         iconClass={currentIconClass}
         interactiveMode
         isDisabledState={isDisabled}
-        colorIcon = {colorIcon}
+        colorIcon={colorIcon}
       />
     </button>
   );
