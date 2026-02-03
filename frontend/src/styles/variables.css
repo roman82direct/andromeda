@@ -12,6 +12,7 @@
   --color-warning: #c83333;
   --color-sailing: #e1700e;
   --color-light: #fff;
+  --input-height: 45px;
   /* filters  - наверное надо будет убрать к стилям самого компонента фильтра потом?*/
   --color-beige-filter: #e5dbc0;
   --color-yellow-filter: #ede860;
