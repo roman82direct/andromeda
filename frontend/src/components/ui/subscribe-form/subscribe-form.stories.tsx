@@ -39,25 +39,29 @@ export const subscribeForm: Story = {
     // email:'moroz@mail.ru'
   }
 }
-// export const primaryButtonUI: Story = {
-//   // render: (args) => {
-//   //   return (
-//   //     <div
-//   //       style={{
-//   //         display: "flex",
-//   //         justifyContent: "center",
-//   //         alignItems: "center",
-//   //         width: "400px",
-//   //         padding: "20px",
-//   //         border: "2px solid black",
-//   //       }}
-//   //     >
-//   //       <SubscribeFormUI {...args} />
-//   //     </div>
-//   //   );
-//   // },
-//   args: {
-    
-//   },
-// };
+export const subscribeFormWithError: Story = {
+    render: (args) => {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          paddingBlock: "20px",
+          paddingInline:'5px',
+          border: "2px solid black",
+          background:'#15242a'
+        }}
+      >
+        <SubscribeFormUI {...args} />
+      </div>
+    );
+  },
+  args: {
+    // email:'moroz@mail.ru'
+    isDisabled:true,
+    errorMessage: 'Введите корректный email'
+  }
+}
 

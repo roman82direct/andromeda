@@ -2,22 +2,24 @@ import {  type ChangeEvent, type FC, type FormEvent } from "react";
 import { IconButtonUI } from "../icon-button";
 import { ButtonUI } from "../button";
 import styles from "./subscribe-form.module.css";
+import { InputUI } from "../input";
 
 type SubscribeFormUIProps = {
-  onClear?: () => void;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-  email?: string;
+  onClear: () => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  email: string;
   onSubmit?: (e: FormEvent<HTMLFormElement>) => void;
-  isDisabled: boolean
+  isDisabled: boolean;
+  errorMessage?: string
 };
 
 export const SubscribeFormUI: FC<SubscribeFormUIProps> = ({
   email,
-  onChange, //?
-  onClear, // ?
+  onChange,
+  onClear,
   onSubmit,
   isDisabled,
-
+  errorMessage
 }) => {
 
 
@@ -35,29 +37,19 @@ export const SubscribeFormUI: FC<SubscribeFormUIProps> = ({
       className={styles["subscribe-form"]}
     >
       <div className={styles['wrapper-subscribe-input']}>
-        {/* прописать валидность поля? */}
-        <input
-          disabled = {isDisabled}
-          className={styles["subscribe-input"]}
-          onChange={onChange}
-          name={"email"}
+        <InputUI 
+          onChange={onChange} 
+          type="email" 
+          placeHolder={'Ваш e-mail'}
           value={email}
-          type="email"
-          placeholder={'Ваш e-mail'}
-        />
-        <div className={styles['wrapper-btn-clear']}>
-        <IconButtonUI
-          onClick={onClear}
-          type={"reset"}
-          isActive={false}
-          iconClass={"close"}
-          sizeIcon={20}
-          colorIcon={'secondary'}
-        />
-      </div>
+          variant={'secondary'}
+          nameInput="email"
+          onClear={onClear}
+          errorMessage={errorMessage}
+          />
       </div>
       <div className={styles['wrapper-btn-subscribe']}>
-        <ButtonUI  fullSize variant={'outlined'} color={'subscribe'} type={"submit"} onClick={() => {}}>
+        <ButtonUI isDisabled={isDisabled} fullSize variant={'outlined'} color={'subscribe'} type={"submit"} onClick={() => {}}>
           Подписаться
         </ButtonUI>
       </div>
