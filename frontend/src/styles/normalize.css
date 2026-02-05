@@ -106,6 +106,20 @@ input:focus {
   outline: none;
 }
 
+/* правима автозаполнение полей ввода */
+input:-webkit-autofill, 
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active { 
+  -webkit-box-shadow: 0 0 0 1000px transparent inset; 
+  transition: background-color 5000s ease-in-out 0s; 
+  /* -webkit-text-fill-color: inherit;  лучше отдельно в input*/
+}
+
+input:-moz-autofill {
+  box-shadow: 0 0 0 1000px transparent inset;
+}
+
 img,
 picture,
 video,
