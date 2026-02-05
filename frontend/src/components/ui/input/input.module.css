@@ -46,6 +46,14 @@
   color: var(--color-accent, #67b0d1);
 }
 
+.input:-webkit-autofill {
+  -webkit-text-fill-color: var(--color-secondary, #f8f9fa);
+}
+
+.input:-moz-autofill {
+  -moz-text-fill-color: var(--color-secondary, #f8f9fa);
+}
+
 .input-primary {
   --current-color: var(--color-primary, #15242a);
 }
