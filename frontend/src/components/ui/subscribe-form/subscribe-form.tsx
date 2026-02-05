@@ -8,7 +8,7 @@ type SubscribeFormUIProps = {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   email: string;
   onSubmit?: (e: FormEvent<HTMLFormElement>) => void;
-  isDisabled: boolean;
+  isDisabled?: boolean;
   errorMessage?: string;
 };
 
@@ -20,15 +20,9 @@ export const SubscribeFormUI: FC<SubscribeFormUIProps> = ({
   isDisabled,
   errorMessage,
 }) => {
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    onSubmit?.(e);
-    console.log(e.currentTarget);
-  };
-
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={onSubmit}
       name={"subscribe"}
       className={styles["subscribe-form"]}
     >
