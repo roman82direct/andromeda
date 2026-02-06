@@ -62,6 +62,7 @@ export const AppHeaderUI: FC<AppHeaderUIProps> = ({ navIcons }) => {
                         onClick={navIcon.typeEvent.callback}
                         iconClass={navIcon.typeIcon}
                         isActive={false}
+                        colorIcon={'primary'}
                       />
                     ) : (
                       // если ссылка - передаем маршрут
@@ -75,6 +76,7 @@ export const AppHeaderUI: FC<AppHeaderUIProps> = ({ navIcons }) => {
                           counterQuantity={navIcon.counterNum}
                           iconClass={`${navIcon.typeIcon}`}
                           interactiveMode
+                          colorIcon={'primary'}
                         />
                       </NavLink>
                     )
