@@ -1,12 +1,13 @@
 import type { FC, ReactNode } from "react";
 import styles from "./icon-button.module.css";
-import { IconUI, type IconClassCssIcon } from "../icon/icon";
+import { IconUI} from "../icon/icon";
+import { type TIconClassCssIcon } from "@/shared/types/ui/icon";
 
 //  возможно добавить кастомное изменение цвета иконки + псевдоклассы
 type IconButtonUIProps = {
   isActive: boolean;
-  iconActiveClass?: IconClassCssIcon;
-  iconClass: IconClassCssIcon;
+  iconActiveClass?: TIconClassCssIcon;
+  iconClass: TIconClassCssIcon;
   onClick?: () => void;
   label?: string;
   sizeIcon?: number;

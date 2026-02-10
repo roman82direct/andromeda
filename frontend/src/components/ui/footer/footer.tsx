@@ -4,25 +4,41 @@ import { Link } from 'react-router-dom';
 import { Logo } from '../../logo/logo';
 import { SubscribeForm } from '../../subscribe-form';
 import { FooterListUI, type SubListLinks} from '../footer-list/footer-list';
+import { IconMenuUI } from '../icon-menu';
+import type { TIconType } from '@/shared/types/ui/icon';
 
 
 type TFooterUIProps = {
   columnsListsLinks?: SubListLinks[][];
-  socialLinksIcons: string[];
+  socialLinksIcons?: TIconType[];
 }
 
 
 export const FooterUI:FC<TFooterUIProps> = ({columnsListsLinks, socialLinksIcons}) => {
+    //  подумать  - поделить длину массива иконок на 2 - округлить и обрезать по 2 массива
+  const lengthArr =  socialLinksIcons?.length ? socialLinksIcons.length : 0
+  const middleIndex = lengthArr && lengthArr>0 ? Math.floor(lengthArr /2): 0;
+  console.log(middleIndex)
+  const leftPartIcons:TIconType[] | undefined =socialLinksIcons && [...socialLinksIcons.slice(0,middleIndex+1)];
+  const rightPartIcons:TIconType[]| undefined=socialLinksIcons && [...socialLinksIcons.slice(middleIndex+1, lengthArr)]
+  // const iconsSize = 20;
     return (
       <footer className={styles['footer']}>
         <div className={styles['footer-content']}>
           <div className={styles["footer-head"]}>
-            <Logo color={'dark-background'}/>
-            <h3 className={styles['footer-title']}>
-              Персональные предложения, ранний доступ к новым коллекциям и скидка 5% на первый заказ при подписке на рассылку
-            </h3>
-            <SubscribeForm/>
-          </div>
+            <div className={styles['footer-wrapper-logo']}>
+              <Logo color={'dark-background'}/>
+            </div>
+            <div className={styles['footer-personal']}>
+                <h3 className={styles['footer-title']}>
+                Персональные предложения, ранний доступ к новым коллекциям и скидка 5% на первый заказ при подписке на рассылку
+                </h3>
+                <div className={styles['footer-subscribe-container']}>
+                  <SubscribeForm/>
+                </div>
+              </div>
+            </div>
+              
           <div className={styles['footer-body']}>
               {
                 columnsListsLinks && columnsListsLinks.map((column,indexColumn) => (
@@ -33,12 +49,16 @@ export const FooterUI:FC<TFooterUIProps> = ({columnsListsLinks, socialLinksIcons
               }
           </div>
         </div>
-        <div className={styles['footer-social']}>
-          <div className={styles['footer-nav']}>Ссылки</div>
+        <div className={styles['footer-copyright']}>
+          {Boolean(leftPartIcons && leftPartIcons?.length > 0) && <div className={styles['footer-nav']}>
+            {leftPartIcons && <IconMenuUI iconsSize={23} navIcons={leftPartIcons} variantMenu='footer'/>}
+          </div>}
           <div className={styles['footer-copyright-logo']}>
             <Link className={styles['logo-link']} to={'/'}>© Andromeda</Link>
           </div>
-          <div className={styles['footer-nav']}>Ссылки</div>
+         { Boolean(rightPartIcons && rightPartIcons?.length > 0) && <div className={styles['footer-nav']}>
+            {rightPartIcons && <IconMenuUI iconsSize={35} navIcons={rightPartIcons} variantMenu='footer'/>}
+          </div>}
         </div>
       </footer>
     )

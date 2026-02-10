@@ -1,6 +1,6 @@
 import { type FC } from "react";
 import { AppHeaderUI } from "../ui/app-header";
-import type { TIconType } from "../ui/app-header/app-header";
+import type { TIconType } from "@/shared/types/ui/icon";
 
 type TNavIconsParams = {
   counterCart: number;

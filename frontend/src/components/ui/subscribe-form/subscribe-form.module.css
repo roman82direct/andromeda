@@ -1,16 +1,19 @@
 .subscribe-form {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  /* justify-content: center; */
   gap: 8px;
+  min-height: var(--input-height, 50px);
   background-color: transparent;
 }
 
 .wrapper-subscribe-input {
-  flex: 1 0 auto;
-  min-width: 272px;
+  flex: 1 1 auto;
+  min-width: 303px;
+  min-height:100%;
 }
 
 .wrapper-btn-subscribe {
   flex: 1 0 auto;
+  
 }

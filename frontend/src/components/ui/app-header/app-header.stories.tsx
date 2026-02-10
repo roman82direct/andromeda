@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { AppHeaderUI } from "./app-header";
 import { MemoryRouter } from "react-router-dom";
-import type { TIconType } from "./app-header";
+import type { TIconType } from "@/shared/types/ui/icon";
 
 const meta: Meta<typeof AppHeaderUI> = {
   component: AppHeaderUI,

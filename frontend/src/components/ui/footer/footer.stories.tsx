@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { FooterUI } from "./index";
 import {MemoryRouter} from 'react-router-dom';
+import type { TIconType } from "@/shared/types/ui/icon";
 
 const meta: Meta<typeof FooterUI> = {
   component: FooterUI,
@@ -39,9 +40,35 @@ export default meta;
 
 type Story = StoryObj<typeof FooterUI>;
 
+const  navIconsForFooter: TIconType[] = [
+  {
+    typeIcon: "facebook",
+    typeEvent: { trigger: "route", path: "" },
+  },
+  {
+    typeIcon: "instagram",
+    typeEvent: { trigger: "route", path: "" },
+  },
+  {
+    typeIcon: "youtube",
+    typeEvent: { trigger: "route", path: "" },
+  },
+  {
+      typeIcon: "visa",
+      typeEvent: { trigger: "route", path: "" },
+    },
+   {
+    typeIcon: "mastercard",
+    typeEvent: { trigger: "route", path: "" },
+  },
+  
+ 
+];
+
 export const footerUI: Story = {
  
   args: {
+    socialLinksIcons: navIconsForFooter,
     columnsListsLinks: [
 
       [
@@ -51,6 +78,7 @@ export const footerUI: Story = {
             { linkTitle: 'New', path: '/new' },
             { linkTitle: 'In Stock', path: '/in-stock' },
             { linkTitle: 'Категории', path: '/categories' },
+             { linkTitle: 'Стили', path: '/styles' },
             { linkTitle: 'Коллекции', path: '/collections' },
             { linkTitle: 'Распродажа', path: '/sale' },
           ],

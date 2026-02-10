@@ -3,12 +3,13 @@
   justify-content: center;
   align-items: baseline;
   gap: 5px;
-  padding: 12px 32px;
+  padding: 14px 36px;
   font-family: "Raleway";
   font-weight: 400;
   font-size: 16px;
   font-style: normal;
   line-height: 1.2;
+  letter-spacing: var(--letter-spacing-base, 0.05em);
   text-align: center;
   transition:
     color 0.2s ease-in,

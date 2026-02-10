@@ -94,3 +94,34 @@ export const IconInteractiveDisabledForBtn: Story = {
     colorIcon: "primary",
   },
 };
+
+export const masterCard: Story = {
+  args: {
+    iconClass: "mastercard",
+    sizeIcon: 30,
+    // interactiveMode: true,
+    // isDisabledState: true,
+    colorIcon: "primary",
+  },
+};
+
+export const youtube: Story = {
+  args: {
+    iconClass: "youtube",
+    sizeIcon: 30,
+    // interactiveMode: true,
+    // isDisabledState: true,
+    colorIcon: "primary",
+  },
+};
+
+
+export const visa: Story = {
+  args: {
+    iconClass: "visa",
+    sizeIcon: 30,
+    // interactiveMode: true,
+    // isDisabledState: true,
+    colorIcon: "primary",
+  },
+};

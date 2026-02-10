@@ -23,7 +23,7 @@ export const FooterListUI:FC<FooterListProps> = ({
     return (
       <div className={styles['lists-links-container']}>
         {   listsLinks.map((subList,index)=>(
-          <div key={index}>
+          <div className={styles['list-container']} key={index}>
             <h3 className={styles['list-links-title']}>{subList.title}</h3>
             <ul className={styles['list-links']}>
              { subList.links.map((linkElem,indexElem) =>(

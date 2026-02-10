@@ -20,11 +20,11 @@
   background-color: var(--current-color-icon, #15242a);
   transition: background-color 0.3s ease;
   transform: scaleX(var(--turn, 1));
-  -webkit-mask-size: contain;
+    mask-size: 100% 100%;
+  -webkit-mask-size: 100% 100%;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-image: var(--icon-url);
   mask-image: var(--icon-url);
-  mask-size: contain;
   mask-repeat: no-repeat;
   mask-position: center;
 }

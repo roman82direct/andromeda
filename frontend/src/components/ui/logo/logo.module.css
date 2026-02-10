@@ -4,19 +4,22 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   width: 100%;
   max-width: 127px;
   color: var(--current-color, #15242a);
   font-family: var(--title-font, "Cormorant SC"), Arial, Helvetica, sans-serif;
   font-weight: var(--fw-title, 600);
   line-height: 1.2;
+  letter-spacing: var(--letter-spacing-base, 0.05em);
   text-transform: uppercase;
   background-color: transparent;
   transition: color 0.15s ease-in-out;
   cursor: pointer;
 }
-
+.logo.logo-dark  {
+  gap: 10px;
+}
 .logo-dark {
   --current-color: var(--color-secondary, #f8f9fa);
 }

@@ -2,27 +2,9 @@ import type { CSSProperties, FC } from "react";
 import styles from "./icon.module.css";
 import clsx from "clsx";
 import { CounterUI } from "../counter";
+import { type TIconClassCssIcon } from "@/shared/types/ui/icon"; 
 
-//  работа со сложными иконками
-export type IconClassCssIcon =
-  | "close"
-  | "come-in"
-  | "search"
-  | "global"
-  | "read"
-  | "info"
-  | "clock"
-  | "location"
-  | "cart"
-  | "heart"
-  | "full-heart"
-  | "profile"
-  | "home"
-  | "youtube"
-  | "facebook"
-  | "visa"
-  | "instagram"
-  | "mastercard";
+
 
 export type TColor = "secondary" | "primary";
 
@@ -34,7 +16,7 @@ const colorsMap: Record<TColor, string> = {
 };
 
 export type IconUIProps = {
-  iconClass: IconClassCssIcon;
+  iconClass: TIconClassCssIcon;
   sizeIcon?: number;
   turnIcon?: number;
   interactiveMode?: boolean;

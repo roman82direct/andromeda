@@ -11,7 +11,10 @@ export const SearchInput: FC = () => {
     // dispatch(setSearchInput(value));
   }, [searchQuery]);
   //  здесь можно взять из стора - популярные запросы и историю и кинуть в UI
-
+  // простой алгоритм поиска в базе
+  // goods - получаем из стора 
+  // const filtered = goods.filter((name)=> name.includes(searchQuery))
+  //  значение поиска меняет состояние данных которые покажет вью? передаем в вью  =>
   //  обработчик удаления строки запроса
   const handleDeleteQuery = (id: string) => {
     //  прописать удаление запроса через глоб стор приложения (популярные запросы)
