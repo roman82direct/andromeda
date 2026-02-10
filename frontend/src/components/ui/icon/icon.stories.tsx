@@ -115,7 +115,6 @@ export const youtube: Story = {
   },
 };
 
-
 export const visa: Story = {
   args: {
     iconClass: "visa",

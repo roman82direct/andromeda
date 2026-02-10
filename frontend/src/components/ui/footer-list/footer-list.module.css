@@ -2,9 +2,9 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap:24px;
-  color: var(--color-secondary, #F8F9FA);
-  font-family: var(--main-font, 'Raleway'), Arial, Helvetica, sans-serif;
+  gap: 24px;
+  color: var(--color-secondary, #f8f9fa);
+  font-family: var(--main-font, "Raleway"), Arial, Helvetica, sans-serif;
   background-color: transparent;
 }
 
@@ -18,7 +18,7 @@
 }
 
 .list-links-title {
-  font-weight:var(--fw-title, 600);
+  font-weight: var(--fw-title, 600);
   font-size: 20px;
   line-height: 1.15;
   letter-spacing: var(--letter-spacing-base, 0.05em);
@@ -29,12 +29,12 @@
 }
 
 .list-link {
-  overflow-wrap: break-word; 
-  font-weight: var( --fw-text, 400);
+  overflow-wrap: break-word;
+  font-weight: var(--fw-text, 400);
   font-size: 16px;
   line-height: 1.2;
   letter-spacing: var(--letter-spacing-base, 0.05em);
-  transition: color .3s ease-in;
+  transition: color 0.3s ease-in;
   white-space: pre-wrap;
 }
 
@@ -42,8 +42,8 @@
   color: var(--color-accent, #67b0d1);
 }
 
-.list-link:active{
-   color: var(--color-sailing, #e1700e);
+.list-link:active {
+  color: var(--color-sailing, #e1700e);
 }
 
 .list-link:focus {
@@ -52,10 +52,6 @@
 
 .list-link:focus-visible {
   border-radius: 5px;
-  padding:5px;
+  padding: 5px;
   outline: 2px solid var(--color-accent, #67b0d1);
 }
-
-
-
-

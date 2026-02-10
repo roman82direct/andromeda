@@ -29,7 +29,7 @@ export const subscribeForm: Story = {
           background: "#15242a",
         }}
       >
-        <SubscribeForm/>
+        <SubscribeForm />
       </div>
     );
   },
@@ -37,4 +37,3 @@ export const subscribeForm: Story = {
     // email:'moroz@mail.ru'
   },
 };
-

@@ -2,10 +2,8 @@ import { type FC } from "react";
 import styles from "./app-header.module.css";
 import { Logo } from "../../logo/logo";
 import { SearchInput } from "../../search-input";
-import type { TIconType } from "@/shared/types/ui/icon"; 
+import type { TIconType } from "@/shared/types/ui/icon";
 import { IconMenuUI } from "../icon-menu";
-
-
 
 type AppHeaderUIProps = {
   navIcons?: TIconType[];
@@ -29,7 +27,7 @@ export const AppHeaderUI: FC<AppHeaderUIProps> = ({ navIcons }) => {
         <div className={styles.logo}>
           <Logo color="light-background" />
         </div>
-       { navIcons && <IconMenuUI navIcons={navIcons} variantMenu={'header'}/>}
+        {navIcons && <IconMenuUI navIcons={navIcons} variantMenu={"header"} />}
       </nav>
     </header>
   );

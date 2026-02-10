@@ -2,9 +2,7 @@ import type { CSSProperties, FC } from "react";
 import styles from "./icon.module.css";
 import clsx from "clsx";
 import { CounterUI } from "../counter";
-import { type TIconClassCssIcon } from "@/shared/types/ui/icon"; 
-
-
+import { type TIconClassCssIcon } from "@/shared/types/ui/icon";
 
 export type TColor = "secondary" | "primary";
 

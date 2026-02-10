@@ -23,7 +23,7 @@ export default meta;
 
 type Story = StoryObj<typeof IconMenuUI>;
 
-const  navIconsForHeader: TIconType[] = [
+const navIconsForHeader: TIconType[] = [
   //  если мы вошли - то смена иконки 'come-in' допустим на profile
   { typeIcon: "come-in", typeEvent: { trigger: "route", path: "" } },
   {
@@ -38,7 +38,7 @@ const  navIconsForHeader: TIconType[] = [
   },
 ];
 
-const  navIconsForFooter: TIconType[] = [
+const navIconsForFooter: TIconType[] = [
   {
     typeIcon: "visa",
     typeEvent: { trigger: "route", path: "" },
@@ -64,5 +64,3 @@ export const iconsMenuForFooter: Story = {
     navIcons: navIconsForFooter,
   },
 };
-
-

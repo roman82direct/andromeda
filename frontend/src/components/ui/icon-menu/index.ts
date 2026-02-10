@@ -1,1 +1,1 @@
-export {IconMenuUI} from './icon-menu';
+export { IconMenuUI } from "./icon-menu";

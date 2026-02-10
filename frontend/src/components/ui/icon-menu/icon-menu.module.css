@@ -14,7 +14,7 @@
 
 .menu-list_header {
   --gap-icons: 21px;
-   padding-right: 10px;
+  padding-right: 10px;
 }
 
 .menu-list_header .menu-item {
@@ -34,10 +34,7 @@
 
 .menu-list_footer .menu-link {
   inline-size: 45px;
- 
 }
-
-
 
 .menu-link {
   display: inline-flex;
@@ -51,7 +48,5 @@
 }
 
 .menu-link:focus-visible {
-  outline: 2px solid var(--color-accent,#67b0d1);
+  outline: 2px solid var(--color-accent, #67b0d1);
 }
-
-

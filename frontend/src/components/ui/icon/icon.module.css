@@ -20,7 +20,7 @@
   background-color: var(--current-color-icon, #15242a);
   transition: background-color 0.3s ease;
   transform: scaleX(var(--turn, 1));
-    mask-size: 100% 100%;
+  mask-size: 100% 100%;
   -webkit-mask-size: 100% 100%;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-image: var(--icon-url);

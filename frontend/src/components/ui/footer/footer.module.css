@@ -1,7 +1,7 @@
 .footer {
   width: 100%;
   color: var(--color-secondary, #f8f9fa);
-  font-family: var( --main-font, 'Raleway');
+  font-family: var(--main-font, "Raleway");
 }
 
 .footer-content {
@@ -23,8 +23,8 @@
   flex: 1 0 auto;
 }
 
-@media(max-width:1420px) {
-    .footer-wrapper-logo {
+@media (max-width: 1420px) {
+  .footer-wrapper-logo {
     flex: initial;
   }
 }
@@ -36,32 +36,31 @@
   gap: 40px;
 }
 .footer-title {
-width: 100%;
-max-width: 566px;
-padding-inline-end:10px;
-padding-block-start:4px;
-color: #F8F9FA;
-font-family: var( --main-font, 'Raleway'), Arial, Helvetica, sans-serif;
-font-weight: var(--fw-text, 400);
-font-size: 16px;
-line-height: 1.2;
-letter-spacing: var(--letter-spacing-base, 0.05em);
-text-align: center;
+  width: 100%;
+  max-width: 566px;
+  padding-inline-end: 10px;
+  padding-block-start: 4px;
+  color: #f8f9fa;
+  font-family: var(--main-font, "Raleway"), Arial, Helvetica, sans-serif;
+  font-weight: var(--fw-text, 400);
+  font-size: 16px;
+  line-height: 1.2;
+  letter-spacing: var(--letter-spacing-base, 0.05em);
+  text-align: center;
 }
 
-@media(max-width:1420px) {
-    .footer-title {
-    padding-block-start:0;
+@media (max-width: 1420px) {
+  .footer-title {
+    padding-block-start: 0;
   }
 }
-
 
 .footer-body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap:80px;
+  gap: 80px;
   padding-inline: 20px;
-  padding-block:32px 38px;
+  padding-block: 32px 38px;
   container-type: inline-size;
   container-name: footer-body;
 }
@@ -69,14 +68,13 @@ text-align: center;
 .footer-body-column {
   position: relative;
   padding-block-end: 14px;
-  
 }
 
-.footer-body-column:not(:last-child)::after{
-  content:'';
+.footer-body-column:not(:last-child)::after {
+  content: "";
   position: absolute;
-  top:0;
-  right:0px;
+  top: 0;
+  right: 0px;
   display: block;
   width: 1px;
   height: 100%;
@@ -84,7 +82,7 @@ text-align: center;
   transform: translateX(35px);
 }
 
-@container footer-body (max-width:1040px){
+@container footer-body (max-width:1040px) {
   .footer-body-column:not(:last-child)::after {
     display: none;
   }
@@ -96,17 +94,16 @@ text-align: center;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  color:var(--color-primary, #15242a);
+  color: var(--color-primary, #15242a);
   background-color: var(--color-secondary, #f8f9fa);
 }
 
-@media(max-width:425px){
+@media (max-width: 425px) {
   .footer-copyright {
     flex-direction: column;
     justify-content: center;
   }
 }
-
 
 .footer-copyright-logo {
   flex: 1 0 auto;
@@ -119,10 +116,8 @@ text-align: center;
   text-align: center;
 }
 
-@media(max-width:425px) {
+@media (max-width: 425px) {
   .footer-copyright-logo {
-    order:2;
+    order: 2;
   }
 }
-
-
