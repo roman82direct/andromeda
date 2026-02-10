@@ -2,6 +2,15 @@
 @import "./variables.css";
 @import "./font.css";
 
+html {
+  /* font-size: 16px;  */
+  /*  может все шрифты перевести в к rem ? */
+  /* font-size: 62.5%; 16px * 0.625 = 10px  стандарт*/
+   /* 16px → пишем 1.6rem */
+    /* 24px → пишем 2.4rem */
+    /* 32px → пишем 3.2rem */
+  /* font-size: 62.5%; */
+}
 .page {
   font-family: var(--main-font, "Raleway"), Arial, sans-serif;
   font-weight: var(--fw-text, 400);
