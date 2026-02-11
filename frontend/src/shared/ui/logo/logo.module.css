@@ -1,0 +1,12 @@
+.logo-link {
+  display: inline-block;
+}
+
+.logo-link:focus {
+  outline: none;
+}
+
+.logo-link:focus-visible {
+  border-radius: 5px;
+  outline: 2px solid var(--color-accent, #67b0d1);
+}

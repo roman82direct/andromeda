@@ -1,0 +1,118 @@
+.wrapperForm {
+  --base-width-form: 208px;
+  --input-container-width: calc(var(--base-width-form, 208px) - 48px);
+  --height-input: 28px;
+  --gap-form: 14px;
+  width: var(--base-width-form, 208px);
+  padding-inline-start: 4px;
+  background-color: var(--color-secondary, #f8f9fa);
+}
+
+.searchForm {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--gap-form, 10px);
+  width: 100%;
+  height: var(--height-input, 28px);
+  border-bottom: 1px solid transparent;
+}
+
+.searchForm:hover {
+  gap: 0;
+}
+.searchForm:hover .searchIconWrapper {
+  /* Сдвигаем иконку поиска вправо на всю ширину формы минус требуемое в макета расстояние */
+  transform: translateX(calc(var(--base-width-form) - 38px));
+}
+.searchForm:hover .search-btn-close {
+  /* сдвигаем иконку очистки инпута на треб в макете расстояние */
+  opacity: 1;
+  transform: translateX(5px);
+  /* transform: translateX(calc(var(--offsetX-move-btn-close-icon))); */
+}
+.searchForm:hover .searchInputContainer {
+  /* Сдвигаем инпут влево на место, где была иконка */
+  transform: translateX(calc(var(--icon-search-width, 18px) * -1));
+}
+
+.searchForm:hover .searchInputContainer::after {
+  transform: scaleX(1);
+}
+
+.searchForm:hover .searchInput::placeholder {
+  opacity: 0;
+}
+.searchForm:focus-visible {
+  outline: none;
+}
+.searchForm:focus-within .searchInputContainer::after {
+  background-color: var(--color-accent, #67b0d1);
+}
+
+.searchInputContainer:has(.searchInput:disabled)::after {
+  background-color: var(--color-primary-disabled, #848484);
+}
+
+.searchIconWrapper {
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  transition: transform 0.4s ease-in-out;
+}
+
+.searchInputContainer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  transition: transform 0.4s ease-in-out;
+}
+
+.searchInputContainer::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: var(--input-container-width, 160px);
+  height: 1px;
+  background-color: var(--color-primary, #15242a);
+  transition:
+    transform 0.35s ease-out,
+    opacity 0.2s ease;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.searchInput {
+  width: calc(var(--input-container-width, 160px) - 20px);
+  color: var(--color-tertiary);
+  font-family: var(--main-font, "Raleway");
+  font-weight: var(--fw-text, 400);
+  font-size: 16px;
+  line-height: 1.2;
+  letter-spacing: var(--letter-spacing-base, 0.05em);
+  background-color: transparent;
+}
+
+.searchInput::placeholder {
+  opacity: 1;
+  color: var(--color-tertiary);
+  font-family: var(--main-font, "Raleway");
+  font-weight: var(--fw-text, 400);
+  font-size: 16px;
+  line-height: 1.2;
+  letter-spacing: -0.7px;
+  letter-spacing: 0.05em;
+  transition: opacity 0.2s ease-in;
+}
+
+.search-btn-close {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.2s ease-in;
+}

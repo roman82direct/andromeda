@@ -1,0 +1,17 @@
+.iconButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.iconButton:disabled {
+  cursor: not-allowed;
+}
+
+.iconButton:focus {
+  outline: none;
+}
+.iconButton:focus-visible {
+  border-radius: 5px;
+  outline: 2px solid var(--color-accent, #67b0d1);
+}
