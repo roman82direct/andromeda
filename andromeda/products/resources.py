@@ -9,6 +9,7 @@ from .base_models.categories_groups import Group, MainCategory, SecondCategory
 class ProductResource(ModelResource):
     """
     Ресурс класс для импорта Продуктов.
+
     Импортирует все зависимые группы, категории, подкатегории,
     также обновляет данные.
     """
@@ -108,7 +109,7 @@ class ProductResource(ModelResource):
         if not group:
             Group.objects.create(
                 articul=row['group_articul'],
-                title=row['group_tittle'],
+                title=row['group_title'],
                 description=row['group_description'],
                 is_published=False
             )
@@ -120,7 +121,7 @@ class ProductResource(ModelResource):
         if not maincategory:
             MainCategory.objects.create(
                 articul=row['MainCategory_articul'],
-                title=row['MainCategory_tittle'],
+                title=row['MainCategory_title'],
                 description=row['MainCategory_description'],
                 group=Group.objects.get(articul=row['group_articul']),
                 is_published=False
@@ -134,7 +135,7 @@ class ProductResource(ModelResource):
         if not secondcategory:
             secondcategory = SecondCategory.objects.create(
                 articul=row['SecondCategory_articul'],
-                title=row['SecondCategory_tittle'],
+                title=row['SecondCategory_title'],
                 description=row['SecondCategory_description'],
                 main_category=MainCategory.objects.get
                 (
