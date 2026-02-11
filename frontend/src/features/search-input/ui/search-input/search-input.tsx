@@ -1,6 +1,6 @@
 import { useState, type ChangeEvent, type CSSProperties, type FC } from "react";
 import styles from "./search-input.module.css";
-import { IconButtonUI } from "../../../../shared/ui/icon-button";
+import { IconButtonUI } from "@/shared/ui/icon-button";
 import { ListQueriesUI } from "../queries-list";
 import type { TQuery } from "../queries-list/queries-list";
 

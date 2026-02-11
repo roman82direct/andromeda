@@ -1,6 +1,6 @@
 import { type FC } from "react";
 import styles from "./queries-list.module.css";
-import { IconButtonUI } from "../../../../shared/ui/icon-button";
+import { IconButtonUI } from "@/shared/ui/icon-button"; 
 import clsx from "clsx";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";

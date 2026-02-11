@@ -1,7 +1,7 @@
 import { type ChangeEvent, type FC, type FormEvent } from "react";
-import { ButtonUI } from "../../../../shared/ui/button";
+import { ButtonUI } from "@/shared/ui/button";
 import styles from "./subscribe-form.module.css";
-import { InputUI } from "../../../../shared/ui/input";
+import { InputUI } from "@/shared/ui/input";
 
 type SubscribeFormUIProps = {
   onClear: () => void;
