@@ -1,9 +1,9 @@
 import { type FC } from "react";
 import styles from "./app-header.module.css";
-import { Logo } from "../../../shared/ui/logo/logo";
-import { SearchInput } from "../../../features/search-input";
+import { Logo } from "@/shared/ui/logo/logo";
+import { SearchInput } from "@/features/search-input";
 import type { TIconType } from "@/shared/types/ui/icon";
-import { IconMenuUI } from "../../../shared/ui/icon-menu";
+import { IconMenuUI } from "@/shared/ui/icon-menu";
 
 type AppHeaderUIProps = {
   navIcons?: TIconType[];

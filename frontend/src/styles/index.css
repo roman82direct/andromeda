@@ -12,6 +12,10 @@ html {
   /* font-size: 62.5%; */
 }
 .page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
   font-family: var(--main-font, "Raleway"), Arial, sans-serif;
   font-weight: var(--fw-text, 400);
   font-size: 16px;

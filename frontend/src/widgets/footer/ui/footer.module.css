@@ -1,5 +1,6 @@
 .footer {
   width: 100%;
+  margin-top: auto;
   color: var(--color-secondary, #f8f9fa);
   font-family: var(--main-font, "Raleway");
 }
