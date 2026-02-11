@@ -21,6 +21,6 @@ export interface IInfoPorduct {
 
 export interface IImageProduct {
   imgUrl: string;
-  isMain: boolean;// ??
-  isPack: boolean;// ??
+  isMain: boolean; // ??
+  isPack: boolean; // ??
 }
