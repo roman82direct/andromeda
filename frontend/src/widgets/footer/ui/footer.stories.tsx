@@ -24,10 +24,9 @@ export default meta;
 
 type Story = StoryObj<typeof FooterUI>;
 
-
 export const footerUI: Story = {
   args: {
     socialLinksIcons: navIconsForFooter,
-    columnsListsLinks: footerLinks
+    columnsListsLinks: footerLinks,
   },
 };

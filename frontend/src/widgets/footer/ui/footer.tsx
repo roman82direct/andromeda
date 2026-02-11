@@ -20,7 +20,6 @@ export const FooterUI: FC<TFooterUIProps> = ({
   const lengthArr = socialLinksIcons?.length ? socialLinksIcons.length : 0;
   const middleIndex =
     lengthArr && lengthArr > 0 ? Math.floor(lengthArr / 2) : 0;
-  console.log(middleIndex);
   const leftPartIcons: TIconType[] | undefined = socialLinksIcons && [
     ...socialLinksIcons.slice(0, middleIndex + 1),
   ];

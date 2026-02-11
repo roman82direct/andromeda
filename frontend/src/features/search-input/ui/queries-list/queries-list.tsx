@@ -1,6 +1,6 @@
 import { type FC } from "react";
 import styles from "./queries-list.module.css";
-import { IconButtonUI } from "@/shared/ui/icon-button"; 
+import { IconButtonUI } from "@/shared/ui/icon-button";
 import clsx from "clsx";
 import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
@@ -49,7 +49,7 @@ export const ListQueriesUI: FC<ListQueriesProps> = ({
                 onClick={() => onDelete?.(query.id)}
                 isActive={false}
                 iconClass={"close"}
-                colorIcon={'primary'}
+                colorIcon={"primary"}
               />
             </div>
           </li>

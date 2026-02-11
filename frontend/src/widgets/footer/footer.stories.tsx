@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Footer} from './index';
+import { Footer } from "./index";
 import { MemoryRouter } from "react-router-dom";
-
 
 const meta: Meta<typeof Footer> = {
   component: Footer,
@@ -22,7 +21,6 @@ const meta: Meta<typeof Footer> = {
 export default meta;
 
 type Story = StoryObj<typeof Footer>;
-
 
 export const footerUI: Story = {
   args: {},

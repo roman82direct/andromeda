@@ -115,7 +115,12 @@ export const ButtonUIWithIconCart: Story = {
   args: {
     children: (
       <>
-        <IconUI  colorIcon={'primary'} sizeIcon={15} inheritColor iconClass="cart" />
+        <IconUI
+          colorIcon={"primary"}
+          sizeIcon={15}
+          inheritColor
+          iconClass="cart"
+        />
         <span>Купить</span>
       </>
     ),

@@ -7,8 +7,6 @@ export type TNavIconsParams = {
   counterFavorites: number;
 };
 
-
-
 //  сделать хук useNavIcons на основе getIcons и там менять состояния в зависимости от счетчиков и авторизации юсера
 
 export const AppHeader: FC = () => {

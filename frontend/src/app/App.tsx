@@ -7,9 +7,12 @@ function App() {
     <>
       <Routes>
         {/* примерный план маршрутов */}
-        <Route path="/" element={<PageLayout/>}>
-          <Route index element={<HomePage/>} />
-          <Route path="/catalog" element={<div>Основная страница товаров</div>} />
+        <Route path="/" element={<PageLayout />}>
+          <Route index element={<HomePage />} />
+          <Route
+            path="/catalog"
+            element={<div>Основная страница товаров</div>}
+          />
           <Route
             path="/catalog/:id"
             element={<div>Страница конкретного товара</div>}
