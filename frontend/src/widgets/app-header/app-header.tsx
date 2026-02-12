@@ -1,6 +1,6 @@
 import { type FC } from "react";
 import { AppHeaderUI } from "./ui";
-import { getIcons } from "./lib/getIcons";
+import { getIcons } from "./model/getIcons";
 
 export type TNavIconsParams = {
   counterCart: number;
