@@ -1,4 +1,5 @@
 //  сущности продукта получаемые с сервера необходимо адаптировать под наше приложение
+//  внешний Порт (Contract API)
 export interface ProductDTO {
   id: number;
   articul: string;

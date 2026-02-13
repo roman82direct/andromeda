@@ -1,4 +1,5 @@
 //  сущности которые будем использовать в приложении
+//   внутренний (Domain) Порт. 
 export interface IProduct {
   id: number;
   articul: string;
