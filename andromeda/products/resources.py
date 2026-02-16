@@ -1,3 +1,4 @@
+from django.db.models import F
 from import_export.fields import Field
 from import_export.resources import ModelResource
 from import_export.widgets import ForeignKeyWidget
@@ -78,7 +79,7 @@ class ProductResource(ModelResource):
                   'MainCategory_description', 'SecondCategory_articul',
                   'SecondCategory_title', 'SecondCategory_description',
                   'articul', 'title', 'description', 'price',
-                  'cost_price', 'brand', 'collection', 'second_category')
+                  'cost_price', 'brand', 'collection')
         model = Product
         import_id_fields = ['articul']
 
@@ -154,3 +155,31 @@ class ProductResource(ModelResource):
 
     def before_save_instance(self, instance, row, **kwargs):
         instance.is_published = False
+
+    def export_resource(self, instance, selected_fields=None, **kwargs):
+        """Переопределяет инстенс при экспорте товара.
+        Добавляет зависимые модели
+        """
+        instance = Product.objects.select_related(
+            'second_category__main_category__group'
+        ).filter(pk=instance.id).annotate(
+            group_articul=F('second_category__main_category__group__articul'),
+            group_title=F('second_category__main_category__group__title'),
+            group_description=F(
+                'second_category__main_category__group__description'),
+            MainCategory_articul=F('second_category__main_category__articul'),
+            MainCategory_title=F('second_category__main_category__title'),
+            MainCategory_description=F(
+                'second_category__main_category__description'),
+            SecondCategory_articul=F('second_category__articul'),
+            SecondCategory_title=F('second_category__title'),
+            SecondCategory_description=F('second_category__description'),
+        ).values(
+            'group_articul', 'group_title', 'group_description',
+            'MainCategory_articul', 'MainCategory_title',
+            'MainCategory_description', 'SecondCategory_articul',
+            'SecondCategory_title', 'SecondCategory_description', 'articul',
+            'title', 'description', 'price', 'cost_price', 'brand',
+            'collection').first()
+
+        return super().export_resource(instance, selected_fields, **kwargs)
