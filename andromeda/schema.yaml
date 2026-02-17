@@ -151,6 +151,110 @@ paths:
                 type: object
                 additionalProperties: {}
           description: ''
+  /api/v1/auth/send-code/:
+    post:
+      operationId: v1_auth_send_code_create
+      description: |-
+        Отправка одноразового кода подтверждения (OTP).
+
+        Генерит 6-значный код в формате XXX-XXX, сохраняет в Redis с TTL 5 минут.
+        Используется для двухфакторной аутентификации пользователей магазина.
+
+        **Пример запроса:**
+            POST /api/v1/auth/send-code/
+            {
+                "phone": "89123456789"
+            }
+
+        **Успешный ответ:**
+            200 OK
+            {
+                "phone": "+79123456789",
+                "code": "123-456"
+            }
+
+        **Ошибки:**
+            400 Bad Request - неверный формат или номер телефона.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendCode'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SendCode'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SendCode'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendCode'
+          description: ''
+  /api/v1/auth/verify-code/:
+    post:
+      operationId: v1_auth_verify_code_create
+      description: |-
+        Верификация одноразового кода подтверждения (OTP) и выдача JWT.
+
+        Проверяет код в Redis (TTL 5 мин), создаёт/возвращает User по телефону.
+        Для новых пользователей: отключает парольную авторизацию.
+        Возвращает access/refresh токены для Bearer-аутентификации.
+
+        **Пример запроса:**
+            POST /api/v1/auth/verify-code/
+            {
+                "phone": "+79123456789",
+                "code": "123-456"
+            }
+
+        **Успешный ответ:**
+            200 OK:
+            {
+                "phone": "+79123456789",
+                "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
+                "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+            }
+
+        **Ошибки:**
+            - 400 Bad Request: неверный код/формат телефона
+            - 500 Internal Server Error: JWT ошибка
+
+        Redis код удаляется после получения JWT-токена.
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyCode'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/VerifyCode'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VerifyCode'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyCode'
+          description: ''
   /api/v1/products/:
     get:
       operationId: v1_products_list
@@ -216,7 +320,7 @@ components:
         title:
           type: string
           title: Название
-          maxLength: 50
+          maxLength: 250
         description:
           type: string
           title: Описание
@@ -229,7 +333,7 @@ components:
         title:
           type: string
           title: Название
-          maxLength: 50
+          maxLength: 250
         description:
           type: string
           title: Описание
@@ -289,7 +393,7 @@ components:
         title:
           type: string
           title: Название
-          maxLength: 50
+          maxLength: 250
         description:
           type: string
           title: Описание
@@ -335,6 +439,34 @@ components:
       - images
       - second_category
       - title
+    SendCode:
+      type: object
+      description: |-
+        Сериализатор для отправки кода подтверждения.
+
+        Проверяет корректность и нормализует телефон в E.164 (+79123456789).
+      properties:
+        phone:
+          type: string
+          maxLength: 17
+      required:
+      - phone
+    VerifyCode:
+      type: object
+      description: |-
+        Верификация SMS-кода подтверждения.
+
+        Проверяет код из Redis и удаляет после успеха.
+      properties:
+        phone:
+          type: string
+          maxLength: 17
+        code:
+          type: string
+          maxLength: 7
+      required:
+      - code
+      - phone
   securitySchemes:
     basicAuth:
       type: http

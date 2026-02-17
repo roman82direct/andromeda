@@ -1,16 +1,21 @@
 import random
 
+from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework import status, views, viewsets
 from rest_framework.response import Response
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.exceptions import TokenError
 
 from .serializers import (
-    ProductSerializer, SendCodeSerializer
+    ProductSerializer, SendCodeSerializer, VerifyCodeSerializer
 )
 from products.models import Product
+
+
+User = get_user_model()
 
 
 class SendCodeView(views.APIView):
@@ -37,10 +42,12 @@ class SendCodeView(views.APIView):
         400 Bad Request - неверный формат или номер телефона.
     """
 
+    serializer_class = SendCodeSerializer
+
     def post(self, request):
-        serializer = SendCodeSerializer(data=request.data)
+        serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        phone = serializer.validated_data.get('phone')
+        phone = serializer.validated_data['phone']
 
         code_num = random.randint(100000, 999999)
         code = f'{code_num // 1000}-{code_num % 1000:03d}'
@@ -52,7 +59,63 @@ class SendCodeView(views.APIView):
 
 
 class VerifyCodeView(views.APIView):
-    pass
+    """
+    Верификация одноразового кода подтверждения (OTP) и выдача JWT.
+
+    Проверяет код в Redis (TTL 5 мин), создаёт/возвращает User по телефону.
+    Для новых пользователей: отключает парольную авторизацию.
+    Возвращает access/refresh токены для Bearer-аутентификации.
+
+    **Пример запроса:**
+        POST /api/v1/auth/verify-code/
+        {
+            "phone": "+79123456789",
+            "code": "123-456"
+        }
+
+    **Успешный ответ:**
+        200 OK:
+        {
+            "phone": "+79123456789",
+            "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
+            "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+        }
+
+    **Ошибки:**
+        - 400 Bad Request: неверный код/формат телефона
+        - 500 Internal Server Error: JWT ошибка
+
+    Redis код удаляется после получения JWT-токена.
+    """
+
+    serializer_class = VerifyCodeSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        phone = serializer.validated_data['phone']
+
+        user, created = User.objects.get_or_create(
+            phone=phone, defaults={'username': phone}
+        )
+        if created:
+            user.set_unusable_password()
+            user.save(update_fields=['password'])
+
+        try:
+            refresh = RefreshToken.for_user(user)
+        except TokenError:
+            return Response(
+                {'error': 'Ошибка выдачи токена.'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+        cache.delete(f'{phone}')
+        return Response({
+            'phone': user.phone,
+            'access': str(refresh.access_token),
+            'refresh': str(refresh),
+        })
 
 
 class LogoutView(views.APIView):

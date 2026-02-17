@@ -1,18 +1,19 @@
 import phonenumbers
 
+from django.core.cache import cache
 from rest_framework import serializers
 
 from products.models import Brand, Collection, Image, Product
 
 
-class SendCodeSerializer(serializers.Serializer):
+class PhoneSerializerMixin(serializers.Serializer):
     """
-    Сериализатор для отправки кода подтверждения.
+    Миксин для валидации и нормализации телефонных номеров в E.164 формате.
 
-    Проверяет корректность и нормализует телефон в E.164 (+79123456789).
+    Поддерживает форматы: 89123456789, +7(912)345-67-89 → +79123456789.
     """
 
-    phone = serializers.CharField(max_length=20, required=True)
+    phone = serializers.CharField(max_length=17, required=True)
 
     def validate_phone(self, number):
         try:
@@ -31,6 +32,31 @@ class SendCodeSerializer(serializers.Serializer):
             parse_phone, phonenumbers.PhoneNumberFormat.E164
         )
         return phone
+
+
+class SendCodeSerializer(PhoneSerializerMixin):
+    """
+    Сериализатор для отправки кода подтверждения.
+
+    Проверяет корректность и нормализует телефон в E.164 (+79123456789).
+    """
+
+
+class VerifyCodeSerializer(PhoneSerializerMixin):
+    """
+    Верификация SMS-кода подтверждения.
+
+    Проверяет код из Redis и удаляет после успеха.
+    """
+
+    code = serializers.CharField(max_length=7, required=True)
+
+    def validate(self, data):
+        phone, code = data.get('phone'), data.get('code')
+        stored_code = cache.get(f'{phone}')
+        if not stored_code or stored_code != code:
+            raise serializers.ValidationError('Неверный код.')
+        return data
 
 
 class BrandSerializer(serializers.ModelSerializer):
