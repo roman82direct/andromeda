@@ -2,12 +2,15 @@ import random
 
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
-from drf_spectacular.utils import extend_schema, extend_schema_view
-from rest_framework import status, views, viewsets
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+from drf_spectacular.utils import extend_schema
+from rest_framework import permissions, status, views, viewsets
 from rest_framework.response import Response
 from rest_framework.pagination import LimitOffsetPagination
-from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.views import TokenRefreshView
 
 from .serializers import (
     ProductSerializer, SendCodeSerializer, VerifyCodeSerializer
@@ -18,6 +21,7 @@ from products.models import Product
 User = get_user_model()
 
 
+@extend_schema(tags=['👥 Аутентификация'], summary='Получить OTP-код')
 class SendCodeView(views.APIView):
     """
     Отправка одноразового кода подтверждения (OTP).
@@ -58,6 +62,7 @@ class SendCodeView(views.APIView):
         )
 
 
+@extend_schema(tags=['👥 Аутентификация'], summary='Получить JWT-токен по коду')
 class VerifyCodeView(views.APIView):
     """
     Верификация одноразового кода подтверждения (OTP) и выдача JWT.
@@ -118,22 +123,56 @@ class VerifyCodeView(views.APIView):
         })
 
 
+@extend_schema(tags=['👥 Аутентификация'], summary='Выход - logout')
+@method_decorator(csrf_exempt, name='dispatch')
 class LogoutView(views.APIView):
-    pass
+    """Завершает пользовательскую сессию.
+
+    Требует действующий access-токен в заголовке Authorization: Bearer token.
+    Возвращает информацию о текущем пользователе и сообщение о разлогине.
+
+    Raises:
+        PermissionDenied: Если токен недействителен, истёк или пользователь
+        неактивен.
+        AuthenticationFailed: Если отсутствует или неверный token.
+
+    Returns:
+        Response: JSON с номером телефона пользователя и сообщением
+        "Вы вышли из системы."
+        Статус: 205 Reset Content.
+    """
+
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = None
+
+    def post(self, request):
+        return Response(
+            {
+                'user': request.user.phone,
+                'message': 'Вы вышли из системы.'
+            }, status=status.HTTP_205_RESET_CONTENT)
 
 
-@extend_schema_view(
-    list=extend_schema(
-        summary='Получить список товаров',
-        description='Возвращает список опубликованных товаров с пагинацией.',
-    ),
-    retrieve=extend_schema(
-        summary='Получить товар по артикулу',
-        description='Возвращает информацию о товаре по его артикулу.',
-    ),
-)
+@extend_schema(tags=['👥 Аутентификация'], summary='Обновить JWT-токен')
+class TokenRefreshViewWrapper(TokenRefreshView):
+    """Обновление JWT-токена по refresh."""
+
+
+@extend_schema(tags=['📦 Товары'])
 class ProductViewSet(viewsets.ReadOnlyModelViewSet):
-    """ViewSet модели Product."""
+    """ViewSet для просмотра товаров (только чтение).
+
+    Предоставляет API-эндпоинты для получения списка опубликованных товаров
+    и детальной информации по артикулу.
+
+    Эндпоинты:
+        GET /api/v1/products/?limit=20&offset=0 — список товаров
+        GET /api/v1/products/123-456/ — товар по артикулу
+
+    Примечания:
+        - Пагинация через query-параметры limit/offset
+        - Только опубликованные товары (card_objects)
+    """
 
     queryset = Product.card_objects.get_card_products()
     serializer_class = ProductSerializer

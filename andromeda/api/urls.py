@@ -13,7 +13,12 @@ v1_urlpatterns = [
     path(
         'auth/verify-code/', views.VerifyCodeView.as_view(), name='verify_code'
     ),
-    path('auth/logout/', views.LogoutView.as_view, name='logout')
+    path('auth/logout/', views.LogoutView.as_view(), name='logout'),
+    path(
+        'auth/token-refresh/',
+        views.TokenRefreshViewWrapper.as_view(),
+        name='token_refresh'
+    ),
 ]
 
 urlpatterns = [
