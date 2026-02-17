@@ -1,9 +1,21 @@
 from drf_spectacular.utils import extend_schema, extend_schema_view
-from rest_framework import viewsets
+from rest_framework import views, viewsets
 from rest_framework.pagination import LimitOffsetPagination
 
 from .serializers import ProductSerializer
 from products.models import Product
+
+
+class SendCode(views.APIView):
+    pass
+
+
+class VerifyCode(views.APIView):
+    pass
+
+
+class Logout(views.APIView):
+    pass
 
 
 @extend_schema_view(
