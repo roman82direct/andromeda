@@ -1,5 +1,5 @@
 //  сущности которые будем использовать в приложении
-//   внутренний (Domain) Порт. 
+//   внутренний (Domain) Порт.
 export interface IProduct {
   id: number;
   articul: string;
@@ -13,7 +13,7 @@ export interface IProduct {
   images: IImageProduct[];
   createdAt: string; // ISO дата
   updateAt: string; // ISO дата
-  count?: number // добавляем для обозначения количества товара в корзине
+  count?: number; // добавляем для обозначения количества товара в корзине
 }
 
 export interface IInfoPorduct {
