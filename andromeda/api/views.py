@@ -150,7 +150,7 @@ class LogoutView(views.APIView):
             {
                 'user': request.user.phone,
                 'message': 'Вы вышли из системы.'
-            }, status=status.HTTP_205_RESET_CONTENT)
+            }, status=status.HTTP_200_OK)
 
 
 @extend_schema(tags=['👥 Аутентификация'], summary='Обновить JWT-токен')
