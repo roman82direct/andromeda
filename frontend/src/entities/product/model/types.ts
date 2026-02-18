@@ -11,8 +11,9 @@ export interface IProduct {
   brand: IInfoPorduct;
   secondCategory: string;
   images: IImageProduct[];
-  createdAt: Date; // ISO дата
-  updateAt: Date; // ISO дата
+  createdAt: string; // ISO дата
+  updateAt: string; // ISO дата
+  count?: number // добавляем для обозначения количества товара в корзине
 }
 
 export interface IInfoPorduct {
