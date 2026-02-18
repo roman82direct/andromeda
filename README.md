@@ -1,7 +1,7 @@
 # andromeda
 Online store: Andromeda – интернет‑магазин товаров для дома, выполненный на стеке Django REST Framework (backend) и React-Vue-Vite (frontend).
 
-Проект реализует REST API для каталога товаров, корзины и операций с заказами, а также современный SPA‑интерфейс на React для взаимодействия с пользователем.
+Проект реализует REST API для каталога товаров, корзины и операций с заказами, и современный SPA‑интерфейс на React для взаимодействия с пользователем.
 
 Доступ к системе осуществляется посредством **OTP-кодов** и **JWT-токенов**.
 
@@ -54,6 +54,10 @@ python manage.py migrate
 ```bash
 python manage.py runserver
 ```
+
+6. **Документация API** доступна в OpenAPI (schema.yaml) или по адресу http://127.0.0.1:8000/api/docs/ после запуска Django‑проекта.
+
+
 
 # Frontend part
 
