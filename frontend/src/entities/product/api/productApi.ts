@@ -1,27 +1,9 @@
 import { API_URL } from "@/shared/config/api"
-import type { ProductDTO } from "./types";
-
-//  обработка ошибки промиса
-export const checkResponse = <T>(res: Response): Promise<T> =>
-  res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+import { checkResponse } from "@/shared/api/base";
+import type { TDiapasonQuery, TProductResponse, TProductsDiapasonResponse, TProductsResponse } from "./types";
 
 
-
-export type TProductsResponse = ProductDTO[];
-
-export type TProductResponse = ProductDTO;
-
-
-export type TProductsDiapasonResponse = {
-  count: number;
-  next: PaginationURL;
-  previous: PaginationURL;
-  results: ProductDTO[];
-}
-type PaginationURL = string | null; // null - после конечных точек
-
-// лимитированные запросы
-// https://editor.swagger.io/
+//  если хотим получить все товары сразу
 export const getProductsApi = () => {
   return fetch(`${API_URL}/products/`,{
     method:'GET',
@@ -35,12 +17,8 @@ export const getProductsApi = () => {
     })
 }
 
-export type TDiapasonQuery = {
-    limit: number;
-    offset: number;
-}
-//  для создания ленивой пагинации (скролл)
-export const getProductsByDiapason = (querConf:TDiapasonQuery ) => {
+//  получаем ограниченный лимит товаров
+export const getProductsByDiapasonApi = (querConf:TDiapasonQuery ) => {
     return fetch(`${API_URL}/products/?limit=${querConf.limit}&offset=${querConf.offset}`,{
       method:'GET',
       headers: {
@@ -51,10 +29,7 @@ export const getProductsByDiapason = (querConf:TDiapasonQuery ) => {
       .then((data)=>data)
 }
 
-// `${API_URL}/products/?limit=${querConf.limit}&offset=${querConf.offset}` 
-// естьсмысл сформировать объект регулярного выражения кот будет вовращать нам параметры 
-// limit offset или просто метод поиска по строке parsedUrl.searchParams.get
-
+// получаем товар по артикулу
 export const getProductByArticulApi = (articul: string) => {
   return fetch(`${API_URL}/products/${articul}/`, {
     method: 'GET',
@@ -67,8 +42,3 @@ export const getProductByArticulApi = (articul: string) => {
       return product
     })
 }
-
-//  как получить один товар 
-//   проверь свое api почтитай в яндексе
-//  слайс на товары
-//  как учесть ограничения - для отложденной загрузки
