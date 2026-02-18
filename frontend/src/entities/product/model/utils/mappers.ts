@@ -13,8 +13,8 @@ export const convertDTOtoIProduct = (dtoProduct: ProductDTO): IProduct => {
     brand: dtoProduct.brand,
     secondCategory: dtoProduct.second_category,
     images: convertDTOProdImages(dtoProduct.images),
-    createdAt: new Date(dtoProduct.created_at), // ISO дата перевели в удобный формат
-    updateAt: new Date(dtoProduct.update_at),
+    createdAt: dtoProduct.created_at, // ISO дата перевели в удобный формат
+    updateAt: dtoProduct.update_at,
   };
 };
 
