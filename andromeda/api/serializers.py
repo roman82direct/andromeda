@@ -46,7 +46,7 @@ class VerifyCodeSerializer(PhoneSerializerMixin):
     """
     Верификация SMS-кода подтверждения.
 
-    Проверяет код из Redis и удаляет после успеха.
+    Сверяет код из запроса с тем, что хранится в Redis.
     """
 
     code = serializers.CharField(max_length=7, required=True)
