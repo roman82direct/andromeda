@@ -139,7 +139,7 @@ class LogoutView(views.APIView):
     Returns:
         Response: JSON с номером телефона пользователя и сообщением
         "Вы вышли из системы."
-        Статус: 205 Reset Content.
+        Статус: 200 OK.
     """
 
     permission_classes = (permissions.IsAuthenticated,)

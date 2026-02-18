@@ -167,7 +167,7 @@ paths:
         Returns:
             Response: JSON с номером телефона пользователя и сообщением
             "Вы вышли из системы."
-            Статус: 205 Reset Content.
+            Статус: 200 OK.
       summary: Выход - logout
       tags:
       - "\U0001F465 Аутентификация"
@@ -539,7 +539,7 @@ components:
       description: |-
         Верификация SMS-кода подтверждения.
 
-        Проверяет код из Redis и удаляет после успеха.
+        Сверяет код из запроса с тем, что хранится в Redis.
       properties:
         phone:
           type: string
