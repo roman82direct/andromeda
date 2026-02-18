@@ -1,14 +1,24 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from .views import ProductViewSet
+from . import views
 
 
 v1_router = DefaultRouter()
-v1_router.register(r'products', ProductViewSet, basename='products')
+v1_router.register(r'products', views.ProductViewSet, basename='products')
 
 v1_urlpatterns = [
-    path('', include(v1_router.urls))
+    path('', include(v1_router.urls)),
+    path('auth/send-code/', views.SendCodeView.as_view(), name='send_code'),
+    path(
+        'auth/verify-code/', views.VerifyCodeView.as_view(), name='verify_code'
+    ),
+    path(
+        'auth/token-refresh/',
+        views.TokenRefreshViewWrapper.as_view(),
+        name='token_refresh'
+    ),
+    path('auth/logout/', views.LogoutView.as_view(), name='logout'),
 ]
 
 urlpatterns = [

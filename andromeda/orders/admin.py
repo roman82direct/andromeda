@@ -56,4 +56,3 @@ class OrderAdmin(admin.ModelAdmin):
             return full_address
         return '--'
     address_display.short_description = 'Адрес'
-

@@ -1,9 +1,8 @@
 from django.db.models import F
 from import_export.fields import Field
 from import_export.resources import ModelResource
-from import_export.widgets import ForeignKeyWidget
 
-from .models import Product, Brand, Collection
+from .models import Product
 from .base_models.categories_groups import Group, MainCategory, SecondCategory
 
 
@@ -63,12 +62,10 @@ class ProductResource(ModelResource):
     brand = Field(
         attribute='brand',
         column_name='Product_brand',
-        widget=ForeignKeyWidget(Brand, field='articul')
     )
     collection = Field(
         attribute='collection',
         column_name='Product_collection',
-        widget=ForeignKeyWidget(Collection, field='articul')
     )
     second_category = Field(attribute='second_category',
                             column_name='SecondCategory_id')
@@ -79,7 +76,7 @@ class ProductResource(ModelResource):
                   'MainCategory_description', 'SecondCategory_articul',
                   'SecondCategory_title', 'SecondCategory_description',
                   'articul', 'title', 'description', 'price',
-                  'cost_price', 'brand', 'collection')
+                  'cost_price', 'brand', 'collection', 'second_category')
         model = Product
         import_id_fields = ['articul']
 
