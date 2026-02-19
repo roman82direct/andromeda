@@ -128,8 +128,7 @@ paths:
       tags:
       - schema
       security:
-      - cookieAuth: []
-      - basicAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -151,11 +150,178 @@ paths:
                 type: object
                 additionalProperties: {}
           description: ''
+  /api/v1/auth/logout/:
+    post:
+      operationId: v1_auth_logout_create
+      description: |-
+        Завершает пользовательскую сессию.
+
+        Требует действующий access-токен в заголовке Authorization: Bearer token.
+        Возвращает информацию о текущем пользователе и сообщение о разлогине.
+
+        Raises:
+            PermissionDenied: Если токен недействителен, истёк или пользователь
+            неактивен.
+            AuthenticationFailed: Если отсутствует или неверный token.
+
+        Returns:
+            Response: JSON с номером телефона пользователя и сообщением
+            "Вы вышли из системы."
+            Статус: 200 OK.
+      summary: Выход - logout
+      tags:
+      - "\U0001F465 Аутентификация"
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/auth/send-code/:
+    post:
+      operationId: v1_auth_send_code_create
+      description: |-
+        Отправка одноразового кода подтверждения (OTP).
+
+        Генерит 6-значный код в формате XXX-XXX, сохраняет в Redis с TTL 5 минут.
+        Используется для двухфакторной аутентификации пользователей магазина.
+
+        **Пример запроса:**
+            POST /api/v1/auth/send-code/
+            {
+                "phone": "89123456789"
+            }
+
+        **Успешный ответ:**
+            200 OK
+            {
+                "phone": "+79123456789",
+                "code": "123-456"
+            }
+
+        **Ошибки:**
+            400 Bad Request - неверный формат или номер телефона.
+      summary: Получить OTP-код
+      tags:
+      - "\U0001F465 Аутентификация"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendCode'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SendCode'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SendCode'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendCode'
+          description: ''
+  /api/v1/auth/token-refresh/:
+    post:
+      operationId: v1_auth_token_refresh_create
+      description: Обновление JWT-токена по refresh.
+      summary: Обновить JWT-токен
+      tags:
+      - "\U0001F465 Аутентификация"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /api/v1/auth/verify-code/:
+    post:
+      operationId: v1_auth_verify_code_create
+      description: |-
+        Верификация одноразового кода подтверждения (OTP) и выдача JWT.
+
+        Проверяет код в Redis (TTL 5 мин), создаёт/возвращает User по телефону.
+        Для новых пользователей: отключает парольную авторизацию.
+        Возвращает access/refresh токены для Bearer-аутентификации.
+
+        **Пример запроса:**
+            POST /api/v1/auth/verify-code/
+            {
+                "phone": "+79123456789",
+                "code": "123-456"
+            }
+
+        **Успешный ответ:**
+            200 OK:
+            {
+                "phone": "+79123456789",
+                "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
+                "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+            }
+
+        **Ошибки:**
+            - 400 Bad Request: неверный код/формат телефона
+            - 500 Internal Server Error: JWT ошибка
+
+        Redis код удаляется после получения JWT-токена.
+      summary: Получить JWT-токен по коду
+      tags:
+      - "\U0001F465 Аутентификация"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyCode'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/VerifyCode'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VerifyCode'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyCode'
+          description: ''
   /api/v1/products/:
     get:
       operationId: v1_products_list
-      description: Возвращает список опубликованных товаров с пагинацией.
-      summary: Получить список товаров
+      description: |-
+        ViewSet для просмотра товаров (только чтение).
+
+        Предоставляет API-эндпоинты для получения списка опубликованных товаров
+        и детальной информации по артикулу.
+
+        Эндпоинты:
+            GET /api/v1/products/?limit=20&offset=0 — список товаров
+            GET /api/v1/products/123-456/ — товар по артикулу
+
+        Примечания:
+            - Пагинация через query-параметры limit/offset
+            - Только опубликованные товары (card_objects)
       parameters:
       - name: limit
         required: false
@@ -170,10 +336,9 @@ paths:
         schema:
           type: integer
       tags:
-      - v1
+      - "\U0001F4E6 Товары"
       security:
-      - cookieAuth: []
-      - basicAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -185,8 +350,19 @@ paths:
   /api/v1/products/{articul}/:
     get:
       operationId: v1_products_retrieve
-      description: Возвращает информацию о товаре по его артикулу.
-      summary: Получить товар по артикулу
+      description: |-
+        ViewSet для просмотра товаров (только чтение).
+
+        Предоставляет API-эндпоинты для получения списка опубликованных товаров
+        и детальной информации по артикулу.
+
+        Эндпоинты:
+            GET /api/v1/products/?limit=20&offset=0 — список товаров
+            GET /api/v1/products/123-456/ — товар по артикулу
+
+        Примечания:
+            - Пагинация через query-параметры limit/offset
+            - Только опубликованные товары (card_objects)
       parameters:
       - in: path
         name: articul
@@ -195,10 +371,9 @@ paths:
           title: Артикул
         required: true
       tags:
-      - v1
+      - "\U0001F4E6 Товары"
       security:
-      - cookieAuth: []
-      - basicAuth: []
+      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -216,7 +391,7 @@ components:
         title:
           type: string
           title: Название
-          maxLength: 50
+          maxLength: 250
         description:
           type: string
           title: Описание
@@ -229,7 +404,7 @@ components:
         title:
           type: string
           title: Название
-          maxLength: 50
+          maxLength: 250
         description:
           type: string
           title: Описание
@@ -289,7 +464,7 @@ components:
         title:
           type: string
           title: Название
-          maxLength: 50
+          maxLength: 250
         description:
           type: string
           title: Описание
@@ -335,11 +510,48 @@ components:
       - images
       - second_category
       - title
+    SendCode:
+      type: object
+      description: |-
+        Сериализатор для отправки кода подтверждения.
+
+        Проверяет корректность и нормализует телефон в E.164 (+79123456789).
+      properties:
+        phone:
+          type: string
+          maxLength: 17
+      required:
+      - phone
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - access
+      - refresh
+    VerifyCode:
+      type: object
+      description: |-
+        Верификация SMS-кода подтверждения.
+
+        Сверяет код из запроса с тем, что хранится в Redis.
+      properties:
+        phone:
+          type: string
+          maxLength: 17
+        code:
+          type: string
+          maxLength: 7
+      required:
+      - code
+      - phone
   securitySchemes:
-    basicAuth:
+    jwtAuth:
       type: http
-      scheme: basic
-    cookieAuth:
-      type: apiKey
-      in: cookie
-      name: sessionid
+      scheme: bearer
+      bearerFormat: JWT
