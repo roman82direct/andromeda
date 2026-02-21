@@ -7,8 +7,8 @@ export const getCurrentProductByArticul = createAsyncThunk(
   async (articul: string, thunkApi) => {
     try {
       const dataPriduct = await getProductByArticulApi(articul);
-      const prepareProduct = convertDTOtoIProduct(dataPriduct);
-      return prepareProduct;
+      const preparedProduct = convertDTOtoIProduct(dataPriduct);
+      return preparedProduct;
     } catch (error) {
       if (error instanceof Error) {
         return thunkApi.rejectWithValue(error.message);
