@@ -12,7 +12,7 @@ export const getProductsApi = () => {
   return fetch(`${API_URL}/products/`, {
     method: "GET",
     headers: {
-      "Content-Type": "application/json",
+       "Content-Type:" : "application/json;charset=utf-8",
     },
   })
     .then((res) => checkResponse<TProductsResponse>(res))
@@ -28,11 +28,12 @@ export const getProductsByDiapasonApi = (querConf: TDiapasonQuery) => {
     {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
+         "Content-Type:" : "application/json;charset=utf-8",
       },
     },
   )
     .then((res) => checkResponse<TProductsDiapasonResponse>(res))
+    // здесь исправить! в каком случае октлоняем промис ???
     .then((data) => data);
 };
 
@@ -41,11 +42,13 @@ export const getProductByArticulApi = (articul: string) => {
   return fetch(`${API_URL}/products/${articul}/`, {
     method: "GET",
     headers: {
-      "Content-Type": "application/json",
+       "Content-Type:" : "application/json;charset=utf-8",
     },
   })
     .then((res) => checkResponse<TProductResponse>(res))
-    .then((product) => {
-      return product;
+    .then((data) => {
+      //  если у получ объекта нет артикула зн такого тоавра нет - отклоняем промис
+      if(data?.articul) return data
+      return Promise.reject(data);
     });
 };
