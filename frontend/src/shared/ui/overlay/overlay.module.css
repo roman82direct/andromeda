@@ -4,6 +4,7 @@
   top: var(--header-height, 69px);
   bottom: var(--footer-height, 391px);
   left: 0;
+  right: 0;
   z-index: 2;
-  background-color: rgb(var(--color-dark-acccent-rgb, rgb(47, 77, 90)) / 25%);
+  background-color: rgb(var(--color-dark-acccent-rgb, 47, 77, 90) / 25%);
 }
