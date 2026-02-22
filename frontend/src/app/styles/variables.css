@@ -11,6 +11,7 @@
   --color-dark-acccent-rgb:47, 77, 90;
   --color-tertiary: #000;
   --color-warning: #c83333;
+  /* надо отдельно выделить active  вместо #e1700e?? */
   --color-sailing: #e1700e;
   --color-light: #fff;
   --input-height: 50px;
