@@ -1,0 +1,13 @@
+.modal {
+  /* временные стил надо доработать! */
+  position: fixed;
+  top: var(--header-height, 69px);
+  right: 0;
+  z-index: 9999;
+  /* временно padding */
+  padding: 10px;
+  background-color: var(--color-secondary,#f8f9fa);
+}
+
+
+/*  сделать типы модалок в зависимости от контента ? так как стили различаются */
