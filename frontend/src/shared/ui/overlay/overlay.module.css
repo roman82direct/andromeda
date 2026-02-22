@@ -1,0 +1,9 @@
+.overlay {
+  position: fixed;
+  /* подумать насчет отступов сверху header и снизу footer - проверить*/
+  top: var(--header-height, 69px);
+  bottom: var(--footer-height, 391px);
+  left: 0;
+  z-index: 2;
+  background-color: rgb(var(--color-dark-acccent-rgb, rgb(47, 77, 90)) / 25%);
+}
