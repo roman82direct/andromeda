@@ -30,11 +30,10 @@ export interface IImageProduct {
   isPack: boolean; // ??
 }
 
-
 //  адаптированные данные по продуктам (то что вернет  thunk)
 export type TProductsDiapason = {
   products: IProduct[];
   count: number | null;
   next: TPaginationURL | null;
   previous: TPaginationURL | null;
-}
+};

@@ -1,4 +1,3 @@
-
 import type { TPaginationURL } from "../../api/types";
 import { getCurrentProductByArticul } from "../thunks/getCurrentProduct";
 import { getProductsByDiapason } from "../thunks/getProducts";
@@ -50,14 +49,17 @@ export const productsSlice = createSlice({
           (action.payload as string) || action.error.message || "Unknown error";
         //  смотри во вью
       })
-      .addCase(getProductsByDiapason.fulfilled, (state, action: PayloadAction<TProductsDiapason>) => {
-        state.loading = false;
-        state.products = action.payload.products;
-        state.count = action.payload.count;
-        state.previous = action.payload.previous;
-        state.next = action.payload.next;
-        state.error = null;
-      })
+      .addCase(
+        getProductsByDiapason.fulfilled,
+        (state, action: PayloadAction<TProductsDiapason>) => {
+          state.loading = false;
+          state.products = action.payload.products;
+          state.count = action.payload.count;
+          state.previous = action.payload.previous;
+          state.next = action.payload.next;
+          state.error = null;
+        },
+      )
       // касаемо получения товара по артикулу
       .addCase(getCurrentProductByArticul.pending, (state) => {
         state.loading = true;
@@ -69,11 +71,14 @@ export const productsSlice = createSlice({
         state.error =
           (action.payload as string) || action.error.message || "Unknown error";
       })
-      .addCase(getCurrentProductByArticul.fulfilled, (state, action:PayloadAction<IProduct>) => {
-        state.loading = false;
-        state.selectProduct = action.payload;
-        state.error = null;
-      });
+      .addCase(
+        getCurrentProductByArticul.fulfilled,
+        (state, action: PayloadAction<IProduct>) => {
+          state.loading = false;
+          state.selectProduct = action.payload;
+          state.error = null;
+        },
+      );
   },
 });
 

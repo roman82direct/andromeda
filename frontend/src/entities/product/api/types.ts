@@ -65,6 +65,3 @@ export type TDirectionPagConf = {
   direction: "previous" | "next"; // можем листать взад вперед
   queryConf: TDiapasonQuery;
 };
-
-
-

@@ -1,4 +1,3 @@
-export interface IUser  {
+export interface IUser {
   phone: string;
 }
-
