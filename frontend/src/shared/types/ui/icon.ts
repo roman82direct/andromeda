@@ -16,7 +16,9 @@ export type TIconClassCssIcon =
   | "facebook"
   | "visa"
   | "instagram"
-  | "mastercard";
+  | "mastercard"
+  | "arrow-left"
+  | "arrow-right";
 
 //  тип события при нажатии на иконку или кнопку с иконкой
 export type TEventType =

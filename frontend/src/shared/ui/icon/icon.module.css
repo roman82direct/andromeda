@@ -131,3 +131,11 @@
 .visa {
   --icon-url: url("../../../assets/icons/visa.svg");
 }
+
+.arrow-left {
+  --icon-url: url("../../../assets/icons/arrow-left.svg");
+}
+
+.arrow-right {
+  --icon-url: url("../../../assets/icons/arrow-right.svg");
+}
