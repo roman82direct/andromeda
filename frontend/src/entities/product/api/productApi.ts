@@ -3,7 +3,7 @@ import { checkResponse } from "@/shared/api/base";
 import type {
   TDiapasonQuery,
   TProductResponse,
-  TProductsDiapasonResponse,
+  TProductsDTODiapasonResponse,
   TProductsResponse,
 } from "./types";
 
@@ -32,7 +32,7 @@ export const getProductsByDiapasonApi = (querConf: TDiapasonQuery) => {
       },
     },
   )
-    .then((res) => checkResponse<TProductsDiapasonResponse>(res))
+    .then((res) => checkResponse<TProductsDTODiapasonResponse>(res))
     // здесь исправить! в каком случае октлоняем промис ???
     .then((data) => data);
 };

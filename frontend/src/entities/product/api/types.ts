@@ -43,7 +43,7 @@ export type TProductResponse = ProductDTO;
 //  если мы не зададим параметры запроса для диапазона товаров,
 //  то вернется просто ответ с массивом товаров
 //  это следует учесть при типизации ответа от сервера
-export type TProductsDiapasonResponse =
+export type TProductsDTODiapasonResponse =
   | {
       count: number;
       next: TPaginationURL;
@@ -65,3 +65,6 @@ export type TDirectionPagConf = {
   direction: "previous" | "next"; // можем листать взад вперед
   queryConf: TDiapasonQuery;
 };
+
+
+

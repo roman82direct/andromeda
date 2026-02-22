@@ -1,9 +1,10 @@
-import type { TProductsDiapasonResponse } from "../../api/types";
+import type { TProductsDTODiapasonResponse } from "../../api/types";
+import type { TProductsDiapason } from "../types";
 import { convertDTOtoIProduct } from "./mappers";
 
 export const normalizeProductsResponse = (
-  products: TProductsDiapasonResponse,
-) => {
+  products: TProductsDTODiapasonResponse,
+):TProductsDiapason => {
   //  незавимимо от ответа адаптируем данные по продуктам под свою архитектуру
   if ("results" in products) {
     //  если в end point передали параметыр запроса  limit: number; offset
@@ -20,6 +21,10 @@ export const normalizeProductsResponse = (
   //  поэтому адаптируем под нашу структуру данных
   return {
     products: products.map(convertDTOtoIProduct),
-    //  остальные данные в слайсе оставляем null в этом случае
+       //  остальные данные в слайсе оставляем null в этом случае если limit и offset не  указан
+      //  промис вернет все товары какие есть - без ограничени
+    count: null,
+    previous: null,
+    next: null,
   };
 };

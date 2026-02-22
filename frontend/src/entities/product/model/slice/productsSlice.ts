@@ -1,8 +1,9 @@
+
 import type { TPaginationURL } from "../../api/types";
 import { getCurrentProductByArticul } from "../thunks/getCurrentProduct";
 import { getProductsByDiapason } from "../thunks/getProducts";
-import type { IProduct } from "../types";
-import { createSlice } from "@reduxjs/toolkit";
+import type { IProduct, TProductsDiapason } from "../types";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 //  надо ли сделатьсчетчик продукта ?
 //  поле ошибки разбить ?
@@ -43,18 +44,18 @@ export const productsSlice = createSlice({
         state.error = null;
       })
       .addCase(getProductsByDiapason.rejected, (state, action) => {
-        //  action -типизировать - тестировать ошибку
+        //  action -типизировать - тестировать ошибку, подумать?
         state.loading = false;
         state.error =
           (action.payload as string) || action.error.message || "Unknown error";
         //  смотри во вью
       })
-      .addCase(getProductsByDiapason.fulfilled, (state, action) => {
+      .addCase(getProductsByDiapason.fulfilled, (state, action: PayloadAction<TProductsDiapason>) => {
         state.loading = false;
         state.products = action.payload.products;
-        state.count = action.payload.count || null;
-        state.previous = action.payload.previous || null;
-        state.next = action.payload.next || null;
+        state.count = action.payload.count;
+        state.previous = action.payload.previous;
+        state.next = action.payload.next;
         state.error = null;
       })
       // касаемо получения товара по артикулу
@@ -68,7 +69,7 @@ export const productsSlice = createSlice({
         state.error =
           (action.payload as string) || action.error.message || "Unknown error";
       })
-      .addCase(getCurrentProductByArticul.fulfilled, (state, action) => {
+      .addCase(getCurrentProductByArticul.fulfilled, (state, action:PayloadAction<IProduct>) => {
         state.loading = false;
         state.selectProduct = action.payload;
         state.error = null;

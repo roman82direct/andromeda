@@ -1,4 +1,7 @@
 //  сущности которые будем использовать в приложении
+
+import type { TPaginationURL } from "../api/types";
+
 //   внутренний (Domain) Порт.
 export interface IProduct {
   id: number;
@@ -25,4 +28,13 @@ export interface IImageProduct {
   imgUrl: string;
   isMain: boolean; // ??
   isPack: boolean; // ??
+}
+
+
+//  адаптированные данные по продуктам (то что вернет  thunk)
+export type TProductsDiapason = {
+  products: IProduct[];
+  count: number | null;
+  next: TPaginationURL | null;
+  previous: TPaginationURL | null;
 }

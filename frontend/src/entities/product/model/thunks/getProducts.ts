@@ -39,6 +39,13 @@ export const getProductsByDiapason = createAsyncThunk(
         // если сервер вернул объект с полем messages
         return thunkApi.rejectWithValue(error.messages);
       }
+      else if (
+        typeof error === 'object' &&
+        error !==null &&
+        'detail' in error
+      ){
+        return thunkApi.rejectWithValue(error.detail)
+      }
       return thunkApi.rejectWithValue(
         "Сервер отклонил запрос или ошибка неизвестна",
       );
