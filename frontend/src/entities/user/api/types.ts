@@ -17,18 +17,7 @@ export type TResponseCodeWithPhone = {
   phone: string | TWrongMessages;
   code?: string; // если номер введен неверно или не введен вообще  код не появится
 };
-// запрос токенов
-export type TRequestTokens = {
-  phone: string;
-  code: string;
-};
-//  ответ на запрос токенов
-export type TResponseTokens = {
-  // положительный ответ
-  phone: string;
-  access: string;
-  refresh: string;
-};
+
 
 //  ошибочное введенные данные
 export type TWrongCode = {
@@ -39,16 +28,6 @@ export type TWrongCode = {
 export type TWrongPhone = {
   // телефон введен неверно
   phone: TWrongMessages;
-};
-
-//  обновление access токена
-
-export type TRefrToken = {
-  refresh: string;
-};
-
-export type TAccessToken = {
-  access: string;
 };
 
 //  ошибка обновления токена

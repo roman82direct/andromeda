@@ -1,11 +1,7 @@
 import { checkResponse } from "@/shared/api/base";
 import type {
   TdataPhone,
-  TRequestTokens,
-  TRefrToken,
-  TAccessToken,
   TResponseCodeWithPhone,
-  TResponseTokens,
   TSuccessLogOut,
 } from "./types";
 import { API_URL } from "@/shared/config/api";
@@ -27,38 +23,10 @@ export const getCodeOTPByPhoneApi = (dataPhone: TdataPhone) => {
     });
 };
 
-//  2 шаг - получаем токены access и refresh исрользуя OTP код и номер телефона
-export const getTokensApi = (parametrs: TRequestTokens) => {
-  return fetch(`${API_URL}/auth/verify-code/`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json;charset=utf-8",
-    },
-    body: JSON.stringify(parametrs),
-  })
-    .then((res) => checkResponse<TResponseTokens>(res))
-    .then((data) => {
-      if (data?.access && data?.refresh) return data;
-      return Promise.reject(data);
-    });
-};
-// 3 Обновление access-токена
 
-export const getAccessTokenByRefresh = (dataRefresh: TRefrToken) => {
-  return fetch(`${API_URL}/auth/token-refresh`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json;charset=utf-8",
-    },
-    body: JSON.stringify(dataRefresh),
-  })
-    .then((res) => checkResponse<TAccessToken>(res))
-    .then((data) => {
-      if (data?.access) return data;
-      return Promise.reject(data);
-    });
-};
+
 //  подумать где лучше извлевать токен
+//  перенеси в пользователя
 export const logoutApi = (accessToken: string) => {
   return fetch(`${API_URL}/auth/logout/`, {
     method: "POST",
@@ -69,8 +37,12 @@ export const logoutApi = (accessToken: string) => {
   })
     .then((res) => checkResponse<TSuccessLogOut>(res))
     .then((data) => {
-      // проверить!
       if (data?.phone && data?.detail) return data;
       return Promise.reject(data);
     });
 };
+
+
+
+
+
