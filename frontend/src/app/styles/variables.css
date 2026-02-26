@@ -8,13 +8,16 @@
   --color-secondary: #f8f9fa;
   --color-accent: #67b0d1;
   --color-dark-accent: #2f4d5a;
+  --color-dark-acccent-rgb: 47, 77, 90;
   --color-tertiary: #000;
   --color-warning: #c83333;
+  /* надо отдельно выделить active  вместо #e1700e?? */
   --color-sailing: #e1700e;
   --color-light: #fff;
   --input-height: 50px;
   --letter-spacing-base: 0.05em;
   --header-height: 69px;
+  --footer-height: 391px;
   /* filters  - наверное надо будет убрать к стилям самого компонента фильтра потом?*/
   --color-beige-filter: #e5dbc0;
   --color-yellow-filter: #ede860;
