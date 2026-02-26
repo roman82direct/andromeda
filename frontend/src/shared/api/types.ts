@@ -20,4 +20,3 @@ export type TRefrToken = {
 export type TAccessToken = {
   access: string;
 };
-

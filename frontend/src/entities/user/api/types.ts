@@ -18,7 +18,6 @@ export type TResponseCodeWithPhone = {
   code?: string; // если номер введен неверно или не введен вообще  код не появится
 };
 
-
 //  ошибочное введенные данные
 export type TWrongCode = {
   // код веден неверно - сделаем mapper ?

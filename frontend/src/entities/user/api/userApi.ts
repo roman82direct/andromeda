@@ -25,8 +25,6 @@ export const getCodeOTPByPhoneApi = (dataPhone: TdataPhone) => {
     });
 };
 
-
-
 //  подумать где лучше извлевать токен
 //  перенеси в пользователя
 // export const logoutApi = (accessToken: string) => {
@@ -45,20 +43,14 @@ export const getCodeOTPByPhoneApi = (dataPhone: TdataPhone) => {
 // };
 
 export const logoutApi = (accessToken: string) => {
-  return fetchWithRefresh<TSuccessLogOut>(`${API_URL}/auth/logout/`,{
+  return fetchWithRefresh<TSuccessLogOut>(`${API_URL}/auth/logout/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
-       authorization: `Bearer ${accessToken}`,
-    }  as HeadersInit ,
-  })
-    .then((data) => {
-      if (data?.phone && data?.detail) return data;
-      return Promise.reject(data);
-    });
+      authorization: `Bearer ${accessToken}`,
+    } as HeadersInit,
+  }).then((data) => {
+    if (data?.phone && data?.detail) return data;
+    return Promise.reject(data);
+  });
 };
-
-
-
-
-
