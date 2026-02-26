@@ -56,10 +56,10 @@ export const getAccessTokenByRefresh = () => {
 
 //  алгоритм если получаем ошибку  401 или 404 
 
-export const fetchWithRefresh = async (endoint:RequestInfo, options: RequestInit) => {
+export const fetchWithRefresh = async <T>(endoint:RequestInfo, options: RequestInit) => {
     try{
       //  делаем запрос с авториз токеном
-        const result = await request(endoint, options);
+        const result = await request<T>(endoint, options);
         return result;
     } catch(error){
       //  если получили ошибку при попытке авторизации
@@ -71,12 +71,12 @@ export const fetchWithRefresh = async (endoint:RequestInfo, options: RequestInit
             const refreshData = await getAccessTokenByRefresh();
             // если access не появился => выполним отклонение промиса
             if(!refreshData.access){
-                return Promise.reject(refreshData);
+                return Promise.reject(refreshData); // => если обновить не удалось , отклоняем ,чтобы перевести пользователч на логин
             }
             // переделать!!!
             localStorage.setItem('acessToken', refreshData.access);
             //  проверяем авторизацию с новым acess токеном
-            return request(endoint, {
+            return request<T>(endoint, {
               ...options,
               headers: {
                 ...options.headers,
@@ -95,4 +95,4 @@ export const fetchWithRefresh = async (endoint:RequestInfo, options: RequestInit
 
   // httpOnly: true,    // Запрещает доступ к куке через document.cookie (защита от XSS)
   //   secure: true,      // Кука передается только по HTTPS (обязательно для продакшена)
-  //   sameSite: 'strict', // Защита от CSRF-атак
+  //   sameSite: 'lax', // Защита от CSRF-атак
