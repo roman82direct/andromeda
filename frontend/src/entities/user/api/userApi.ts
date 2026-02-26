@@ -1,4 +1,6 @@
 import { checkResponse } from "@/shared/api/base";
+import { fetchWithRefresh } from "@/shared/api/base";
+
 import type {
   TdataPhone,
   TResponseCodeWithPhone,
@@ -27,15 +29,29 @@ export const getCodeOTPByPhoneApi = (dataPhone: TdataPhone) => {
 
 //  подумать где лучше извлевать токен
 //  перенеси в пользователя
+// export const logoutApi = (accessToken: string) => {
+//   return fetch(`${API_URL}/auth/logout/`, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json;charset=utf-8",
+//       authorization: `Bearer ${accessToken}`,
+//     },
+//   })
+//     .then((res) => checkResponse<TSuccessLogOut>(res))
+//     .then((data) => {
+//       if (data?.phone && data?.detail) return data;
+//       return Promise.reject(data);
+//     });
+// };
+
 export const logoutApi = (accessToken: string) => {
-  return fetch(`${API_URL}/auth/logout/`, {
+  return fetchWithRefresh<TSuccessLogOut>(`${API_URL}/auth/logout/`,{
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
-      authorization: `Bearer ${accessToken}`,
-    },
+       authorization: `Bearer ${accessToken}`,
+    }  as HeadersInit ,
   })
-    .then((res) => checkResponse<TSuccessLogOut>(res))
     .then((data) => {
       if (data?.phone && data?.detail) return data;
       return Promise.reject(data);
