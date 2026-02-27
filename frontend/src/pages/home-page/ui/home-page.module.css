@@ -1,3 +1,9 @@
 .home {
-  background-color: yellowgreen;
+  height: 100vh;
+  background-color: var(--color-secondary, #f8f9fa);
+  background-image: url('../../../assets/images/banner-for-discount.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
+
+
