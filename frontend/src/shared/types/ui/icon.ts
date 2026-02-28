@@ -18,7 +18,9 @@ export type TIconClassCssIcon =
   | "instagram"
   | "mastercard"
   | "arrow-left"
-  | "arrow-right";
+  | "arrow-right"
+  | 'ellipse-emptied'
+  | 'ellipse-filled';
 
 //  тип события при нажатии на иконку или кнопку с иконкой
 export type TEventType =

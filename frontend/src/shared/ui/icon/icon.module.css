@@ -139,3 +139,12 @@
 .arrow-right {
   --icon-url: url("../../../assets/icons/arrow-right.svg");
 }
+
+.ellipse-emptied {
+  --icon-url: url("../../../assets/icons/ellipse-emptied.svg");
+}
+
+.ellipse-filled {
+  --icon-url: url("../../../assets/icons/ellipse-filled.svg");
+}
+

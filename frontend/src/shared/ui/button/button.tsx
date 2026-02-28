@@ -1,19 +1,21 @@
 import { type FC, type ReactNode } from "react";
 import styles from "./button.module.css";
 import clsx from "clsx";
+import { Link } from "react-router-dom";
 
 type TButtonVariant = "filled" | "outlined" | "text";
 
 type TButtonColor = "primary" | "secondary" | "subscribe";
 
 type ButtonUIProps = {
-  onClick: () => void;
+  onClick?: () => void;
   children: ReactNode;
   type?: "button" | "submit" | "reset";
   color: TButtonColor;
   fullSize?: boolean;
   isDisabled?: boolean;
   variant: TButtonVariant;
+  to?: string;
 };
 
 type classCssBtn = string;
@@ -40,6 +42,7 @@ export const ButtonUI: FC<ButtonUIProps> = ({
   fullSize,
   isDisabled,
   variant,
+  to
 }) => {
   const className = clsx(
     styles.button,
@@ -47,14 +50,19 @@ export const ButtonUI: FC<ButtonUIProps> = ({
     styles[typesButton[variant]],
     fullSize ? styles.fullWidthBtn : "",
   );
-  return (
-    <button
-      className={className}
-      type={type}
-      onClick={onClick}
-      disabled={isDisabled}
-    >
-      {children}
-    </button>
-  );
+  return to ? (
+      <Link to={to} className={className}>
+        {children}
+      </Link>
+   
+  ) : (
+      <button
+        className={className}
+        type={type}
+        onClick={onClick}
+        disabled={isDisabled}
+      >
+        {children}
+      </button>
+  )
 };
