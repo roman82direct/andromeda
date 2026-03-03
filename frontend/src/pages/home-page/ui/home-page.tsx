@@ -27,8 +27,8 @@ export const HomePageUI: FC<THomePageProps> = () => {
   const handleChangeSlide = (value:'increment' | 'decrement') => {
       let newIndexCurrSlide;
       if(value === 'increment') {
-        //  перемещаем слайды впереде
-        setIndexSlide((prev)=>prev>=sliders.length-1 ? 0 : prev + 1)
+        //  меняем слайд 'вперед'
+        newIndexCurrSlide = indCurrSlide>=sliders.length-1 ? 0 : indCurrSlide + 1;
         // работаем с  с синхронномтью пагинации
         if(indCurrSlide === indexesPag[indexesPag.length-1]) {
           //  если номер текущего слайда последний в тройке 
@@ -50,8 +50,8 @@ export const HomePageUI: FC<THomePageProps> = () => {
         }
 
       }else {
-        //  перемещение влево value === 'decrement'
-        setIndexSlide((prev)=>prev<=0 ? sliders.length-1 : prev -1)
+        //  перемещение влево value === 'decrement' - смотрим предыдущий слайд
+        newIndexCurrSlide = indCurrSlide<=0 ? sliders.length-1 : indCurrSlide -1;
         //  надо сделать тройку пагинации в обратную сторону
         // если тек индекс слайда равен первому элементу пагинации с инд 0
         if(indCurrSlide === indexesPag[0]){
@@ -99,18 +99,20 @@ export const HomePageUI: FC<THomePageProps> = () => {
       
 
       }
+//  изменяем состояние показа слайда - т е меняем индекс слайда который будет отобр
+      setIndexSlide(newIndexCurrSlide ?? 0);
   }
 
   // useEffect(()=>{
   //   const timer = setInterval(()=>{
     
-  //     // handleChangeSlide('increment')
+  //     handleChangeSlide('increment')
        
-  //    },4000)
+  //    },2000)
   //   return (()=>{
   //     clearInterval(timer)
   //   })
-  // },[sliders.length])
+  // },[sliders.length, handleChangeSlide])
 
 
 

@@ -1,5 +1,5 @@
 
-import type { TEventType } from '@/shared/types/ui/icon';
+import type { TEventType } from '@/shared/types/types';
 import discountImage from '../../../assets/images/home-page/slider/banner-for-discount.jpg';
 import deliveryImage from '../../../assets/images/home-page/slider/banner-for-delivery.jpg';
 import newYear from '../../../assets/images/home-page/slider/banner-for-new-year.jpg';
