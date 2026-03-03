@@ -16,7 +16,7 @@ export const HomePageUI: FC<THomePageProps> = () => {
    const sliders = sliderStore;
   //   есть все индексыслайдов - используем их отображ для пагинации
    const allIndexex = Object.keys(sliders).map(item=>Number(item))
-  //  зададим изнач значение пагинации
+  //  зададим изнач значение пагинации - нам достаточно 3 элеметнов пагинации по макету
    const initialIndexes = [0,1,2]
   //работа с показом слайдов и их перелистыванием
   const [indCurrSlide, setIndexSlide] = useState(0);
@@ -25,6 +25,7 @@ export const HomePageUI: FC<THomePageProps> = () => {
  const  currentSlide = sliders[indCurrSlide];
   
   const handleChangeSlide = (value:'increment' | 'decrement') => {
+      let newIndexCurrSlide;
       if(value === 'increment') {
         //  перемещаем слайды впереде
         setIndexSlide((prev)=>prev>=sliders.length-1 ? 0 : prev + 1)
@@ -36,7 +37,7 @@ export const HomePageUI: FC<THomePageProps> = () => {
           const nextIndexSlide = indCurrSlide+1;
           // определим след тройку  те возьмем след три элемента массива индексов
           //  вместо тройки д б нечто динамическое?
-          const cutterSizeLimit = nextIndexSlide + 3
+          const cutterSizeLimit = nextIndexSlide + initialIndexes.length;
           // обращаемся ко всем индексам чтобы получить кокретный набор
           const nextPaginIndexes = allIndexex.slice(nextIndexSlide,cutterSizeLimit)
           //  обновим индексы пагинации
@@ -53,45 +54,63 @@ export const HomePageUI: FC<THomePageProps> = () => {
         setIndexSlide((prev)=>prev<=0 ? sliders.length-1 : prev -1)
         //  надо сделать тройку пагинации в обратную сторону
         // если тек индекс слайда равен первому элементу пагинации с инд 0
-        if(indCurrSlide === indexesPag[0] && indCurrSlide!==0){
-          //  определим лимит до какого элемента пагиации копируем тройку
-          const cutterSizeLimit = indCurrSlide;
+        if(indCurrSlide === indexesPag[0]){
+          //  определим откуда будем резать те копировать индексы пагинации
+          const prevIndexSlide = indCurrSlide-1;
           // определим с какого элемента пагинации начнем копирование
-          const nextIndexSlide = indCurrSlide  - 3;
+           const firstIndexSlide = prevIndexSlide -  initialIndexes.length+1;
+          // console.log(prevIndexSlide)
+          //  console.log(firstIndexSlide)
+          // console.log(allIndexex)
           // определим след тройку
           // console.log(nextIndexSlide, cutterSizeLimit)
-          const nextPaginIndexes = allIndexex.slice(nextIndexSlide,cutterSizeLimit);
+          const prevPaginIndexes = allIndexex.slice(firstIndexSlide,prevIndexSlide+1);
           // обновим пагинацию назад
           // console.log(nextPaginIndexes)
-          setIndexesPag(nextPaginIndexes)
+          // проверка на один или два
+          // console.log(nextPaginIndexes)
+          setIndexesPag(prevPaginIndexes)
+          // если это нулевой элемент и остаток от деления не ноль
+              if( indCurrSlide<=0){ 
+                if(allIndexex.length%initialIndexes.length!==0 ){
+                  // определим сколько у нас элементов в остатке от деления !!! подумать над названием переменной
+                    const numbersSliders = allIndexex.length%initialIndexes.length;
+                  // определить предыдущий элемент перед нулевым 
+                  const prevIndexSlide =  allIndexex.length;
+                  // определим начальный элемент для копирования части индексов
+                  const firstPrevIndexSlide = prevIndexSlide -numbersSliders
+                  // определим с какого начнем копировать индексы для паг
+                  const prevPaginIndexes =  allIndexex.slice(firstPrevIndexSlide,prevIndexSlide+1)
+                  // что здесь копируется ?????
+                  console.log(prevPaginIndexes);
+                  setIndexesPag(prevPaginIndexes)
+
+                }
+                // если это нулевой элемент и остаток от деления  ноль
+                if(allIndexex.length%initialIndexes.length===0){
+                    const prevIndexSlide =  allIndexex.length-1;
+                    const firstIndexSlide = prevIndexSlide -  initialIndexes.length+1;
+                    const prevPaginIndexes = allIndexex.slice(firstIndexSlide,prevIndexSlide+1);
+                    setIndexesPag(prevPaginIndexes)
+
+                }
+              }
         }
-         else if(indCurrSlide === indexesPag[0] && indCurrSlide===0){
-            // если мы в начале 
-             //  определим лимит до какого элемента пагиации копируем тройку
-          const nextIndexSlide = allIndexex.length - 3;
-          // определим с какого элемента пагинации начнем копирование
-          const cutterSizeLimit =allIndexex.length;
-          // определим след тройку
-          console.log(nextIndexSlide, cutterSizeLimit)
-          const nextPaginIndexes = allIndexex.slice(nextIndexSlide,cutterSizeLimit);
-          // обновим пагинацию назад
-          console.log(nextPaginIndexes)
-          setIndexesPag(nextPaginIndexes)
-         }
+      
 
       }
   }
 
-  useEffect(()=>{
-    const timer = setInterval(()=>{
+  // useEffect(()=>{
+  //   const timer = setInterval(()=>{
     
-      // handleChangeSlide('increment')
+  //     // handleChangeSlide('increment')
        
-     },4000)
-    return (()=>{
-      clearInterval(timer)
-    })
-  },[sliders.length])
+  //    },4000)
+  //   return (()=>{
+  //     clearInterval(timer)
+  //   })
+  // },[sliders.length])
 
 
 
@@ -122,6 +141,7 @@ export const HomePageUI: FC<THomePageProps> = () => {
                 <IconButtonUI  onClick={()=>handleChangeSlide('increment')}iconClass={'arrow-left'} isActive={false} colorIcon={'primary'}/>
               </div>
               <ul className={styles['banner-pag']}>
+                {/* если нужна пагинация для всех слайдов(все страницы) */}
                 {/* { sliders.map((_,index)=>(
                    <li key={index} className={styles['banner-pag-item']}>
                     <IconButtonUI onClick={()=>{setIndexSlide(index)}} iconActiveClass={'ellipse-filled'} iconClass={'ellipse-emptied'} isActive={index===indexSlide} colorIcon={'primary'}/>

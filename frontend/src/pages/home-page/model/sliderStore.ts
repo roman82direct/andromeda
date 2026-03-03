@@ -9,8 +9,8 @@ import testImage3 from '../../../assets/images/home-page/slider/image3.jpg';
 import test1 from '../../../assets/images/home-page/slider/test1.jpg';
 import test2 from '../../../assets/images/home-page/slider/test2.jpg';
 import test3 from '../../../assets/images/home-page/slider/test3.jpg';
-import lessOne from '../../../assets/images/home-page/slider/lessOne.jpg'
-import lessTwo from '../../../assets/images/home-page/slider/less2.jpg'
+import test4 from '../../../assets/images/home-page/slider/lessOne.jpg'
+import test5 from '../../../assets/images/home-page/slider/less2.jpg'
 
 type TEventBanner = TEventType & {
   title: string;
@@ -133,97 +133,56 @@ export const sliderStore:TSliderStore = [
   },
    {
     image: test1,
-     title: 'test1',
-      desc: 'Натуральное дерево и минимализм в каждой детали',
-     pathsForActions: [
-      {
-      title:'Подробнее',
-      trigger: 'route',
-      //  что здесь будет ????
-      path:''
-      },
-      {
-      title:'Каталог',
-      trigger: 'route',
-      //  нужно подраздел какая категория ???!!!! думать!!!
-      path:'/catalog'
-      },
+    title: 'Умный свет: скидка 20% на все светильники',
+    desc: 'Создайте идеальную атмосферу с помощью дизайнерского освещения',
+    pathsForActions: [
+      { title: 'Подробнее', trigger: 'route', path: '/promo/smart-light' },
+      { title: 'Каталог', trigger: 'route', path: '/catalog/lighting' },
     ]
   },
   {
     image: test2,
-     title: 'test2',
-      desc: 'Натуральное дерево и минимализм в каждой детали',
-     pathsForActions: [
-      {
-      title:'Подробнее',
-      trigger: 'route',
-      //  что здесь будет ????
-      path:''
-      },
-      {
-      title:'Каталог',
-      trigger: 'route',
-      //  нужно подраздел какая категория ???!!!! думать!!!
-      path:'/catalog'
-      },
+    title: 'Кухня мечты под ключ: вытяжка в подарок',
+    desc: 'При заказе кухонного гарнитура — техника для очистки воздуха бесплатно',
+    pathsForActions: [
+      { title: 'Подробнее', trigger: 'route', path: '/promo/kitchen-gift' },
+      { title: 'Каталог', trigger: 'route', path: '/catalog/kitchen' },
     ]
   },
   {
     image: test3,
-     title: 'test3',
-      desc: 'Натуральное дерево и минимализм в каждой детали',
-     pathsForActions: [
-      {
-      title:'Подробнее',
-      trigger: 'route',
-      //  что здесь будет ????
-      path:''
-      },
-      {
-      title:'Каталог',
-      trigger: 'route',
-      //  нужно подраздел какая категория ???!!!! думать!!!
-      path:'/catalog'
-      },
+    title: 'Эко-коллекция: натуральные ткани и материалы',
+    desc: 'Постельное белье и шторы из органического хлопка и льна',
+    pathsForActions: [
+      { title: 'Подробнее', trigger: 'route', path: '/promo/eco-style' },
+      { title: 'Каталог', trigger: 'route', path: '/catalog/textile' },
     ]
   },
   {
-    image: lessOne,
-     title: 'lessOne',
-      desc: 'Натуральное дерево и минимализм в каждой детали',
-     pathsForActions: [
-      {
-      title:'Подробнее',
-      trigger: 'route',
-      //  что здесь будет ????
-      path:''
-      },
-      {
-      title:'Каталог',
-      trigger: 'route',
-      //  нужно подраздел какая категория ???!!!! думать!!!
-      path:'/catalog'
-      },
+    image: test4,
+    title: 'Рабочее место дома: всё для продуктивности',
+    desc: 'Эргономичные кресла и столы со скидкой до 25% при покупке комплектом',
+    pathsForActions: [
+      { title: 'Подробнее', trigger: 'route', path: '/promo/home-office' },
+      { title: 'Каталог', trigger: 'route', path: '/catalog/office' },
     ]
   },
   {
-    image: lessTwo,
-     title: 'lessTwo',
-      desc: 'Натуральное дерево и минимализм в каждой детали',
-     pathsForActions: [
-      {
-      title:'Подробнее',
-      trigger: 'route',
-      //  что здесь будет ????
-      path:''
-      },
-      {
-      title:'Каталог',
-      trigger: 'route',
-      //  нужно подраздел какая категория ???!!!! думать!!!
-      path:'/catalog'
-      },
+    image: test5,
+    title: 'Ванная комната: аксессуары для релакса',
+    desc: 'Обновите интерьер мелочами — от зеркал с подсветкой до мягких ковриков',
+    pathsForActions: [
+      { title: 'Подробнее', trigger: 'route', path: '/promo/bathroom-sale' },
+      { title: 'Каталог', trigger: 'route', path: '/catalog/bathroom' },
     ]
-  }
+  },
+  // {
+  //   image: test5,
+  //   title: 'Лишний',
+  //   desc: 'Обновите интерьер мелочами — от зеркал с подсветкой до мягких ковриков',
+  //   pathsForActions: [
+  //     { title: 'Подробнее', trigger: 'route', path: '/promo/bathroom-sale' },
+  //     { title: 'Каталог', trigger: 'route', path: '/catalog/bathroom' },
+  //   ]
+  // }
 ];
