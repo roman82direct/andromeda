@@ -6,7 +6,11 @@ import newYear from '../../../assets/images/home-page/slider/banner-for-new-year
 import testImage1 from '../../../assets/images/home-page/slider/image1.jpg';
 import testImage2 from '../../../assets/images/home-page/slider/image2.jpg';
 import testImage3 from '../../../assets/images/home-page/slider/image3.jpg';
-
+import test1 from '../../../assets/images/home-page/slider/test1.jpg';
+import test2 from '../../../assets/images/home-page/slider/test2.jpg';
+import test3 from '../../../assets/images/home-page/slider/test3.jpg';
+import lessOne from '../../../assets/images/home-page/slider/lessOne.jpg'
+import lessTwo from '../../../assets/images/home-page/slider/less2.jpg'
 
 type TEventBanner = TEventType & {
   title: string;
@@ -111,6 +115,101 @@ export const sliderStore:TSliderStore = [
   {
     image: testImage3,
      title: 'Весеннее обновление: новая коллекция мебели',
+      desc: 'Натуральное дерево и минимализм в каждой детали',
+     pathsForActions: [
+      {
+      title:'Подробнее',
+      trigger: 'route',
+      //  что здесь будет ????
+      path:''
+      },
+      {
+      title:'Каталог',
+      trigger: 'route',
+      //  нужно подраздел какая категория ???!!!! думать!!!
+      path:'/catalog'
+      },
+    ]
+  },
+   {
+    image: test1,
+     title: 'test1',
+      desc: 'Натуральное дерево и минимализм в каждой детали',
+     pathsForActions: [
+      {
+      title:'Подробнее',
+      trigger: 'route',
+      //  что здесь будет ????
+      path:''
+      },
+      {
+      title:'Каталог',
+      trigger: 'route',
+      //  нужно подраздел какая категория ???!!!! думать!!!
+      path:'/catalog'
+      },
+    ]
+  },
+  {
+    image: test2,
+     title: 'test2',
+      desc: 'Натуральное дерево и минимализм в каждой детали',
+     pathsForActions: [
+      {
+      title:'Подробнее',
+      trigger: 'route',
+      //  что здесь будет ????
+      path:''
+      },
+      {
+      title:'Каталог',
+      trigger: 'route',
+      //  нужно подраздел какая категория ???!!!! думать!!!
+      path:'/catalog'
+      },
+    ]
+  },
+  {
+    image: test3,
+     title: 'test3',
+      desc: 'Натуральное дерево и минимализм в каждой детали',
+     pathsForActions: [
+      {
+      title:'Подробнее',
+      trigger: 'route',
+      //  что здесь будет ????
+      path:''
+      },
+      {
+      title:'Каталог',
+      trigger: 'route',
+      //  нужно подраздел какая категория ???!!!! думать!!!
+      path:'/catalog'
+      },
+    ]
+  },
+  {
+    image: lessOne,
+     title: 'lessOne',
+      desc: 'Натуральное дерево и минимализм в каждой детали',
+     pathsForActions: [
+      {
+      title:'Подробнее',
+      trigger: 'route',
+      //  что здесь будет ????
+      path:''
+      },
+      {
+      title:'Каталог',
+      trigger: 'route',
+      //  нужно подраздел какая категория ???!!!! думать!!!
+      path:'/catalog'
+      },
+    ]
+  },
+  {
+    image: lessTwo,
+     title: 'lessTwo',
       desc: 'Натуральное дерево и минимализм в каждой детали',
      pathsForActions: [
       {
