@@ -23,85 +23,85 @@ export const HomePageUI: FC<THomePageProps> = () => {
   //  работа с пагинацией слайдов
   const [indexesPag,setIndexesPag] = useState(initialIndexes);
  const  currentSlide = sliders[indCurrSlide];
-  
-  const handleChangeSlide = (value:'increment' | 'decrement') => {
-      let newIndexCurrSlide;
-      if(value === 'increment') {
-        //  меняем слайд 'вперед'
-        newIndexCurrSlide = indCurrSlide>=sliders.length-1 ? 0 : indCurrSlide + 1;
-        // работаем с  с синхронномтью пагинации
-        if(indCurrSlide === indexesPag[indexesPag.length-1]) {
-          //  если номер текущего слайда последний в тройке 
-          //  то создаим след тройку кнопопк пагинации
-          // возьмем след элемент за текущим
-          const nextIndexSlide = indCurrSlide+1;
-          // определим след тройку  те возьмем след три элемента массива индексов
-          //  вместо тройки д б нечто динамическое?
-          const cutterSizeLimit = nextIndexSlide + initialIndexes.length;
-          // обращаемся ко всем индексам чтобы получить кокретный набор
-          const nextPaginIndexes = allIndexex.slice(nextIndexSlide,cutterSizeLimit)
-          //  обновим индексы пагинации
-          setIndexesPag(nextPaginIndexes)
-        }
-        if(indCurrSlide === allIndexex[allIndexex.length-1]){
-          //  если мы достигли последнего слайдка вообще т е это последний номер(индекс) в массива номеров слайдов
-          //  просто обнулим его и вернемся к изначальной нумерации в пагинации
-          setIndexesPag(initialIndexes)
-        }
+  const pagePagSize = 3;
+//   const handleChangeSlide = (value:'increment' | 'decrement') => {
+//       let newIndexCurrSlide;
+//       if(value === 'increment') {
+//         //  меняем слайд 'вперед'
+//         newIndexCurrSlide = indCurrSlide>=sliders.length-1 ? 0 : indCurrSlide + 1;
+//         // работаем с  с синхронномтью пагинации
+//         if(indCurrSlide === indexesPag[indexesPag.length-1]) {
+//           //  если номер текущего слайда последний в тройке 
+//           //  то создаим след тройку кнопопк пагинации
+//           // возьмем след элемент за текущим
+//           const nextIndexSlide = indCurrSlide+1;
+//           // определим след тройку  те возьмем след три элемента массива индексов
+//           //  вместо тройки д б нечто динамическое?
+//           const cutterSizeLimit = nextIndexSlide + initialIndexes.length;
+//           // обращаемся ко всем индексам чтобы получить кокретный набор
+//           const nextPaginIndexes = allIndexex.slice(nextIndexSlide,cutterSizeLimit)
+//           //  обновим индексы пагинации
+//           setIndexesPag(nextPaginIndexes)
+//         }
+//         if(indCurrSlide === allIndexex[allIndexex.length-1]){
+//           //  если мы достигли последнего слайдка вообще т е это последний номер(индекс) в массива номеров слайдов
+//           //  просто обнулим его и вернемся к изначальной нумерации в пагинации
+//           setIndexesPag(initialIndexes)
+//         }
 
-      }else {
-        //  перемещение влево value === 'decrement' - смотрим предыдущий слайд
-        newIndexCurrSlide = indCurrSlide<=0 ? sliders.length-1 : indCurrSlide -1;
-        //  надо сделать тройку пагинации в обратную сторону
-        // если тек индекс слайда равен первому элементу пагинации с инд 0
-        if(indCurrSlide === indexesPag[0]){
-          //  определим откуда будем резать те копировать индексы пагинации
-          const prevIndexSlide = indCurrSlide-1;
-          // определим с какого элемента пагинации начнем копирование
-           const firstIndexSlide = prevIndexSlide -  initialIndexes.length+1;
-          // console.log(prevIndexSlide)
-          //  console.log(firstIndexSlide)
-          // console.log(allIndexex)
-          // определим след тройку
-          // console.log(nextIndexSlide, cutterSizeLimit)
-          const prevPaginIndexes = allIndexex.slice(firstIndexSlide,prevIndexSlide+1);
-          // обновим пагинацию назад
-          // console.log(nextPaginIndexes)
-          // проверка на один или два
-          // console.log(nextPaginIndexes)
-          setIndexesPag(prevPaginIndexes)
-          // если это нулевой элемент и остаток от деления не ноль
-              if( indCurrSlide<=0){ 
-                if(allIndexex.length%initialIndexes.length!==0 ){
-                  // определим сколько у нас элементов в остатке от деления !!! подумать над названием переменной
-                    const numbersSliders = allIndexex.length%initialIndexes.length;
-                  // определить предыдущий элемент перед нулевым 
-                  const prevIndexSlide =  allIndexex.length;
-                  // определим начальный элемент для копирования части индексов
-                  const firstPrevIndexSlide = prevIndexSlide -numbersSliders
-                  // определим с какого начнем копировать индексы для паг
-                  const prevPaginIndexes =  allIndexex.slice(firstPrevIndexSlide,prevIndexSlide+1)
-                  // что здесь копируется ?????
-                  console.log(prevPaginIndexes);
-                  setIndexesPag(prevPaginIndexes)
+//       }else {
+//         //  перемещение влево value === 'decrement' - смотрим предыдущий слайд
+//         newIndexCurrSlide = indCurrSlide<=0 ? sliders.length-1 : indCurrSlide -1;
+//         //  надо сделать тройку пагинации в обратную сторону
+//         // если тек индекс слайда равен первому элементу пагинации с инд 0
+//         if(indCurrSlide === indexesPag[0]){
+//           //  определим откуда будем резать те копировать индексы пагинации
+//           const prevIndexSlide = indCurrSlide-1;
+//           // определим с какого элемента пагинации начнем копирование
+//            const firstIndexSlide = prevIndexSlide -  initialIndexes.length+1;
+//           // console.log(prevIndexSlide)
+//           //  console.log(firstIndexSlide)
+//           // console.log(allIndexex)
+//           // определим след тройку
+//           // console.log(nextIndexSlide, cutterSizeLimit)
+//           const prevPaginIndexes = allIndexex.slice(firstIndexSlide,prevIndexSlide+1);
+//           // обновим пагинацию назад
+//           // console.log(nextPaginIndexes)
+//           // проверка на один или два
+//           // console.log(nextPaginIndexes)
+//           setIndexesPag(prevPaginIndexes)
+//           // если это нулевой элемент и остаток от деления не ноль
+//               if( indCurrSlide<=0){ 
+//                 if(allIndexex.length%initialIndexes.length!==0 ){
+//                   // определим сколько у нас элементов в остатке от деления !!! подумать над названием переменной
+//                     const numbersSliders = allIndexex.length%initialIndexes.length;
+//                   // определить предыдущий элемент перед нулевым 
+//                   const prevIndexSlide =  allIndexex.length;
+//                   // определим начальный элемент для копирования части индексов
+//                   const firstPrevIndexSlide = prevIndexSlide -numbersSliders
+//                   // определим с какого начнем копировать индексы для паг
+//                   const prevPaginIndexes =  allIndexex.slice(firstPrevIndexSlide,prevIndexSlide+1)
+//                   // что здесь копируется ?????
+//                   console.log(prevPaginIndexes);
+//                   setIndexesPag(prevPaginIndexes)
 
-                }
-                // если это нулевой элемент и остаток от деления  ноль
-                if(allIndexex.length%initialIndexes.length===0){
-                    const prevIndexSlide =  allIndexex.length-1;
-                    const firstIndexSlide = prevIndexSlide -  initialIndexes.length+1;
-                    const prevPaginIndexes = allIndexex.slice(firstIndexSlide,prevIndexSlide+1);
-                    setIndexesPag(prevPaginIndexes)
+//                 }
+//                 // если это нулевой элемент и остаток от деления  ноль
+//                 if(allIndexex.length%initialIndexes.length===0){
+//                     const prevIndexSlide =  allIndexex.length-1;
+//                     const firstIndexSlide = prevIndexSlide -  initialIndexes.length+1;
+//                     const prevPaginIndexes = allIndexex.slice(firstIndexSlide,prevIndexSlide+1);
+//                     setIndexesPag(prevPaginIndexes)
 
-                }
-              }
-        }
+//                 }
+//               }
+//         }
       
 
-      }
-//  изменяем состояние показа слайда - т е меняем индекс слайда который будет отобр
-      setIndexSlide(newIndexCurrSlide ?? 0);
-  }
+//       }
+// //  изменяем состояние показа слайда - т е меняем индекс слайда который будет отобр
+//       setIndexSlide(newIndexCurrSlide ?? 0);
+//   }
 
   // useEffect(()=>{
   //   const timer = setInterval(()=>{
@@ -113,6 +113,52 @@ export const HomePageUI: FC<THomePageProps> = () => {
   //     clearInterval(timer)
   //   })
   // },[sliders.length, handleChangeSlide])
+
+
+   const handleChangeSlide = (value:'increment' | 'decrement') => {
+      let newIndexCurrSlide;
+      // определяем начало тройки где находится тек индекс
+      //  перенести функцию ниже в utils
+      // В каком блоке по N элементов находится число?
+      // "находим число где оно в списке из n элементов в подсписке из m"
+      // разбиение на блоки фиксированного размера Math.floor(i / m) * m
+      // В каком блоке по m элементов находится элемент i
+      // и где начинается этот блок?
+      const getPagIndexes = (currentIndexSlide:number,showPagSize:number):number[]=>{
+        // находим блок в котором находится индекс пагинации тек слайда (округляя вниз до ближ целого)
+         const findBlock = Math.floor(currentIndexSlide/showPagSize);
+        //  "выделяем" этот блок
+        //   1.находим начало этого блока
+         const startIndex =  findBlock *showPagSize
+      
+          // 2. определили конечный элемент тройки
+      const endIndex =  startIndex + pagePagSize-1;
+      //  3. определим тройку
+        const forIndexesPag = allIndexex.slice( startIndex,endIndex+1);
+        return forIndexesPag
+      }
+     
+      // console.log(startIndex)
+      // console.log(endIndex)
+      // console.log(forIndexesPag )
+
+      if(value === 'increment') {
+        //  меняем слайд 'вперед'
+        newIndexCurrSlide = indCurrSlide>=sliders.length-1 ? 0 : indCurrSlide + 1;
+    
+
+      }else {
+        //  перемещение влево value === 'decrement' - смотрим предыдущий слайд
+        newIndexCurrSlide = indCurrSlide<=0 ? sliders.length-1 : indCurrSlide -1;
+        
+      
+
+      }
+//  изменяем состояние показа слайда - т е меняем индекс слайда который будет отобр
+      setIndexSlide(newIndexCurrSlide ?? 0);
+      setIndexesPag(getPagIndexes(newIndexCurrSlide,pagePagSize))
+      // setIndexesPag(forIndexesPag)
+  }
 
 
 
