@@ -1,0 +1,82 @@
+.slider {
+  position: relative;
+  min-height: 100vh;
+  /* width: 100vw; */
+  /* height: 100vh; */
+}
+
+.banner-inner {
+  padding-inline:32px;
+}
+
+.slider-item {
+  position: absolute;
+  inset: 0;
+}
+
+.slider-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.slider-content {
+  position: absolute;
+  top: 212px;
+  z-index: 200;
+  /* display: flex;
+  flex-direction: coliumn; */
+  width: 100%;
+  max-width: 707px;
+  padding-inline:32px;
+  /* padding-inline: 32px;
+  padding-block: 40px; */
+  color:var(--color-primary, #15242a);
+}
+/* не збд letter spacing */
+.slider-title {
+  margin-bottom: 16px;
+  font-family: var(--title-font, "Cormorant SC");
+  font-weight: var(--fw-title, 600);
+  font-size: 48px;
+  line-height: 1.2;
+}
+
+.slider-text {
+  margin-bottom: 32px;
+  color: var(--color-tertiary,#000000);
+  font-family: 'Raleway';
+  font-weight: var(--fw-text, 400);
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.slider-actions {
+  display: flex;
+  gap:16px;
+}
+
+.slider-actions:not(:last-child){
+  margin-block-end: 302px;
+}
+
+.slider-nav {
+
+  position: absolute;
+  bottom:0;
+  z-index: 200;
+  display: flex;
+  gap: 28px;
+  padding:0 32px 40px 32px;
+}
+
+.slider-arrows {
+  display: flex;
+  gap: 16px;
+}
+
+.slider-pag {
+  display: flex;
+  gap: 20px;
+}
