@@ -9,7 +9,6 @@ export type TEventType =
       callback: () => void;
     };
 
-
 export type TActionUser = TEventType & {
   title: string;
-}
+};

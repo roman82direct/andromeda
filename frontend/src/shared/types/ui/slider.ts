@@ -5,4 +5,4 @@ export type TSlideItem = {
   title: string;
   desc?: string;
   pathsForActions: TActionUser[];
-}
+};

@@ -21,10 +21,8 @@ export type TIconClassCssIcon =
   | "mastercard"
   | "arrow-left"
   | "arrow-right"
-  | 'ellipse-emptied'
-  | 'ellipse-filled';
-
-
+  | "ellipse-emptied"
+  | "ellipse-filled";
 
 export type TIconType = {
   typeIcon: TIconClassCssIcon;

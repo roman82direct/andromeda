@@ -42,7 +42,7 @@ export const ButtonUI: FC<ButtonUIProps> = ({
   fullSize,
   isDisabled,
   variant,
-  to
+  to,
 }) => {
   const className = clsx(
     styles.button,
@@ -51,18 +51,17 @@ export const ButtonUI: FC<ButtonUIProps> = ({
     fullSize ? styles.fullWidthBtn : "",
   );
   return to ? (
-      <Link to={to} className={className}>
-        {children}
-      </Link>
-   
+    <Link to={to} className={className}>
+      {children}
+    </Link>
   ) : (
-      <button
-        className={className}
-        type={type}
-        onClick={onClick}
-        disabled={isDisabled}
-      >
-        {children}
-      </button>
-  )
+    <button
+      className={className}
+      type={type}
+      onClick={onClick}
+      disabled={isDisabled}
+    >
+      {children}
+    </button>
+  );
 };
