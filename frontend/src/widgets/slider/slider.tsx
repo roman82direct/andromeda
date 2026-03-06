@@ -1,4 +1,4 @@
-import { useEffect, type FC } from "react";
+import { type FC } from "react";
 import { SliderUI } from "./ui/slider";
 import { getPagIndexes } from "./utils/getPagIndexes";
 import type { TSlideItem } from "@/shared/types/ui/slider";
@@ -11,7 +11,12 @@ type TSliderProps = {
 export const Slider: FC<TSliderProps> = ({ sliders }) => {
     //работа с показом слайдов и их перелистыванием
   // Вызываем хук для обработки перелистывания слайдов
-  const {indCurrSlide, setIndexSlide, handleChangeSlide} = useChangeSlide(sliders);
+  const {
+    indCurrSlide, 
+    setIndexSlide, 
+    handleChangeSlide,
+    toggleIntervalSlide
+  } = useChangeSlide(sliders);
   // на основе текущего индекса показываем слайд из массива sliders
   const currentSlide = sliders[indCurrSlide];
   //  работа с пагинацией слайдов - сколько кнопок пагинации показываем согласно макету
@@ -26,6 +31,7 @@ export const Slider: FC<TSliderProps> = ({ sliders }) => {
       onHandleChangeSlide={handleChangeSlide}
       onSetIndexSlide={setIndexSlide}
       indexesPag={currentIndexesPag}
+      toggleIntervalSlide={toggleIntervalSlide}
     />
   );
 };

@@ -10,10 +10,11 @@ export const SliderUI: FC<TSliderUIProps> = ({
   onSetIndexSlide,
   onHandleChangeSlide,
   indexesPag,
+  toggleIntervalSlide
 }) => {
   return (
-    <div>
-      <div className={styles.slider}>
+    <div onMouseEnter={()=> toggleIntervalSlide(false)} onMouseLeave={()=> toggleIntervalSlide(true)}>
+      <div  className={styles.slider}>
         {
           <div className={styles["slider-item"]}>
             <img
