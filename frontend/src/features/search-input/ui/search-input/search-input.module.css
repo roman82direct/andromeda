@@ -2,7 +2,7 @@
   --base-width-form: 208px;
   --input-container-width: calc(var(--base-width-form, 208px) - 48px);
   --height-input: 28px;
-  --gap-form: 14px;
+  --gap-form: 10px;
   width: var(--base-width-form, 208px);
   padding-inline-start: 4px;
   background-color: var(--color-secondary, #f8f9fa);
@@ -104,7 +104,6 @@
   font-weight: var(--fw-text, 400);
   font-size: 16px;
   line-height: 1.2;
-  letter-spacing: -0.7px;
   letter-spacing: 0.05em;
   transition: opacity 0.2s ease-in;
 }

@@ -2,20 +2,20 @@ import { type FC } from "react";
 import { SliderUI } from "./ui/slider";
 import { getPagIndexes } from "./utils/getPagIndexes";
 import type { TSlideItem } from "@/shared/types/ui/slider";
-import {useChangeSlide} from './hooks/useChangeSlide';
+import { useChangeSlide } from "./hooks/useChangeSlide";
 type TSliderProps = {
   // тип вывести в общие типы
   sliders: TSlideItem[];
 };
 
 export const Slider: FC<TSliderProps> = ({ sliders }) => {
-    //работа с показом слайдов и их перелистыванием
+  //работа с показом слайдов и их перелистыванием
   // Вызываем хук для обработки перелистывания слайдов
   const {
-    indCurrSlide, 
-    setIndexSlide, 
+    indCurrSlide,
+    setIndexSlide,
     handleChangeSlide,
-    toggleIntervalSlide
+    toggleIntervalSlide,
   } = useChangeSlide(sliders);
   // на основе текущего индекса показываем слайд из массива sliders
   const currentSlide = sliders[indCurrSlide];

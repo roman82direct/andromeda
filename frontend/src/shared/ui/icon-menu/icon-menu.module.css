@@ -13,8 +13,8 @@
 }
 
 .menu-list_header {
-  --gap-icons: 21px;
-  padding-right: 10px;
+  --gap-icons: 16px;
+  padding-right: 5px;
 }
 
 .menu-list_header .menu-item {
