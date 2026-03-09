@@ -1,12 +1,47 @@
 .modal {
-  /* временные стил надо доработать! */
-  position: fixed;
-  top: var(--header-height, 69px);
-  right: 0;
-  z-index: 9999;
-  /* временно padding */
-  padding: 10px;
-  background-color: var(--color-secondary, #f8f9fa);
+    position: fixed;
+    top: 68.2px; /* пока оставила так */
+    right: 0px;
+    width: 40vw;
+    background: var(--color-secondary, #f8f9fa);
+    color: var(--color-primary, #212529);
+    padding: 24px;
+    z-index: 100;
+    height: calc(100% - 68.2px);
+    
 }
 
-/*  сделать типы модалок в зависимости от контента ? так как стили различаются */
+@media screen and (max-width: 768px) {
+    .modal {
+        width: 100vw;
+    }
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.left {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: var(--fw-title);
+}
+
+.content {
+    margin-top: 20px;
+    justify-content: center;
+    text-align: center;
+}

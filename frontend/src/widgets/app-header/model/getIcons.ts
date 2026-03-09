@@ -5,14 +5,14 @@ import type { TNavIconsParams } from "../app-header";
 //  положить getIcons  в отдельную папку utils импортировать оттуда
 export const getIcons = (
   isAuthenticated: boolean,
-  { counterCart, counterFavorites }: TNavIconsParams,
+  { counterCart, counterFavorites, openLoginModal }: TNavIconsParams,
 ): TIconType[] => {
   if (!isAuthenticated) {
     return [
-      // просим залогиниться если не вошли
-      { typeIcon: "come-in", typeEvent: { trigger: "route", path: "/login" } },
-      { typeIcon: "heart", typeEvent: { trigger: "route", path: "/login" } },
-      { typeIcon: "cart", typeEvent: { trigger: "route", path: "/login" } },
+      // просим залогиниться если не вошли, при этом вылезает модалка без проута на другую страницу
+      { typeIcon: "come-in", typeEvent: { trigger: "action-on-page", callback: openLoginModal } },
+      { typeIcon: "heart", typeEvent: { trigger: "action-on-page", callback: openLoginModal } },
+      { typeIcon: "cart", typeEvent: { trigger: "action-on-page", callback: openLoginModal } },
     ];
   }
   return [

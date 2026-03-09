@@ -7,7 +7,7 @@
 
 .footer-content {
   padding-inline: 24px;
-  background-color: var(--color-primary, #15242a);
+  background-color: var(--color-dark-accent, #2f4d5a);
 }
 
 .footer-head {

@@ -1,16 +1,18 @@
 import { useEffect, type FC, type ReactNode } from "react";
-import { ModalUI } from "./modalUI";
 import ReactDOM from "react-dom";
+import { ModalUI } from "./modalUI";
+import { OverlayUI } from "../overlay";
 
 type ModalProps = {
   title?: string;
   onClose: () => void;
+  onBack?: () => void; // возможность вернуться на шаг назад есть пока только в логине
   children: ReactNode;
 };
 
 const modalRoot = document.getElementById("modals") as HTMLDivElement;
 
-export const Modal: FC<ModalProps> = ({ children, onClose, title }) => {
+export const Modal: FC<ModalProps> = ({ title, onClose, onBack, children }) => {
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -18,14 +20,19 @@ export const Modal: FC<ModalProps> = ({ children, onClose, title }) => {
       }
     };
     document.addEventListener("keydown", handleEsc);
+
     return () => {
       document.removeEventListener("keydown", handleEsc);
     };
   }, [onClose]);
+
   return ReactDOM.createPortal(
-    <ModalUI title={title} onClose={onClose}>
-      {children}
-    </ModalUI>,
-    modalRoot,
+    <>
+      <OverlayUI onClick={onClose} />,
+      <ModalUI title={title} onClose={onClose} onBack={onBack}>
+        {children}
+      </ModalUI>
+    </>,
+    modalRoot
   );
 };
