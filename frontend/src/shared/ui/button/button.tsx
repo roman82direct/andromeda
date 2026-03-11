@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 type TButtonVariant = "filled" | "outlined" | "text";
 
-type TButtonColor = "primary" | "secondary" | "subscribe";
+type TButtonColor = "primary" | "secondary" | "dark";
 
 type ButtonUIProps = {
   onClick?: () => void;
@@ -31,7 +31,7 @@ const typesButton: Record<TButtonVariant, classCssBtn> = {
 const colorsButton: Record<TButtonColor, classCssBtn> = {
   primary: "btn-color-primary",
   secondary: "btn-color-secondary",
-  subscribe: "btn-form-subscribe",
+  dark: "btn-color-dark",
 };
 
 export const ButtonUI: FC<ButtonUIProps> = ({

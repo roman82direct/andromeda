@@ -16,8 +16,9 @@ export const SliderUI: FC<TSliderUIProps> = ({
     const backgroundImageSrc = {
       '--slide-bg': `url("${showingSlide.image}")`
     } as React.CSSProperties
-    // для стилизации слайда если темный фон или светлый чтобы с текстом не сливались
-    const themeSlideClass = showingSlide.typeTheme === 'light' ? 'is-light' : 'is-dark'
+    // для стилизации слайда и его элементов если темный фон или светлый чтобы с текстом не сливались
+    const themeSlideClass = showingSlide.typeTheme === 'light' ? 'is-light' : 'is-dark';
+    const colorBtn =  showingSlide.typeTheme === 'dark' ? 'dark' : '';
   return (
 
       <div className={styles.slider} onMouseEnter={()=> toggleIntervalSlide(false)} onMouseLeave={()=> toggleIntervalSlide(true)} >
@@ -37,7 +38,8 @@ export const SliderUI: FC<TSliderUIProps> = ({
                       <ButtonUI
                         key={index}
                         variant={index === 0 ? "filled" : "outlined"}
-                        color={index === 0 ? "primary" : "secondary"}
+                        color={colorBtn || (index === 0 ? "primary" : "secondary")}
+                        
                         to={source.path}
                       >
                         {source.title}
@@ -46,7 +48,7 @@ export const SliderUI: FC<TSliderUIProps> = ({
                       <ButtonUI
                         key={index}
                         variant={index === 0 ? "filled" : "outlined"}
-                        color={index === 0 ? "primary" : "secondary"}
+                        color={colorBtn || (index === 0 ? "primary" : "secondary")}
                         onClick={source.callback}
                       >
                         {source.title}
@@ -64,14 +66,14 @@ export const SliderUI: FC<TSliderUIProps> = ({
                         onClick={() => onHandleChangeSlide("decrement")}
                         iconClass={"arrow-right"}
                         isActive={false}
-                        colorIcon={"primary"}
+                        colorIcon={colorBtn ? "secondary" : "primary"}
                         sizeIcon={33}
                       />
                       <IconButtonUI
                         onClick={() => onHandleChangeSlide("increment")}
                         iconClass={"arrow-left"}
                         isActive={false}
-                        colorIcon={"primary"}
+                        colorIcon={colorBtn ? "secondary" : "primary"}
                         sizeIcon={33}
                       />
                     </div>
@@ -85,7 +87,7 @@ export const SliderUI: FC<TSliderUIProps> = ({
                             iconActiveClass={"ellipse-filled"}
                             iconClass={"ellipse-emptied"}
                             isActive={index === indexShowSlide}
-                            colorIcon={"primary"}
+                            colorIcon={colorBtn ? "secondary" : "primary"}
                             sizeIcon={10}
                           />
                         </li>
