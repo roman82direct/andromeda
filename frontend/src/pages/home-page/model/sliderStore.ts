@@ -1,4 +1,4 @@
-import type { TEventType } from "@/shared/types/types";
+
 import discountImage from "../../../assets/images/home-page/slider/banner-for-discount.jpg";
 import deliveryImage from "../../../assets/images/home-page/slider/banner-for-delivery.jpg";
 import newYear from "../../../assets/images/home-page/slider/banner-for-new-year.jpg";
@@ -10,25 +10,26 @@ import test2 from "../../../assets/images/home-page/slider/test2.jpg";
 import test3 from "../../../assets/images/home-page/slider/test3.jpg";
 import test4 from "../../../assets/images/home-page/slider/lessOne.jpg";
 import test5 from "../../../assets/images/home-page/slider/less2.jpg";
+import type { TSlideItem } from "@/shared/types/ui/slider";
 
-type TEventBanner = TEventType & {
-  title: string;
-};
 
-type TSliderItem = {
-  image: string;
-  title: string;
-  desc?: string;
-  pathsForActions: TEventBanner[];
-};
 
-export type TSliderStore = TSliderItem[];
+// type TSliderItem = {
+//   image: string;
+//   title: string;
+//   desc?: string;
+//   pathsForActions: TEventBanner[];
+//   type:'dark' | 'light'
+// };
+
+export type TSliderStore = TSlideItem[];
 
 export const sliderStore: TSliderStore = [
   {
     image: discountImage,
     title: "Скидки до 40% процентов на категорию “Распродажа”",
     desc: "Успейте купить по выгодной цене",
+    typeTheme:'light',
     pathsForActions: [
       {
         title: "Подробнее",
@@ -55,10 +56,12 @@ export const sliderStore: TSliderStore = [
         path: "",
       },
     ],
+    typeTheme:'light'
   },
   {
     image: newYear,
     title: "Главный подарок: наборы ёлочных игрушек с выгодой",
+    desc:"Новогоднее описание",
     pathsForActions: [
       {
         title: "Подробнее",
@@ -73,6 +76,7 @@ export const sliderStore: TSliderStore = [
         path: "/catalog",
       },
     ],
+    typeTheme:'dark'
   },
   {
     image: testImage1,
@@ -92,6 +96,7 @@ export const sliderStore: TSliderStore = [
         path: "/catalog",
       },
     ],
+     typeTheme:'light'
   },
   {
     image: testImage2,
@@ -111,6 +116,7 @@ export const sliderStore: TSliderStore = [
         path: "/catalog",
       },
     ],
+     typeTheme:'light'
   },
   {
     image: testImage3,
@@ -130,6 +136,7 @@ export const sliderStore: TSliderStore = [
         path: "/catalog",
       },
     ],
+     typeTheme:'light'
   },
   {
     image: test1,
@@ -139,6 +146,7 @@ export const sliderStore: TSliderStore = [
       { title: "Подробнее", trigger: "route", path: "/promo/smart-light" },
       { title: "Каталог", trigger: "route", path: "/catalog/lighting" },
     ],
+     typeTheme:'light'
   },
   {
     image: test2,
@@ -148,6 +156,7 @@ export const sliderStore: TSliderStore = [
       { title: "Подробнее", trigger: "route", path: "/promo/kitchen-gift" },
       { title: "Каталог", trigger: "route", path: "/catalog/kitchen" },
     ],
+     typeTheme:'light'
   },
   {
     image: test3,
@@ -157,6 +166,7 @@ export const sliderStore: TSliderStore = [
       { title: "Подробнее", trigger: "route", path: "/promo/eco-style" },
       { title: "Каталог", trigger: "route", path: "/catalog/textile" },
     ],
+     typeTheme:'light'
   },
   {
     image: test4,
@@ -166,6 +176,7 @@ export const sliderStore: TSliderStore = [
       { title: "Подробнее", trigger: "route", path: "/promo/home-office" },
       { title: "Каталог", trigger: "route", path: "/catalog/office" },
     ],
+     typeTheme:'light'
   },
   {
     image: test5,
@@ -175,6 +186,7 @@ export const sliderStore: TSliderStore = [
       { title: "Подробнее", trigger: "route", path: "/promo/bathroom-sale" },
       { title: "Каталог", trigger: "route", path: "/catalog/bathroom" },
     ],
+     typeTheme:'light'
   },
   // {
   //   image: test5,
@@ -183,6 +195,7 @@ export const sliderStore: TSliderStore = [
   //   pathsForActions: [
   //     { title: 'Подробнее', trigger: 'route', path: '/promo/bathroom-sale' },
   //     { title: 'Каталог', trigger: 'route', path: '/catalog/bathroom' },
-  //   ]
+  //   ],
+      //  typeTheme:'light'
   // }
 ];

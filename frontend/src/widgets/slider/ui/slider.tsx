@@ -16,11 +16,13 @@ export const SliderUI: FC<TSliderUIProps> = ({
     const backgroundImageSrc = {
       '--slide-bg': `url("${showingSlide.image}")`
     } as React.CSSProperties
+    // для стилизации слайда если темный фон или светлый чтобы с текстом не сливались
+    const themeSlideClass = showingSlide.typeTheme === 'light' ? 'is-light' : 'is-dark'
   return (
-    
+
       <div className={styles.slider} onMouseEnter={()=> toggleIntervalSlide(false)} onMouseLeave={()=> toggleIntervalSlide(true)} >
         {
-          <div className={styles["slider-item"]} style={backgroundImageSrc}>
+          <div className={clsx(styles['slider-item'], styles[themeSlideClass])} style={backgroundImageSrc}>
             <div className={styles["slider-content"]}>
               <div className={styles['slider-text']}>
                 <h1 className={styles["slider-title"]}>{showingSlide.title}</h1>

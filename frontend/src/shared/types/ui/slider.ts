@@ -5,4 +5,5 @@ export type TSlideItem = {
   title: string;
   desc?: string;
   pathsForActions: TActionUser[];
+  typeTheme:'dark' | 'light'
 };
