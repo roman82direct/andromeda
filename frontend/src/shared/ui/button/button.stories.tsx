@@ -88,10 +88,36 @@ export const forFormSubscribeButton: Story = {
   },
   args: {
     children: "Подписаться",
-    color: "subscribe",
+    color: "dark",
     variant: "outlined",
   },
 };
+
+export const darkButtonFullfiled: Story = {
+  render: (args) => {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "400px",
+          padding: "20px",
+          border: "2px solid black",
+          background: "#2F4D5A",
+        }}
+      >
+        <ButtonUI {...args} />
+      </div>
+    );
+  },
+  args: {
+    children: "Подписаться",
+    color: "dark",
+    variant: 'filled',
+  },
+};
+
 
 //  необходимо переделать компонент iconUi : добавить возмонжость цвета и
 //  и реакцию на псевдокласс родителя что типа currentColor
