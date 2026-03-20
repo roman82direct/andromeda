@@ -1,4 +1,4 @@
-import { type FC } from "react";
+import { useMemo, memo } from "react";
 import { SliderUI } from "./ui/slider";
 import { getPagIndexes } from "./utils/getPagIndexes";
 import type { TSlideItem } from "@/shared/types/ui/slider";
@@ -8,7 +8,7 @@ type TSliderProps = {
   sliders: TSlideItem[];
 };
 
-export const Slider: FC<TSliderProps> = ({ sliders }) => {
+export const SliderComponent = ({ sliders }:TSliderProps) => {
   //работа с показом слайдов и их перелистыванием
   // Вызываем хук для обработки перелистывания слайдов
   const {
@@ -23,7 +23,11 @@ export const Slider: FC<TSliderProps> = ({ sliders }) => {
   const pagePagSize = 3;
   // вычисляем индексы пагинации так чтобы они совпали со номерами индексов слайдов в sliders
   // чтобы можно было показать тек слайд, слайд перед ним и после него(те тройку слайдов где есть тек показ слайд)
-  const currentIndexesPag = getPagIndexes(indCurrSlide, pagePagSize, sliders);
+  //  кешируем результат пагинации чтобы просто так не было рендеров
+  const currentIndexesPag = useMemo(
+  () => getPagIndexes(indCurrSlide, pagePagSize, sliders),
+  [indCurrSlide, sliders]
+);
   return (
     <SliderUI
       indexShowSlide={indCurrSlide}
@@ -35,3 +39,9 @@ export const Slider: FC<TSliderProps> = ({ sliders }) => {
     />
   );
 };
+
+
+export const Slider = memo(SliderComponent);
+Slider.displayName= 'Slider';
+
+

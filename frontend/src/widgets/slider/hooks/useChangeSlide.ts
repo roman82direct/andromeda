@@ -35,7 +35,15 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
       clearInterval(intervalIdSliders);
     };
   }, [handleChangeSlide, interChangSlide, delay]);
+  useEffect(() => {
+  // Вычисляем индекс СЛЕДУЮЩЕГО слайда
+  const nextIndex = (indCurrSlide + 1) % sliders.length;
+  const nextImage = sliders[nextIndex].image;
 
+  // Создаем невидимый элемент картинки
+  const img = new Image();
+  img.src = nextImage; // Браузер сразу начнет загрузку и положит её в кеш
+}, [indCurrSlide, sliders]); // Срабатывает при каждой смене текущего слайда
   return {
     indCurrSlide, // Номер текущего слайда
     setIndexSlide, // Возможность напрямую прыгнуть на любой слайд (например, по клику на точку)

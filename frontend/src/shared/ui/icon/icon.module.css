@@ -147,3 +147,12 @@
 .ellipse-filled {
   --icon-url: url("../../../assets/icons/ellipse-filled.svg");
 }
+
+.burger {
+  --icon-url: url("../../../assets/icons/burger.svg");
+}
+
+.arrow-top {
+  --icon-url: url("../../../assets/icons/arrow-top.svg");
+}
+

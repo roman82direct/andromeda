@@ -1,21 +1,31 @@
 import { ButtonUI } from "@/shared/ui/button";
 import { IconButtonUI } from "@/shared/ui/icon-button";
 import styles from "./slider.module.css";
-import type { FC } from "react";
 import type { TSliderUIProps } from "./types";
 import clsx from "clsx";
+import React, { memo } from 'react';
 
-export const SliderUI: FC<TSliderUIProps> = ({
+export const SliderComponentUI = ({
   indexShowSlide,
   showingSlide,
   onSetIndexSlide,
   onHandleChangeSlide,
   indexesPag,
   toggleIntervalSlide
-}) => {
+}:TSliderUIProps) => {
     const backgroundImageSrc = {
-      '--slide-bg': `url("${showingSlide.image}")`
-    } as React.CSSProperties
+      '--fallback-bg': `url("${showingSlide.image.jpg["1x"]}")`,
+      '--slide-bg': 
+     `image-set(
+        url("${showingSlide.image.avif["1x"]}") 1x,
+        url("${showingSlide.image.avif["2x"]}") 2x,
+        url("${showingSlide.image.webp["1x"]}") 1x,
+        url("${showingSlide.image.webp["2x"]}") 2x,
+        url("${showingSlide.image.jpg["1x"]}") 1x,
+        url("${showingSlide.image.jpg["2x"]}") 2x
+    )`
+  } as React.CSSProperties
+    // console.log(showingSlide)
     // для стилизации слайда и его элементов если темный фон или светлый чтобы с текстом не сливались
     const themeSlideClass = showingSlide.typeTheme === 'light' ? 'is-light' : 'is-dark';
     const colorBtn =  showingSlide.typeTheme === 'dark' ? 'dark' : '';
@@ -101,3 +111,7 @@ export const SliderUI: FC<TSliderUIProps> = ({
  
   );
 };
+
+export const SliderUI = memo(SliderComponentUI);
+SliderUI.displayName = 'SliderUI';
+

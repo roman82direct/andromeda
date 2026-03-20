@@ -19,6 +19,8 @@
   --letter-spacing-main-title: 0.065em;
   --header-height: 69px;
   --footer-height: 391px;
+/* переменные для media запросов */
+  --tablet:768px;
   /* filters  - наверное надо будет убрать к стилям самого компонента фильтра потом?*/
   --color-beige-filter: #e5dbc0;
   --color-yellow-filter: #ede860;

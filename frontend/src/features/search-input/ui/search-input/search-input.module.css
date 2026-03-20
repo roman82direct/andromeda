@@ -1,5 +1,6 @@
 .wrapperForm {
-  --base-width-form: 208px;
+  /*  30vw  подумать???*/
+  --base-width-form: clamp(24px, 30vw,208px);
   --input-container-width: calc(var(--base-width-form, 208px) - 48px);
   --height-input: 28px;
   --gap-form: 10px;
@@ -106,6 +107,12 @@
   line-height: 1.2;
   letter-spacing: 0.05em;
   transition: opacity 0.2s ease-in;
+}
+
+@media(max-width:768px){
+  .searchInput::placeholder {
+    font-size: 0;
+  }
 }
 
 .search-btn-close {
