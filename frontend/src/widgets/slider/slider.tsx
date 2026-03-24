@@ -18,7 +18,10 @@ export const SliderComponent = ({ sliders }:TSliderProps) => {
     toggleIntervalSlide,
   } = useChangeSlide(sliders);
   // на основе текущего индекса показываем слайд из массива sliders
-  const currentSlide = sliders[indCurrSlide];
+  const currentSlide = useMemo(()=>{
+    return sliders[indCurrSlide]
+  },[indCurrSlide,sliders]) ;
+  
   //  работа с пагинацией слайдов - сколько кнопок пагинации показываем согласно макету
   const pagePagSize = 3;
   // вычисляем индексы пагинации так чтобы они совпали со номерами индексов слайдов в sliders

@@ -1,4 +1,4 @@
-import type { FC, ReactNode } from "react";
+import { memo, type FC, type ReactNode } from "react";
 import styles from "./icon-button.module.css";
 import { IconUI } from "../icon/icon";
 import { type TIconClassCssIcon } from "@/shared/types/ui/icon";
@@ -18,7 +18,7 @@ type IconButtonUIProps = {
   colorIcon: "primary" | "secondary";
 };
 
-export const IconButtonUI: FC<IconButtonUIProps> = ({
+export const IconButtonUICopmonent: FC<IconButtonUIProps> = ({
   isActive = false,
   iconActiveClass,
   iconClass,
@@ -53,3 +53,7 @@ export const IconButtonUI: FC<IconButtonUIProps> = ({
     </button>
   );
 };
+
+
+export const IconButtonUI = memo(IconButtonUICopmonent);
+IconButtonUI.displayName = 'IconButtonUI';

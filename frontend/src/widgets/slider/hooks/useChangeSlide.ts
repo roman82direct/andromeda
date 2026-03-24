@@ -1,5 +1,5 @@
 import type { TSlideItem } from "@/shared/types/ui/slider";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
   //работа с показом слайдов и их перелистыванием
@@ -25,25 +25,25 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
   );
   // добавить флаг для остоновки автоматич пролистывания при наведении на слайд
   //  автоматич показ слайдов
-  useEffect(() => {
-    if (!interChangSlide) return;
-    const intervalIdSliders = setInterval(() => {
-      // handleChangeSlide("increment");
-    }, delay);
+  // useEffect(() => {
+  //   if (!interChangSlide) return;
+  //   const intervalIdSliders = setInterval(() => {
+  //     // handleChangeSlide("increment");
+  //   }, delay);
 
-    return () => {
-      clearInterval(intervalIdSliders);
-    };
-  }, [handleChangeSlide, interChangSlide, delay]);
-  useEffect(() => {
-  // Вычисляем индекс СЛЕДУЮЩЕГО слайда
-  const nextIndex = (indCurrSlide + 1) % sliders.length;
-  const nextImage = sliders[nextIndex].image;
+  //   return () => {
+  //     clearInterval(intervalIdSliders);
+  //   };
+  // }, [handleChangeSlide, interChangSlide, delay]);
+//   useEffect(() => {
+//   // Вычисляем индекс СЛЕДУЮЩЕГО слайда
+//   const nextIndex = (indCurrSlide + 1) % sliders.length;
+//   const nextImage = sliders[nextIndex].image;
 
-  // Создаем невидимый элемент картинки
-  const img = new Image();
-  img.src = nextImage; // Браузер сразу начнет загрузку и положит её в кеш
-}, [indCurrSlide, sliders]); // Срабатывает при каждой смене текущего слайда
+//   // Создаем невидимый элемент картинки
+//   const img = new Image();
+//   img.src = nextImage; // Браузер сразу начнет загрузку и положит её в кеш
+// }, [indCurrSlide, sliders]); // Срабатывает при каждой смене текущего слайда
   return {
     indCurrSlide, // Номер текущего слайда
     setIndexSlide, // Возможность напрямую прыгнуть на любой слайд (например, по клику на точку)

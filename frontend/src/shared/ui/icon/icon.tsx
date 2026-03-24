@@ -1,4 +1,4 @@
-import type { CSSProperties, FC } from "react";
+import { memo, type CSSProperties } from "react";
 import styles from "./icon.module.css";
 import clsx from "clsx";
 import { CounterUI } from "../counter";
@@ -24,7 +24,7 @@ export type IconUIProps = {
   colorIcon: TColor;
 };
 
-export const IconUI: FC<IconUIProps> = ({
+export const IconUIComponent = ({
   iconClass,
   sizeIcon = 20,
   turnIcon = 1,
@@ -33,7 +33,7 @@ export const IconUI: FC<IconUIProps> = ({
   counterQuantity,
   inheritColor,
   colorIcon = "primary",
-}) => {
+}:IconUIProps) => {
   const className = clsx(
     styles.icon,
     styles[iconClass],
@@ -60,3 +60,7 @@ export const IconUI: FC<IconUIProps> = ({
     </div>
   );
 };
+
+export const IconUI = memo(IconUIComponent);
+
+IconUI.displayName = 'IconUI';

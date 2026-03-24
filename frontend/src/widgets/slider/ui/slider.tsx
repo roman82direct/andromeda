@@ -3,7 +3,7 @@ import { IconButtonUI } from "@/shared/ui/icon-button";
 import styles from "./slider.module.css";
 import type { TSliderUIProps } from "./types";
 import clsx from "clsx";
-import React, { memo } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 
 export const SliderComponentUI = ({
   indexShowSlide,
@@ -13,7 +13,8 @@ export const SliderComponentUI = ({
   indexesPag,
   toggleIntervalSlide
 }:TSliderUIProps) => {
-    const backgroundImageSrc = {
+  // надо ли это мемоизировать ?
+    const backgroundImageSrc =useMemo(()=>({
       '--fallback-bg': `url("${showingSlide.image.jpg["1x"]}")`,
       '--slide-bg': 
      `image-set(
@@ -25,7 +26,17 @@ export const SliderComponentUI = ({
         url("${showingSlide.image.jpg["2x"]}") 2x
     )`
   } as React.CSSProperties
+),[showingSlide])
+
+  const handleDecrementSlide = useCallback(()=>{
+    onHandleChangeSlide('decrement');
+  },[onHandleChangeSlide]);
+  const handleIncrementSlide = useCallback(()=>{
+    onHandleChangeSlide('increment');
+  },[onHandleChangeSlide]);
+  
     // console.log(showingSlide)
+    // мемоизация кнопок и вынос сложной логики с мемоизацией
     // для стилизации слайда и его элементов если темный фон или светлый чтобы с текстом не сливались
     const themeSlideClass = showingSlide.typeTheme === 'light' ? 'is-light' : 'is-dark';
     const colorBtn =  showingSlide.typeTheme === 'dark' ? 'dark' : '';
@@ -73,14 +84,14 @@ export const SliderComponentUI = ({
              <div className={styles["slider-nav"]}>
                     <div className={styles["slider-arrows"]}>
                       <IconButtonUI
-                        onClick={() => onHandleChangeSlide("decrement")}
+                        onClick={handleDecrementSlide}
                         iconClass={"arrow-right"}
                         isActive={false}
                         colorIcon={colorBtn ? "secondary" : "primary"}
                         sizeIcon={33}
                       />
                       <IconButtonUI
-                        onClick={() => onHandleChangeSlide("increment")}
+                        onClick={handleIncrementSlide}
                         iconClass={"arrow-left"}
                         isActive={false}
                         colorIcon={colorBtn ? "secondary" : "primary"}
