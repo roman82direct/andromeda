@@ -24,14 +24,35 @@
   background-image: 
     linear-gradient(-270deg, #F8F9FA 9.62%, rgba(248, 249, 250, 0) 70%),
     var(--slide-bg);
-  transition: opacity 0.6s ease-in, visibility 0.7s ease-in-out;
-  transform:translateX(-600px) ;
+  transform:translateX(100%);
 }
 
-.slider-item-show{
+.slider-item-appeared{
   visibility: visible;
   opacity:1;
- transform:translateX(0px) ;
+  transform:translateX(0);
+  animation: showSlide 0.7s ease-in-out;
+}
+
+@keyframes showSlide {
+  from {
+    visibility:hidden;
+    opacity: 0;
+    transform:translateX(100%);
+  }
+  to {
+    visibility:visible;
+    opacity: 1;
+    transform:translateX(0);
+  }
+}
+
+.slider-item-disappeared {
+  
+}
+
+@keyframes removeSlide  {
+  
 }
 
 /* стилизация темного слайда */

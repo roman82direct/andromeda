@@ -8,5 +8,4 @@ export type TSliderUIProps = {
   onHandleChangeSlide: (value: "increment" | "decrement") => void;
   indexesPag: number[];
   toggleIntervalSlide: (flag: boolean) => void;
-  isRender:boolean;
 };

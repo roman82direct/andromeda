@@ -13,7 +13,6 @@ export const SliderComponentUI = ({
   onHandleChangeSlide,
   indexesPag,
   toggleIntervalSlide,
-  isRender
 }:TSliderUIProps) => {
   // надо ли это мемоизировать ?
     const backgroundImageSrc =useMemo(()=>({
@@ -45,12 +44,12 @@ export const SliderComponentUI = ({
   return (
 
       <div className={styles.slider} onMouseEnter={()=> toggleIntervalSlide(false)} onMouseLeave={()=> toggleIntervalSlide(true)} >
-        { isRender && (
+      
           <div className={
                           clsx(
                             styles['slider-item'],
                             styles[themeSlideClass],
-                            isShowSlide ? styles['slider-item-show'] : ''
+                            isShowSlide ? styles['slider-item-appeared'] : ''
                           )
                         } style={backgroundImageSrc}>
             <div className={styles["slider-content"]}>
@@ -124,7 +123,7 @@ export const SliderComponentUI = ({
                     </ul>
               </div>
           </div>)
-        }
+        
       </div>
       
  

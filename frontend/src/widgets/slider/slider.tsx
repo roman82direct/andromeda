@@ -40,10 +40,9 @@ export const SliderComponent = ({ sliders }:TSliderProps) => {
   [indCurrSlide, sliders]
 );
   return (
-    <> 
-    
-       <SliderUI
-        isRender={isRender}
+     <SliderUI
+      //   перерисовываем компонент если его содержение меняестя, чтобы наща анимация появления/ удаления слайда сработала
+        key={indCurrSlide}
         isShowSlide={isVisible}
         indexShowSlide={indCurrSlide}
         showingSlide={currentSlide}
@@ -52,11 +51,6 @@ export const SliderComponent = ({ sliders }:TSliderProps) => {
         indexesPag={currentIndexesPag}
         toggleIntervalSlide={toggleIntervalSlide}
     />
-     
-     
-    }
-    </>
-   
   );
 };
 

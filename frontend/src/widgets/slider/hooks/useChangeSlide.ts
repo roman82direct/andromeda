@@ -9,9 +9,8 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
 
   // работаем с анимацией появления слайда
   //  состояние класса анимации
-  const [isVisible,setVisible] = useState(false);
-  // состояние рендера компонента слайда
-  const [isRender, setRender] = useState(true);
+  const [isVisible,setVisible] = useState(true);
+ 
 
   // useEffect(()=>{
   //     const id = requestAnimationFrame(()=>{
@@ -23,26 +22,25 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
   // },[indCurrSlide,isVisible])
 
   useEffect(()=>{
-    if(!isRender) return;
+    if(isVisible) return;
       const id = requestAnimationFrame(()=>{
         setVisible(true)
       });
       return ()=>{
         cancelAnimationFrame(id)
       }
-  },[isRender])
+  },[indCurrSlide,isVisible])
   // useCallback возвращает запомненную версию функции, которая не создаётся заново при каждом рендере, а будет меняться
   // только если изменятся зависимости (sliders.length или indCurrSlide).
   //  создать хук дляслайда и выложить в папку sliders/hooks
   const handleChangeSlide = useCallback(
     (value: "increment" | "decrement") => {
-      // отменяем рендер предыдущего слайда
-      setRender(false)
-      // удаляем классанимации => продумать ?? дляанимации удаления
+     
+      // удаляем классанимации => 
       setVisible(false)
-       setTimeout(()=>{
-            setRender(true)
-         },400)
+      //  setTimeout(()=>{
+      //        setVisible(true)
+      //    },400)
       setIndexSlide((prev) => {
         
         if (value === "increment") {
@@ -62,16 +60,16 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
   );
   // добавить флаг для остоновки автоматич пролистывания при наведении на слайд
   //  автоматич показ слайдов
-  useEffect(() => {
-    if (!interChangSlide) return;
-    const intervalIdSliders = setInterval(() => {
-      handleChangeSlide("increment");
-    }, delay);
+  // useEffect(() => {
+  //   if (!interChangSlide) return;
+  //   const intervalIdSliders = setInterval(() => {
+  //     handleChangeSlide("increment");
+  //   }, delay);
 
-    return () => {
-      clearInterval(intervalIdSliders);
-    };
-  }, [handleChangeSlide, interChangSlide, delay]);
+  //   return () => {
+  //     clearInterval(intervalIdSliders);
+  //   };
+  // }, [handleChangeSlide, interChangSlide, delay]);
 
   return {
     indCurrSlide, // Номер текущего слайда
@@ -81,7 +79,5 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
     //  работа санимацией
     isVisible,
     setVisible,
-    isRender,
-    setRender
   };
 };
