@@ -6,12 +6,14 @@ import clsx from "clsx";
 import React, { memo, useCallback, useMemo } from 'react';
 
 export const SliderComponentUI = ({
+  isShowSlide,
   indexShowSlide,
   showingSlide,
   onSetIndexSlide,
   onHandleChangeSlide,
   indexesPag,
-  toggleIntervalSlide
+  toggleIntervalSlide,
+  isRender
 }:TSliderUIProps) => {
   // надо ли это мемоизировать ?
     const backgroundImageSrc =useMemo(()=>({
@@ -43,8 +45,14 @@ export const SliderComponentUI = ({
   return (
 
       <div className={styles.slider} onMouseEnter={()=> toggleIntervalSlide(false)} onMouseLeave={()=> toggleIntervalSlide(true)} >
-        {
-          <div className={clsx(styles['slider-item'], styles[themeSlideClass])} style={backgroundImageSrc}>
+        { isRender && (
+          <div className={
+                          clsx(
+                            styles['slider-item'],
+                            styles[themeSlideClass],
+                            isShowSlide ? styles['slider-item-show'] : ''
+                          )
+                        } style={backgroundImageSrc}>
             <div className={styles["slider-content"]}>
               <div className={styles['slider-text']}>
                 <h1 className={styles["slider-title"]}>{showingSlide.title}</h1>
@@ -115,7 +123,7 @@ export const SliderComponentUI = ({
                       ))}
                     </ul>
               </div>
-          </div>
+          </div>)
         }
       </div>
       

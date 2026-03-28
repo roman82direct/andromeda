@@ -1,4 +1,4 @@
-import { useMemo, memo } from "react";
+import { useMemo, memo, useState } from "react";
 import { SliderUI } from "./ui/slider";
 import { getPagIndexes } from "./utils/getPagIndexes";
 import type { TSlideItem } from "@/shared/types/ui/slider";
@@ -9,6 +9,10 @@ type TSliderProps = {
 };
 
 export const SliderComponent = ({ sliders }:TSliderProps) => {
+  
+
+
+
   //работа с показом слайдов и их перелистыванием
   // Вызываем хук для обработки перелистывания слайдов
   const {
@@ -16,6 +20,10 @@ export const SliderComponent = ({ sliders }:TSliderProps) => {
     setIndexSlide,
     handleChangeSlide,
     toggleIntervalSlide,
+    isVisible,
+    setVisible,
+    isRender,
+    setRender,
   } = useChangeSlide(sliders);
   // на основе текущего индекса показываем слайд из массива sliders
   const currentSlide = useMemo(()=>{
@@ -32,14 +40,23 @@ export const SliderComponent = ({ sliders }:TSliderProps) => {
   [indCurrSlide, sliders]
 );
   return (
-    <SliderUI
-      indexShowSlide={indCurrSlide}
-      showingSlide={currentSlide}
-      onHandleChangeSlide={handleChangeSlide}
-      onSetIndexSlide={setIndexSlide}
-      indexesPag={currentIndexesPag}
-      toggleIntervalSlide={toggleIntervalSlide}
+    <> 
+    
+       <SliderUI
+        isRender={isRender}
+        isShowSlide={isVisible}
+        indexShowSlide={indCurrSlide}
+        showingSlide={currentSlide}
+        onHandleChangeSlide={handleChangeSlide}
+        onSetIndexSlide={setIndexSlide}
+        indexesPag={currentIndexesPag}
+        toggleIntervalSlide={toggleIntervalSlide}
     />
+     
+     
+    }
+    </>
+   
   );
 };
 
