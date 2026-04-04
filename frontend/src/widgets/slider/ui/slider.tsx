@@ -1,9 +1,9 @@
 
 import { IconButtonUI } from "@/shared/ui/icon-button";
 import styles from "./slider.module.css";
-import type { TSliderUIProps } from "./types";
+import type { TIndexesSlides, TSliderUIProps } from "./types";
 
-import React, { memo, useCallback, useMemo } from 'react';
+import  { memo, useCallback } from 'react';
 import { SlideUI } from "./components/slide/slide";
 
 export const SliderComponentUI = ({
@@ -11,10 +11,11 @@ export const SliderComponentUI = ({
   isDeleteAnimation,
   indexShowSlide,
   showingSlide,
-  onSetIndexSlide,
+  onSetIndexesSlides,
   onHandleChangeSlide,
   indexesPag,
   toggleIntervalSlide,
+  prevSlide
 }:TSliderUIProps) => {
 
 
@@ -24,6 +25,15 @@ export const SliderComponentUI = ({
   const handleIncrementSlide = useCallback(()=>{
     onHandleChangeSlide('increment');
   },[onHandleChangeSlide]);
+
+  const handleSetSlide = (index:number)=>{
+    onSetIndexesSlides((prev:TIndexesSlides)=>(
+      {
+         prev: prev.current,
+          current:index
+      }
+    ))
+  }
   
     // console.log(showingSlide)
     // мемоизация кнопок и вынос сложной логики с мемоизацией
@@ -32,12 +42,18 @@ export const SliderComponentUI = ({
     const colorBtn =  showingSlide.typeTheme === 'dark' ? 'dark' : '';
     // const classAnimation =   isAnimation ? styles['slider-item-appeared'] : '';
     // const classDeleteSlideAnimation =  isDeleteAnimation ? styles['slider-item-disappeared'] : ''
-  return (
+    console.log(showingSlide)
+    return (
 
-      <div key={indexShowSlide} className={styles.slider} onMouseEnter={()=> toggleIntervalSlide(false)} onMouseLeave={()=> toggleIntervalSlide(true)} >
+      <div  className={styles.slider} onMouseEnter={()=> toggleIntervalSlide(false)} onMouseLeave={()=> toggleIntervalSlide(true)} >
         
         <div className={styles.slides}>
-          <SlideUI showingSlide={showingSlide} isAnimation={isAnimation} isDeleteAnimation={ isDeleteAnimation}/>
+          {/* надо разобрать как удалять классы и добавляять для анимации чтобы избежать лишних реднеров  */}
+          {/*  для прева */}
+          {/*  анимация не должна работать с 1 кадра */}
+          <SlideUI key={`prev-${indexShowSlide}`} showingSlide={prevSlide} isAnimation={!isAnimation} isDeleteAnimation={ isDeleteAnimation}/>
+
+          <SlideUI key={`current-${indexShowSlide}`} showingSlide={showingSlide} isAnimation={isAnimation} isDeleteAnimation={ !isDeleteAnimation}/>
         </div>
          
              <div className={styles["slider-nav"]}>
@@ -62,7 +78,8 @@ export const SliderComponentUI = ({
                         <li key={index} className={styles["banner-pag-item"]}>
                           <IconButtonUI
                             onClick={() => {
-                              onSetIndexSlide(index);
+                              // описать прев состояние чтобы работал переход
+                              handleSetSlide(index);
                             }}
                             iconActiveClass={"ellipse-filled"}
                             iconClass={"ellipse-emptied"}

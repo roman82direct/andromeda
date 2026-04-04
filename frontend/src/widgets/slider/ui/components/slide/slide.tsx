@@ -33,8 +33,8 @@ export const SlideUI = ({
   ),[showingSlide]);
    const themeSlideClass = showingSlide.typeTheme === 'light' ? 'is-light' : 'is-dark';
     const colorBtn =  showingSlide.typeTheme === 'dark' ? 'dark' : '';
-    const classAnimation =   isAnimation ? 'slider-item-appeared' : '';
-    const classDeleteSlideAnimation =  isDeleteAnimation ? 'slider-item-disappeared' : '';
+    const classAnimation =   isAnimation ? 'slider-item-appeared' : 'slider-item-disappeared';
+    // const classDeleteSlideAnimation =  isDeleteAnimation ? 'slider-item-disappeared' : '';
   console.log(isDeleteAnimation)
     return (
      <div className={
@@ -42,7 +42,7 @@ export const SlideUI = ({
                             styles['slider-item'],
                             styles[themeSlideClass],
                             styles[classAnimation],
-                            styles[classDeleteSlideAnimation]
+                            // styles[classDeleteSlideAnimation]
                           )
                         } style={backgroundImageSrc}>
                  {/* проблема переполнения текста  */}

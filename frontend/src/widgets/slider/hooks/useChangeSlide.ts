@@ -1,27 +1,55 @@
 import type { TSlideItem } from "@/shared/types/ui/slider";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import type { TIndexesSlides } from "../ui/types";
+
+// export type TIndexesSlides = {
+//   prev: null | number;
+//   current:number
+// }
+
+
 
 export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
   //работа с показом слайдов и их перелистыванием
-  const [indCurrSlide, setIndexSlide] = useState<number>(0);
+  // const [indCurrSlide, setIndexSlide] = useState<number>(0);
+
+    const [indexesSlides, setIndexesSlides] = useState<TIndexesSlides>({
+      prev:null,
+      current:0
+    });
+
   //  отключить/включить автоматическое изменение картинок слайдера
   const [interChangSlide, toggleIntervalSlide] = useState<boolean>(false);
 
   // работаем с анимацией появления слайда
   //  состояние класса анимации
   const [isAnimation,setAnimation] = useState(false);// Анимация появления
-   const [isDeleteAnimation,setDelAnimation] = useState(false);  // Анимация исчезновения
+  const [isDeleteAnimation,setDelAnimation] = useState(true);  // Анимация исчезновения
 
 
-  useEffect(()=>{
-    if(isAnimation && !isDeleteAnimation) return
-      const id = requestAnimationFrame(()=>{
-        // setAnimation(true)
-      });
-      return ()=>{
-        cancelAnimationFrame(id)
-      }
-  },[isAnimation,isDeleteAnimation])
+  // useEffect(()=>{
+  //   if(isAnimation && !isDeleteAnimation) return
+  //     const id = requestAnimationFrame(()=>{
+  //       // setAnimation(true)
+  //     });
+  //     return ()=>{
+  //       cancelAnimationFrame(id)
+  //     }
+  // },[isAnimation,isDeleteAnimation])
+
+   // на основе текущего индекса показываем слайд из массива sliders
+  // const cashSlides = useMemo(()=>{
+  //   return sliders[indCurrSlide]
+  // },[indCurrSlide,sliders]) ;
+
+    const cashSlides = useMemo(()=>{
+    return {
+      prev:sliders[indexesSlides.prev || 0],
+      current:sliders[indexesSlides.current]
+    }
+  },[indexesSlides, sliders]) ;
+
+
 
   // useEffect(()=>{
   //   if(isVisible) return;
@@ -40,23 +68,33 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
      
       // удаляем классанимации => 
       
-      setDelAnimation(true)
-      setAnimation(false)
-      setTimeout(()=>{
+      // setDelAnimation(true)
 
-          setIndexSlide((prev) => {
-          setAnimation(true)
+      setTimeout(()=>{
+           
+          setIndexesSlides((prev) => {
+             requestAnimationFrame(()=>{
+              setAnimation(true)
           setDelAnimation(false)
+            })
+          
+          
            
         if (value === "increment") {
           // setRender(true)
           //  меняем слайд 'вперед'
-          return prev >= sliders.length - 1 ? 0 : prev + 1;
+          return {
+            prev: prev.current,
+            current: prev.current >= sliders.length - 1 ? 0 : prev.current + 1
           
+          }
         } else {
          
           //  перемещение влево value === 'decrement' - смотрим предыдущий слайд
-          return prev <= 0 ? sliders.length - 1 : prev - 1;
+          return {
+            prev: prev.current,
+            current: prev.current <= 0 ? sliders.length - 1 : prev.current - 1
+          }
         }
         
       });
@@ -80,14 +118,18 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
   }, [handleChangeSlide, interChangSlide, delay]);
 
   return {
-    indCurrSlide, // Номер текущего слайда
-    setIndexSlide, // Возможность напрямую прыгнуть на любой слайд (например, по клику на точку)
+    // indCurrSlide, // Номер текущего слайда
+    // setIndexSlide, // Возможность напрямую прыгнуть на любой слайд (например, по клику на точку)
+    indexesSlides,// индексы:слайд текущий и предыдущийдля анимации
+    setIndexesSlides, // lдля прыжка на люб слайд (пагинация)
     handleChangeSlide, // // Функция для кнопок "Вперед" и "Назад"
     toggleIntervalSlide, // запустить/отключить интервал изменения показа слайдов автоматически
     //  работа санимацией
     isAnimation,
     setAnimation,
     isDeleteAnimation,
-    setDelAnimation
+    setDelAnimation,
+    // текущий и предыдущий слайд для анимации
+    cashSlides
   };
 };

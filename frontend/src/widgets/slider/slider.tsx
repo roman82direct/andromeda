@@ -1,4 +1,4 @@
-import { useMemo, memo } from "react";
+import {  memo } from "react";
 import { SliderUI } from "./ui/slider";
 import { getPagIndexes } from "./utils/getPagIndexes";
 import type { TSlideItem } from "@/shared/types/ui/slider";
@@ -16,36 +16,38 @@ export const SliderComponent = ({ sliders }:TSliderProps) => {
   //работа с показом слайдов и их перелистыванием
   // Вызываем хук для обработки перелистывания слайдов
   const {
-    indCurrSlide,
-    setIndexSlide,
+    indexesSlides,
+    setIndexesSlides,
     handleChangeSlide,
     toggleIntervalSlide,
     isAnimation,
     isDeleteAnimation,
+    cashSlides
   } = useChangeSlide(sliders);
-  // на основе текущего индекса показываем слайд из массива sliders
-  const currentSlide = useMemo(()=>{
-    return sliders[indCurrSlide]
-  },[indCurrSlide,sliders]) ;
+ 
   
   //  работа с пагинацией слайдов - сколько кнопок пагинации показываем согласно макету
   const pagePagSize = 3;
   // вычисляем индексы пагинации так чтобы они совпали со номерами индексов слайдов в sliders
   // чтобы можно было показать тек слайд, слайд перед ним и после него(те тройку слайдов где есть тек показ слайд)
   //  кешируем результат пагинации чтобы просто так не было рендеров
-  const currentIndexesPag = useMemo(
-  () => getPagIndexes(indCurrSlide, pagePagSize, sliders),
-  [indCurrSlide, sliders]
-);
+  const currentIndexesPag = 
+  getPagIndexes( indexesSlides.current, pagePagSize, sliders)
+//   возможно кешировать ????
+
   return (
      <SliderUI
+    //  cashSlides  - значение прерва сюда
+        prevSlide={cashSlides.prev}
       //   перерисовываем компонент если его содержение меняестя, чтобы наща анимация появления/ удаления слайда сработала
         isDeleteAnimation={isDeleteAnimation}
         isAnimation={isAnimation}
-        indexShowSlide={indCurrSlide}
-        showingSlide={currentSlide}
+        //  надо будет тоже изменить на значение текиндекса объекат
+        indexShowSlide={ indexesSlides.current}
+        //  поменять
+        showingSlide={cashSlides.current}
         onHandleChangeSlide={handleChangeSlide}
-        onSetIndexSlide={setIndexSlide}
+        onSetIndexesSlides={setIndexesSlides}
         indexesPag={currentIndexesPag}
         toggleIntervalSlide={toggleIntervalSlide}
     />
