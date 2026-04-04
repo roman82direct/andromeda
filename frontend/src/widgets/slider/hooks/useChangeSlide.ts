@@ -5,14 +5,26 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
   //работа с показом слайдов и их перелистыванием
   const [indCurrSlide, setIndexSlide] = useState<number>(0);
   //  отключить/включить автоматическое изменение картинок слайдера
-  const [interChangSlide, toggleIntervalSlide] = useState<boolean>(true);
+  const [interChangSlide, toggleIntervalSlide] = useState<boolean>(false);
 
   // работаем с анимацией появления слайда
   //  состояние класса анимации
-  const [isVisible,setVisible] = useState(true);
- 
+  const [isAnimation,setAnimation] = useState(false);// Анимация появления
+   const [isDeleteAnimation,setDelAnimation] = useState(false);  // Анимация исчезновения
+
+
+  useEffect(()=>{
+    if(isAnimation && !isDeleteAnimation) return
+      const id = requestAnimationFrame(()=>{
+        // setAnimation(true)
+      });
+      return ()=>{
+        cancelAnimationFrame(id)
+      }
+  },[isAnimation,isDeleteAnimation])
 
   // useEffect(()=>{
+  //   if(isVisible) return;
   //     const id = requestAnimationFrame(()=>{
   //       setVisible(true)
   //     });
@@ -20,16 +32,6 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
   //       cancelAnimationFrame(id)
   //     }
   // },[indCurrSlide,isVisible])
-
-  useEffect(()=>{
-    if(isVisible) return;
-      const id = requestAnimationFrame(()=>{
-        setVisible(true)
-      });
-      return ()=>{
-        cancelAnimationFrame(id)
-      }
-  },[indCurrSlide,isVisible])
   // useCallback возвращает запомненную версию функции, которая не создаётся заново при каждом рендере, а будет меняться
   // только если изменятся зависимости (sliders.length или indCurrSlide).
   //  создать хук дляслайда и выложить в папку sliders/hooks
@@ -37,12 +39,15 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
     (value: "increment" | "decrement") => {
      
       // удаляем классанимации => 
-      setVisible(false)
-      //  setTimeout(()=>{
-      //        setVisible(true)
-      //    },400)
-      setIndexSlide((prev) => {
-        
+      
+      setDelAnimation(true)
+    
+      setTimeout(()=>{
+
+          setIndexSlide((prev) => {
+          setAnimation(true)
+          setDelAnimation(false)
+           
         if (value === "increment") {
           // setRender(true)
           //  меняем слайд 'вперед'
@@ -53,23 +58,26 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
           //  перемещение влево value === 'decrement' - смотрим предыдущий слайд
           return prev <= 0 ? sliders.length - 1 : prev - 1;
         }
+        
       });
-      // setVisible(false)
+      },500)
+      
+     
     },
     [sliders.length],
   );
   // добавить флаг для остоновки автоматич пролистывания при наведении на слайд
   //  автоматич показ слайдов
-  // useEffect(() => {
-  //   if (!interChangSlide) return;
-  //   const intervalIdSliders = setInterval(() => {
-  //     handleChangeSlide("increment");
-  //   }, delay);
+  useEffect(() => {
+    if (!interChangSlide) return;
+    const intervalIdSliders = setInterval(() => {
+      // handleChangeSlide("increment");
+    }, delay);
 
-  //   return () => {
-  //     clearInterval(intervalIdSliders);
-  //   };
-  // }, [handleChangeSlide, interChangSlide, delay]);
+    return () => {
+      clearInterval(intervalIdSliders);
+    };
+  }, [handleChangeSlide, interChangSlide, delay]);
 
   return {
     indCurrSlide, // Номер текущего слайда
@@ -77,7 +85,9 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
     handleChangeSlide, // // Функция для кнопок "Вперед" и "Назад"
     toggleIntervalSlide, // запустить/отключить интервал изменения показа слайдов автоматически
     //  работа санимацией
-    isVisible,
-    setVisible,
+    isAnimation,
+    setAnimation,
+    isDeleteAnimation,
+    setDelAnimation
   };
 };

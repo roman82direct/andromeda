@@ -1,4 +1,4 @@
-import { useMemo, memo, useState } from "react";
+import { useMemo, memo } from "react";
 import { SliderUI } from "./ui/slider";
 import { getPagIndexes } from "./utils/getPagIndexes";
 import type { TSlideItem } from "@/shared/types/ui/slider";
@@ -20,10 +20,8 @@ export const SliderComponent = ({ sliders }:TSliderProps) => {
     setIndexSlide,
     handleChangeSlide,
     toggleIntervalSlide,
-    isVisible,
-    setVisible,
-    isRender,
-    setRender,
+    isAnimation,
+    isDeleteAnimation,
   } = useChangeSlide(sliders);
   // на основе текущего индекса показываем слайд из массива sliders
   const currentSlide = useMemo(()=>{
@@ -42,8 +40,8 @@ export const SliderComponent = ({ sliders }:TSliderProps) => {
   return (
      <SliderUI
       //   перерисовываем компонент если его содержение меняестя, чтобы наща анимация появления/ удаления слайда сработала
-        key={indCurrSlide}
-        isShowSlide={isVisible}
+        isDeleteAnimation={isDeleteAnimation}
+        isAnimation={isAnimation}
         indexShowSlide={indCurrSlide}
         showingSlide={currentSlide}
         onHandleChangeSlide={handleChangeSlide}

@@ -6,7 +6,8 @@ import clsx from "clsx";
 import React, { memo, useCallback, useMemo } from 'react';
 
 export const SliderComponentUI = ({
-  isShowSlide,
+  isAnimation,
+  isDeleteAnimation,
   indexShowSlide,
   showingSlide,
   onSetIndexSlide,
@@ -41,15 +42,18 @@ export const SliderComponentUI = ({
     // для стилизации слайда и его элементов если темный фон или светлый чтобы с текстом не сливались
     const themeSlideClass = showingSlide.typeTheme === 'light' ? 'is-light' : 'is-dark';
     const colorBtn =  showingSlide.typeTheme === 'dark' ? 'dark' : '';
+    const classAnimation =   isAnimation ? styles['slider-item-appeared'] : '';
+    const classDeleteSlideAnimation =  isDeleteAnimation ? styles['slider-item-disappeared'] : ''
   return (
 
-      <div className={styles.slider} onMouseEnter={()=> toggleIntervalSlide(false)} onMouseLeave={()=> toggleIntervalSlide(true)} >
+      <div key={indexShowSlide} className={styles.slider} onMouseEnter={()=> toggleIntervalSlide(false)} onMouseLeave={()=> toggleIntervalSlide(true)} >
       
           <div className={
                           clsx(
                             styles['slider-item'],
                             styles[themeSlideClass],
-                            isShowSlide ? styles['slider-item-appeared'] : ''
+                            classAnimation,
+                            classDeleteSlideAnimation
                           )
                         } style={backgroundImageSrc}>
             <div className={styles["slider-content"]}>
@@ -88,6 +92,8 @@ export const SliderComponentUI = ({
               </div>
             
             </div>
+          
+          </div>)
              <div className={styles["slider-nav"]}>
                     <div className={styles["slider-arrows"]}>
                       <IconButtonUI
@@ -122,8 +128,6 @@ export const SliderComponentUI = ({
                       ))}
                     </ul>
               </div>
-          </div>)
-        
       </div>
       
  

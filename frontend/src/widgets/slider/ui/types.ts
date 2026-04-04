@@ -1,7 +1,8 @@
 import type { TSlideItem } from "@/shared/types/ui/slider";
 
 export type TSliderUIProps = {
-  isShowSlide?:boolean;
+  isAnimation?:boolean;
+  isDeleteAnimation?:boolean;
   indexShowSlide: number;
   showingSlide: TSlideItem;
   onSetIndexSlide: (index: number) => void;
