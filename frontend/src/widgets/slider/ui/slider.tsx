@@ -1,9 +1,10 @@
-import { ButtonUI } from "@/shared/ui/button";
+
 import { IconButtonUI } from "@/shared/ui/icon-button";
 import styles from "./slider.module.css";
 import type { TSliderUIProps } from "./types";
-import clsx from "clsx";
+
 import React, { memo, useCallback, useMemo } from 'react';
+import { SlideUI } from "./components/slide/slide";
 
 export const SliderComponentUI = ({
   isAnimation,
@@ -15,20 +16,7 @@ export const SliderComponentUI = ({
   indexesPag,
   toggleIntervalSlide,
 }:TSliderUIProps) => {
-  // надо ли это мемоизировать ?
-    const backgroundImageSrc =useMemo(()=>({
-      '--fallback-bg': `url("${showingSlide.image.jpg["1x"]}")`,
-      '--slide-bg': 
-     `image-set(
-        url("${showingSlide.image.avif["1x"]}") 1x,
-        url("${showingSlide.image.avif["2x"]}") 2x,
-        url("${showingSlide.image.webp["1x"]}") 1x,
-        url("${showingSlide.image.webp["2x"]}") 2x,
-        url("${showingSlide.image.jpg["1x"]}") 1x,
-        url("${showingSlide.image.jpg["2x"]}") 2x
-    )`
-  } as React.CSSProperties
-),[showingSlide])
+
 
   const handleDecrementSlide = useCallback(()=>{
     onHandleChangeSlide('decrement');
@@ -40,60 +28,18 @@ export const SliderComponentUI = ({
     // console.log(showingSlide)
     // мемоизация кнопок и вынос сложной логики с мемоизацией
     // для стилизации слайда и его элементов если темный фон или светлый чтобы с текстом не сливались
-    const themeSlideClass = showingSlide.typeTheme === 'light' ? 'is-light' : 'is-dark';
+    // const themeSlideClass = showingSlide.typeTheme === 'light' ? 'is-light' : 'is-dark';
     const colorBtn =  showingSlide.typeTheme === 'dark' ? 'dark' : '';
-    const classAnimation =   isAnimation ? styles['slider-item-appeared'] : '';
-    const classDeleteSlideAnimation =  isDeleteAnimation ? styles['slider-item-disappeared'] : ''
+    // const classAnimation =   isAnimation ? styles['slider-item-appeared'] : '';
+    // const classDeleteSlideAnimation =  isDeleteAnimation ? styles['slider-item-disappeared'] : ''
   return (
 
       <div key={indexShowSlide} className={styles.slider} onMouseEnter={()=> toggleIntervalSlide(false)} onMouseLeave={()=> toggleIntervalSlide(true)} >
-      
-          <div className={
-                          clsx(
-                            styles['slider-item'],
-                            styles[themeSlideClass],
-                            classAnimation,
-                            classDeleteSlideAnimation
-                          )
-                        } style={backgroundImageSrc}>
-            <div className={styles["slider-content"]}>
-              <div className={styles['slider-text']}>
-                <h1 className={styles["slider-title"]}>{showingSlide.title}</h1>
-                {showingSlide.desc && (
-                <div className={styles["slider-desc"]}>{showingSlide.desc}</div>
-              )}
-              </div>
-              <div className={styles["slider-actions"]}>
-                <div className={styles['slider-buttons']}>
-                  {showingSlide.pathsForActions.map((source, index) =>
-                    source.trigger === "route" ? (
-                      <ButtonUI
-                        key={index}
-                        variant={index === 0 ? "filled" : "outlined"}
-                        color={colorBtn || (index === 0 ? "primary" : "secondary")}
-                        
-                        to={source.path}
-                      >
-                        {source.title}
-                      </ButtonUI>
-                    ) : (
-                      <ButtonUI
-                        key={index}
-                        variant={index === 0 ? "filled" : "outlined"}
-                        color={colorBtn || (index === 0 ? "primary" : "secondary")}
-                        onClick={source.callback}
-                      >
-                        {source.title}
-                      </ButtonUI>
-                    ),
-                  )}
-                </div>
-                 
-              </div>
-            
-            </div>
-          
-          </div>)
+        
+        <div className={styles.slides}>
+          <SlideUI showingSlide={showingSlide} isAnimation={isAnimation} isDeleteAnimation={ isDeleteAnimation}/>
+        </div>
+         
              <div className={styles["slider-nav"]}>
                     <div className={styles["slider-arrows"]}>
                       <IconButtonUI

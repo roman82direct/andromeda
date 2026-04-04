@@ -41,7 +41,7 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
       // удаляем классанимации => 
       
       setDelAnimation(true)
-    
+      setAnimation(false)
       setTimeout(()=>{
 
           setIndexSlide((prev) => {
