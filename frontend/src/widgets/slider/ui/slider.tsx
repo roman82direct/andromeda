@@ -53,9 +53,9 @@ export const SliderComponentUI = ({
           {/* надо разобрать как удалять классы и добавляять для анимации чтобы избежать лишних реднеров  */}
       
 {/* неправильно работаюбт классы анимации */}
-            <SlideUI  typeSlide={'prev'} key={'prev'} showingSlide={prevSlide} isFirstRender={isFirstRender}/>
+            <SlideUI  typeSlide={'prev'}  showingSlide={prevSlide} isFirstRender={isFirstRender} isDeleteAnimation={isDeleteAnimation}/>
           
-            <SlideUI typeSlide={'current'} key={`current-indexShowSlide`} showingSlide={showingSlide} isAnimation={isAnimation} />
+            <SlideUI typeSlide={'current'}  showingSlide={showingSlide} isAnimation={isAnimation} />
         </div>
          
              <div className={styles["slider-nav"]}>
