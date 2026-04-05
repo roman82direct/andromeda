@@ -1,5 +1,5 @@
 import type { TSlideItem } from "@/shared/types/ui/slider";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import type { TIndexesSlides } from "../ui/types";
 
 // export type TIndexesSlides = {
@@ -14,9 +14,11 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
   // const [indCurrSlide, setIndexSlide] = useState<number>(0);
 
     const [indexesSlides, setIndexesSlides] = useState<TIndexesSlides>({
-      prev:null,
+      prev:0,
       current:0
     });
+    //  чтобы анимация появления слайда не работала при первом рендере
+    const firstRenderSlide = useRef<boolean>(true);
 
   //  отключить/включить автоматическое изменение картинок слайдера
   const [interChangSlide, toggleIntervalSlide] = useState<boolean>(false);
@@ -24,7 +26,7 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
   // работаем с анимацией появления слайда
   //  состояние класса анимации
   const [isAnimation,setAnimation] = useState(false);// Анимация появления
-  const [isDeleteAnimation,setDelAnimation] = useState(true);  // Анимация исчезновения
+  const [isDeleteAnimation,setDelAnimation] = useState(false);  // Анимация исчезновения
 
 
   // useEffect(()=>{
@@ -43,8 +45,9 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
   // },[indCurrSlide,sliders]) ;
 
     const cashSlides = useMemo(()=>{
+      // переделать
     return {
-      prev:sliders[indexesSlides.prev || 0],
+      prev:sliders[indexesSlides.prev],
       current:sliders[indexesSlides.current]
     }
   },[indexesSlides, sliders]) ;
@@ -69,6 +72,8 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
       // удаляем классанимации => 
       
       // setDelAnimation(true)
+
+      firstRenderSlide.current = false;
 
       setTimeout(()=>{
            
@@ -106,16 +111,16 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
   );
   // добавить флаг для остоновки автоматич пролистывания при наведении на слайд
   //  автоматич показ слайдов
-  useEffect(() => {
-    if (!interChangSlide) return;
-    const intervalIdSliders = setInterval(() => {
-      // handleChangeSlide("increment");
-    }, delay);
+  // useEffect(() => {
+  //   if (!interChangSlide) return;
+  //   const intervalIdSliders = setInterval(() => {
+  //     // handleChangeSlide("increment");
+  //   }, delay);
 
-    return () => {
-      clearInterval(intervalIdSliders);
-    };
-  }, [handleChangeSlide, interChangSlide, delay]);
+  //   return () => {
+  //     clearInterval(intervalIdSliders);
+  //   };
+  // }, [handleChangeSlide, interChangSlide, delay]);
 
   return {
     // indCurrSlide, // Номер текущего слайда
@@ -130,6 +135,7 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
     isDeleteAnimation,
     setDelAnimation,
     // текущий и предыдущий слайд для анимации
-    cashSlides
+    cashSlides,
+    firstRenderSlide
   };
 };

@@ -22,7 +22,8 @@ export const SliderComponent = ({ sliders }:TSliderProps) => {
     toggleIntervalSlide,
     isAnimation,
     isDeleteAnimation,
-    cashSlides
+    cashSlides,
+    firstRenderSlide
   } = useChangeSlide(sliders);
  
   
@@ -37,6 +38,7 @@ export const SliderComponent = ({ sliders }:TSliderProps) => {
 
   return (
      <SliderUI
+        isFirstRender={firstRenderSlide.current}
     //  cashSlides  - значение прерва сюда
         prevSlide={cashSlides.prev}
       //   перерисовываем компонент если его содержение меняестя, чтобы наща анимация появления/ удаления слайда сработала

@@ -1,12 +1,13 @@
 import type { TSlideItem } from "@/shared/types/ui/slider";
 
 export type TIndexesSlides = {
-  prev: null | number;
+  prev: number;
   current:number
 }
 
 
 export type TSliderUIProps = {
+  isFirstRender?: boolean;
   isAnimation?:boolean;
   isDeleteAnimation?:boolean;
   // передаем для пагинации

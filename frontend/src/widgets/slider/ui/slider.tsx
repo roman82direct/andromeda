@@ -5,6 +5,7 @@ import type { TIndexesSlides, TSliderUIProps } from "./types";
 
 import  { memo, useCallback } from 'react';
 import { SlideUI } from "./components/slide/slide";
+import clsx from "clsx";
 
 export const SliderComponentUI = ({
   isAnimation,
@@ -15,7 +16,8 @@ export const SliderComponentUI = ({
   onHandleChangeSlide,
   indexesPag,
   toggleIntervalSlide,
-  prevSlide
+  prevSlide,
+  isFirstRender
 }:TSliderUIProps) => {
 
 
@@ -51,9 +53,13 @@ export const SliderComponentUI = ({
           {/* надо разобрать как удалять классы и добавляять для анимации чтобы избежать лишних реднеров  */}
           {/*  для прева */}
           {/*  анимация не должна работать с 1 кадра */}
-          <SlideUI key={`prev-${indexShowSlide}`} showingSlide={prevSlide} isAnimation={!isAnimation} isDeleteAnimation={ isDeleteAnimation}/>
-
-          <SlideUI key={`current-${indexShowSlide}`} showingSlide={showingSlide} isAnimation={isAnimation} isDeleteAnimation={ !isDeleteAnimation}/>
+          {/* продумать состоянис null и удаление класса  через ref*/}
+          {/* продумать значение null */}
+          <div aria-hidden="true" className={clsx( isFirstRender && styles['slide-hidden'])}>
+            {/* aria-hidden="true" скроем слайд от скрин ридеров */}
+            <SlideUI  showingSlide={prevSlide} isAnimation={!isAnimation} isDeleteAnimation={ isDeleteAnimation}/>
+          </div>
+            <SlideUI key={`current-${indexShowSlide}`} showingSlide={showingSlide} isAnimation={isAnimation} isDeleteAnimation={isDeleteAnimation}/>
         </div>
          
              <div className={styles["slider-nav"]}>

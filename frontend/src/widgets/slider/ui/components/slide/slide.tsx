@@ -33,16 +33,18 @@ export const SlideUI = ({
   ),[showingSlide]);
    const themeSlideClass = showingSlide.typeTheme === 'light' ? 'is-light' : 'is-dark';
     const colorBtn =  showingSlide.typeTheme === 'dark' ? 'dark' : '';
-    const classAnimation =   isAnimation ? 'slider-item-appeared' : 'slider-item-disappeared';
-    // const classDeleteSlideAnimation =  isDeleteAnimation ? 'slider-item-disappeared' : '';
+    // переделать работу с классами
+    const classAnimation =   isAnimation ? 'slider-item-appeared' : '';
+    const classDeleteSlideAnimation =  isDeleteAnimation ? 'slider-item-disappeared' : '';
   console.log(isDeleteAnimation)
     return (
-     <div className={
+     <article className={
                           clsx(
                             styles['slider-item'],
                             styles[themeSlideClass],
-                            styles[classAnimation],
-                            // styles[classDeleteSlideAnimation]
+                            //  чтобы класс удалялся 
+                             styles[classAnimation],
+                              styles[classDeleteSlideAnimation]
                           )
                         } style={backgroundImageSrc}>
                  {/* проблема переполнения текста  */}
@@ -88,6 +90,6 @@ export const SlideUI = ({
             
             </div>
             
-          </div>
+          </article>
   )
 }
