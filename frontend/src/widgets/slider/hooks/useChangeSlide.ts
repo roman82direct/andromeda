@@ -71,7 +71,7 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
      
       // удаляем классанимации => 
       
-      // setDelAnimation(true)
+      setAnimation(false)
 
       firstRenderSlide.current = false;
 
@@ -80,7 +80,7 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
           setIndexesSlides((prev) => {
              requestAnimationFrame(()=>{
               setAnimation(true)
-          setDelAnimation(false)
+          // setDelAnimation(false)
             })
           
           
