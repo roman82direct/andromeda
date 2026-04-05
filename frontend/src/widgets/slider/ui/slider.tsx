@@ -51,13 +51,9 @@ export const SliderComponentUI = ({
         
         <div className={styles.slides}>
           {/* надо разобрать как удалять классы и добавляять для анимации чтобы избежать лишних реднеров  */}
-          {/*  для прева */}
-          {/*  анимация не должна работать с 1 кадра */}
-          {/* продумать состоянис null и удаление класса  через ref*/}
-          {/* продумать значение null */}
-          
+      
 {/* неправильно работаюбт классы анимации */}
-            <SlideUI  typeSlide={'prev'} showingSlide={prevSlide} isAnimation={!isAnimation} isDeleteAnimation={ isDeleteAnimation} isFirstRender={isFirstRender}/>
+            <SlideUI  typeSlide={'prev'} key={'prev'} showingSlide={prevSlide} isAnimation={!isAnimation} isDeleteAnimation={ isDeleteAnimation} isFirstRender={isFirstRender}/>
           
             <SlideUI typeSlide={'current'} key={`current-${indexShowSlide}`} showingSlide={showingSlide} isAnimation={isAnimation} isDeleteAnimation={isDeleteAnimation}/>
         </div>
