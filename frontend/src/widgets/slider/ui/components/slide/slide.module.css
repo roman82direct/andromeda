@@ -79,6 +79,11 @@
     
 }
 
+.slide-hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
 .slider-content {
   display: flex;
   flex-direction: column;

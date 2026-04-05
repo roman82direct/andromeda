@@ -55,11 +55,11 @@ export const SliderComponentUI = ({
           {/*  анимация не должна работать с 1 кадра */}
           {/* продумать состоянис null и удаление класса  через ref*/}
           {/* продумать значение null */}
-          <div aria-hidden="true" className={clsx( isFirstRender && styles['slide-hidden'])}>
-            {/* aria-hidden="true" скроем слайд от скрин ридеров */}
-            <SlideUI  showingSlide={prevSlide} isAnimation={!isAnimation} isDeleteAnimation={ isDeleteAnimation}/>
-          </div>
-            <SlideUI key={`current-${indexShowSlide}`} showingSlide={showingSlide} isAnimation={isAnimation} isDeleteAnimation={isDeleteAnimation}/>
+          
+{/* неправильно работаюбт классы анимации */}
+            <SlideUI  typeSlide={'prev'} showingSlide={prevSlide} isAnimation={!isAnimation} isDeleteAnimation={ isDeleteAnimation} isFirstRender={isFirstRender}/>
+          
+            <SlideUI typeSlide={'current'} key={`current-${indexShowSlide}`} showingSlide={showingSlide} isAnimation={isAnimation} isDeleteAnimation={isDeleteAnimation}/>
         </div>
          
              <div className={styles["slider-nav"]}>

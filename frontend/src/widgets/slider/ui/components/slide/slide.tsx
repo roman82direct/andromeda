@@ -11,12 +11,16 @@ export type SlideUIProps = {
   showingSlide: TSlideItem;
   isAnimation?: boolean;
   isDeleteAnimation?:boolean;
+  isFirstRender?:boolean;
+  typeSlide?:'prev' | 'current'
 }
 
 export const SlideUI = ({
   showingSlide,
   isAnimation,
-  isDeleteAnimation
+  isDeleteAnimation,
+  isFirstRender,
+  typeSlide
 }:SlideUIProps)=>{
    const backgroundImageSrc =useMemo(()=>({
         '--fallback-bg': `url("${showingSlide.image.jpg["1x"]}")`,
@@ -34,19 +38,22 @@ export const SlideUI = ({
    const themeSlideClass = showingSlide.typeTheme === 'light' ? 'is-light' : 'is-dark';
     const colorBtn =  showingSlide.typeTheme === 'dark' ? 'dark' : '';
     // переделать работу с классами
-    const classAnimation =   isAnimation ? 'slider-item-appeared' : '';
-    const classDeleteSlideAnimation =  isDeleteAnimation ? 'slider-item-disappeared' : '';
-  console.log(isDeleteAnimation)
+    const classAnimation =   'slider-item-appeared';
+    const classDeleteSlideAnimation =   'slider-item-disappeared';
+    const isHidden = typeSlide === 'prev' ? true : false;
     return (
-     <article className={
+     <article aria-hidden={isHidden} 
+     
+              className={
                           clsx(
                             styles['slider-item'],
                             styles[themeSlideClass],
-                            //  чтобы класс удалялся 
-                             styles[classAnimation],
-                              styles[classDeleteSlideAnimation]
+                            isAnimation && styles[classAnimation],
+                            isDeleteAnimation && styles[classDeleteSlideAnimation],
+                            isFirstRender  && styles['slide-hidden']
                           )
-                        } style={backgroundImageSrc}>
+                        } 
+              style={backgroundImageSrc}>
                  {/* проблема переполнения текста  */}
               {/* повесить фонофое зображение сюда  и сделать анимацию для него */}
               {/* сделать соседа который будет кот будет сменять слайд и подгружать - предыдущий или следующий */}
