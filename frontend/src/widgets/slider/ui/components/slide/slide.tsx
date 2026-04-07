@@ -1,18 +1,18 @@
 import { ButtonUI } from "@/shared/ui/button";
 import clsx from "clsx";
 import styles from './slide.module.css';
-import type { TSlideItem } from "@/shared/types/ui/slider";
+import type { TSlide, TSlideItem, TSlideItemWithId } from "@/widgets/slider/types";
 import { useMemo } from "react";
 //  есть смысл сделать useContext????
 //  и все пропсы передавать через Slider => SlideUI
 //  пропс какой - только сам слайд ??
 
 export type SlideUIProps = {
-  showingSlide: TSlideItem;
+  showingSlide: TSlideItemWithId;
   isAnimation?: boolean;
   isDeleteAnimation?:boolean;
   isFirstRender?:boolean;
-  typeSlide?:'prev' | 'current'
+  typeSlide?: TSlide;
 }
 
 export const SlideUI = ({
@@ -22,7 +22,11 @@ export const SlideUI = ({
   isFirstRender,
   typeSlide
 }:SlideUIProps)=>{
-   const backgroundImageSrc =useMemo(()=>({
+   const backgroundImageSrc =useMemo(()=>{
+    //  защита если картини нет
+    if(!showingSlide.image) return {}
+    return {
+
         '--fallback-bg': `url("${showingSlide.image.jpg["1x"]}")`,
         '--slide-bg': 
        `image-set(
@@ -34,13 +38,14 @@ export const SlideUI = ({
           url("${showingSlide.image.jpg["2x"]}") 2x
       )`
     } as React.CSSProperties
-  ),[showingSlide]);
+},[showingSlide]);
    const themeSlideClass = showingSlide.typeTheme === 'light' ? 'is-light' : 'is-dark';
     const colorBtn =  showingSlide.typeTheme === 'dark' ? 'dark' : '';
     // переделать работу с классами
     const classAnimation =   'slider-item-appeared';
     const classDeleteSlideAnimation =   'slider-item-disappeared';
-    const isHidden = typeSlide === 'prev' ? true : false;
+    //  спрячим следующий и предыдущий слайды
+    const isHidden = (typeSlide === 'prev' || typeSlide === 'next') ? true : false;
     return (
      <article aria-hidden={isHidden} 
      
@@ -50,7 +55,11 @@ export const SlideUI = ({
                             styles[themeSlideClass],
                             isAnimation && styles[classAnimation],
                             isDeleteAnimation && styles[classDeleteSlideAnimation],
-                            isFirstRender  && styles['slide-hidden']
+                            // isFirstRender  && styles['slide-hidden'] ???
+                            //  прячим пред и след слайды
+                            // первый рендер ?
+                            isHidden && styles['slide-hidden']
+
                           )
                         } 
               style={backgroundImageSrc}>

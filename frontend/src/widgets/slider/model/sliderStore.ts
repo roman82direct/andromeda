@@ -19,7 +19,7 @@ import slide3Img2xJpg from '@/assets/images/home-page/slider/slide3/2x/image2x.j
 import slide3Img2xAvif from '@/assets/images/home-page/slider/slide3/2x/image2x.avif';
 import slide3Img2xWebp from '@/assets/images/home-page/slider/slide3/2x/image2x.webp';
 
-import type { TSlideItem } from '@/shared/types/ui/slider';
+import type { TSlideItem } from '../types';
 
 
 export type TSliderStore = TSlideItem[];

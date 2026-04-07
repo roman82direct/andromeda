@@ -1,23 +1,22 @@
 
 import { IconButtonUI } from "@/shared/ui/icon-button";
 import styles from "./slider.module.css";
-import type { TIndexesSlides, TSliderUIProps } from "./types";
-
+import type {  TSliderUIProps } from "./types";
 import  { memo, useCallback } from 'react';
-import { SlideUI } from "./components/slide/slide";
-import clsx from "clsx";
+import { SlideUI } from "./components/slide/slide"; 
 
 export const SliderComponentUI = ({
   isAnimation,
   isDeleteAnimation,
   indexShowSlide,
   showingSlide,
-  onSetIndexesSlides,
+  nextSlide,
+  onSetIndexSlide,
   onHandleChangeSlide,
   indexesPag,
   toggleIntervalSlide,
   prevSlide,
-  isFirstRender
+  // isFirstRender
 }:TSliderUIProps) => {
 
 
@@ -28,14 +27,9 @@ export const SliderComponentUI = ({
     onHandleChangeSlide('increment');
   },[onHandleChangeSlide]);
 
-  const handleSetSlide = (index:number)=>{
-    onSetIndexesSlides((prev:TIndexesSlides)=>(
-      {
-         prev: prev.current,
-          current:index
-      }
-    ))
-  }
+  const handleSetSlide = useCallback((index:number)=>{
+     onSetIndexSlide(index)
+  },[onSetIndexSlide])
   
     // console.log(showingSlide)
     // мемоизация кнопок и вынос сложной логики с мемоизацией
@@ -44,7 +38,7 @@ export const SliderComponentUI = ({
     const colorBtn =  showingSlide.typeTheme === 'dark' ? 'dark' : '';
     // const classAnimation =   isAnimation ? styles['slider-item-appeared'] : '';
     // const classDeleteSlideAnimation =  isDeleteAnimation ? styles['slider-item-disappeared'] : ''
-    console.log(showingSlide)
+    console.log("showingSlide:", showingSlide)
     return (
 
       <div  className={styles.slider} onMouseEnter={()=> toggleIntervalSlide(false)} onMouseLeave={()=> toggleIntervalSlide(true)} >
@@ -53,14 +47,19 @@ export const SliderComponentUI = ({
           {/* надо разобрать как удалять классы и добавляять для анимации чтобы избежать лишних реднеров  */}
       
 {/* неправильно работаюбт классы анимации */}
-            <SlideUI  typeSlide={'prev'}  showingSlide={prevSlide} isFirstRender={isFirstRender} isDeleteAnimation={isDeleteAnimation}/>
+{/*  cделать map массив их трех слайдов вместо пропсов из трех слайдов */}
+            <SlideUI  key={prevSlide.id} typeSlide={'prev'}  showingSlide={prevSlide}  isDeleteAnimation={isDeleteAnimation}/>
           
-            <SlideUI typeSlide={'current'}  showingSlide={showingSlide} isAnimation={isAnimation} />
+            <SlideUI key={showingSlide.id} typeSlide={'current'}  showingSlide={showingSlide} isAnimation={isAnimation} />
+            
+            <SlideUI key={nextSlide.id} typeSlide={'next'}  showingSlide={nextSlide}  isDeleteAnimation={isDeleteAnimation} />
+
         </div>
          
              <div className={styles["slider-nav"]}>
                     <div className={styles["slider-arrows"]}>
                       <IconButtonUI
+                        key={'arrow-right'}
                         onClick={handleDecrementSlide}
                         iconClass={"arrow-right"}
                         isActive={false}
@@ -68,6 +67,7 @@ export const SliderComponentUI = ({
                         sizeIcon={33}
                       />
                       <IconButtonUI
+                        key={'arrow-left'}
                         onClick={handleIncrementSlide}
                         iconClass={"arrow-left"}
                         isActive={false}
