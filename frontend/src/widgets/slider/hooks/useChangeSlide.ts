@@ -1,5 +1,5 @@
-import type { TRenderSlides, TSlideItem } from "../types";
-import { useCallback, useMemo, useRef, useState } from "react";
+import type {  TSlideItem,  } from "../types";
+import { useCallback,  useMemo, useRef, useState } from "react";
 import type { TActionSlide } from "../types";
 import { getNextIndexSlide } from "../utils/getIndexNextSlide";
 import { v4 as uuidv4 } from 'uuid';
@@ -10,17 +10,46 @@ import { v4 as uuidv4 } from 'uuid';
 // }
 
 
-
-export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
+// delay: number = 3000
+export const useChangeSlide = (sliders: TSlideItem[], ) => {
   //работа с показом слайдов и их перелистыванием
   // const [indCurrSlide, setIndexSlide] = useState<number>(0);
 
     const [indexSlide, setIndexSlide] = useState<number>(0);
+      const nextIndexSlide = getNextIndexSlide({
+      action:'increment',
+      prevIndex: indexSlide,
+      ArrSizeSlides: sliders.length
+    });
+  // определяем предыдущий индекс слайда на основе текущего
+    const prevIndexSlide = getNextIndexSlide({
+       action:'decrement',
+      prevIndex: indexSlide,
+        ArrSizeSlides: sliders.length
+    })
+
+  // const cashSlides = useMemo(()=>(
+  //   [ 
+  //     {id: uuidv4(), ...sliders[prevIndexSlide]},
+  //     {id: uuidv4(), ...sliders[indexSlide]},
+      
+    
+  //     {id: uuidv4(), ...sliders[nextIndexSlide]},
+  //   ]
+  // ),[sliders, indexSlide, nextIndexSlide, prevIndexSlide])
+ 
+ 
+
+  //  обновим состояние тройки слайдов
+  
+
+
     //  чтобы анимация появления слайда не работала при первом рендере
     const firstRenderSlide = useRef<boolean>(true);
 
+  
   //  отключить/включить автоматическое изменение картинок слайдера
-  const [interChangSlide, toggleIntervalSlide] = useState<boolean>(false);
+  // const [interChangSlide, toggleIntervalSlide] = useState<boolean>(false);
 
   // работаем с анимацией появления слайда
   //  состояние класса анимации
@@ -43,26 +72,19 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
   //   return sliders[indCurrSlide]
   // },[indCurrSlide,sliders]) ;
   //  определяем след индекс слайда на основе текущего
-    const nextIndexSlide = getNextIndexSlide({
-      action:'increment',
-      prevIndex: indexSlide,
-      ArrSizeSlides: sliders.length
-    });
-  // определяем предыдущий индекс слайда на основе текущего
-    const prevIndexSlide = getNextIndexSlide({
-       action:'decrement',
-      prevIndex: indexSlide,
-        ArrSizeSlides: sliders.length
-    })
-
+    
     //  мемоизация
-    const cashSlides:TRenderSlides=useMemo(()=>(
-      {
-        prev:{ id: uuidv4(), ...sliders[prevIndexSlide]},
-        current:{id: uuidv4(), ...sliders[indexSlide]},
-        next:{id: uuidv4(), ...sliders[nextIndexSlide]}
-      } 
-    ),[sliders, indexSlide, nextIndexSlide, prevIndexSlide]) ;
+    // const cashSlides:TRenderSlides=useMemo(()=>(
+       
+    //   { 
+    //    current: {id: uuidv4(), typeSlide:'current', ...sliders[indexSlide]},
+    //    next: {id: uuidv4(), typeSlide:'next', ...sliders[nextIndexSlide]},
+    //    prev: { id: uuidv4(), typeSlide:'prev', ...sliders[prevIndexSlide]},
+    //   }
+      
+       
+      
+    // ),[sliders, indexSlide, nextIndexSlide, prevIndexSlide]) ;
 
 
 
@@ -141,14 +163,14 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
     indexSlide,// индексы:слайд текущий 
     setIndexSlide, // lдля прыжка на люб слайд (пагинация)
     handleChangeSlide, // // Функция для кнопок "Вперед" и "Назад"
-    toggleIntervalSlide, // запустить/отключить интервал изменения показа слайдов автоматически
+    // toggleIntervalSlide, // запустить/отключить интервал изменения показа слайдов автоматически
     //  работа санимацией
     isAnimation,
     setAnimation,
     isDeleteAnimation,
     setDelAnimation,
     // текущий и предыдущий слайд для анимации
-    cashSlides,
+    cashSlides: sliders,
     firstRenderSlide
   };
 };

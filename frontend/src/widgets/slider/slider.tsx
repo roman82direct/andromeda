@@ -7,7 +7,9 @@ import {sliderStore} from './model/sliderStore';
 
 export const SliderComponent = () => {
   
-  const [sliders, setSliders] = useState<TSlideItem[]>([])
+  const [sliders, setSliders] = useState<TSlideItem[]>([]);
+
+
 
   // загружаем информацию о слайдах в наш компонент
   useEffect(()=>{
@@ -24,7 +26,7 @@ export const SliderComponent = () => {
     indexSlide,// индекс:слайд текущий 
     setIndexSlide, // для прыжка на люб слайд (пагинация)
     handleChangeSlide, // // Функция для кнопок "Вперед" и "Назад"
-    toggleIntervalSlide, // запустить/отключить интервал изменения показа слайдов автоматически
+    // toggleIntervalSlide, // запустить/отключить интервал изменения показа слайдов автоматически
     //  работа санимацией
     isAnimation,
     isDeleteAnimation,
@@ -34,8 +36,8 @@ export const SliderComponent = () => {
   } = useChangeSlide(sliders);
  
 
-  console.log('cashSlides',cashSlides)
-  console.log("sliders",sliders)
+  // console.log('cashSlides',cashSlides)
+  // console.log("sliders",sliders)
   
   //  работа с пагинацией слайдов - сколько кнопок пагинации показываем согласно макету
   const pagePagSize = 3;
@@ -49,21 +51,14 @@ export const SliderComponent = () => {
   return (
      <SliderUI
         isFirstRender={firstRenderSlide.current}
-    //  cashSlides  - значение прерва сюда - предыдущий слайд
-        prevSlide={cashSlides.prev}
-        showingSlide={cashSlides.current}
-        nextSlide= {cashSlides.next}
-      //   перерисовываем компонент если его содержение меняестя, чтобы наща анимация появления/ удаления слайда сработала
         isDeleteAnimation={isDeleteAnimation}
         isAnimation={isAnimation}
-        //  надо будет тоже изменить на значение текиндекса объекат
         indexShowSlide={ indexSlide}
-        //  поменять
-       
+        slides={cashSlides}
         onHandleChangeSlide={handleChangeSlide}
         onSetIndexSlide={setIndexSlide}
         indexesPag={currentIndexesPag}
-        toggleIntervalSlide={toggleIntervalSlide}
+        // toggleIntervalSlide={{flag:false}}
     />
   );
 };

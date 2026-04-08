@@ -1,4 +1,4 @@
-import type { TActionSlide, TSlideItemWithId } from "../types";
+import type { TActionSlide,  TSlideItemWithId } from "../types";
 
 
 
@@ -8,11 +8,9 @@ export type TSliderUIProps = {
   isAnimation?:boolean;
   isDeleteAnimation?:boolean;
   indexShowSlide: number;
-  showingSlide: TSlideItemWithId;
-  prevSlide: TSlideItemWithId;
-  nextSlide:  TSlideItemWithId;
+  slides:  TSlideItemWithId[];
   onSetIndexSlide: (index:number)=>void;
   onHandleChangeSlide: (action:TActionSlide) => void;
   indexesPag: number[];
-  toggleIntervalSlide: (flag: boolean) => void;
+  toggleIntervalSlide?: (flag: boolean) => void;
 };

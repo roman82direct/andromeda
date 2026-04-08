@@ -28,11 +28,9 @@ export type TActionSlide = 'increment' | 'decrement';
 
 export type TSlide ='prev' | 'current'| 'next';
 
-export type TSlideItemWithId = {id: string} & TSlideItem
+export type TSlideItemWithId = {id?: string, typeSlide?: TSlide} & TSlideItem
 
 export type TRenderSlides = {
-  prev:  TSlideItemWithId,
-  current:  TSlideItemWithId,
-  next:  TSlideItemWithId
+  [k in TSlide]:TSlideItemWithId
 }
 

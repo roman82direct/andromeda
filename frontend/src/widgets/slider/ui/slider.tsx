@@ -3,19 +3,16 @@ import { IconButtonUI } from "@/shared/ui/icon-button";
 import styles from "./slider.module.css";
 import type {  TSliderUIProps } from "./types";
 import  { memo, useCallback } from 'react';
-import { SlideUI } from "./components/slide/slide"; 
+import { SlidesList } from "./components/slides-list/slides-list";
 
 export const SliderComponentUI = ({
-  isAnimation,
-  isDeleteAnimation,
   indexShowSlide,
-  showingSlide,
-  nextSlide,
+  slides,
   onSetIndexSlide,
   onHandleChangeSlide,
   indexesPag,
-  toggleIntervalSlide,
-  prevSlide,
+  // toggleIntervalSlide,
+  
   // isFirstRender
 }:TSliderUIProps) => {
 
@@ -31,31 +28,22 @@ export const SliderComponentUI = ({
      onSetIndexSlide(index)
   },[onSetIndexSlide])
   
-    // console.log(showingSlide)
-    // мемоизация кнопок и вынос сложной логики с мемоизацией
-    // для стилизации слайда и его элементов если темный фон или светлый чтобы с текстом не сливались
-    // const themeSlideClass = showingSlide.typeTheme === 'light' ? 'is-light' : 'is-dark';
-    const colorBtn =  showingSlide.typeTheme === 'dark' ? 'dark' : '';
-    // const classAnimation =   isAnimation ? styles['slider-item-appeared'] : '';
-    // const classDeleteSlideAnimation =  isDeleteAnimation ? styles['slider-item-disappeared'] : ''
-    console.log("showingSlide:", showingSlide)
+  //  переделать логику темной темы
+    const colorBtn =  slides[1].typeTheme === 'dark' ? 'dark' : '';
+   
     return (
+      // анимация переключения
+// onMouseEnter={()=> toggleIntervalSlide(false)} onMouseLeave={()=> toggleIntervalSlide(true)}
+      <div  className={styles.slider}  >
+            <SlidesList slides={slides} slideNumber={indexShowSlide}/>
+        {/* <div className={styles['slides-list']}>
 
-      <div  className={styles.slider} onMouseEnter={()=> toggleIntervalSlide(false)} onMouseLeave={()=> toggleIntervalSlide(true)} >
-        
-        <div className={styles.slides}>
-          {/* надо разобрать как удалять классы и добавляять для анимации чтобы избежать лишних реднеров  */}
-      
-{/* неправильно работаюбт классы анимации */}
-{/*  cделать map массив их трех слайдов вместо пропсов из трех слайдов */}
-            <SlideUI  key={prevSlide.id} typeSlide={'prev'}  showingSlide={prevSlide}  isDeleteAnimation={isDeleteAnimation}/>
-          
-            <SlideUI key={showingSlide.id} typeSlide={'current'}  showingSlide={showingSlide} isAnimation={isAnimation} />
-            
-            <SlideUI key={nextSlide.id} typeSlide={'next'}  showingSlide={nextSlide}  isDeleteAnimation={isDeleteAnimation} />
+          <SlideUI key={showingSlide.id} typeSlide={'current'}  showingSlide={showingSlide} isAnimation={isAnimation} />
+          <SlideUI key={nextSlide.id} typeSlide={'next'}  showingSlide={nextSlide}  isDeleteAnimation={isDeleteAnimation} />
+          <SlideUI  key={prevSlide.id} typeSlide={'prev'}  showingSlide={prevSlide}  isDeleteAnimation={isDeleteAnimation}/>
 
-        </div>
-         
+        </div> */}
+         {/*  сделать отдельно компоненты пагинации и стрелок */}
              <div className={styles["slider-nav"]}>
                     <div className={styles["slider-arrows"]}>
                       <IconButtonUI

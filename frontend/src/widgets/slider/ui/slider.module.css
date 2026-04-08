@@ -6,13 +6,6 @@
   overflow: hidden;
 }
 
-.slides {
-  position: absolute;
-  inset: 0;
-}
-
-
-
 .slider-nav {
   position: absolute;
   display: flex;
