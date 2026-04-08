@@ -22,6 +22,8 @@ import slide3Img2xWebp from '@/assets/images/home-page/slider/slide3/2x/image2x.
 import type { TSlideItem } from '../types';
 
 
+// как сделать оптимизацию работы с картинками ???
+
 export type TSliderStore = TSlideItem[];
 
 
@@ -119,5 +121,105 @@ export type TSliderStore = TSlideItem[];
     ],
     typeTheme:'dark'
   },
+  // для теста
+  {
+  image: {
+    avif: {
+      "1x": "",
+      "2x": "",
+    },
+    webp: {
+      "1x": "",
+      "2x": "",
+    },
+    jpg: {
+      "1x": "",
+      "2x": "",
+    }
+  },
+  title: "Новая коллекция уже в продаже",
+  desc: "Откройте для себя свежие тренды сезона",
+  typeTheme: 'light',
+  pathsForActions: [
+    {
+      title: "Смотреть",
+      trigger: "route",
+      path: "/catalog/new",
+    },
+  ],
+},
+{
+  image: {
+    avif: { "1x": "", "2x": "" },
+    webp: { "1x": "", "2x": "" },
+    jpg: { "1x": "", "2x": "" }
+  },
+  title: "Хиты продаж недели",
+  desc: "Самые популярные товары прямо сейчас",
+   typeTheme: 'light',
+  pathsForActions: [
+    {
+      title: "Перейти",
+      trigger: "route",
+      path: "/catalog/popular",
+    },
+  ],
+},
+{
+  image: {
+    avif: { "1x": "", "2x": "" },
+    webp: { "1x": "", "2x": "" },
+    jpg: { "1x": "", "2x": "" }
+  },
+  title: "Собери свой идеальный подарок",
+  desc: "Подарочные наборы на любой вкус",
+  typeTheme: 'light',
+  pathsForActions: [
+    {
+      title: "Выбрать",
+      trigger: "route",
+      path: "/catalog/gifts",
+    },
+    {
+      title: "Подробнее",
+      trigger: "route",
+      path: "/gifts-info",
+    },
+  ],
+},
+{
+  image: {
+    avif: { "1x": "", "2x": "" },
+    webp: { "1x": "", "2x": "" },
+    jpg: { "1x": "", "2x": "" }
+  },
+  title: "Скидка 20% на первый заказ",
+  desc: "Используйте промокод START20",
+   typeTheme: 'light',
+  pathsForActions: [
+    {
+      title: "В каталог",
+      trigger: "route",
+      path: "/catalog",
+    },
+  ],
+},
+{
+  image: {
+    avif: { "1x": "", "2x": "" },
+    webp: { "1x": "", "2x": "" },
+    jpg: { "1x": "", "2x": "" }
+  },
+  title: "Бесплатный возврат 30 дней",
+  desc: "Покупайте без риска",
+  typeTheme: 'light',
+  pathsForActions: [
+    {
+      title: "Условия",
+      trigger: "route",
+      path: "/return-policy",
+    },
+  ],
+},
 
 ];
