@@ -1,17 +1,15 @@
-import type {  TSlideItemWithId } from "@/widgets/slider/types";
 import { SlideUI } from "../slide/slide";
 import styles from './slides-list.module.css';
 import type React from "react";
+import { useContext } from "react";
+import { SliderContext } from "@/widgets/slider/utils/contexts";
 
 
-type TSlidesListProps = {
-  slides: TSlideItemWithId[];
-  slideNumber: number;
-}
+export const SlidesList = ()=>{
 
-export const SlidesList = ({slides, slideNumber}:TSlidesListProps)=>{
-
-  //  cделать передачу пропсов через useContext
+  //  получаем данные из контекста номер слайда для вычисления его положения
+  //  относительно translateX и все слайды
+  const {slideNumber, slides} = useContext(SliderContext);
 
   // работает по принципу ленты
   const stylesTranslate = {
@@ -27,7 +25,7 @@ export const SlidesList = ({slides, slideNumber}:TSlidesListProps)=>{
 
          {
           slides.map((slide,index)=>(
-             <SlideUI key={index}   showingSlide={slide}  />
+             <SlideUI key={index}   showingSlide={slide}/>
           ))
          }
        

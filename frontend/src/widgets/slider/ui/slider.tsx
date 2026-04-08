@@ -2,21 +2,19 @@
 import { IconButtonUI } from "@/shared/ui/icon-button";
 import styles from "./slider.module.css";
 import type {  TSliderUIProps } from "./types";
-import  { memo, useCallback } from 'react';
+import  { memo, useCallback, useContext } from 'react';
 import { SlidesList } from "./components/slides-list/slides-list";
+import { SliderContext } from "../utils/contexts";
 
 export const SliderComponentUI = ({
-  indexShowSlide,
-  slides,
   onSetIndexSlide,
   onHandleChangeSlide,
   indexesPag,
   toggleIntervalSlide,
-  
-  // isFirstRender
 }:TSliderUIProps) => {
+  //  уберем useContext после создания отдельной навигации с пагинацией и стрелками
 
-
+  const {slideNumber, slides} = useContext(SliderContext);
   const handleDecrementSlide = useCallback(()=>{
     onHandleChangeSlide('decrement');
   },[onHandleChangeSlide]);
@@ -25,24 +23,20 @@ export const SliderComponentUI = ({
   },[onHandleChangeSlide]);
 
   const handleSetSlide = useCallback((index:number)=>{
-     onSetIndexSlide(index)
+     
+    return ()=>(onSetIndexSlide(index))
+   
   },[onSetIndexSlide])
   
-  //  переделать логику темной темы
+  //  переделать логику темной темы !!!!!!!
     const colorBtn =  slides[1].typeTheme === 'dark' ? 'dark' : '';
-   
+       
+
     return (
       // анимация переключения
 // 
       <div  className={styles.slider}  onMouseEnter={()=> toggleIntervalSlide(false)} onMouseLeave={()=> toggleIntervalSlide(true)}>
-            <SlidesList slides={slides} slideNumber={indexShowSlide}/>
-        {/* <div className={styles['slides-list']}>
-
-          <SlideUI key={showingSlide.id} typeSlide={'current'}  showingSlide={showingSlide} isAnimation={isAnimation} />
-          <SlideUI key={nextSlide.id} typeSlide={'next'}  showingSlide={nextSlide}  isDeleteAnimation={isDeleteAnimation} />
-          <SlideUI  key={prevSlide.id} typeSlide={'prev'}  showingSlide={prevSlide}  isDeleteAnimation={isDeleteAnimation}/>
-
-        </div> */}
+            <SlidesList/>
          {/*  сделать отдельно компоненты пагинации и стрелок */}
              <div className={styles["slider-nav"]}>
                     <div className={styles["slider-arrows"]}>
@@ -67,13 +61,10 @@ export const SliderComponentUI = ({
                       {indexesPag.map((index) => (
                         <li key={index} className={styles["banner-pag-item"]}>
                           <IconButtonUI
-                            onClick={() => {
-                              // описать прев состояние чтобы работал переход
-                              handleSetSlide(index);
-                            }}
+                            onClick={handleSetSlide(index)}
                             iconActiveClass={"ellipse-filled"}
                             iconClass={"ellipse-emptied"}
-                            isActive={index === indexShowSlide}
+                            isActive={index === slideNumber}
                             colorIcon={colorBtn ? "secondary" : "primary"}
                             sizeIcon={10}
                           />

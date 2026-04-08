@@ -1,11 +1,10 @@
-import type { TActionSlide,  TSlideItemWithId } from "../types";
+import type { TActionSlide } from "../types";
 
 
 
 
 export type TSliderUIProps = {
   indexShowSlide: number;
-  slides:  TSlideItemWithId[];
   onSetIndexSlide: (index:number)=>void;
   onHandleChangeSlide: (action:TActionSlide) => void;
   indexesPag: number[];

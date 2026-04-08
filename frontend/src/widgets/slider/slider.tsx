@@ -4,6 +4,7 @@ import { getPagIndexes } from "./utils/getPagIndexes";
 import type { TSlideItem } from "./types";
 import { useChangeSlide } from "./hooks/useChangeSlide";
 import {sliderStore} from './model/sliderStore';
+import { SliderContext } from "./utils/contexts";
 
 export const SliderComponent = () => {
   
@@ -21,7 +22,6 @@ export const SliderComponent = () => {
     loadSlides(sliderStore)
   },[])
 
-  //работа с показом слайдов и их перелистыванием
   // Вызываем хук для обработки перелистывания слайдов
   const {
     indexSlide,// индекс:слайд текущий 
@@ -42,19 +42,25 @@ export const SliderComponent = () => {
   // чтобы можно было показать тек слайд, слайд перед ним и после него(те тройку слайдов где есть тек показ слайд)
   //  кешируем результат пагинации чтобы просто так не было рендеров
   const currentIndexesPag = 
-  getPagIndexes( indexSlide, pagePagSize, sliders)
-//   возможно кешировать ????
-  if(!sliders.length) return <div>Сделать лоадер загрузки</div>
-  return (
-     <SliderUI
-        indexShowSlide={ indexSlide}
-        slides={sliders}
-        onHandleChangeSlide={handleChangeSlide}
-        onSetIndexSlide={setIndexSlide}
-        indexesPag={currentIndexesPag}
-        toggleIntervalSlide={toggleIntervalSlide}
-    />
-  );
+    getPagIndexes( indexSlide, pagePagSize, sliders);
+    if(!sliders.length) return <div>Сделать лоадер загрузки</div>
+    return (
+
+      <SliderContext.Provider 
+        value={
+                {
+                  slideNumber:indexSlide, 
+                  slides:sliders
+                }
+              }>
+        <SliderUI
+            onHandleChangeSlide={handleChangeSlide}
+            onSetIndexSlide={setIndexSlide}
+            indexesPag={currentIndexesPag}
+            toggleIntervalSlide={toggleIntervalSlide}
+        />
+      </SliderContext.Provider>
+    );
 };
 
 
