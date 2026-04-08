@@ -11,7 +11,7 @@ export const SliderComponentUI = ({
   onSetIndexSlide,
   onHandleChangeSlide,
   indexesPag,
-  // toggleIntervalSlide,
+  toggleIntervalSlide,
   
   // isFirstRender
 }:TSliderUIProps) => {
@@ -33,8 +33,8 @@ export const SliderComponentUI = ({
    
     return (
       // анимация переключения
-// onMouseEnter={()=> toggleIntervalSlide(false)} onMouseLeave={()=> toggleIntervalSlide(true)}
-      <div  className={styles.slider}  >
+// 
+      <div  className={styles.slider}  onMouseEnter={()=> toggleIntervalSlide(false)} onMouseLeave={()=> toggleIntervalSlide(true)}>
             <SlidesList slides={slides} slideNumber={indexShowSlide}/>
         {/* <div className={styles['slides-list']}>
 

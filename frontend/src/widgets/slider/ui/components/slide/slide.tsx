@@ -16,10 +16,6 @@ export type SlideUIProps = {
 
 export const SlideUI = ({
   showingSlide,
-  // isAnimation,
-  // isDeleteAnimation,
-  // isFirstRender,
-  // typeSlide
 }:SlideUIProps)=>{
    const backgroundImageSrc =useMemo(()=>{
     //  защита если картини нет
@@ -39,18 +35,8 @@ export const SlideUI = ({
     } as React.CSSProperties
 },[showingSlide]);
 
-console.log(showingSlide)
-   const themeSlideClass = showingSlide.typeTheme === 'light' ? 'is-light' : 'is-dark';
-    const colorBtn =  showingSlide.typeTheme === 'dark' ? 'dark' : '';
-    // переделать работу с классами
-    // const classAnimation = 'slider-item-appeared';
-    // const classDeleteSlideAnimation = 'slider-item-disappeared';
-    //  спрячим следующий и предыдущий слайды
-
-
-    // const isHidden = (typeSlide === 'prev' || typeSlide === 'next') ? true : false;
-  //  aria-hidden={isHidden}   продумать
-   
+  const themeSlideClass = showingSlide.typeTheme === 'light' ? 'is-light' : 'is-dark';
+  const colorBtn =  showingSlide.typeTheme === 'dark' ? 'dark' : '';
     return (
      <article 
      
@@ -58,22 +44,10 @@ console.log(showingSlide)
                           clsx(
                             styles['slider-item'],
                             styles[themeSlideClass],
-                            // isAnimation && styles[classAnimation],
-                            // isDeleteAnimation && styles[classDeleteSlideAnimation],
-                            // isFirstRender  && styles['slide-hidden'] ???
-                            //  прячим пред и след слайды
-                            // первый рендер ?
-                            // isHidden && styles['slide-hidden']
-
                           )
                         } 
               style={backgroundImageSrc}>
                  {/* проблема переполнения текста  */}
-              {/* повесить фонофое зображение сюда  и сделать анимацию для него */}
-              {/* сделать соседа который будет кот будет сменять слайд и подгружать - предыдущий или следующий */}
-              {/* по ум он будет скрыт но как только мы нажимаем на смену слайда тек слайд меняется на соседа  */}
-              {/* [1 visible,2 invisible] forward => [2 visible,3 invisible] */}
-              {/* [ 2 visible,1 invisible] back => [1 visible,2 invisible] */}
             <div className={styles["slider-content"]}>
               <div className={styles['slider-text']}>
                 <h1 className={styles["slider-title"]}>{showingSlide.title}</h1>

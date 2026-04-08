@@ -12,6 +12,7 @@ export const SliderComponent = () => {
 
 
   // загружаем информацию о слайдах в наш компонент
+  //  если запрос на сервер можно создать стор с редукс
   useEffect(()=>{
     const loadSlides = async(slidesData:TSlideItem[])=>{
       const arrSlides = await slidesData;
@@ -26,13 +27,9 @@ export const SliderComponent = () => {
     indexSlide,// индекс:слайд текущий 
     setIndexSlide, // для прыжка на люб слайд (пагинация)
     handleChangeSlide, // // Функция для кнопок "Вперед" и "Назад"
-    // toggleIntervalSlide, // запустить/отключить интервал изменения показа слайдов автоматически
-    //  работа санимацией
-    isAnimation,
-    isDeleteAnimation,
-    // текущий и предыдущий слайд для анимации
-    cashSlides,
-    firstRenderSlide
+    // автоматич переключение слайдов
+    toggleIntervalSlide,
+
   } = useChangeSlide(sliders);
  
 
@@ -50,15 +47,12 @@ export const SliderComponent = () => {
   if(!sliders.length) return <div>Сделать лоадер загрузки</div>
   return (
      <SliderUI
-        isFirstRender={firstRenderSlide.current}
-        isDeleteAnimation={isDeleteAnimation}
-        isAnimation={isAnimation}
         indexShowSlide={ indexSlide}
-        slides={cashSlides}
+        slides={sliders}
         onHandleChangeSlide={handleChangeSlide}
         onSetIndexSlide={setIndexSlide}
         indexesPag={currentIndexesPag}
-        // toggleIntervalSlide={{flag:false}}
+        toggleIntervalSlide={toggleIntervalSlide}
     />
   );
 };

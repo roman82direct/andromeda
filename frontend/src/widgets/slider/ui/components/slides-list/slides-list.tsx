@@ -17,8 +17,7 @@ export const SlidesList = ({slides, slideNumber}:TSlidesListProps)=>{
   const stylesTranslate = {
     transform: `translateX(-${slideNumber * 100}%)`
   } as React.CSSProperties
-
-  console.log('list',slides)
+  
     return  (
 
       <div 
