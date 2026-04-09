@@ -28,7 +28,9 @@ export const SliderComponentUI = ({
    
   },[onSetIndexSlide])
   
-  //  переделать логику темной темы !!!!!!!
+  //  переделать логику темной темы !!!!!!! 
+  //  - в компоненты стрелок и пагинации - как то надо получать текущий слайд??? 
+//  через контекст
     const colorBtn =  slides[1].typeTheme === 'dark' ? 'dark' : '';
        
 
@@ -39,6 +41,7 @@ export const SliderComponentUI = ({
             <SlidesList/>
          {/*  сделать отдельно компоненты пагинации и стрелок */}
              <div className={styles["slider-nav"]}>
+              {/* cделать отдельно компонетн стрелок и навигации */}
                     <div className={styles["slider-arrows"]}>
                       <IconButtonUI
                         key={'arrow-right'}

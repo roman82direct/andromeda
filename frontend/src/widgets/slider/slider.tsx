@@ -50,7 +50,9 @@ export const SliderComponent = () => {
         value={
                 {
                   slideNumber:indexSlide, 
-                  slides:sliders
+                  slides:sliders,
+                  dotsPag: currentIndexesPag,
+                  setIndexSlide: setIndexSlide
                 }
               }>
         <SliderUI
