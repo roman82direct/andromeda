@@ -32,17 +32,13 @@ export const SliderComponent = () => {
 
   } = useChangeSlide(sliders);
  
-
-  // console.log('cashSlides',cashSlides)
-  // console.log("sliders",sliders)
-  
-  //  работа с пагинацией слайдов - сколько кнопок пагинации показываем согласно макету
+//  работа с пагинацией слайдов - сколько кнопок пагинации показываем согласно макету
   const pagePagSize = 3;
   // вычисляем индексы пагинации так чтобы они совпали со номерами индексов слайдов в sliders
   // чтобы можно было показать тек слайд, слайд перед ним и после него(те тройку слайдов где есть тек показ слайд)
-  //  кешируем результат пагинации чтобы просто так не было рендеров
   const currentIndexesPag = 
     getPagIndexes( indexSlide, pagePagSize, sliders);
+   // !!!!!!!!
     if(!sliders.length) return <div>Сделать лоадер загрузки</div>
     return (
 
@@ -52,15 +48,13 @@ export const SliderComponent = () => {
                   slideNumber:indexSlide, 
                   slides:sliders,
                   dotsPag: currentIndexesPag,
-                  setIndexSlide: setIndexSlide
+                  setIndexSlide: setIndexSlide,
+                  // для пагинации если слайдчерный чтобы тема точек было белая допустим
+                  currentSlideTheme:sliders[indexSlide].typeTheme,
+                  handleChangeSlide
                 }
               }>
-        <SliderUI
-            onHandleChangeSlide={handleChangeSlide}
-            onSetIndexSlide={setIndexSlide}
-            indexesPag={currentIndexesPag}
-            toggleIntervalSlide={toggleIntervalSlide}
-        />
+        <SliderUI toggleIntervalSlide={toggleIntervalSlide}/>
       </SliderContext.Provider>
     );
 };

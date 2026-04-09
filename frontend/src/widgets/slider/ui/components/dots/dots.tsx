@@ -7,7 +7,9 @@ export const Dots = ()=>{
   const {
           slideNumber, 
           dotsPag,
-          setIndexSlide
+          setIndexSlide,
+          // тема слайдавлияет на тему отображения точек пагинации на фоне слайда
+          currentSlideTheme
         } =useContext(SliderContext);
       // slideNumber -  номер текущего слайда котрый на "экране"
   const handleSetSlide = useCallback((index:number)=>{
@@ -15,7 +17,8 @@ export const Dots = ()=>{
       return ()=>(setIndexSlide(index))
       
     },[setIndexSlide])
-
+    // на основе текущего слайда (его фона) определим тему точек
+  const themePag = currentSlideTheme === 'light' ? 'primary' : 'secondary'; 
       
   return (
        <ul className={styles["slider-pag"]}>
@@ -25,9 +28,10 @@ export const Dots = ()=>{
                 onClick={handleSetSlide(indexSlide)}
                 iconActiveClass={"ellipse-filled"}
                 iconClass={"ellipse-emptied"}
+                // сравниваем с тем, что сейчас отображается чтобы понять активную точку
                 isActive={indexSlide === slideNumber}
                 //  создание  "темы" точек 
-                colorIcon={"secondary"}
+                colorIcon={themePag}
                 sizeIcon={10}
               />
             </li>

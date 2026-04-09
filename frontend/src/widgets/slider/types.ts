@@ -1,4 +1,5 @@
 import type { TActionUser } from "@/shared/types/types";
+import type { TIconClassCssIcon } from "@/shared/types/ui/icon";
 
 
 type TImageSrc = string;
@@ -15,12 +16,14 @@ export type TImage = {
   jpg: TPathsImage;
 }
 
+export type ThemeSlide = 'dark' | 'light';
+
 export type TSlideItem = {
   image: TImage;
   title: string;
   desc?: string;
   pathsForActions: TActionUser[];
-  typeTheme:'dark' | 'light'
+  typeTheme: ThemeSlide
 };
 
 
@@ -33,4 +36,10 @@ export type TSlideItemWithId = {id?: string, typeSlide?: TSlide} & TSlideItem
 export type TRenderSlides = {
   [k in TSlide]:TSlideItemWithId
 }
+
+export type  TArrow = {
+    key:'right' | 'left';
+    onClick: ()=>void;
+    icon:TIconClassCssIcon;
+  }
 
