@@ -35,6 +35,10 @@ export type TRenderSlides = {
   [k in TSlide]: TSlideItemWithId;
 };
 
+export type TRenderIndexesSlides = {
+  [k in TSlide]: number
+}
+
 export type TArrow = {
   key: "right" | "left";
   onClick: () => void;

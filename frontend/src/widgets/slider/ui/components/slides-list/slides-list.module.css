@@ -1,6 +1,8 @@
 .slides-list {
+  position: relative;
   display: flex;
   width: 100%;
   height: 100%;
-  transition: transform 0.5s ease-in-out;
+  /* cкрываем переполнение чтобыувидеть анимацию движения слайдов */
+  overflow: hidden;
 }

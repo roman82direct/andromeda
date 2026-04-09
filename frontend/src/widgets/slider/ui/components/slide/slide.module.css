@@ -1,14 +1,11 @@
 .slider-item {
-  position: relative;
+  position: absolute;
+  inset:0;
   display: flex;
   flex-direction: column;
   flex: 1 0 100%;
-  /* justify-content: space-between; */
-  /* align-content: center; */
   width: 100%;
   height: 100%;
-  /* overflow-y: auto; */
-  /* opacity:0; */
   background: no-repeat center/cover;
   background-image: 
   /* если image-set не подерживается старым браузером передаем фолбэк через url */
@@ -18,38 +15,8 @@
   background-image:
     linear-gradient(-270deg, #f8f9fa 9.62%, rgba(248, 249, 250, 0) 70%),
     var(--slide-bg);
-  /* transform:translateX(60%); */
-}
-
-/* .slider-item-appeared{ */
-/* z-index: 1; */
-/* transform:translateX(0); */
-/* animation: showSlide 0.6s ease-in-out; */
-/* } */
-
-@keyframes showSlide {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-/* .slider-item-disappeared { */
-/* z-index: 0; */
-/* visibility: hidden; */
-/* transform:translateX(-100%); */
-/* animation: removeSlide 0.6s ease-in-out; */
-/* } */
-
-@keyframes removeSlide {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-100%);
-  }
+  transition: transform 0.5s ease-in-out;
+  transform: translateX(0); /* база для анимации */
 }
 
 /* стилизация темного слайда */
@@ -116,4 +83,22 @@
 .slider-buttons {
   display: flex;
   gap: 18px;
+}
+
+
+/* позиционирование слайда - сделано для анимации */
+
+.prev {
+  z-index:1;
+  transform: translateX(-100%);
+}
+
+.current {
+  z-index:2;
+  transform: translateX(0);
+}
+
+.next {
+  z-index:1;
+  transform:translateX(100%);
 }

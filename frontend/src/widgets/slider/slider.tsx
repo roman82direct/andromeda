@@ -26,6 +26,7 @@ export const SliderComponent = () => {
     handleChangeSlide, // // Функция для кнопок "Вперед" и "Назад"
     // автоматич переключение слайдов
     toggleIntervalSlide,
+    indexesSlides
   } = useChangeSlide(sliders);
 
   //  работа с пагинацией слайдов - сколько кнопок пагинации показываем согласно макету
@@ -35,6 +36,7 @@ export const SliderComponent = () => {
   const currentIndexesPag = getPagIndexes(indexSlide, pagePagSize, sliders);
   // !!!!!!!!
   if (!sliders.length) return <div>Сделать лоадер загрузки</div>;
+  //  разделение контекстов ???
   return (
     <SliderContext.Provider
       value={{
@@ -45,6 +47,7 @@ export const SliderComponent = () => {
         // для пагинации если слайдчерный чтобы тема точек было белая допустим
         currentSlideTheme: sliders[indexSlide].typeTheme,
         handleChangeSlide,
+        indexesSlides,
       }}
     >
       <SliderUI toggleIntervalSlide={toggleIntervalSlide} />

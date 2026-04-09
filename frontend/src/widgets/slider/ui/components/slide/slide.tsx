@@ -1,7 +1,7 @@
 import { ButtonUI } from "@/shared/ui/button";
 import clsx from "clsx";
 import styles from "./slide.module.css";
-import type { TSlideItemWithId } from "@/widgets/slider/types";
+import type { TSlide, TSlideItemWithId } from "@/widgets/slider/types";
 import { useMemo } from "react";
 //  есть смысл сделать useContext????
 //  и все пропсы передавать через Slider => SlideUI
@@ -12,9 +12,10 @@ export type SlideUIProps = {
   // isAnimation?: boolean;
   // isDeleteAnimation?:boolean;
   isFirstRender?: boolean;
+  positionSlide: TSlide;
 };
 
-export const SlideUI = ({ showingSlide }: SlideUIProps) => {
+export const SlideUI = ({ showingSlide, positionSlide }: SlideUIProps) => {
   const backgroundImageSrc = useMemo(() => {
     //  защита если картини нет
     if (!showingSlide.image) return {};
@@ -34,9 +35,15 @@ export const SlideUI = ({ showingSlide }: SlideUIProps) => {
   const themeSlideClass =
     showingSlide.typeTheme === "light" ? "is-light" : "is-dark";
   const colorBtn = showingSlide.typeTheme === "dark" ? "dark" : "";
+  const classPosSlide = positionSlide;
+
   return (
     <article
-      className={clsx(styles["slider-item"], styles[themeSlideClass])}
+      className={clsx(
+                    styles["slider-item"], 
+                    styles[themeSlideClass],
+                    styles[classPosSlide]
+                  )}
       style={backgroundImageSrc}
     >
       {/* проблема переполнения текста  */}

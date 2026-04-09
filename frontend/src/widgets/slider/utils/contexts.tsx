@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import type { TSlideItemWithId, TActionSlide, ThemeSlide } from "../types";
+import type { TSlideItemWithId, TActionSlide, ThemeSlide, TRenderIndexesSlides } from "../types";
 
 type TSliderContext = {
   slideNumber: number;
@@ -8,6 +8,7 @@ type TSliderContext = {
   setIndexSlide: (index: number) => void;
   currentSlideTheme: ThemeSlide;
   handleChangeSlide: (action: TActionSlide) => void;
+  indexesSlides:TRenderIndexesSlides;
 };
 
 export const SliderContext = createContext<TSliderContext>({
@@ -18,4 +19,9 @@ export const SliderContext = createContext<TSliderContext>({
   // для пагинации если слайдчерный чтобы тема точек было белая допустим
   currentSlideTheme: "light",
   handleChangeSlide: () => {},
+  indexesSlides: {
+    prev:0,
+    current:1,
+    next:2,
+  }
 });
