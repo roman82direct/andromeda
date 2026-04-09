@@ -33,7 +33,7 @@ export const IconUIComponent = ({
   counterQuantity,
   inheritColor,
   colorIcon = "primary",
-}:IconUIProps) => {
+}: IconUIProps) => {
   const className = clsx(
     styles.icon,
     styles[iconClass],
@@ -63,4 +63,4 @@ export const IconUIComponent = ({
 
 export const IconUI = memo(IconUIComponent);
 
-IconUI.displayName = 'IconUI';
+IconUI.displayName = "IconUI";

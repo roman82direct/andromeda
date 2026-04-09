@@ -5,8 +5,8 @@
   gap: 5px;
   min-height: 100%;
   padding: 10px 28px;
-  font-family: var(--main-font,"Raleway"), Arial, Helvetica, sans-serif;
-  font-weight: var(--fw-text,400);
+  font-family: var(--main-font, "Raleway"), Arial, Helvetica, sans-serif;
+  font-weight: var(--fw-text, 400);
   font-size: 16px;
   font-style: normal;
   line-height: 1.2;
@@ -38,17 +38,16 @@
 }
 
 .button-filled.btn-color-dark:hover {
-   --color-btn: var(--color-accent, #67b0d1);
+  --color-btn: var(--color-accent, #67b0d1);
 }
 
 .button-filled.btn-color-dark:disabled {
-   --color-btn:  var(--color-primary-disabled, #848484);
+  --color-btn: var(--color-primary-disabled, #848484);
 }
 
 .button-filled.btn-color-dark:active {
-   --color-btn: var(--color-sailing, #e1700e);
+  --color-btn: var(--color-sailing, #e1700e);
 }
-
 
 .button-outlined {
   border: 1px solid var(--border-color-btn, #15242a);
@@ -56,13 +55,12 @@
   background-color: transparent;
 }
 
-
 .button-outlined.btn-color-dark {
   --color-btn: var(--color-secondary, #f8f9fa);
   --border-color-btn: var(--color-secondary, #f8f9fa);
 }
 
-.button-outlined.btn-color-dark:hover{
+.button-outlined.btn-color-dark:hover {
   --color-btn: var(--color-accent, #67b0d1);
   --border-color-btn: var(--color-accent, #67b0d1);
 }
@@ -74,7 +72,7 @@
 
 .button-outlined.btn-color-dark:active {
   --color-btn: var(--color-sailing, #e1700e);
-    border-color: var(--color-sailing, #e1700e);
+  border-color: var(--color-sailing, #e1700e);
 }
 
 /*  на будущее */
@@ -85,7 +83,7 @@
 }
 
 .button-text.btn-color-dark {
-    color: var(--color-secondary, #f8f9fa);
+  color: var(--color-secondary, #f8f9fa);
 }
 
 /*  меняем переменные в зависимости от 'типа цвета' */
@@ -133,12 +131,6 @@
   width: 100%;
 }
 
-
-
-
-
-
-
 /* косяки  - поменяй структуру классов*/
 /* сделай по схему */
 /* задается структура */
@@ -157,7 +149,7 @@
 .button--primary {
   --bg-btn: var(--color-primary);
   --color-btn: white;
-  --border-color-btn:'';
+  --border-color-btn: "";
 }
 
 /* 3️⃣ использовать одну систему переменных для border-color */

@@ -23,8 +23,8 @@ export type TIconClassCssIcon =
   | "arrow-right"
   | "ellipse-emptied"
   | "ellipse-filled"
-  | 'burger'
-  | 'arrow-top';
+  | "burger"
+  | "arrow-top";
 
 export type TIconType = {
   typeIcon: TIconClassCssIcon;

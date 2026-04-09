@@ -58,5 +58,5 @@
 }
 
 .logoEntity {
-  font-size:clamp(14px, 2.5vw, 16px);
+  font-size: clamp(14px, 2.5vw, 16px);
 }

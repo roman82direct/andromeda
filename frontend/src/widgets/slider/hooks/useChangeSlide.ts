@@ -1,29 +1,24 @@
-import type {  TSlideItem,  } from "../types";
+import type { TSlideItem } from "../types";
 import { useCallback, useEffect, useState } from "react";
 import type { TActionSlide } from "../types";
 import { getNextIndexSlide } from "../utils/getIndexNextSlide";
 
-
-
-
-export const useChangeSlide = (sliders: TSlideItem[], delay:number = 3000) => {
+export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
   //  текущий слайд который будем показывать
-    const [indexSlide, setIndexSlide] = useState<number>(0);
+  const [indexSlide, setIndexSlide] = useState<number>(0);
   //  отключить/включить автоматическое изменение картинок слайдера
   const [interChangSlide, toggleIntervalSlide] = useState<boolean>(false);
-// sliders  все слайды будут в верстке - возможно ли загружать только 3  и подгружать по мере необх?
+  // sliders  все слайды будут в верстке - возможно ли загружать только 3  и подгружать по мере необх?
   const handleChangeSlide = useCallback(
     (action: TActionSlide) => {
-      setIndexSlide((prevIndex) => (
-            getNextIndexSlide(
-              {
-                action,
-                prevIndex,
-                ArrSizeSlides: sliders.length
-              }
-            )  
-        ));
-      },
+      setIndexSlide((prevIndex) =>
+        getNextIndexSlide({
+          action,
+          prevIndex,
+          ArrSizeSlides: sliders.length,
+        }),
+      );
+    },
     [sliders.length],
   );
   // добавить флаг для остоновки автоматич пролистывания при наведении на слайд
@@ -40,10 +35,10 @@ export const useChangeSlide = (sliders: TSlideItem[], delay:number = 3000) => {
   }, [handleChangeSlide, interChangSlide, delay]);
 
   return {
-    indexSlide,// индексы:слайд текущий 
+    indexSlide, // индексы:слайд текущий
     setIndexSlide, // lдля прыжка на люб слайд (пагинация)
     handleChangeSlide, // // Функция для кнопок "Вперед" и "Назад"
     // автоматич переключение слайдов
     toggleIntervalSlide,
- };
+  };
 };

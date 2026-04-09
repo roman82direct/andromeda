@@ -114,10 +114,9 @@ export const darkButtonFullfiled: Story = {
   args: {
     children: "Подписаться",
     color: "dark",
-    variant: 'filled',
+    variant: "filled",
   },
 };
-
 
 //  необходимо переделать компонент iconUi : добавить возмонжость цвета и
 //  и реакцию на псевдокласс родителя что типа currentColor

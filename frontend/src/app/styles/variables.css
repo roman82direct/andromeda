@@ -21,8 +21,8 @@
   --footer-height: 391px;
 
   --transition-duration: 0.2s;
-/* переменные для media запросов */
-  --tablet:768px;
+  /* переменные для media запросов */
+  --tablet: 768px;
   /* filters  - наверное надо будет убрать к стилям самого компонента фильтра потом?*/
   --color-beige-filter: #e5dbc0;
   --color-yellow-filter: #ede860;

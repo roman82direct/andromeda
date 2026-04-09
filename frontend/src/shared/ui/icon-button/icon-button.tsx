@@ -54,6 +54,5 @@ export const IconButtonUICopmonent: FC<IconButtonUIProps> = ({
   );
 };
 
-
 export const IconButtonUI = memo(IconButtonUICopmonent);
-IconButtonUI.displayName = 'IconButtonUI';
+IconButtonUI.displayName = "IconButtonUI";

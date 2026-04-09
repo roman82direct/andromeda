@@ -24,11 +24,16 @@ export const IconMenuUI: FC<TIconMenuUIProps> = ({
       ? styles["menu-list_header"]
       : styles["menu-list_footer"],
   );
-  // переделать стили чтобы было удобнеестилизовать ребенка header или foooter вешаем на  меню 
+  // переделать стили чтобы было удобнеестилизовать ребенка header или foooter вешаем на  меню
   return (
     <div className={styles.menu}>
-      <div className={styles['menu-burger']}>
-        <IconButtonUI isActive={false} iconClass={'burger'} iconActiveClass={'arrow-top'}  colorIcon={'primary'}/>
+      <div className={styles["menu-burger"]}>
+        <IconButtonUI
+          isActive={false}
+          iconClass={"burger"}
+          iconActiveClass={"arrow-top"}
+          colorIcon={"primary"}
+        />
       </div>
       <ul className={styleMenuList}>
         {navIcons.map((navIcon) => (

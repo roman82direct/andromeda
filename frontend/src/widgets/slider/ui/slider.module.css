@@ -10,7 +10,7 @@
   position: absolute;
   display: flex;
   gap: 24px;
-  padding:0 0px 52px 32px;
+  padding: 0 0px 52px 32px;
   inset-block-end: 40px;
   inset-inline-start: 32px;
 }
@@ -26,5 +26,3 @@
   gap: 20px;
   padding-block-start: 15px;
 }
-
-
