@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import type { TSlideItemWithId, TActionSlide, ThemeSlide, TRenderIndexesSlides } from "../types";
-
+// убрать лишние поля и возможно как то разделить контексты:
 type TSliderContext = {
   slideNumber: number;
   slides: TSlideItemWithId[];
@@ -9,6 +9,7 @@ type TSliderContext = {
   currentSlideTheme: ThemeSlide;
   handleChangeSlide: (action: TActionSlide) => void;
   indexesSlides:TRenderIndexesSlides;
+  animation: boolean;
 };
 
 export const SliderContext = createContext<TSliderContext>({
@@ -23,5 +24,7 @@ export const SliderContext = createContext<TSliderContext>({
     prev:0,
     current:1,
     next:2,
-  }
+    
+  },
+  animation: true
 });

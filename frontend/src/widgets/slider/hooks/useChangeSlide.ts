@@ -9,6 +9,7 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
     current: 'current',
     next: 'next'
     });
+  const [animation, setAnimation] = useState<boolean>(true);
 //  текущий слайд который будем показывать
   const [indexSlide, setIndexSlide] = useState<number>(0);
   //  отключить/включить автоматическое изменение картинок слайдера
@@ -16,6 +17,8 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
   // sliders  все слайды будут в верстке - возможно ли загружать только 3  и подгружать по мере необх?
   const handleChangeSlide = useCallback(
     (action: TActionSlide) => {
+      // чтобы пред слайд исчез отключаем анимацию
+      setAnimation(false);
       setIndexSlide((prevIndex) =>
         getNextIndexSlide({
           action,
@@ -23,6 +26,13 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
           ArrSizeSlides: sliders.length,
         }),
       );
+      // через "время" запускаем анимацию чтоб след слайд 'появился'
+      const timeout =setTimeout(()=>{
+        setAnimation(true);
+      })
+      return ()=>{
+        clearTimeout(timeout);
+      }
     },
     [sliders.length],
   );
@@ -66,6 +76,7 @@ export const useChangeSlide = (sliders: TSlideItem[], delay: number = 3000) => {
     handleChangeSlide, // // Функция для кнопок "Вперед" и "Назад"
     // автоматич переключение слайдов
     toggleIntervalSlide,
-    indexesSlides: getRenderSlides(sliders, indexSlide)
+    indexesSlides: getRenderSlides(sliders, indexSlide),
+    animation
   };
 };

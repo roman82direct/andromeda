@@ -96,7 +96,13 @@
 .current {
   z-index:2;
   transform: translateX(0);
+  animation: fadeIn 1.5s;
 }
+
+ @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
 
 .next {
   z-index:1;

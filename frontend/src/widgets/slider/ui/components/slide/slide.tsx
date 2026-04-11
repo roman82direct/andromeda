@@ -12,7 +12,7 @@ export type SlideUIProps = {
   // isAnimation?: boolean;
   // isDeleteAnimation?:boolean;
   isFirstRender?: boolean;
-  positionSlide: TSlide;
+  positionSlide: TSlide | string ;
 };
 
 export const SlideUI = ({ showingSlide, positionSlide }: SlideUIProps) => {
