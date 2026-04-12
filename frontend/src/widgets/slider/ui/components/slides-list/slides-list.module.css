@@ -3,6 +3,6 @@
   display: flex;
   width: 100%;
   height: 100%;
-  /* cкрываем переполнение чтобыувидеть анимацию движения слайдов */
-  overflow: hidden;
+  transition: transform 0.7s ease-in-out;
+  animation: fadein 0.5s ease-in-out;
 }

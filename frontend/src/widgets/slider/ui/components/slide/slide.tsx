@@ -1,22 +1,15 @@
 import { ButtonUI } from "@/shared/ui/button";
 import clsx from "clsx";
 import styles from "./slide.module.css";
-import type { TSlide, TSlideItemWithId } from "@/widgets/slider/types";
-import { useMemo } from "react";
-//  есть смысл сделать useContext????
-//  и все пропсы передавать через Slider => SlideUI
-//  пропс какой - только сам слайд ??
+import type { TSlideItemWithId } from "@/widgets/slider/types";
+import { memo,  } from "react";
 
 export type SlideUIProps = {
   showingSlide: TSlideItemWithId;
-  // isAnimation?: boolean;
-  // isDeleteAnimation?:boolean;
-  isFirstRender?: boolean;
-  positionSlide: TSlide | string ;
 };
 
-export const SlideUI = ({ showingSlide, positionSlide }: SlideUIProps) => {
-  const backgroundImageSrc = useMemo(() => {
+export const SlideUIComponent = ({ showingSlide }: SlideUIProps) => {
+  const backgroundImageSrc = () => {
     //  защита если картини нет
     if (!showingSlide.image) return {};
     return {
@@ -30,21 +23,21 @@ export const SlideUI = ({ showingSlide, positionSlide }: SlideUIProps) => {
           url("${showingSlide.image.jpg["2x"]}") 2x
       )`,
     } as React.CSSProperties;
-  }, [showingSlide]);
+  };
 
   const themeSlideClass =
     showingSlide.typeTheme === "light" ? "is-light" : "is-dark";
   const colorBtn = showingSlide.typeTheme === "dark" ? "dark" : "";
-  const classPosSlide = positionSlide;
+
 
   return (
     <article
       className={clsx(
                     styles["slider-item"], 
                     styles[themeSlideClass],
-                    styles[classPosSlide]
+  
                   )}
-      style={backgroundImageSrc}
+      style={backgroundImageSrc()}
     >
       {/* проблема переполнения текста  */}
       <div className={styles["slider-content"]}>
@@ -83,3 +76,8 @@ export const SlideUI = ({ showingSlide, positionSlide }: SlideUIProps) => {
     </article>
   );
 };
+
+
+export const SlideUI= memo(SlideUIComponent);
+
+SlideUI.displayName = "SlideUI";

@@ -12,9 +12,9 @@ export const SliderComponent = () => {
   // загружаем информацию о слайдах в наш компонент
   //  если запрос на сервер можно создать стор с редукс
   useEffect(() => {
-    const loadSlides = async (slidesData: TSlideItem[]) => {
-      // убрать!
-      const arrSlides = await slidesData;
+    const loadSlides =  (slidesData: TSlideItem[]) => {
+      
+      const arrSlides =  slidesData;
       setSliders(arrSlides);
     };
     loadSlides(sliderStore);
@@ -27,8 +27,6 @@ export const SliderComponent = () => {
     handleChangeSlide, // // Функция для кнопок "Вперед" и "Назад"
     // автоматич переключение слайдов
     toggleIntervalSlide,
-    indexesSlides,
-    animation
   } = useChangeSlide(sliders);
 
   //  работа с пагинацией слайдов - сколько кнопок пагинации показываем согласно макету
@@ -49,8 +47,6 @@ export const SliderComponent = () => {
         // для пагинации если слайдчерный чтобы тема точек было белая допустим
         currentSlideTheme: sliders[indexSlide].typeTheme,
         handleChangeSlide,
-        indexesSlides,
-        animation
       }}
     >
       <SliderUI toggleIntervalSlide={toggleIntervalSlide} />
