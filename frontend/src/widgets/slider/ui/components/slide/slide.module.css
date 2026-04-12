@@ -58,12 +58,33 @@
 
 .slider-title {
   margin-bottom: 15px;
+ 
   color: var(--text-color, #15242a);
   font-family: var(--title-font, "Cormorant SC");
   font-weight: var(--fw-title, 600);
   font-size: 48px;
   line-height: 1.2;
+  /* подумать */
+ 
 }
+
+.ellipsised {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* при переполнении текста */
+.clamp {
+ display: -webkit-box;
+overflow: hidden;
+line-clamp: 2;
+  -webkit-line-clamp: 2;
+  /* "размещай текст как обычные строки сверху вниз" */
+  -webkit-box-orient: vertical;
+}
+
+
 
 .slider-desc {
   margin-bottom: 32px;

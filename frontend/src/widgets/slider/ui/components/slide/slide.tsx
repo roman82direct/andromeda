@@ -35,16 +35,27 @@ export const SlideUIComponent = ({ showingSlide }: SlideUIProps) => {
       className={clsx(
                     styles["slider-item"], 
                     styles[themeSlideClass],
-  
+
                   )}
       style={backgroundImageSrc()}
     >
       {/* проблема переполнения текста  */}
       <div className={styles["slider-content"]}>
         <div className={styles["slider-text"]}>
-          <h1 className={styles["slider-title"]}>{showingSlide.title}</h1>
+          <h1 
+              title={showingSlide.title}
+              className={clsx(
+                          styles["slider-title"],
+                          // оставить наслучай переполнения текста ?
+                          styles['clamp']
+                        )
+                        }>{showingSlide.title}</h1>
           {showingSlide.desc && (
-            <div className={styles["slider-desc"]}>{showingSlide.desc}</div>
+            <div className={clsx(
+                              styles["slider-desc"],
+            // оставить наслучай переполнения текста ?
+                              styles['clamp']
+                            )}>{showingSlide.desc}</div>
           )}
         </div>
         <div className={styles["slider-actions"]}>
