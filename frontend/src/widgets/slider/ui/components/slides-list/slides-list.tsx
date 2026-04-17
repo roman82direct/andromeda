@@ -7,14 +7,20 @@ import { SliderContext } from "@/widgets/slider/utils/contexts";
 export const SlidesList = () => {
   //  получаем данные из контекста номер слайда для вычисления его положения
   //  относительно translateX и все слайды
-  const { slideNumber, slides } = useContext(SliderContext);
+  const { slideNumber, slides,transitionEnabled, handleTransitionEnd } = useContext(SliderContext);
 
   // работает по принципу ленты
+  console.log(slides)
   const stylesTranslate = {
     transform: `translateX(-${slideNumber * 100}%)`,
+    transition:  transitionEnabled ? 'transform 0.7s ease-in-out' : 'none'
+
   } as React.CSSProperties;
   return (
-    <div className={styles["slides-list"]} style={stylesTranslate}>
+    <div 
+        onTransitionEnd={handleTransitionEnd}
+        className={styles["slides-list"]} 
+        style={stylesTranslate}>
       {slides.map((slide, index) => (
         //  как мемоизировать слайд????
         <SlideUI key={index} showingSlide={slide} />

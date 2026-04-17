@@ -5,11 +5,20 @@ import { getNextIndexSlide } from "../utils/getIndexNextSlide";
 
 export const useChangeSlide = (slides: TSlideItem[], delay: number = 3000) => {
 //  текущий слайд который будем показывать
-  const [indexSlide, setIndexSlide] = useState<number>(0);
+  const [indexSlide, setIndexSlide] = useState<number>(1);
   //  отключить/включить автоматическое изменение картинок слайдера
   const [interChangSlide, toggleIntervalSlide] = useState<boolean>(false);
+//  подготовка слайдов ксозданию бесконечной прокрутки
+//  создаем клон первого и последнего
+  const slidesWithClones = [slides[slides.length-1],...slides, slides[0]];
+  
+  // console.log(slidesWithClones)
+    // console.log(slidesWithClones.length)
 
-  const slidesWithClones = []
+  //  определяем количество оригинальных слайдов
+  const [length, setLength] = useState<number>(slides.length);
+
+  //  const showSlides = 1; // по ум показываем 1 слайд
   // sliders  все слайды будут в верстке - возможно ли загружать только 3  и подгружать по мере необх?
   const handleChangeSlide = useCallback(
     (action: TActionSlide) => {
@@ -18,12 +27,48 @@ export const useChangeSlide = (slides: TSlideItem[], delay: number = 3000) => {
         getNextIndexSlide({
           action,
           prevIndex,
-          ArrSizeSlides: slides.length,
+          // убрал slides.length
+          ArrSizeSlides: slidesWithClones.length,
         }),
       );
     },
-    [slides.length],
+    [slidesWithClones.length],
   );
+// const [isRepeating, setIsRepeating] = useState(infiniteLoop && children.length > show)
+const [transitionEnabled, setTransitionEnabled]=useState(true);
+
+useEffect(()=>{
+  if(indexSlide===1 || indexSlide === slides.length){
+    const timeOut = setTimeout(()=>{
+          setTransitionEnabled(true)
+
+    },100)
+    return(()=>{
+      clearTimeout(timeOut)
+    })
+  }
+},[indexSlide,slides.length])
+//  исправить пагинацию!!!!
+  const handleTransitionEnd = ()=>{
+    
+        if(indexSlide === 0){
+         setTransitionEnabled(false);
+        //  нулевой слайд - клон последнего слайда (из оригинальных)
+        //  нам нужно уйтис него
+        //  идем к последнему 
+         setIndexSlide(slides.length);
+         console.log(slides.length)
+        }
+        if(indexSlide === slides.length+ 1){
+          //  унас последний слайд - он клон первого слайда (из оригинальных)
+          // length+ 1
+          setTransitionEnabled(false);
+        //  идем  к оригинальному первомму слайду
+          //  отправляем на первыйслайд(минуя клон(последнего слайда) с начала)
+         setIndexSlide(1)
+
+        }
+  }
 
   // создаим тольок три слайда которые будут в dom 'сейчас'
   //  предыдущий, следующий и текущий
@@ -65,5 +110,8 @@ export const useChangeSlide = (slides: TSlideItem[], delay: number = 3000) => {
     // автоматич переключение слайдов
     toggleIntervalSlide,
     indexesSlides: getRenderSlides(slides, indexSlide),
+    preparedSlides: slidesWithClones,
+    transitionEnabled,
+    handleTransitionEnd
   };
 };

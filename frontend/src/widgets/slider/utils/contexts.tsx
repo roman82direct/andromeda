@@ -8,6 +8,8 @@ type TSliderContext = {
   setIndexSlide: (index: number) => void;
   currentSlideTheme: ThemeSlide;
   handleChangeSlide: (action: TActionSlide) => void;
+  transitionEnabled:boolean;
+  handleTransitionEnd:()=>void;
 };
 
 export const SliderContext = createContext<TSliderContext>({
@@ -18,4 +20,6 @@ export const SliderContext = createContext<TSliderContext>({
   // для пагинации если слайдчерный чтобы тема точек было белая допустим
   currentSlideTheme: "light",
   handleChangeSlide: () => {},
+  transitionEnabled:true,
+  handleTransitionEnd: ()=>{}
 });
