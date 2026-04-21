@@ -39,12 +39,12 @@ const [transitionEnabled, setTransitionEnabled]=useState(true);
 
 useEffect(()=>{
   if(indexSlide===1 || indexSlide === slides.length){
-    const timeOut = setTimeout(()=>{
+    const rafTransition = requestAnimationFrame(()=>{
           setTransitionEnabled(true)
 
-    },100)
+    })
     return(()=>{
-      clearTimeout(timeOut)
+      cancelAnimationFrame(rafTransition)
     })
   }
 },[indexSlide,slides.length])

@@ -11,6 +11,10 @@ export const Dots = () => {
     // тема слайдавлияет на тему отображения точек пагинации на фоне слайда
     currentSlideTheme,
   } = useContext(SliderContext);
+
+  console.log(dotsPag)
+  
+  console.log()
   // slideNumber -  номер текущего слайда котрый на "экране"
   const handleSetSlide = useCallback(
     (index: number) => {
@@ -22,7 +26,8 @@ export const Dots = () => {
   const themePag = currentSlideTheme === "light" ? "primary" : "secondary";
 
   return (
-    <ul className={styles["slider-pag"]}>
+        //  !!!выделить отдельно в UI - смотри с 45 принцип проектирования книги паттерны проектирования
+      <ul className={styles["slider-pag"]}>
       {dotsPag.map((indexSlide) => (
         <li key={indexSlide} className={styles["banner-pag-item"]}>
           <IconButtonUI

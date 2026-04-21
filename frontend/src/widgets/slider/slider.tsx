@@ -36,7 +36,7 @@ export const SliderComponent = () => {
   const pagePagSize = 3;
   // вычисляем индексы пагинации так чтобы они совпали со номерами индексов слайдов в sliders
   // чтобы можно было показать тек слайд, слайд перед ним и после него(те тройку слайдов где есть тек показ слайд)
-  const currentIndexesPag = getPagIndexes(indexSlide, pagePagSize,  preparedSlides);
+  const currentIndexesPag = getPagIndexes(indexSlide, pagePagSize,  slides);
   // !!!!!!!!
   if (!slides.length) return <div>Сделать лоадер загрузки</div>;
   //  разделение контекстов ???
