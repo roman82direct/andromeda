@@ -39,6 +39,7 @@ export const Dots = () => {
             //  создание  "темы" точек
             colorIcon={themePag}
             sizeIcon={10}
+            type='button'
           />
         </li>
       ))}
