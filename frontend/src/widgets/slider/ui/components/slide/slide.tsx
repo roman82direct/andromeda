@@ -42,14 +42,14 @@ export const SlideUIComponent = ({ showingSlide }: SlideUIProps) => {
       {/* проблема переполнения текста  */}
       <div className={styles["slider-content"]}>
         <div className={styles["slider-text"]}>
-          <h1 
+          <h3 
               title={showingSlide.title}
               className={clsx(
                           styles["slider-title"],
                           // оставить наслучай переполнения текста ?
                           styles['clamp']
                         )
-                        }>{showingSlide.title}</h1>
+                        }>{showingSlide.title}</h3>
           {showingSlide.desc && (
             <div className={clsx(
                               styles["slider-desc"],
