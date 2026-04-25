@@ -51,6 +51,7 @@
   --current-color-icon: var(--color-primary-disabled, #848484);
   /* cursor: not-allowed; */
   pointer-events: none;
+  
 }
 
 /*  если добавить scss можно это сделать через цикл ?ниже */

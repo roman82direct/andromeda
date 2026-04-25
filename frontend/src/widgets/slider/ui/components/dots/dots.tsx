@@ -12,9 +12,9 @@ export const Dots = () => {
     currentSlideTheme,
   } = useContext(SliderContext);
 
-  console.log(dotsPag)
+  // console.log(dotsPag)
   
-  console.log()
+  // console.log()
   // slideNumber -  номер текущего слайда котрый на "экране"
   const handleSetSlide = useCallback(
     (index: number) => {

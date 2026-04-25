@@ -5,7 +5,7 @@ import { Dots } from "./components/dots/dots";
 import { Arrows } from "./components/arrows/arrows";
 
 export type TSliderUIProps = {
-  toggleIntervalSlide: (flag: boolean) => void;
+  toggleIntervalSlide?: (flag: boolean) => void;
 };
 
 export const SliderComponentUI = ({ toggleIntervalSlide }: TSliderUIProps) => {
@@ -13,8 +13,8 @@ export const SliderComponentUI = ({ toggleIntervalSlide }: TSliderUIProps) => {
   return (
     <div
       className={styles.slider}
-      onMouseEnter={() => toggleIntervalSlide(false)}
-      onMouseLeave={() => toggleIntervalSlide(true)}
+      onMouseEnter={toggleIntervalSlide ? () => toggleIntervalSlide(false) : ()=>{}}
+      onMouseLeave={toggleIntervalSlide ? () => toggleIntervalSlide(true) : ()=>{}}
     >
       <SlidesList />
       <div className={styles["slider-nav"]}>

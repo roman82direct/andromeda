@@ -5,7 +5,7 @@ import styles from "./arrows.module.css";
 import type { TArrow } from "@/widgets/slider/types";
 
 export const Arrows = () => {
-  const { handleChangeSlide, currentSlideTheme } = useContext(SliderContext);
+  const { handleChangeSlide, currentSlideTheme,  isAnimating } = useContext(SliderContext);
   const themeArrows = currentSlideTheme === "light" ? "primary" : "secondary";
   const handleDecrementSlide = useCallback(() => {
     handleChangeSlide("decrement");
@@ -26,6 +26,7 @@ export const Arrows = () => {
       icon: "arrow-left",
     },
   ];
+  console.log(isAnimating )
   return (
         //  !!!выделить отдельно в UI - смотри с 45 принцип проектирования книги паттерны проектирования
     <div className={styles["slider-arrows"]}>
@@ -37,6 +38,7 @@ export const Arrows = () => {
           isActive={false}
           colorIcon={themeArrows}
           sizeIcon={33}
+          isDisabled = {isAnimating}
         />
       ))}
     </div>

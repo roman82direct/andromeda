@@ -7,18 +7,21 @@ import { sliderStore } from "./model/sliderStore";
 import { SliderContext } from "./utils/contexts";
 
 export const SliderComponent = () => {
-  const [slides, setSliders] = useState<TSlideItem[]>([]);
-
   // загружаем информацию о слайдах в наш компонент
-  //  если запрос на сервер можно создать стор с редукс
-  useEffect(() => {
-    const loadSlides =  (slidesData: TSlideItem[]) => {
+  //  если запрос на сервер можно создать стор с редукс или создадим какой то сервис
+  // подтягиваем данные  мгновенно и только один раз
+  // функция вызывается один раз - ленивая загрузка - тяжелые вычисления
+  const [slides] = useState<TSlideItem[]>(()=>sliderStore);
+
+  
+  // useEffect(() => {
+  //   const loadSlides =  (slidesData: TSlideItem[]) => {
       
-      const arrSlides =  slidesData;
-      setSliders(arrSlides);
-    };
-    loadSlides(sliderStore);
-  }, []);
+  //     const arrSlides =  slidesData;
+  //     setSliders(arrSlides);
+  //   };
+  //   loadSlides(sliderStore);
+  // }, []);
 
   // Вызываем хук для обработки перелистывания слайдов
   const {
@@ -26,10 +29,11 @@ export const SliderComponent = () => {
     setIndexSlide, // для прыжка на люб слайд (пагинация)
     handleChangeSlide, // // Функция для кнопок "Вперед" и "Назад"
     // автоматич переключение слайдов
-    toggleIntervalSlide,
+    // toggleIntervalSlide,
     preparedSlides,
     transitionEnabled,
     handleTransitionEnd,
+    isAnimating
   } = useChangeSlide(slides);
 
   //  работа с пагинацией слайдов - сколько кнопок пагинации показываем согласно макету
@@ -40,6 +44,7 @@ export const SliderComponent = () => {
   // !!!!!!!!
   if (!slides.length) return <div>Сделать лоадер загрузки</div>;
   //  разделение контекстов ???
+  //  обернуть объект value в useMemo
   return (
     <SliderContext.Provider
       value={{
@@ -51,10 +56,13 @@ export const SliderComponent = () => {
         currentSlideTheme: preparedSlides[indexSlide].typeTheme,
         handleChangeSlide,
         transitionEnabled,
-        handleTransitionEnd
+        handleTransitionEnd,
+        isAnimating
       }}
     >
-      <SliderUI toggleIntervalSlide={toggleIntervalSlide} />
+      {/* <SliderUI toggleIntervalSlide={toggleIntervalSlide} /> */}
+            <SliderUI  />
+
     </SliderContext.Provider>
   );
 };
