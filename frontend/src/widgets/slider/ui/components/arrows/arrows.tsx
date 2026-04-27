@@ -26,7 +26,7 @@ export const Arrows = () => {
       icon: "arrow-left",
     },
   ];
-  console.log(isAnimating )
+
   return (
         //  !!!выделить отдельно в UI - смотри с 45 принцип проектирования книги паттерны проектирования
     <div className={styles["slider-arrows"]}>

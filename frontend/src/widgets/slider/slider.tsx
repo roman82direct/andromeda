@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useState } from "react";
 import { SliderUI } from "./ui/slider";
 import { getPagIndexes } from "./utils/getPagIndexes";
 import type { TSlideItem } from "./types";
@@ -44,7 +44,7 @@ export const SliderComponent = () => {
   // !!!!!!!!
   if (!slides.length) return <div>Сделать лоадер загрузки</div>;
   //  разделение контекстов ???
-  //  обернуть объект value в useMemo
+  //  обернуть объект value в useMemo 
   return (
     <SliderContext.Provider
       value={{
@@ -53,7 +53,7 @@ export const SliderComponent = () => {
         dotsPag: currentIndexesPag,
         setIndexSlide: setIndexSlide,
         // для пагинации если слайдчерный чтобы тема точек было белая допустим
-        currentSlideTheme: preparedSlides[indexSlide].typeTheme,
+        currentSlideTheme: preparedSlides[indexSlide].typeTheme || 'light',
         handleChangeSlide,
         transitionEnabled,
         handleTransitionEnd,

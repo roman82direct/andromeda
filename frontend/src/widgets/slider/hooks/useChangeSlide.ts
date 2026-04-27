@@ -1,5 +1,5 @@
 import type { TSlideItem, TSlideItemWithId } from "../types";
-import { useCallback, useEffect,  useState } from "react";
+import { useCallback, useEffect,  useMemo,  useState } from "react";
 import type { TActionSlide } from "../types";
 import { getNextIndexSlide } from "../utils/getIndexNextSlide";
 
@@ -9,13 +9,16 @@ export const useChangeSlide = (slides: TSlideItem[], delay: number = 3000) => {
   //  отключить/включить автоматическое изменение картинок слайдера
   // const [interChangSlide, toggleIntervalSlide] = useState<boolean>(false);
 //  подготовка слайдов ксозданию 'бесконечной прокрутки'
-//  создаем клон первого и последнего
-  const slidesWithClones = slides.length>0 ? [slides[slides.length-1],...slides, slides[0]] : [];
+//  создаем клон первого и последнего слайда (для анимации бесконечного слайда)
+  const slidesWithClones = useMemo(()=>{
+     return slides.length>0 ? [slides[slides.length-1],...slides, slides[0]] : [];
+  },[slides])
   
   
   const [isAnimating, setIsAnimating] = useState(false);
   //  блокирование нажатийво время анимации 
-  
+  const [transitionEnabled, setTransitionEnabled]=useState(false);
+
   // const [isAnimating, setIsAnimation] = useState(false);
   // console.log(slidesWithClones)
     // console.log(slidesWithClones.length)
@@ -25,6 +28,8 @@ export const useChangeSlide = (slides: TSlideItem[], delay: number = 3000) => {
     (action: TActionSlide) => {
       // если сейчасанимации переключения слайда нет
       //  то можем выполнить смену слайда
+      if(isAnimating) return;
+      setTransitionEnabled(true)
       // if(!isAnimationRef.current){
           setIndexSlide((prevIndex) =>
         getNextIndexSlide({
@@ -43,36 +48,46 @@ export const useChangeSlide = (slides: TSlideItem[], delay: number = 3000) => {
        setIsAnimating(true)
     
     },
-    [slidesWithClones.length],
+    [slidesWithClones.length, isAnimating],
   );
 // const [isRepeating, setIsRepeating] = useState(infiniteLoop && children.length > show)
-const [transitionEnabled, setTransitionEnabled]=useState(true);
 
-useEffect(()=>{
-  if(indexSlide===1 || indexSlide === slides.length){
-    const rafTransition = requestAnimationFrame(()=>{
-          setTransitionEnabled(true)
+// useEffect(()=>{
+//   // если слайды настоящие
+//   // if(indexSlide===1 || indexSlide === slides.length){
+//     const rafTransition = requestAnimationFrame(()=>{
+//           setTransitionEnabled(true)
 
-    })
-    return(()=>{
-      cancelAnimationFrame(rafTransition)
-    })
-  }
-},[indexSlide,slides.length])
+//     })
+//     return(()=>{
+//       cancelAnimationFrame(rafTransition)
+//     })
+//   // }
+// },[indexSlide,slides.length])
 //  исправить пагинацию!!!!
   const handleTransitionEnd = ()=>{
+    // сообщаем что анимация закончилась =>можно продолжить переключение слайдов
         setIsAnimating(false)
    
 
         if(indexSlide === 0){
-          //  над данном этапе отключаем анимацию перехода тк это 'клон' 
+          //  над данном этапе отключаем анимацию перехода тк это 'клон'
+          // объединить состояния??? 
          setTransitionEnabled(false);
+         
          
         //  нулевой слайд - клон последнего слайда (из оригинальных)
         //  нам нужно уйтис него
         //  идем к последнему 
          setIndexSlide(slides.length);
-         console.log(slides.length)
+
+        //  const rafTransition = requestAnimationFrame(()=>{
+        //   setTransitionEnabled(true)
+
+        //   })
+
+        //   return cancelAnimationFrame(rafTransition)
+        
         }
         if(indexSlide === slides.length+ 1){
           //  унас последний слайд - он клон первого слайда (из оригинальных)
@@ -83,6 +98,14 @@ useEffect(()=>{
         //  идем  к оригинальному первомму слайду
           //  отправляем на первыйслайд(минуя клон(последнего слайда) с начала)
          setIndexSlide(1)
+
+         setTransitionEnabled(false);
+        //  const rafTransition = requestAnimationFrame(()=>{
+        //   setTransitionEnabled(true)
+
+        //   })
+
+        //   return cancelAnimationFrame(rafTransition)
 
         }
         //  сообщаем о завершении анимации смены слайда,
