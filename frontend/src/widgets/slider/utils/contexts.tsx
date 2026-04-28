@@ -10,7 +10,6 @@ type TSliderContext = {
   handleChangeSlide: (action: TActionSlide) => void;
   transitionEnabled:boolean;
   handleTransitionEnd:()=>void;
-  isAnimating:boolean
 };
 
 export const SliderContext = createContext<TSliderContext>({
@@ -22,6 +21,5 @@ export const SliderContext = createContext<TSliderContext>({
   currentSlideTheme: "light",
   handleChangeSlide: () => {},
   transitionEnabled:true,
-  handleTransitionEnd: ()=>{},
-  isAnimating:false
+  handleTransitionEnd: ()=>{}
 });

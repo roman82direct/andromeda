@@ -5,7 +5,7 @@ import styles from "./arrows.module.css";
 import type { TArrow } from "@/widgets/slider/types";
 
 export const Arrows = () => {
-  const { handleChangeSlide, currentSlideTheme,  isAnimating } = useContext(SliderContext);
+  const { handleChangeSlide, currentSlideTheme, transitionEnabled } = useContext(SliderContext);
   const themeArrows = currentSlideTheme === "light" ? "primary" : "secondary";
   const handleDecrementSlide = useCallback(() => {
     handleChangeSlide("decrement");
@@ -38,7 +38,7 @@ export const Arrows = () => {
           isActive={false}
           colorIcon={themeArrows}
           sizeIcon={33}
-          isDisabled = {isAnimating}
+          isDisabled = {transitionEnabled}
         />
       ))}
     </div>
