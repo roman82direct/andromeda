@@ -2,17 +2,33 @@ import type { TSlideItem, TSlideItemWithId } from "../types";
 import { useCallback,   useMemo,  useState } from "react";
 import type { TActionSlide } from "../types";
 import { getNextIndexSlide } from "../utils/getIndexNextSlide";
+import { getPagIndexes } from "../utils/getPagIndexes";
 
 export const useChangeSlide = (slides: TSlideItem[], delay: number = 3000) => {
 //  текущий слайд который будем показывать
-
   const firstRealIndexSlide = 1;
   const [indexSlide, setIndexSlide] = useState<number>(firstRealIndexSlide);
+  // пагинация
+  const pagePagSize = 3;
+  const currentIndexesPag = getPagIndexes(indexSlide-1, pagePagSize, slides);
+  const preparedIndexesForPag = currentIndexesPag.map((dotIndex)=>(
+  dotIndex+1
+  ))
   //  отключить/включить автоматическое изменение картинок слайдера
   // const [interChangSlide, toggleIntervalSlide] = useState<boolean>(false);
 //  подготовка слайдов ксозданию 'бесконечной прокрутки'
 //  создаем клон первого и последнего слайда (для анимации бесконечного слайда)
-  const slidesWithClones = useMemo(()=>{
+    //  работа с пагинацией слайдов - сколько кнопок пагинации показываем согласно макету
+ 
+  // вычисляем индексы пагинации так чтобы они совпали со номерами индексов слайдов в sliders
+  // чтобы можно было показать тек слайд, слайд перед ним и после него(те тройку слайдов где есть тек показ слайд)
+  
+  // console.log(dataForSlider.indexSlide-1)
+  //  т к у нас два клона то вместо пагинации 0,1,2 => 1,2,3
+  
+
+
+const slidesWithClones = useMemo(()=>{
      return slides.length>0 ? [slides[slides.length-1],...slides, slides[0]] : [];
   },[slides])
   
@@ -49,7 +65,7 @@ export const useChangeSlide = (slides: TSlideItem[], delay: number = 3000) => {
   const handleTransitionEnd = ()=>{
     // сообщаем что анимация закончилась =>можно продолжить переключение слайдов
         setIsAnimating(false);
-   
+      
 
         if(indexSlide === 0){
           //  над данном этапе отключаем анимацию перехода тк это 'клон'
@@ -114,6 +130,6 @@ export const useChangeSlide = (slides: TSlideItem[], delay: number = 3000) => {
     preparedSlides: slidesWithClones,
     isAnimating,
     handleTransitionEnd,
-    
+    preparedIndexesForPag
   };
 };

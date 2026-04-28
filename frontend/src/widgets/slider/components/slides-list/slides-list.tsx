@@ -5,12 +5,8 @@ import { useContext } from "react";
 import { SliderContext } from "@/widgets/slider/utils/contexts";
 
 export const SlidesList = () => {
-  //  получаем данные из контекста номер слайда для вычисления его положения
-  //  относительно translateX и все слайды
+  //  создать ui комопонент с чилдрен - модель универсальной карусели ??
   const { slideNumber, slides,transitionEnabled, handleTransitionEnd } = useContext(SliderContext);
-  // console.log(slideNumxber)
-  // работает по принципу ленты
-  // console.log(slides)
   const stylesTranslate = {
     transform: `translateX(-${slideNumber * 100}%)`,
     transition:  transitionEnabled ? 'transform 0.8s ease-in-out' : 'none'
@@ -25,9 +21,6 @@ export const SlidesList = () => {
         className={styles["slides-list"]} 
         style={stylesTranslate}>
       {slides.map((slide, index) => {
-        //  как мемоизировать слайд????
-         
-       
         return <SlideUI key={index} showingSlide={ slide} />
 })}
     </div>

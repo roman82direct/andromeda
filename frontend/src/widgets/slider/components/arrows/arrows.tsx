@@ -1,8 +1,7 @@
-import { IconButtonUI } from "@/shared/ui/icon-button";
 import { SliderContext } from "@/widgets/slider/utils/contexts";
 import { useCallback, useContext } from "react";
-import styles from "./arrows.module.css";
 import type { TArrow } from "@/widgets/slider/types";
+import { ArrowsUI } from "./ui/arrows";
 
 export const Arrows = () => {
   const { handleChangeSlide, currentSlideTheme, transitionEnabled } = useContext(SliderContext);
@@ -14,6 +13,7 @@ export const Arrows = () => {
     handleChangeSlide("increment");
   }, [handleChangeSlide]);
 
+  //  подумать надо ли memo
   const arrows: TArrow[] = [
     {
       key: "right",
@@ -28,19 +28,11 @@ export const Arrows = () => {
   ];
 
   return (
-        //  !!!выделить отдельно в UI - смотри с 45 принцип проектирования книги паттерны проектирования
-    <div className={styles["slider-arrows"]}>
-      {arrows.map((arrow) => (
-        <IconButtonUI
-          key={arrow.key}
-          onClick={arrow.onClick}
-          iconClass={arrow.icon}
-          isActive={false}
-          colorIcon={themeArrows}
-          sizeIcon={33}
-          isDisabled = {transitionEnabled}
+    //  надо ли мемоизировать компонент?
+       <ArrowsUI 
+          arrows={arrows} 
+          themeArrows={themeArrows }
+          isDisabled={transitionEnabled}
         />
-      ))}
-    </div>
   );
 };

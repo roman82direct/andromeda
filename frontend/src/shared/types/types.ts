@@ -12,3 +12,6 @@ export type TEventType =
 export type TActionUser = TEventType & {
   title: string;
 };
+
+
+export type TThemeElementsPage = 'primary' | 'secondary';

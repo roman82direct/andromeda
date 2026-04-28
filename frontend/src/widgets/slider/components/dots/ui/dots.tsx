@@ -1,45 +1,43 @@
-import { SliderContext } from "@/widgets/slider/utils/contexts";
-import { useCallback, useContext } from "react";
+import type { TThemeElementsPage } from "@/shared/types/types";
 import styles from "./dots.module.css";
 import { IconButtonUI } from "@/shared/ui/icon-button";
 
-export const Dots = () => {
+
+type DotsProps = {
+  activeSlideNumber: number,
+  dotsPag: number[],
+  onClick: (index:number)=>void;
+  // импортировать тип из общих типов
+  currentDotsTheme?: TThemeElementsPage;
+  isBlockClickForDots?: boolean;
+}
+
+export const DotsUI = (dotsData: DotsProps) => {
   const {
-    slideNumber,
+    activeSlideNumber,
     dotsPag,
-    setIndexSlide,
+    onClick,
     // тема слайдавлияет на тему отображения точек пагинации на фоне слайда
-    currentSlideTheme,
-  } = useContext(SliderContext);
-
-  // console.log(dotsPag)
+    currentDotsTheme,
+    isBlockClickForDots
+  } = dotsData;
   
-  // console.log()
-  // slideNumber -  номер текущего слайда котрый на "экране"
-  const handleSetSlide = useCallback(
-    (index: number) => {
-      return () => setIndexSlide(index);
-    },
-    [setIndexSlide],
-  );
-  // на основе текущего слайда (его фона) определим тему точек
-  const themePag = currentSlideTheme === "light" ? "primary" : "secondary";
-
   return (
         //  !!!выделить отдельно в UI - смотри с 45 принцип проектирования книги паттерны проектирования
       <ul className={styles["slider-pag"]}>
       {dotsPag.map((indexSlide) => (
         <li key={indexSlide} className={styles["banner-pag-item"]}>
           <IconButtonUI
-            onClick={handleSetSlide(indexSlide)}
+            onClick={()=>onClick(indexSlide)}
             iconActiveClass={"ellipse-filled"}
             iconClass={"ellipse-emptied"}
             // сравниваем с тем, что сейчас отображается чтобы понять активную точку
-            isActive={indexSlide === slideNumber}
+            isActive={indexSlide === activeSlideNumber}
             //  создание  "темы" точек
-            colorIcon={themePag}
+            colorIcon={currentDotsTheme || 'primary'}
             sizeIcon={10}
             type='button'
+            isDisabled={isBlockClickForDots}
           />
         </li>
       ))}

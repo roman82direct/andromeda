@@ -1,6 +1,5 @@
 import { memo, useMemo, useState } from "react";
 import { SliderUI } from "./ui/slider";
-import { getPagIndexes } from "./utils/getPagIndexes";
 import type { TSlideItem } from "./types";
 import { useChangeSlide } from "./hooks/useChangeSlide";
 import { sliderStore } from "./model/sliderStore";
@@ -13,52 +12,25 @@ export const SliderComponent = () => {
   // функция вызывается один раз - ленивая загрузка - тяжелые вычисления
   const [slides] = useState<TSlideItem[]>(()=>sliderStore);
 
-  
-  // useEffect(() => {
-  //   const loadSlides =  (slidesData: TSlideItem[]) => {
-      
-  //     const arrSlides =  slidesData;
-  //     setSliders(arrSlides);
-  //   };
-  //   loadSlides(sliderStore);
-  // }, []);
+const dataForSlider = useChangeSlide(slides);
 
-  // Вызываем хук для обработки перелистывания слайдов
-  // const {
-  //   indexSlide, // индекс:слайд текущий
-  //   setIndexSlide, // для прыжка на люб слайд (пагинация)
-  //   handleChangeSlide, // // Функция для кнопок "Вперед" и "Назад"
-  //   // автоматич переключение слайдов
-  //   // toggleIntervalSlide,
-  //   preparedSlides,
-  //   isAnimating,
-  //   handleTransitionEnd,
-  // } = useChangeSlide(slides);
 
-    const dataForSlides = useChangeSlide(slides);
-
-  //  работа с пагинацией слайдов - сколько кнопок пагинации показываем согласно макету
-  const pagePagSize = 3;
-  // вычисляем индексы пагинации так чтобы они совпали со номерами индексов слайдов в sliders
-  // чтобы можно было показать тек слайд, слайд перед ним и после него(те тройку слайдов где есть тек показ слайд)
-  const currentIndexesPag = getPagIndexes(dataForSlides.indexSlide, pagePagSize,  slides);
-  // !!!!!!!!
+ 
   
   //  разделение контекстов ???
   //  обернуть объект value в useMemo 
   const contextForSlider = useMemo(()=>({
-        slideNumber: dataForSlides.indexSlide,
-        slides:  dataForSlides.preparedSlides,
-        dotsPag: currentIndexesPag,
-        setIndexSlide: dataForSlides.setIndexSlide,
-        // для пагинации если слайдчерный чтобы тема точек было белая допустим
-        currentSlideTheme: dataForSlides.preparedSlides[dataForSlides.indexSlide].typeTheme || 'light',
-        handleChangeSlide: dataForSlides.handleChangeSlide,
-        transitionEnabled:dataForSlides.isAnimating,
-        handleTransitionEnd: dataForSlides.handleTransitionEnd,
+    slideNumber: dataForSlider.indexSlide,
+    slides:  dataForSlider.preparedSlides,
+    dotsPag: dataForSlider.preparedIndexesForPag,
+    setIndexSlide: dataForSlider.setIndexSlide,
+    // для пагинации если слайдчерный чтобы тема точек было белая допустим
+    currentSlideTheme: dataForSlider.preparedSlides[dataForSlider.indexSlide].typeTheme || 'light',
+    handleChangeSlide: dataForSlider.handleChangeSlide,
+    transitionEnabled:dataForSlider.isAnimating,
+    handleTransitionEnd: dataForSlider.handleTransitionEnd,
   }),[
-     dataForSlides,
-     currentIndexesPag
+     dataForSlider,
   ])
   
   if (!slides.length) return <div>Сделать лоадер загрузки</div>;

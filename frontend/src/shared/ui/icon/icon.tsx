@@ -3,8 +3,9 @@ import styles from "./icon.module.css";
 import clsx from "clsx";
 import { CounterUI } from "../counter";
 import { type TIconClassCssIcon } from "@/shared/types/ui/icon";
+import type { TThemeElementsPage } from "@/shared/types/types";
 
-export type TColor = "secondary" | "primary";
+export type TColor = TThemeElementsPage;
 
 const colorsMap: Record<TColor, string> = {
   // если что можно расширить на  hover и active
