@@ -20,6 +20,7 @@ export const SlidesList = () => {
         onTransitionEnd={handleTransitionEnd}
         className={styles["slides-list"]} 
         style={stylesTranslate}>
+          {/* здесь просто children */}
       {slides.map((slide, index) => {
         return <SlideUI key={index} showingSlide={ slide} />
 })}

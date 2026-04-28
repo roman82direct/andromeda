@@ -9,35 +9,20 @@ export const useChangeSlide = (slides: TSlideItem[], delay: number = 3000) => {
   const firstRealIndexSlide = 1;
   const [indexSlide, setIndexSlide] = useState<number>(firstRealIndexSlide);
   // пагинация
-  const pagePagSize = 3;
-  const currentIndexesPag = getPagIndexes(indexSlide-1, pagePagSize, slides);
-  const preparedIndexesForPag = currentIndexesPag.map((dotIndex)=>(
+  const preparedIndexesForPag = useMemo(()=>{
+    const pagePagSize = 3;
+    const currentIndexesPag = getPagIndexes(indexSlide-1, pagePagSize, slides);
+    return currentIndexesPag.map((dotIndex)=>(
   dotIndex+1
-  ))
+  ))},[indexSlide, slides])
   //  отключить/включить автоматическое изменение картинок слайдера
   // const [interChangSlide, toggleIntervalSlide] = useState<boolean>(false);
 //  подготовка слайдов ксозданию 'бесконечной прокрутки'
-//  создаем клон первого и последнего слайда (для анимации бесконечного слайда)
-    //  работа с пагинацией слайдов - сколько кнопок пагинации показываем согласно макету
- 
-  // вычисляем индексы пагинации так чтобы они совпали со номерами индексов слайдов в sliders
-  // чтобы можно было показать тек слайд, слайд перед ним и после него(те тройку слайдов где есть тек показ слайд)
-  
-  // console.log(dataForSlider.indexSlide-1)
-  //  т к у нас два клона то вместо пагинации 0,1,2 => 1,2,3
-  
-
-
 const slidesWithClones = useMemo(()=>{
      return slides.length>0 ? [slides[slides.length-1],...slides, slides[0]] : [];
   },[slides])
-  
-  // уникальность слайдов ???id
 
-  //  блокирование нажатийво время анимации 
-  // const [transitionEnabled, setTransitionEnabled]=useState(false);
-
-  const [isAnimating, setIsAnimating] = useState(false)
+const [isAnimating, setIsAnimating] = useState(false)
 
   const handleChangeSlide = useCallback(
     (action: TActionSlide) => {
@@ -87,26 +72,7 @@ const slidesWithClones = useMemo(()=>{
         }
 }
 
-  // создаим тольок три слайда которые будут в dom 'сейчас'
-  //  предыдущий, следующий и текущий
-  const getRenderSlides = (slides: TSlideItemWithId[], current:number)=>{
-    const prev = getNextIndexSlide({
-      action:'decrement',
-      prevIndex:current,
-      ArrSizeSlides:slides.length
-    })
-    const next= getNextIndexSlide({
-      action:'increment',
-      prevIndex:current,
-      ArrSizeSlides:slides.length
-    })
-
-    return {
-      prev,
-      current,
-      next
-    }
-  }
+  
   // добавить флаг для остоновки автоматич пролистывания при наведении на слайд
   //  автоматич показ слайдов
   // useEffect(() => {
@@ -126,7 +92,6 @@ const slidesWithClones = useMemo(()=>{
     handleChangeSlide, // // Функция для кнопок "Вперед" и "Назад"
     // автоматич переключение слайдов
     // toggleIntervalSlide,
-    indexesSlides: getRenderSlides(slides, indexSlide),
     preparedSlides: slidesWithClones,
     isAnimating,
     handleTransitionEnd,
