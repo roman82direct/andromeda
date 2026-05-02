@@ -1,4 +1,4 @@
-import type { TSlideItem, TSlideItemWithId } from "../types";
+import type { TSlideItem} from "../types";
 import { useCallback,   useMemo,  useState } from "react";
 import type { TActionSlide } from "../types";
 import { getNextIndexSlide } from "../utils/getIndexNextSlide";
@@ -11,43 +11,43 @@ export const useChangeSlide = (slides: TSlideItem[], delay: number = 3000) => {
   // пагинация
   const preparedIndexesForPag = useMemo(()=>{
     const pagePagSize = 3;
-    const currentIndexesPag = getPagIndexes(indexSlide-1, pagePagSize, slides);
+    const currentIndexesPag = getPagIndexes(indexSlide-1, pagePagSize, slides.length);
     return currentIndexesPag.map((dotIndex)=>(
   dotIndex+1
-  ))},[indexSlide, slides])
+  ))},[indexSlide, slides.length])
   //  отключить/включить автоматическое изменение картинок слайдера
   // const [interChangSlide, toggleIntervalSlide] = useState<boolean>(false);
 //  подготовка слайдов ксозданию 'бесконечной прокрутки'
-const slidesWithClones = useMemo(()=>{
-     return slides.length>0 ? [slides[slides.length-1],...slides, slides[0]] : [];
-  },[slides])
-
+const slidesWithClones = useMemo(() => {
+  if (slides.length === 0) return [];
+  return [slides[slides.length-1], ...slides, slides[0]];
+}, [slides]);
+//  блокировка кнопок 
 const [isAnimating, setIsAnimating] = useState(false)
-
+//  управление переходом
+const [transitionEnabled, setTransitionEnabled] = useState(true)
+//  обработчик смены слайда
   const handleChangeSlide = useCallback(
     (action: TActionSlide) => {
       //  если анимация идет - не даем выполнить обработчик
         if(isAnimating) return;
       // если сейчас анимации переключения слайда нет
-      //  то можем выполнить смену слайда
       setIsAnimating(true)
-      // if(!isAnimationRef.current){
+      // запускаем переход сладйов в любом случае
+      setTransitionEnabled(true)
           setIndexSlide((prevIndex) =>
         getNextIndexSlide({
           action,
           prevIndex,
-          // убрал slides.length
           ArrSizeSlides: slidesWithClones.length,
         }),
       );
-    
-   
-    
+     
     },
     [slidesWithClones.length, isAnimating],
   );
 //  исправить пагинацию!!!!
-  const handleTransitionEnd = ()=>{
+  const handleTransitionEnd = useCallback( ()=>{
     // сообщаем что анимация закончилась =>можно продолжить переключение слайдов
         setIsAnimating(false);
       
@@ -59,18 +59,22 @@ const [isAnimating, setIsAnimating] = useState(false)
       
         //  нулевой слайд - клон последнего слайда (из оригинальных)
         //  нам нужно уйтис него
-        //  идем к последнему 
-         setIndexSlide(slides.length);
+        //  идем к последнему  и отключаем анимацию перехода
+        setTransitionEnabled(false);
+        setIndexSlide(slides.length);
+       
         }
-        if(indexSlide === slides.length+ 1){
+       if(indexSlide === slides.length+ 1){
           //  унас последний слайд - он клон первого слайда (из оригинальных)
           // length+ 1
         //  над данном этапе отключаем анимацию перехода тк это 'клон' 
-        //  идем  к оригинальному первомму слайду
+        //  идем  к оригинальному первомму слайду и отключаем анимацию перехода
           //  отправляем на первыйслайд(минуя клон(последнего слайда) с начала)
-         setIndexSlide(1)
+          setTransitionEnabled(false);
+          setIndexSlide(1)
+         
         }
-}
+},[indexSlide, slides.length])
 
   
   // добавить флаг для остоновки автоматич пролистывания при наведении на слайд
@@ -94,6 +98,7 @@ const [isAnimating, setIsAnimating] = useState(false)
     // toggleIntervalSlide,
     preparedSlides: slidesWithClones,
     isAnimating,
+    transitionEnabled,  
     handleTransitionEnd,
     preparedIndexesForPag
   };

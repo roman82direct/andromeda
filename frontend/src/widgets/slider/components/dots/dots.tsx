@@ -1,17 +1,24 @@
-import { SliderContext } from "@/widgets/slider/utils/contexts";
-import { useCallback, useContext } from "react";
+// import { SliderContext } from "@/widgets/slider/utils/contexts";
+import { useCallback,  } from "react";
 import { DotsUI } from "./ui/dots";
+import { useSliderActionsContext, useSliderStateContext } from "../../hooks/useInitialContext";
 
 export const Dots = () => {
   const {
     slideNumber,
     dotsPag,
-    setIndexSlide,
     // тема слайда влияет на тему отображения точек пагинации на фоне слайда
     currentSlideTheme,
-    transitionEnabled
+    isAnimation
     
-  } = useContext(SliderContext);
+  } = useSliderStateContext();
+
+  const {
+   
+    setIndexSlide,
+   
+    
+  } = useSliderActionsContext();
 
   // console.log(dotsPag)
   
@@ -31,11 +38,11 @@ export const Dots = () => {
  
   return (
        <DotsUI 
-            activeSlideNumber={slideNumber} 
-            dotsPag={dotsPag}  
-            currentDotsTheme={themePag} 
-            onClick={handleSetSlide}
-            isBlockClickForDots={transitionEnabled}
+          activeSlideNumber={slideNumber} 
+          dotsPag={dotsPag}  
+          currentDotsTheme={themePag} 
+          onClick={handleSetSlide}
+          isBlockClickForDots={isAnimation}
         />
   );
 };

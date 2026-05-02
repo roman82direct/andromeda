@@ -1,10 +1,13 @@
-import { SliderContext } from "@/widgets/slider/utils/contexts";
-import { useCallback, useContext } from "react";
+// import { SliderContext } from "@/widgets/slider/utils/contexts";
+import { useCallback, useMemo} from "react";
 import type { TArrow } from "@/widgets/slider/types";
 import { ArrowsUI } from "./ui/arrows";
+import { useSliderActionsContext, useSliderStateContext } from "../../hooks/useInitialContext";
 
 export const Arrows = () => {
-  const { handleChangeSlide, currentSlideTheme, transitionEnabled } = useContext(SliderContext);
+  const {currentSlideTheme, isAnimation } = useSliderStateContext();
+  const { handleChangeSlide, } = useSliderActionsContext();
+
   const themeArrows = currentSlideTheme === "light" ? "primary" : "secondary";
   const handleDecrementSlide = useCallback(() => {
     handleChangeSlide("decrement");
@@ -14,7 +17,7 @@ export const Arrows = () => {
   }, [handleChangeSlide]);
 
   //  подумать надо ли memo
-  const arrows: TArrow[] = [
+  const arrows  = useMemo<TArrow[]>(()=>[
     {
       key: "right",
       onClick: handleDecrementSlide,
@@ -25,14 +28,14 @@ export const Arrows = () => {
       onClick: handleIncrementSlide,
       icon: "arrow-left",
     },
-  ];
+  ],[handleDecrementSlide, handleIncrementSlide]);
 
   return (
     //  надо ли мемоизировать компонент?
        <ArrowsUI 
           arrows={arrows} 
           themeArrows={themeArrows }
-          isDisabled={transitionEnabled}
+          isDisabled={isAnimation}
         />
   );
 };

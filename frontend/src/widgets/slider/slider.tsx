@@ -3,7 +3,11 @@ import { SliderUI } from "./ui/slider";
 import type { TSlideItem } from "./types";
 import { useChangeSlide } from "./hooks/useChangeSlide";
 import { sliderStore } from "./model/sliderStore";
-import { SliderContext } from "./utils/contexts";
+import {
+    SliderStateContext, 
+    SliderActionsContext,
+    SlidesContext
+  } from "./utils/contexts";
 
 export const SliderComponent = () => {
   // загружаем информацию о слайдах в наш компонент
@@ -13,35 +17,56 @@ export const SliderComponent = () => {
   const [slides] = useState<TSlideItem[]>(()=>sliderStore);
 
 const dataForSlider = useChangeSlide(slides);
-
-
- 
-  
-  //  разделение контекстов ???
-  //  обернуть объект value в useMemo 
-  const contextForSlider = useMemo(()=>({
+  // вычисляем тему слайда 1 раз 
+const getCurrentSlideTheme = useMemo(()=>{
+  const currentSlide = dataForSlider.preparedSlides[dataForSlider.indexSlide]
+  return currentSlide.typeTheme || 'light'
+},[dataForSlider.indexSlide,dataForSlider.preparedSlides])
+//  разделим контексты на действия и состояния
+ const valueSliderState  = useMemo(()=>({
     slideNumber: dataForSlider.indexSlide,
-    slides:  dataForSlider.preparedSlides,
     dotsPag: dataForSlider.preparedIndexesForPag,
-    setIndexSlide: dataForSlider.setIndexSlide,
     // для пагинации если слайдчерный чтобы тема точек было белая допустим
-    currentSlideTheme: dataForSlider.preparedSlides[dataForSlider.indexSlide].typeTheme || 'light',
+    currentSlideTheme: getCurrentSlideTheme,
+    transitionEnabled:dataForSlider.transitionEnabled,
+    isAnimation:dataForSlider.isAnimating,
+  }),[
+     dataForSlider.indexSlide,
+     dataForSlider.isAnimating,
+     dataForSlider.transitionEnabled,
+     dataForSlider.preparedIndexesForPag,
+     getCurrentSlideTheme
+  ])
+//  меняется редко поэтому выделим
+  const valueSlides = useMemo(()=>({
+    slides:  dataForSlider.preparedSlides,
+  }),[dataForSlider.preparedSlides,])
+// создадим действия 
+   const valueSliderActions = useMemo(()=>({
+    setIndexSlide: dataForSlider.setIndexSlide,
     handleChangeSlide: dataForSlider.handleChangeSlide,
-    transitionEnabled:dataForSlider.isAnimating,
     handleTransitionEnd: dataForSlider.handleTransitionEnd,
   }),[
-     dataForSlider,
+     dataForSlider.handleChangeSlide,
+     dataForSlider.setIndexSlide,
+     dataForSlider.handleTransitionEnd
   ])
-  
   if (!slides.length) return <div>Сделать лоадер загрузки</div>;
   return (
-    <SliderContext.Provider
-      value={contextForSlider}
+  <SlidesContext.Provider value={valueSlides}>
+    <SliderActionsContext.Provider
+      value={valueSliderActions}
+      >
+    <SliderStateContext.Provider
+      value={valueSliderState}
     >
+    
       {/* <SliderUI toggleIntervalSlide={toggleIntervalSlide} /> */}
             <SliderUI  />
-
-    </SliderContext.Provider>
+  
+    </SliderStateContext.Provider>
+      </SliderActionsContext.Provider>
+      </SlidesContext.Provider>
   );
 };
 

@@ -2,14 +2,14 @@ import { ButtonUI } from "@/shared/ui/button";
 import clsx from "clsx";
 import styles from "./slide.module.css";
 import type { TSlideItemWithId } from "@/widgets/slider/types";
-import { memo,  } from "react";
+import { memo, useMemo,  } from "react";
 
 export type SlideUIProps = {
   showingSlide: TSlideItemWithId;
 };
 
 export const SlideUIComponent = ({ showingSlide }: SlideUIProps) => {
-  const backgroundImageSrc = () => {
+  const backgroundImageSrc =useMemo<React.CSSProperties>( () => {
     //  защита если картини нет
     if (!showingSlide.image) return {};
     return {
@@ -23,7 +23,7 @@ export const SlideUIComponent = ({ showingSlide }: SlideUIProps) => {
           url("${showingSlide.image.jpg["2x"]}") 2x
       )`,
     } as React.CSSProperties;
-  };
+  },[showingSlide.image]);
 
   const themeSlideClass =
     showingSlide.typeTheme === "light" ? "is-light" : "is-dark";
@@ -37,7 +37,7 @@ export const SlideUIComponent = ({ showingSlide }: SlideUIProps) => {
                     styles[themeSlideClass],
 
                   )}
-      style={backgroundImageSrc()}
+      style={backgroundImageSrc}
     >
       {/* проблема переполнения текста  */}
       <div className={styles["slider-content"]}>
