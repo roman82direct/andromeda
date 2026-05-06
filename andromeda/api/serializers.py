@@ -52,9 +52,8 @@ class VerifyCodeSerializer(PhoneSerializerMixin):
     code = serializers.CharField(max_length=7, required=True)
 
     def validate(self, data):
-        phone, code = data.get('phone'), data.get('code')
-        stored_code = cache.get(f'otp_{phone}')
-        if not stored_code or stored_code != code:
+        stored_code = cache.get(f'otp_{data.get('phone')}')
+        if not stored_code or stored_code != data.get('code'):
             raise serializers.ValidationError('Неверный код.')
         return data
 

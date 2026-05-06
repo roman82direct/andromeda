@@ -111,20 +111,20 @@ class VerifyCodeView(CookieAuthMixin, views.APIView):
             return Response({'error': 'Ошибка выдачи токена.'},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        response = Response({'detail': 'Вход выполнен.'},
-                            status=status.HTTP_200_OK)
-        self.set_auth_cookies(response, refresh.access_token, refresh)
         cache.delete(f'otp_{phone}')
-        return response
+        return self.set_auth_cookies(
+            Response({'detail': 'Вход выполнен.'}, status=status.HTTP_200_OK),
+            refresh.access_token, refresh
+        )
 
 
 @extend_schema(tags=['Аутентификация'], summary='Выход - logout')
 @method_decorator(csrf_exempt, name='dispatch')  # ПЕРЕДЕЛАТЬ НА ЗАЩИТУ
 class LogoutView(CookieAuthMixin, views.APIView):
-    """Завершает пользовательскую сессию.
+    """
+    Завершает пользовательскую сессию.
 
-    Требует действующий access-токен в cookie.
-    Возвращает сообщение о разлогине.
+    Удаляет информацию о токенах из cookies.
 
     Returns:
         Статус: 200 OK.
@@ -138,20 +138,17 @@ class LogoutView(CookieAuthMixin, views.APIView):
 
 
 @extend_schema(tags=['Аутентификация'], summary='Обновить JWT-токен')
-class TokenRefreshView(CookieAuthMixin, TokenRefreshView):
+class CookieTokenRefreshView(CookieAuthMixin, TokenRefreshView):
     """Обновление JWT-токена по refresh."""
 
     def post(self, request, *args, **kwargs):
-        refresh_token = request.COOKIES.get(
-            settings.SIMPLE_JWT['AUTH_COOKIE_REFRESH']
+        serializer = self.get_serializer(
+            data={
+                'refresh': request.COOKIES.get(
+                    settings.SIMPLE_JWT['AUTH_COOKIE_REFRESH']
+                )
+            }
         )
-        if not refresh_token:
-            return Response(
-                {'detail': 'Refresh token отсутствует.'},
-                status=status.HTTP_401_UNAUTHORIZED,
-            )
-
-        serializer = self.get_serializer(data={'refresh': refresh_token})
         try:
             serializer.is_valid(raise_exception=True)
         except TokenError:
@@ -159,16 +156,11 @@ class TokenRefreshView(CookieAuthMixin, TokenRefreshView):
                 {'detail': 'Невалидный refresh token.'},
                 status=status.HTTP_401_UNAUTHORIZED,
             )
-
-        access_token = serializer.validated_data['access']
-        new_refresh_token = serializer.validated_data.get(
-            'refresh', refresh_token
+        return self.set_auth_cookies(
+            Response({'detail': 'Токен обновлён.'}, status=status.HTTP_200_OK),
+            serializer.validated_data['access'],
+            serializer.validated_data['refresh']
         )
-
-        response = Response({'detail': 'Токен обновлён.'},
-                            status=status.HTTP_200_OK)
-        self.set_auth_cookies(response, access_token, new_refresh_token)
-        return response
 
 
 @extend_schema(tags=['Товары'])

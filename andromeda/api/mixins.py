@@ -13,7 +13,7 @@ class CookieAuthMixin:
             value=access_token,
             max_age=int(access_lifetime.total_seconds()),
             httponly=True,
-            secure=settings.AUTH_COOKIE_SECURE,   # На проде по https строго True
+            secure=settings.AUTH_COOKIE_SECURE,  # На проде по https True
             samesite='Lax',
             path=settings.SIMPLE_JWT['AUTH_COOKIE_ACCESS_PATH'],
         )
@@ -22,7 +22,7 @@ class CookieAuthMixin:
             value=refresh_token,
             max_age=int(refresh_lifetime.total_seconds()),
             httponly=True,
-            secure=settings.AUTH_COOKIE_SECURE,   # На проде по https строго True
+            secure=settings.AUTH_COOKIE_SECURE,
             samesite='Lax',
             path=settings.SIMPLE_JWT['AUTH_COOKIE_REFRESH_PATH'],
         )

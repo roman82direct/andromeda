@@ -15,7 +15,7 @@ v1_urlpatterns = [
     ),
     path(
         'auth/token-refresh/',
-        views.TokenRefreshView.as_view(),
+        views.CookieTokenRefreshView.as_view(),
         name='token_refresh'
     ),
     path('auth/logout/', views.LogoutView.as_view(), name='logout'),
