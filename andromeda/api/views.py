@@ -1,5 +1,6 @@
 import random
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.utils.decorators import method_decorator
@@ -8,7 +9,7 @@ from drf_spectacular.utils import extend_schema
 from rest_framework import permissions, status, views, viewsets
 from rest_framework.response import Response
 from rest_framework.pagination import LimitOffsetPagination
-from rest_framework_simplejwt.exceptions import TokenError
+from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenRefreshView
 
@@ -62,8 +63,47 @@ class SendCodeView(views.APIView):
         )
 
 
+class CookieAuthMixin:
+    """Миксин добавления/удаления токенов в cookie."""
+
+    def set_auth_cookies(self, response, access_token, refresh_token):
+        access_lifetime = settings.SIMPLE_JWT['ACCESS_TOKEN_LIFETIME']
+        refresh_lifetime = settings.SIMPLE_JWT['REFRESH_TOKEN_LIFETIME']
+
+        response.set_cookie(
+            key=settings.SIMPLE_JWT['AUTH_COOKIE_ACCESS'],
+            value=access_token,
+            max_age=int(access_lifetime.total_seconds()),
+            httponly=True,
+            secure=False,   # На проде по https строго True
+            samesite='Lax',
+            path=settings.SIMPLE_JWT['AUTH_COOKIE_ACCESS_PATH'],
+        )
+        response.set_cookie(
+            key=settings.SIMPLE_JWT['AUTH_COOKIE_REFRESH'],
+            value=refresh_token,
+            max_age=int(refresh_lifetime.total_seconds()),
+            httponly=True,
+            secure=False,   # На проде по https строго True
+            samesite='Lax',
+            path=settings.SIMPLE_JWT['AUTH_COOKIE_REFRESH_PATH'],
+        )
+        return response
+
+    def clear_auth_cookies(self, response):
+        response.delete_cookie(
+            key=settings.SIMPLE_JWT['AUTH_COOKIE_ACCESS'],
+            path=settings.SIMPLE_JWT['AUTH_COOKIE_ACCESS_PATH'],
+        )
+        response.delete_cookie(
+            key=settings.SIMPLE_JWT['AUTH_COOKIE_REFRESH'],
+            path=settings.SIMPLE_JWT['AUTH_COOKIE_REFRESH_PATH'],
+        )
+        return response
+
+
 @extend_schema(tags=['👥 Аутентификация'], summary='Получить JWT-токен по коду')
-class VerifyCodeView(views.APIView):
+class VerifyCodeView(CookieAuthMixin, views.APIView):
     """
     Верификация одноразового кода подтверждения (OTP) и выдача JWT.
 
@@ -81,16 +121,15 @@ class VerifyCodeView(views.APIView):
     **Успешный ответ:**
         200 OK:
         {
-            "phone": "+79123456789",
-            "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
-            "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+            'detail': 'Вход выполнен.,
         }
 
     **Ошибки:**
         - 400 Bad Request: неверный код/формат телефона
         - 500 Internal Server Error: JWT ошибка
 
-    Redis код удаляется после получения JWT-токена.
+    Токены access и refresh пишутся в cookie.
+    Redis-код удаляется после получения JWT-токена.
     """
 
     serializer_class = VerifyCodeSerializer
@@ -115,21 +154,36 @@ class VerifyCodeView(views.APIView):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
-        cache.delete(f'{phone}')
-        return Response({
-            'phone': user.phone,
+        response = Response({'detail': 'Вход выполнен.'},
+                            status=status.HTTP_200_OK)
+        response.auth_tokens = {
             'access': str(refresh.access_token),
             'refresh': str(refresh),
-        })
+        }
+        return response
+
+    def finalize_response(self, request, response, *args, **kwargs):
+        response = super().finalize_response(request, response,
+                                             *args, **kwargs)
+
+        tokens = getattr(response, 'auth_tokens', None)
+        if not tokens:
+            return response
+
+        return self.set_auth_cookies(
+            response,
+            access_token=tokens['access'],
+            refresh_token=tokens['refresh'],
+        )
 
 
 @extend_schema(tags=['👥 Аутентификация'], summary='Выход - logout')
 @method_decorator(csrf_exempt, name='dispatch')
-class LogoutView(views.APIView):
+class LogoutView(CookieAuthMixin, views.APIView):
     """Завершает пользовательскую сессию.
 
-    Требует действующий access-токен в заголовке Authorization: Bearer token.
-    Возвращает информацию о текущем пользователе и сообщение о разлогине.
+    Требует действующий access-токен в cookie.
+    Возвращает сообщение о разлогине.
 
     Raises:
         PermissionDenied: Если токен недействителен, истёк или пользователь
@@ -137,25 +191,80 @@ class LogoutView(views.APIView):
         AuthenticationFailed: Если отсутствует или неверный token.
 
     Returns:
-        Response: JSON с номером телефона пользователя и сообщением
-        "Вы вышли из системы."
         Статус: 200 OK.
+        'detail': 'Выход выполнен.'
     """
 
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = None
 
     def post(self, request):
-        return Response(
-            {
-                'user': request.user.phone,
-                'message': 'Вы вышли из системы.'
-            }, status=status.HTTP_200_OK)
+        refresh_token = request.COOKIES.get(
+            settings.SIMPLE_JWT['AUTH_COOKIE_REFRESH']
+        )
+        if refresh_token:
+            try:
+                RefreshToken(refresh_token)
+            except TokenError:
+                return Response(
+                    {'detail': 'Невалидный refresh token.'},
+                    status=status.HTTP_401_UNAUTHORIZED,
+                )
+
+        response = Response({'detail': 'Выход выполнен.'},
+                            status=status.HTTP_200_OK)
+        return self.clear_auth_cookies(response)
 
 
 @extend_schema(tags=['👥 Аутентификация'], summary='Обновить JWT-токен')
-class TokenRefreshViewWrapper(TokenRefreshView):
+class TokenRefreshView(CookieAuthMixin, TokenRefreshView):
     """Обновление JWT-токена по refresh."""
+
+    def post(self, request, *args, **kwargs):
+        refresh_token = request.COOKIES.get(
+            settings.SIMPLE_JWT['AUTH_COOKIE_REFRESH']
+        )
+        if not refresh_token:
+            return Response(
+                {'detail': 'Refresh token отсутствует.'},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
+
+        serializer = self.get_serializer(data={'refresh': refresh_token})
+        try:
+            serializer.is_valid(raise_exception=True)
+        except InvalidToken:
+            return Response(
+                {'detail': 'Невалидный refresh token.'},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
+
+        access_token = serializer.validated_data['access']
+        new_refresh_token = serializer.validated_data.get(
+            'refresh', refresh_token
+        )
+
+        response = Response({'detail': 'Токен обновлён.'},
+                            status=status.HTTP_200_OK)
+        response.auth_tokens = {
+            'access': access_token,
+            'refresh': new_refresh_token,
+        }
+        return response
+
+    def finalize_response(self, request, response, *args, **kwargs):
+        response = super().finalize_response(request, response,
+                                             *args, **kwargs)
+
+        tokens = getattr(response, 'auth_tokens', None)
+        if not tokens:
+            return response
+
+        return self.set_auth_cookies(
+            response,
+            access_token=tokens['access'],
+            refresh_token=tokens['refresh'],
+        )
 
 
 @extend_schema(tags=['📦 Товары'])
