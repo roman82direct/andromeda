@@ -13,10 +13,10 @@ from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenRefreshView
 
+from .mixins import CookieAuthMixin
 from .serializers import (
     ProductSerializer, SendCodeSerializer, VerifyCodeSerializer
 )
-from .mixins import CookieAuthMixin
 from products.models import Product
 
 
@@ -91,7 +91,7 @@ class VerifyCodeView(CookieAuthMixin, views.APIView):
         - 400 Bad Request: неверный код/формат телефона
         - 500 Internal Server Error: JWT ошибка
 
-    Redis-код удаляется после получения JWT-токена.
+    OTP-код удаляется из кэша после получения JWT-токена.
     """
 
     serializer_class = VerifyCodeSerializer
