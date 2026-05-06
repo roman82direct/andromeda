@@ -1,44 +1,57 @@
 import type { TThemeElementsPage } from "@/shared/types/types";
 import styles from "./dots.module.css";
 import { IconButtonUI } from "@/shared/ui/icon-button";
-import { memo } from "react";
-
+import { memo, useCallback } from "react";
+import clsx from "clsx";
 
 type DotsProps = {
-  activeSlideNumber: number,
-  dotsPag: number[],
-  onClick: (index:number)=>void;
-  // импортировать тип из общих типов
+  activeSlideNumber: number;
+  dotsPag: number[];
+  onClick: (index: number) => void;
   currentDotsTheme?: TThemeElementsPage;
   isBlockClickForDots?: boolean;
-}
+};
 
-export const DotsUIComponent = (dotsData: DotsProps) => {
-  const {
-    activeSlideNumber,
-    
-    onClick,
-    // тема слайдавлияет на тему отображения точек пагинации на фоне слайда
-    currentDotsTheme,
-    isBlockClickForDots
-  } = dotsData;
-    // console.log(dotsPag)
+const DotsUIComponent = ({
+  activeSlideNumber,
+  dotsPag,
+  onClick,
+  currentDotsTheme = "primary",
+  isBlockClickForDots = false,
+}: DotsProps) => {
+  
+  // Стабильная фабрика обработчиков
+  const createHandleClick = useCallback(
+    (index: number) => () => onClick(index),
+    [onClick]
+  );
+
+ 
+
   return (
-        //  !!!выделить отдельно в UI - смотри с 45 принцип проектирования книги паттерны проектирования
-      <ul className={styles["slider-pag"]}>
-      {[1,2,3].map((indexSlide) => (
-        <li key={indexSlide} className={styles["banner-pag-item"]}>
-          <IconButtonUI
-            onClick={()=>onClick(indexSlide)}
-            iconActiveClass={"ellipse-filled"}
-            iconClass={"ellipse-emptied"}
-            // сравниваем с тем, что сейчас отображается чтобы понять активную точку
+    <ul className={styles["dots-pag"]}>
+      {dotsPag.map((indexSlide) => (
+        <li key={indexSlide} className={styles["dot-pag-item"]}>
+          {/* <IconButtonUI
+            onClick={createHandleClick(indexSlide)}
+            iconActiveClass="ellipse-filled"
+            iconClass="ellipse-emptied"
             isActive={indexSlide === activeSlideNumber}
-            //  создание  "темы" точек
-            colorIcon={currentDotsTheme || 'primary'}
+            colorIcon={currentDotsTheme}
             sizeIcon={10}
-            type='button'
+            type="button"
             isDisabled={isBlockClickForDots}
+          /> */}
+           <button
+              onClick={createHandleClick(indexSlide)}
+              className={ 
+                  clsx(
+                        styles['dot'],
+                        currentDotsTheme === 'primary' ? styles['primary-dot'] :  styles['secondary-dot'],
+                        activeSlideNumber === indexSlide ? styles['active-dot'] : ''
+                    )}
+              type="button"
+              disabled={isBlockClickForDots}
           />
         </li>
       ))}
@@ -47,5 +60,4 @@ export const DotsUIComponent = (dotsData: DotsProps) => {
 };
 
 export const DotsUI = memo(DotsUIComponent);
-
-DotsUI.displayName = 'DotsUI'
+DotsUI.displayName = "DotsUI";

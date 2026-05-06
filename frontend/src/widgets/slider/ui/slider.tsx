@@ -24,5 +24,5 @@ export const SliderComponentUI = ({ toggleIntervalSlide }: TSliderUIProps) => {
   );
 };
 
-export const SliderUI = memo(SliderComponentUI);
+export const  SliderUI = memo(SliderComponentUI);
 SliderUI.displayName = "SliderUI";

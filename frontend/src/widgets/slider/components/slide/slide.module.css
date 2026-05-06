@@ -62,10 +62,10 @@
   color: var(--text-color, #15242a);
   font-family: var(--title-font, "Cormorant SC");
   font-weight: var(--fw-title, 600);
-  font-size: 48px;
-  line-height: 1.2;
+  /* font-size: 48px; */
   /* подумать */
- 
+  font-size: clamp(32px, calc(26.4px + 1.5vw), 48px);
+  line-height: 1.2;
 }
 
 .ellipsised {
@@ -91,7 +91,8 @@ line-clamp: 2;
   color: var(--color-tertiary, #000000);
   font-family: "Raleway";
   font-weight: var(--fw-text, 400);
-  font-size: 16px;
+  font-size: var(--clamp-default-size, 16px);
+  /* font-size: 16px; */
   line-height: 1.2;
 }
 

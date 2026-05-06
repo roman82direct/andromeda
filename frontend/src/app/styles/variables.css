@@ -19,7 +19,7 @@
   --letter-spacing-main-title: 0.065em;
   --header-height: 69px;
   --footer-height: 391px;
-
+  --clamp-default-size: clamp(14px, calc(0.2vw + 13.25px) ,16px);
   --transition-duration: 0.2s;
   /* переменные для media запросов */
   --tablet: 768px;

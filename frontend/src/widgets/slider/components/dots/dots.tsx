@@ -28,7 +28,7 @@ export const Dots = () => {
     
     (index: number) => {
       setIndexSlide(index);
-      console.log(index)
+      
     },
     [setIndexSlide],
   );

@@ -7,7 +7,7 @@
   padding: 10px 28px;
   font-family: var(--main-font, "Raleway"), Arial, Helvetica, sans-serif;
   font-weight: var(--fw-text, 400);
-  font-size: 16px;
+  font-size: var(--clamp-default-size, 16px);
   font-style: normal;
   line-height: 1.2;
   letter-spacing: var(--letter-spacing-base, 0.05em);
