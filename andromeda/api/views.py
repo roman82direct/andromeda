@@ -103,7 +103,7 @@ class VerifyCodeView(CookieAuthMixin, views.APIView):
         )
         if created:
             user.set_unusable_password()
-            user.save(update_fields=['password'])
+            user.save(update_fields=('password',))
 
         try:
             refresh = RefreshToken.for_user(user)
@@ -165,7 +165,8 @@ class CookieTokenRefreshView(CookieAuthMixin, TokenRefreshView):
 
 @extend_schema(tags=['Товары'])
 class ProductViewSet(viewsets.ReadOnlyModelViewSet):
-    """ViewSet для просмотра товаров (только чтение).
+    """
+    ViewSet для просмотра товаров (только чтение).
 
     Предоставляет API-эндпоинты для получения списка опубликованных товаров
     и детальной информации по артикулу.
