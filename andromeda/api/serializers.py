@@ -53,7 +53,7 @@ class VerifyCodeSerializer(PhoneSerializerMixin):
 
     def validate(self, data):
         phone, code = data.get('phone'), data.get('code')
-        stored_code = cache.get(f'{phone}')
+        stored_code = cache.get(f'otp_{phone}')
         if not stored_code or stored_code != code:
             raise serializers.ValidationError('Неверный код.')
         return data
