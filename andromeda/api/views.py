@@ -40,8 +40,7 @@ class SendCodeView(views.APIView):
     **Успешный ответ:**
         200 OK
         {
-            "phone": "+79123456789",
-            "code": "123-456"
+            "detail": "Код отправлен на номер телефона 89123456789."
         }
 
     **Ошибки:**
@@ -58,8 +57,12 @@ class SendCodeView(views.APIView):
         code_num = random.randint(100000, 999999)
         code = f'{code_num // 1000}-{code_num % 1000:03d}'
         cache.set(f'otp_{phone}', code, 300)
-        return Response({'phone': phone, 'code': code},
-                        status=status.HTTP_200_OK)
+
+        print(f'====== DEBUG: OTP_code для номера {phone}: {code} ======')
+        return Response(
+            {'detail': f'Код отправлен на номер телефона {phone}.'},
+            status=status.HTTP_200_OK
+        )
 
 
 @extend_schema(tags=['Аутентификация'], summary='Получить JWT-токен по коду')
@@ -81,7 +84,7 @@ class VerifyCodeView(CookieAuthMixin, views.APIView):
     **Успешный ответ:**
         200 OK:
         {
-            'detail': 'Вход выполнен.,
+            "detail": "Вход выполнен."
         }
 
     **Ошибки:**
@@ -128,18 +131,29 @@ class LogoutView(CookieAuthMixin, views.APIView):
 
     Returns:
         Статус: 200 OK.
-        'detail': 'Выход выполнен.'
+        "detail": "Вы вышли из системы."
     """
+
+    serializer_class = None
 
     def post(self, request):
         return self.clear_auth_cookies(
-            Response({'detail': 'Выход выполнен.'}, status=status.HTTP_200_OK)
+            Response({'detail': 'Вы вышли из системы.'},
+                     status=status.HTTP_200_OK)
         )
 
 
 @extend_schema(tags=['Аутентификация'], summary='Обновить JWT-токен')
 class CookieTokenRefreshView(CookieAuthMixin, TokenRefreshView):
-    """Обновление JWT-токена по refresh."""
+    """
+    Обновление JWT-токена по refresh.
+
+    Перезаписывает информацию о токенах в cookies.
+
+    Returns:
+        Статус: 200 OK.
+        "detail": "Токен обновлён."
+    """
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(
