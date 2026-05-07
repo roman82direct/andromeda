@@ -9,6 +9,7 @@ from drf_spectacular.utils import extend_schema
 from rest_framework import status, views, viewsets
 from rest_framework.response import Response
 from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenRefreshView
@@ -117,6 +118,12 @@ class VerifyCodeView(CookieAuthMixin, views.APIView):
             user.set_unusable_password()
             user.save(update_fields=('password',))
 
+        if not user.is_active:
+            return Response(
+                {'detail': 'Пользователь заблокирован.'},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
         try:
             refresh = RefreshToken.for_user(user)
         except TokenError:
@@ -136,18 +143,26 @@ class LogoutView(CookieAuthMixin, views.APIView):
     Завершает пользовательскую сессию.
 
     Удаляет информацию о токенах из cookies.
+    Инвалидирует через blacklist старый токен.
 
     Returns:
         Статус: 200 OK.
         "detail": "Вы вышли из системы."
     """
 
-    serializer_class = None
+    permission_classes = (IsAuthenticated,)
 
     def post(self, request):
+        try:
+            RefreshToken(
+                request.COOKIES.get(settings.SIMPLE_JWT['AUTH_COOKIE_REFRESH'])
+            ).blacklist()
+        except TokenError:
+            pass
+
         return self.clear_auth_cookies(
             Response({'detail': 'Вы вышли из системы.'},
-                     status=status.HTTP_200_OK)
+                     status=status.HTTP_200_OK,)
         )
 
 
@@ -174,9 +189,9 @@ class CookieTokenRefreshView(CookieAuthMixin, TokenRefreshView):
         try:
             serializer.is_valid(raise_exception=True)
         except TokenError:
-            return Response(
-                {'detail': 'Невалидный refresh token.'},
-                status=status.HTTP_401_UNAUTHORIZED,
+            return self.clear_auth_cookies(
+                Response({'detail': 'Невалидный refresh token.'},
+                         status=status.HTTP_401_UNAUTHORIZED,)
             )
         return self.set_auth_cookies(
             Response({'detail': 'Токен обновлён.'}, status=status.HTTP_200_OK),

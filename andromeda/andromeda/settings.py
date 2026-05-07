@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
     'drf_spectacular',
     'django_google_fonts',
@@ -159,6 +160,8 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'Программный интерфейс интернет-магазина Andromeda',
     'VERSION': '1.0.0',
 }
+
+CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
