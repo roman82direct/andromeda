@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import ensure_csrf_cookie
 from drf_spectacular.utils import extend_schema
 from rest_framework import status, views, viewsets
 from rest_framework.response import Response
@@ -23,25 +23,39 @@ from products.models import Product
 User = get_user_model()
 
 
+@extend_schema(tags=['Аутентификация'], summary='Получить CSRF-токен')
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+class CsrfCookieView(views.APIView):
+    """
+    Получение CSRF-куки.
+
+    CSRF-кука действует 1 год.
+    Перед началом пользования API, хотя бы единожды сходи за CSRF‑кукой.
+
+    Каждый опасный запрос (POST/PUT/PATCH/DELETE из браузера) должен
+    отправлять куку csrftoken и отправлять заголовок
+    X-CSRFToken: <значение csrftoken>.
+    """
+
+    def get(self, request):
+        return Response({'detail': 'CSRF cookie установлена'})
+
+
 @extend_schema(tags=['Аутентификация'], summary='Получить OTP-код')
 class SendCodeView(views.APIView):
     """
     Отправка одноразового кода подтверждения (OTP).
 
-    Генерит 6-значный код в формате XXX-XXX, сохраняет в Redis с TTL 5 минут.
+    Формирует 6-значный код в формате XXX-XXX, сохраняет в Redis с TTL 5 минут.
     Используется для двухфакторной аутентификации пользователей магазина.
 
     **Пример запроса:**
         POST /api/v1/auth/send-code/
-        {
-            "phone": "89123456789"
-        }
+        {"phone": "89123456789"}
 
     **Успешный ответ:**
         200 OK
-        {
-            "detail": "Код отправлен на номер телефона 89123456789."
-        }
+        {"detail": "Код отправлен на номер телефона +79123456789."}
 
     **Ошибки:**
         400 Bad Request - неверный формат или номер телефона.
@@ -76,16 +90,11 @@ class VerifyCodeView(CookieAuthMixin, views.APIView):
 
     **Пример запроса:**
         POST /api/v1/auth/verify-code/
-        {
-            "phone": "+79123456789",
-            "code": "123-456"
-        }
+        {"phone": "+79123456789", "code": "123-456"}
 
     **Успешный ответ:**
         200 OK:
-        {
-            "detail": "Вход выполнен."
-        }
+        {"detail": "Вход выполнен."}
 
     **Ошибки:**
         - 400 Bad Request: неверный код/формат телефона
@@ -122,7 +131,6 @@ class VerifyCodeView(CookieAuthMixin, views.APIView):
 
 
 @extend_schema(tags=['Аутентификация'], summary='Выход - logout')
-@method_decorator(csrf_exempt, name='dispatch')  # ПЕРЕДЕЛАТЬ НА ЗАЩИТУ
 class LogoutView(CookieAuthMixin, views.APIView):
     """
     Завершает пользовательскую сессию.
