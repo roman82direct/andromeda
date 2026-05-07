@@ -9,13 +9,14 @@ v1_router.register(r'products', views.ProductViewSet, basename='products')
 
 v1_urlpatterns = [
     path('', include(v1_router.urls)),
+    path('auth/csrf/', views.CsrfCookieView.as_view(), name='csrf_cookie'),
     path('auth/send-code/', views.SendCodeView.as_view(), name='send_code'),
     path(
         'auth/verify-code/', views.VerifyCodeView.as_view(), name='verify_code'
     ),
     path(
         'auth/token-refresh/',
-        views.TokenRefreshViewWrapper.as_view(),
+        views.CookieTokenRefreshView.as_view(),
         name='token_refresh'
     ),
     path('auth/logout/', views.LogoutView.as_view(), name='logout'),
