@@ -4,6 +4,15 @@ import type { TActionSlide } from "../types";
 import { getNextIndexSlide } from "../utils/getIndexNextSlide";
 import { getPagIndexes } from "../utils/getPagIndexes";
 
+
+
+type TConfigChangeSlide = {
+  infiniteLoop: boolean;
+  showSlides: number;
+}
+
+
+
 export const useChangeSlide = (slides: TSlideItem[], delay: number = 3000) => {
 //  текущий слайд который будем показывать
   const firstRealIndexSlide = 1;

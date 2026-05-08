@@ -89,7 +89,7 @@ line-clamp: 2;
 .slider-desc {
   margin-bottom: 32px;
   color: var(--color-tertiary, #000000);
-  font-family: "Raleway";
+  font-family: var(--main-font, "Raleway"), Arial, Helvetica, sans-serif;
   font-weight: var(--fw-text, 400);
   font-size: var(--clamp-default-size, 16px);
   /* font-size: 16px; */
