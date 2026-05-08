@@ -1,5 +1,5 @@
 import type { TSlideItem} from "../types";
-import { useCallback,   useMemo,  useState } from "react";
+import { useCallback,   useMemo,  useState, type ReactNode } from "react";
 import type { TActionSlide } from "../types";
 import { getNextIndexSlide } from "../utils/getIndexNextSlide";
 import { getPagIndexes } from "../utils/getPagIndexes";
@@ -9,6 +9,8 @@ import { getPagIndexes } from "../utils/getPagIndexes";
 type TConfigChangeSlide = {
   infiniteLoop: boolean;
   showSlides: number;
+  autoShowSlides: boolean;
+  children: ReactNode; // что будем показывать ?
 }
 
 
