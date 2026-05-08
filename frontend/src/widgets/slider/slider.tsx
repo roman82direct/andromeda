@@ -8,6 +8,13 @@ import {
     SliderActionsContext,
     SlidesContext
   } from "./utils/contexts";
+//  переделать слайдер под след настройки
+type TConfigSlider = {
+  infiniteLoop: boolean;
+  showSlides: number;
+  autoShowSlides: boolean;
+  children: ReactNode; // что будем показывать ?
+}
 
 export const SliderComponent = () => {
   // загружаем информацию о слайдах в наш компонент

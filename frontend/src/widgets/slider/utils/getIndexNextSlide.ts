@@ -1,18 +1,18 @@
 import type { TActionSlide } from "../types";
 
 type TSwitchIndexParams = {
-  action: TActionSlide;
+  typeOperation: TActionSlide;
   prevIndex: number;
   ArrSizeSlides: number;
 };
 
 export const getNextIndexSlide = ({
-  action,
+  typeOperation,
   prevIndex,
   ArrSizeSlides,
 }: TSwitchIndexParams): number => {
   const nextIndex =
-    action === "increment"
+    typeOperation === "increment"
       ? prevIndex === ArrSizeSlides - 1
         ? 0
         : prevIndex + 1

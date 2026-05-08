@@ -4,17 +4,6 @@ import type { TActionSlide } from "../types";
 import { getNextIndexSlide } from "../utils/getIndexNextSlide";
 import { getPagIndexes } from "../utils/getPagIndexes";
 
-
-
-type TConfigChangeSlide = {
-  infiniteLoop: boolean;
-  showSlides: number;
-  autoShowSlides: boolean;
-  children: ReactNode; // что будем показывать ?
-}
-
-
-
 export const useChangeSlide = (slides: TSlideItem[], delay: number = 3000) => {
 //  текущий слайд который будем показывать
   const firstRealIndexSlide = 1;
@@ -26,6 +15,7 @@ export const useChangeSlide = (slides: TSlideItem[], delay: number = 3000) => {
     return currentIndexesPag.map((dotIndex)=>(
   dotIndex+1
   ))},[indexSlide, slides.length])
+  console.log(preparedIndexesForPag)
   //  отключить/включить автоматическое изменение картинок слайдера
   // const [interChangSlide, toggleIntervalSlide] = useState<boolean>(false);
 //  подготовка слайдов ксозданию 'бесконечной прокрутки'
@@ -39,7 +29,7 @@ const [isAnimating, setIsAnimating] = useState(false)
 const [transitionEnabled, setTransitionEnabled] = useState(true)
 //  обработчик смены слайда
   const handleChangeSlide = useCallback(
-    (action: TActionSlide) => {
+    (typeOperation: TActionSlide) => {
       //  если анимация идет - не даем выполнить обработчик
         if(isAnimating) return;
       // если сейчас анимации переключения слайда нет
@@ -48,7 +38,7 @@ const [transitionEnabled, setTransitionEnabled] = useState(true)
       setTransitionEnabled(true)
           setIndexSlide((prevIndex) =>
         getNextIndexSlide({
-          action,
+          typeOperation,
           prevIndex,
           ArrSizeSlides: slidesWithClones.length,
         }),
