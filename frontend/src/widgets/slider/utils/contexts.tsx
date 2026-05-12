@@ -13,6 +13,7 @@ import type { TSlideItemWithId, TActionSlide, ThemeSlide } from "../types";
 //   isAnimation: boolean;
 // };
 
+//  связать состоянием слайдера в редюсере?
 export type TSliderStateContext = {
   slideNumber: number;
   dotsPag: number[];

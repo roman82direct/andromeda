@@ -1,4 +1,4 @@
-import { memo, useMemo, useState } from "react";
+import { memo, useMemo, useState, type ReactNode } from "react";
 import { SliderUI } from "./ui/slider";
 import type { TSlideItem } from "./types";
 import { useChangeSlide } from "./hooks/useChangeSlide";
@@ -12,7 +12,8 @@ import {
 type TConfigSlider = {
   infiniteLoop: boolean;
   showSlides: number;
-  autoShowSlides: boolean;
+  isPagination: boolean;
+  autoPlay: boolean;
   children: ReactNode; // что будем показывать ?
 }
 

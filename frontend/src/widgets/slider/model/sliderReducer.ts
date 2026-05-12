@@ -1,25 +1,40 @@
-import { useReducer, useMemo, useCallback } from "react";
+
 import type { TActionSlide, TSlideItem } from "../types";
 import { getNextIndexSlide } from "../utils/getIndexNextSlide";
-import { getPagIndexes } from "../utils/getPagIndexes";
+
 
 // опишем состояние
-type TSliderState = {
+export type TSliderState = {
   indexSlide: number;
   isAnimating: boolean; // общий процесса анимации(для блокировки кнопок)
   transitionEnabled: boolean; //состояние перехода слайдов
   preparedSlides: TSlideItem[];
-  preparedIndexesForPag: number[];
+}
+//  определим начальное состояние слайдера
+export const initialStateSlider: TSliderState  ={
+  //  текущий слайд который будем показывать
+  indexSlide: 1,
+  isAnimating: false,
+  transitionEnabled: true,
+  preparedSlides: [],
 }
 
-// опишем действия
-type TSliderAction = 
+// опишем действия 
+export type TSliderAction = 
 | {
-    type: 'CHANGE_SLIDE'; payload:TActionSlide
+    type: 'CHANGE_SLIDE'; payload:TActionSlide;
   }
 | {
-    type: ''
+    type: 'TRANSITION_END';
   }
+| {
+  type: 'SET_INDEX'; payload:number;
+} 
+| {type: 'SET_PREPARED_SLIDES'; payload:  TSlideItem[]}
+
+
+
+
 // напишем редюсер
 export const sliderReducer = (
   state:TSliderState,
@@ -43,6 +58,47 @@ export const sliderReducer = (
         }
 
       };
+      case 'TRANSITION_END': {
+
+        let defaultTransitionValue = state.transitionEnabled;
+
+        const currentIndex = state.indexSlide;
+        let nextIndexSlide = currentIndex;
+        if(currentIndex === 0){
+         
+          // если нулевой клон переходим к его настоящ(послед слайд)
+          //  или минус 2
+          nextIndexSlide = state.preparedSlides.length - 2; // оригинальный последний
+          defaultTransitionValue = false; 
+        }
+        if(currentIndex === state.preparedSlides.length-1){
+         
+          nextIndexSlide = 1
+          defaultTransitionValue = false;
+        }
+
+        return {
+          ...state,
+          indexSlide: nextIndexSlide,
+          isAnimating: false,
+          transitionEnabled:defaultTransitionValue,
+          
+        }
+      };
+      case 'SET_INDEX':{
+        return {
+          ...state,
+          indexSlide: action.payload,
+          isAnimating: false,
+          transitionEnabled: true,
+        }
+      };
+      case 'SET_PREPARED_SLIDES': {
+        return {
+          ...state,
+          preparedSlides: action.payload,
+        }
+      }
       default:
         return state
     }
