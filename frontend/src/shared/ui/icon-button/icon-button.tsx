@@ -1,7 +1,8 @@
-import type { FC, ReactNode } from "react";
+import { memo, type FC, type ReactNode } from "react";
 import styles from "./icon-button.module.css";
 import { IconUI } from "../icon/icon";
 import { type TIconClassCssIcon } from "@/shared/types/ui/icon";
+import type { TThemeElementsPage } from "@/shared/types/types";
 
 //  возможно добавить кастомное изменение цвета иконки + псевдоклассы
 type IconButtonUIProps = {
@@ -15,10 +16,10 @@ type IconButtonUIProps = {
   turnIcon?: number;
   isDisabled?: boolean;
   children?: ReactNode;
-  colorIcon: "primary" | "secondary";
+  colorIcon: TThemeElementsPage;
 };
 
-export const IconButtonUI: FC<IconButtonUIProps> = ({
+export const IconButtonUICopmonent: FC<IconButtonUIProps> = ({
   isActive = false,
   iconActiveClass,
   iconClass,
@@ -53,3 +54,6 @@ export const IconButtonUI: FC<IconButtonUIProps> = ({
     </button>
   );
 };
+
+export const IconButtonUI = memo(IconButtonUICopmonent);
+IconButtonUI.displayName = "IconButtonUI";

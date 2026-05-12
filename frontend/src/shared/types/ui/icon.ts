@@ -1,3 +1,5 @@
+import type { TEventType } from "../types";
+
 export type TIconClassCssIcon =
   | "close"
   | "come-in"
@@ -18,18 +20,11 @@ export type TIconClassCssIcon =
   | "instagram"
   | "mastercard"
   | "arrow-left"
-  | "arrow-right";
-
-//  тип события при нажатии на иконку или кнопку с иконкой
-export type TEventType =
-  | {
-      trigger: "route";
-      path: string;
-    }
-  | {
-      trigger: "action-on-page";
-      callback: () => void;
-    };
+  | "arrow-right"
+  | "ellipse-emptied"
+  | "ellipse-filled"
+  | "burger"
+  | "arrow-top";
 
 export type TIconType = {
   typeIcon: TIconClassCssIcon;

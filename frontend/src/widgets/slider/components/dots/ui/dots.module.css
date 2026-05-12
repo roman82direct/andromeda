@@ -1,0 +1,61 @@
+.dots-pag {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-block-start: 15px;
+}
+
+
+.dot {
+  position: relative;
+  width: 10px;
+  border: 2px solid ;
+  border-radius: 50%;
+  aspect-ratio: 1;
+}
+
+
+.dot::after {
+  content: '';
+  position: absolute;
+  inset:0;
+  width: 100%;
+  opacity: 0;
+  background-color: transparent;
+  transition: opacity 0.4s ease-in-out;
+  aspect-ratio: 1;
+}
+
+.active-dot::after{
+  opacity: 1;
+}
+
+.primary-dot {
+  border-color: var(--color-primary,#15242a);
+}
+
+.secondary-dot {
+  border-color: var(--color-secondary,#f8f9fa);
+}
+
+.primary-dot::after {
+  background-color: var(--color-primary,#15242a);
+}
+
+.secondary-dot::after {
+  background-color: var(--color-secondary,#f8f9fa);
+}
+
+
+
+
+
+
+
+/* .primary-dot.active-dot {
+  background-color: var(--color-primary,#15242a);;
+}
+
+.secondary-dot.active-dot {
+  background-color: var(--color-secondary,#f8f9fa);
+} */

@@ -1,32 +1,15 @@
-import type { FC } from "react";
 import styles from "./home-page.module.css";
+import { Slider } from "@/widgets/slider";
+import type { FC } from "react";
 
-type TDescriptionBanner ={
-  title: string;
-  description: string;
-  textLinks: string[];
-}
-
-
-type THomePageProps = {
-    banners?: TDescriptionBanner[];
-}
-
-export const HomePageUI: FC<THomePageProps> = () => {
+export const HomePageUI: FC = () => {
   return (
     <div className={styles.home}>
-      <section className={styles['home-banner']}>
-          <div className={styles.slider}>
-            <div className={styles['banner-content']}>
-              <h1 className={styles['banner-title']}>Скидки до 40% процентов на категорию “Распродажа”</h1>
-              <div className={styles['banner-text']}>Успейте купить по выгодной цене</div>
-              <div className="banner-actions"></div>
-              
-
-              </div>
-          </div>
+      <h1 className="visually-hidden">Andromeda Store — магазин керамической посуды и аксессуаров для дома</h1>
+      <section className={styles["home-banner"]}>
+        <h2 className="visually-hidden">Актуальные акции и предложения</h2>
+        <Slider />
       </section>
-      
     </div>
   );
 };

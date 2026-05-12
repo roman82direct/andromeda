@@ -1,9 +1,12 @@
 .home {
-  height: 100vh;
-  background-color: var(--color-secondary, #f8f9fa);
-  background-image: url('../../../assets/images/banner-for-discount.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
+  width: 100%;
+  /* padding-block-start: 40px; */
+  /* max-width: 1440px;
+  margin: 0 auto; */
+  margin-block-start: 40px;
+  overflow: hidden;
 }
 
-
+.home-banner {
+  background-color: var(--color-secondary, #f8f9fa);
+}
