@@ -1,6 +1,6 @@
 import { memo, useMemo, useState, type ReactNode } from "react";
 import { SliderUI } from "./ui/slider";
-import type { TSlideItem } from "./types";
+import type { TConfigAutoPlay, TConfigSliderProps, TSlideItem } from "./types";
 import { useChangeSlide } from "./hooks/useChangeSlide";
 import { sliderStore } from "./model/sliderStore";
 import {
@@ -8,29 +8,36 @@ import {
     SliderActionsContext,
     SlidesContext
   } from "./utils/contexts";
-//  переделать слайдер под след настройки
-type TConfigSlider = {
-  infiniteLoop: boolean;
-  showSlides: number;
-  isPagination?: boolean;
-  autoPlay?: boolean;
-  autoPlayTime?: number
-  children: ReactNode; // что будем показывать ?
-}
 
-export const SliderComponent = () => {
+
+export const SliderComponent = (
+  {
+     // infiniteLoop: boolean;
+  // showSlides: number;
+  // isPagination?: boolean;
+    autoPlay,
+    autoPlayTime,
+  // typeSlider?:'' --> попробуй масштабировать
+  // children: ReactNode; // что будем показывать ?
+  // pagePaginationSize?:number
+  }:TConfigSliderProps
+) => {
   // загружаем информацию о слайдах в наш компонент
   //  если запрос на сервер можно создать стор с редукс или создадим какой то сервис
   // подтягиваем данные  мгновенно и только один раз
   // функция вызывается один раз - ленивая загрузка - тяжелые вычисления
-  const [slides] = useState<TSlideItem[]>(()=>sliderStore);
+const [slides] = useState<TSlideItem[]>(()=>sliderStore);
 
-const dataForSlider = useChangeSlide(slides);
+const autoPlayInfo:TConfigAutoPlay = {autoPlay,autoPlayTime};
+
+const dataForSlider = useChangeSlide(slides, autoPlayInfo );
   // вычисляем тему слайда 1 раз 
 const getCurrentSlideTheme = useMemo(()=>{
   const currentSlide = dataForSlider.preparedSlides[dataForSlider.indexSlide]
   return currentSlide.typeTheme || 'light'
 },[dataForSlider.indexSlide,dataForSlider.preparedSlides])
+
+
 //  разделим контексты на действия и состояния
  const valueSliderState  = useMemo(()=>({
     slideNumber: dataForSlider.indexSlide,

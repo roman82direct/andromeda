@@ -1,4 +1,4 @@
-import type { TSlideItem} from "../types";
+import type { TConfigAutoPlay, TSlideItem} from "../types";
 import { useCallback,   useMemo, useReducer, useEffect} from "react";
 import type { TActionSlide } from "../types";
 // import { getNextIndexSlide } from "../utils/getIndexNextSlide";
@@ -6,11 +6,11 @@ import { getPagIndexes } from "../utils/getPagIndexes";
 import { initialStateSlider, sliderReducer } from "../model/sliderReducer";
 
 
-export const useChangeSlide = (slides: TSlideItem[], delay: number = 3000) => {
 
 
-  // const [indexSlide, setIndexSlide] = useState<number>(firstRealIndexSlide);
-  //  типизировать редюсер ??
+export const useChangeSlide = (slides: TSlideItem[], {autoPlay, autoPlayTime = 3000}:TConfigAutoPlay ) => {
+
+ //  типизировать редюсер ??
   const PAGE_PAGINATION_SIZE = 3;
   // 1. Подготавливаем слайды с клонами 
   // (абстрагировать логику клонирования - допустим если нам это не надо)
@@ -79,16 +79,16 @@ export const useChangeSlide = (slides: TSlideItem[], delay: number = 3000) => {
   
   // добавить флаг для остоновки автоматич пролистывания при наведении на слайд
   //  автоматич показ слайдов
-  // useEffect(() => {
-  //   if (!interChangSlide) return;
-  //   const intervalIdSliders = setInterval(() => {
-  //     // handleChangeSlide("increment");
-  //   }, delay);
+  useEffect(() => {
+    if (!autoPlay) return;
+    const intervalIdSliders = setInterval(() => {
+      dispatch({type:'CHANGE_SLIDE', payload:'increment'})
+    }, autoPlayTime);
 
-  //   return () => {
-  //     clearInterval(intervalIdSliders);
-  //   };
-  // }, [handleChangeSlide, interChangSlide, delay]);
+    return () => {
+      clearInterval(intervalIdSliders);
+    };
+  }, [autoPlayTime, autoPlay]);
 
   return {
     indexSlide: stateSlader.indexSlide, // индексы:слайд текущий

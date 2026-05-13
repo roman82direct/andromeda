@@ -44,3 +44,20 @@ export type TArrow = {
   onClick: () => void;
   icon: TIconClassCssIcon;
 };
+
+
+//   общие параметры слайдера 
+//  переделать слайдер под след настройки
+//  и выделать в типы слайдера
+export type TConfigSliderProps = {
+  // infiniteLoop: boolean;
+  // showSlides: number;
+  // isPagination?: boolean;
+  autoPlay?: boolean;
+  autoPlayTime?: number;
+  // typeSlider?:'' --> попробуй масштабировать
+  // children: ReactNode; // что будем показывать ?
+  // pagePaginationSize?:number
+}
+//  выделить в типы хука или слайдера
+export type TConfigAutoPlay =  Pick<TConfigSliderProps, 'autoPlay' | 'autoPlayTime'>;

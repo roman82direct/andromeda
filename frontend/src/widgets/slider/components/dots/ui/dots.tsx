@@ -1,6 +1,5 @@
 import type { TThemeElementsPage } from "@/shared/types/types";
 import styles from "./dots.module.css";
-import { IconButtonUI } from "@/shared/ui/icon-button";
 import { memo, useCallback } from "react";
 import clsx from "clsx";
 
