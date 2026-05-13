@@ -57,7 +57,7 @@ export type TConfigSliderProps = {
   autoPlayTime?: number;
   // typeSlider?:'' --> попробуй масштабировать
   // children: ReactNode; // что будем показывать ?
-  // pagePaginationSize?:number
+  pagePaginationSize?:number;
 }
 //  выделить в типы хука или слайдера
-export type TConfigAutoPlay =  Pick<TConfigSliderProps, 'autoPlay' | 'autoPlayTime'>;
+export type TConfigChangeSlide =  Pick<TConfigSliderProps, 'autoPlay' | 'autoPlayTime' | 'pagePaginationSize'>;

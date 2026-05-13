@@ -1,4 +1,4 @@
-import type { TConfigAutoPlay, TSlideItem} from "../types";
+import type { TConfigChangeSlide, TSlideItem} from "../types";
 import { useCallback,   useMemo, useReducer, useEffect} from "react";
 import type { TActionSlide } from "../types";
 // import { getNextIndexSlide } from "../utils/getIndexNextSlide";
@@ -8,10 +8,15 @@ import { initialStateSlider, sliderReducer } from "../model/sliderReducer";
 
 
 
-export const useChangeSlide = (slides: TSlideItem[], {autoPlay, autoPlayTime = 3000}:TConfigAutoPlay ) => {
+export const useChangeSlide = (
+  slides: TSlideItem[], 
+  {
+    autoPlay, 
+    autoPlayTime = 3000,
+    pagePaginationSize
+  }:TConfigChangeSlide 
+) => {
 
- //  типизировать редюсер ??
-  const PAGE_PAGINATION_SIZE = 3;
   // 1. Подготавливаем слайды с клонами 
   // (абстрагировать логику клонирования - допустим если нам это не надо)
   const slidesWithClones = useMemo(() => {
@@ -48,12 +53,12 @@ export const useChangeSlide = (slides: TSlideItem[], {autoPlay, autoPlayTime = 3
   const preparedIndexesForPag = useMemo(()=>{
     const currentIndexesPag = getPagIndexes(
       stateSlader.indexSlide-1, 
-      PAGE_PAGINATION_SIZE, 
+      pagePaginationSize || 3, 
       slides.length
     );
     return currentIndexesPag.map((dotIndex)=>(
       dotIndex+1
-  ))},[stateSlader.indexSlide, slides.length])
+  ))},[stateSlader.indexSlide, slides.length, pagePaginationSize])
 
  //  отключить/включить автоматическое изменение картинок слайдера
   // const [interChangSlide, toggleIntervalSlide] = useState<boolean>(false);
