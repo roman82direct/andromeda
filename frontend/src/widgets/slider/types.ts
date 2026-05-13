@@ -52,7 +52,7 @@ export type TArrow = {
 export type TConfigSliderProps = {
   // infiniteLoop: boolean;
   // showSlides: number;
-  // isPagination?: boolean;
+  isPagination?: boolean;
   autoPlay?: boolean;
   autoPlayTime?: number;
   // typeSlider?:'' --> попробуй масштабировать

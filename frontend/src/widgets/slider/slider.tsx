@@ -14,7 +14,7 @@ export const SliderComponent = (
   {
      // infiniteLoop: boolean;
   // showSlides: number;
-  // isPagination?: boolean;
+    isPagination,
     autoPlay,
     autoPlayTime,
   // typeSlider?:'' --> попробуй масштабировать
@@ -76,7 +76,10 @@ const getCurrentSlideTheme = useMemo(()=>{
         <SliderStateContext.Provider
           value={valueSliderState}
         >
-          <SliderUI toggleAutoPlayChangeSlide={dataForSlider.toggleAutoPlayChangeSlide} />
+          <SliderUI 
+            toggleAutoPlayChangeSlide={dataForSlider.toggleAutoPlayChangeSlide} 
+            isPagination={isPagination}
+            />
         </SliderStateContext.Provider>
       </SliderActionsContext.Provider>
   </SlidesContext.Provider>

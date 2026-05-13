@@ -8,7 +8,7 @@ export const HomePageUI: FC = () => {
       <h1 className="visually-hidden">Andromeda Store — магазин керамической посуды и аксессуаров для дома</h1>
       <section className={styles["home-banner"]}>
         <h2 className="visually-hidden">Актуальные акции и предложения</h2>
-        <Slider />
+        <Slider isPagination={true} />
       </section>
     </div>
   );

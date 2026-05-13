@@ -6,9 +6,15 @@ import { Arrows } from "../components/arrows/arrows";
 
 export type TSliderUIProps = {
   toggleAutoPlayChangeSlide?: (flag: boolean) => void;
+  isPagination?: boolean;
 };
 
-export const SliderComponentUI = ({ toggleAutoPlayChangeSlide }: TSliderUIProps) => {
+export const SliderComponentUI = (
+  { 
+    toggleAutoPlayChangeSlide,
+    isPagination
+
+  }: TSliderUIProps) => {
 
   const handleToggleAutoPlayChangeSlide = (flag:boolean)=>{
     return toggleAutoPlayChangeSlide ? () => toggleAutoPlayChangeSlide(flag) : ()=>{}
@@ -24,7 +30,7 @@ export const SliderComponentUI = ({ toggleAutoPlayChangeSlide }: TSliderUIProps)
       <SlidesList />
       <div className={styles["slider-nav"]}>
         <Arrows />
-        <Dots />
+        {isPagination && <Dots />}
       </div>
     </div>
   );
