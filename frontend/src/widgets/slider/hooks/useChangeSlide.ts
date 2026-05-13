@@ -66,7 +66,7 @@ export const useChangeSlide = (slides: TSlideItem[], delay: number = 3000) => {
     },
     [],
   );
-//  исправить пагинацию!!!!
+
   const handleTransitionEnd = useCallback( ()=>{
     // сообщаем что анимация закончилась =>можно продолжить переключение слайдов
     dispatch({type:'TRANSITION_END'})
