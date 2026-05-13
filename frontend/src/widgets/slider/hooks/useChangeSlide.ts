@@ -12,7 +12,8 @@ export const useChangeSlide = (slides: TSlideItem[], delay: number = 3000) => {
   // const [indexSlide, setIndexSlide] = useState<number>(firstRealIndexSlide);
   //  типизировать редюсер ??
   const PAGE_PAGINATION_SIZE = 3;
-  // 1. Подготавливаем слайды с клонами
+  // 1. Подготавливаем слайды с клонами 
+  // (абстрагировать логику клонирования - допустим если нам это не надо)
   const slidesWithClones = useMemo(() => {
   if (slides.length === 0) return [];
   return [slides[slides.length-1], ...slides, slides[0]];
@@ -22,6 +23,7 @@ export const useChangeSlide = (slides: TSlideItem[], delay: number = 3000) => {
 
   const [stateSlader, dispatch] = useReducer(
     sliderReducer, 
+    // на основе 2 обхектаинициализируем состояние 
     slidesWithClones,
     // ленивая загрузка - функция вызывается один раз при монтир компоненте(передатьданные кот зависят от пропсов)
     (slides)=>{
@@ -31,6 +33,17 @@ export const useChangeSlide = (slides: TSlideItem[], delay: number = 3000) => {
       }
     }
   )
+
+
+  //  обновление слайдов(напр если они пришли с сервера снова)
+  useEffect(()=>{
+      dispatch({
+        type:'SET_PREPARED_SLIDES',
+        payload: slidesWithClones
+      })
+  },[slidesWithClones])
+
+
  // определим пагинацию 
   const preparedIndexesForPag = useMemo(()=>{
     const currentIndexesPag = getPagIndexes(

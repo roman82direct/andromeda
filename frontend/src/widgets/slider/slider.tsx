@@ -12,8 +12,9 @@ import {
 type TConfigSlider = {
   infiniteLoop: boolean;
   showSlides: number;
-  isPagination: boolean;
-  autoPlay: boolean;
+  isPagination?: boolean;
+  autoPlay?: boolean;
+  autoPlayTime?: number
   children: ReactNode; // что будем показывать ?
 }
 
