@@ -30,7 +30,7 @@ const [slides] = useState<TSlideItem[]>(()=>sliderStore);
 
 const autoPlayInfo:TConfigAutoPlay = {autoPlay,autoPlayTime};
 
-const dataForSlider = useChangeSlide(slides, autoPlayInfo );
+const dataForSlider = useChangeSlide(slides, autoPlayInfo);
   // вычисляем тему слайда 1 раз 
 const getCurrentSlideTheme = useMemo(()=>{
   const currentSlide = dataForSlider.preparedSlides[dataForSlider.indexSlide]
@@ -73,16 +73,13 @@ const getCurrentSlideTheme = useMemo(()=>{
     <SliderActionsContext.Provider
       value={valueSliderActions}
       >
-    <SliderStateContext.Provider
-      value={valueSliderState}
-    >
-    
-      {/* <SliderUI toggleIntervalSlide={toggleIntervalSlide} /> */}
-            <SliderUI  />
-  
-    </SliderStateContext.Provider>
+        <SliderStateContext.Provider
+          value={valueSliderState}
+        >
+          <SliderUI toggleAutoPlayChangeSlide={dataForSlider.toggleAutoPlayChangeSlide} />
+        </SliderStateContext.Provider>
       </SliderActionsContext.Provider>
-      </SlidesContext.Provider>
+  </SlidesContext.Provider>
   );
 };
 

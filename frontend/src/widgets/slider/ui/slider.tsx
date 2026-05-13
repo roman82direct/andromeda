@@ -5,15 +5,21 @@ import { Dots } from "../components/dots/dots";
 import { Arrows } from "../components/arrows/arrows";
 
 export type TSliderUIProps = {
-  toggleIntervalSlide?: (flag: boolean) => void;
+  toggleAutoPlayChangeSlide?: (flag: boolean) => void;
 };
 
-export const SliderComponentUI = ({ toggleIntervalSlide }: TSliderUIProps) => {
+export const SliderComponentUI = ({ toggleAutoPlayChangeSlide }: TSliderUIProps) => {
+
+  const handleToggleAutoPlayChangeSlide = (flag:boolean)=>{
+    return toggleAutoPlayChangeSlide ? () => toggleAutoPlayChangeSlide(flag) : ()=>{}
+  }
+
   return (
     <div
       className={styles.slider}
-      onMouseEnter={toggleIntervalSlide ? () => toggleIntervalSlide(false) : ()=>{}}
-      onMouseLeave={toggleIntervalSlide ? () => toggleIntervalSlide(true) : ()=>{}}
+      // нужно сделать аналог на тач скринах
+      onMouseEnter={handleToggleAutoPlayChangeSlide(true)}
+      onMouseLeave={handleToggleAutoPlayChangeSlide(false)}
     >
       <SlidesList />
       <div className={styles["slider-nav"]}>

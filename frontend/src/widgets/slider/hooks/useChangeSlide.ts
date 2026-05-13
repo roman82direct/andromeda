@@ -78,9 +78,16 @@ export const useChangeSlide = (slides: TSlideItem[], {autoPlay, autoPlayTime = 3
   }, [])
   
   // добавить флаг для остоновки автоматич пролистывания при наведении на слайд
+  //  обработчик для onMouseOn onMouseEnter 
+  const handleToggleRunAutoPlayShowSlides = ()=>{
+    dispatch({type:'TOGGLE_AUTOPLAY', payload: !stateSlader.isAutoPlay})
+  }
+  
   //  автоматич показ слайдов
   useEffect(() => {
-    if (!autoPlay) return;
+    // autoPlay  переменная должна задаваться обработчиком и если это нужно нам
+    // если прогрмно автоматич смена слайдов отключена  или мышка на слайде
+    if (!autoPlay || !stateSlader.isAutoPlay) return;
     const intervalIdSliders = setInterval(() => {
       dispatch({type:'CHANGE_SLIDE', payload:'increment'})
     }, autoPlayTime);
@@ -88,19 +95,23 @@ export const useChangeSlide = (slides: TSlideItem[], {autoPlay, autoPlayTime = 3
     return () => {
       clearInterval(intervalIdSliders);
     };
-  }, [autoPlayTime, autoPlay]);
+  }, [
+      autoPlayTime, 
+      autoPlay, 
+      stateSlader.isAutoPlay
+    ]);
 
   return {
     indexSlide: stateSlader.indexSlide, // индексы:слайд текущий
     setIndexSlide, // lдля прыжка на люб слайд (пагинация)
     handleChangeSlide, // // Функция для кнопок "Вперед" и "Назад"
-    // автоматич переключение слайдов
-    // toggleIntervalSlide,
     preparedSlides: stateSlader.preparedSlides,
     isAnimating: stateSlader.isAnimating,
     transitionEnabled: stateSlader.transitionEnabled,  
     handleTransitionEnd,
-    preparedIndexesForPag
+    preparedIndexesForPag,
+    // для автом смены слайда
+    toggleAutoPlayChangeSlide:handleToggleRunAutoPlayShowSlides,
   };
 };
 

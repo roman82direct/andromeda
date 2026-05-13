@@ -9,6 +9,8 @@ export type TSliderState = {
   isAnimating: boolean; // общий процесса анимации(для блокировки кнопок)
   transitionEnabled: boolean; //состояние перехода слайдов
   preparedSlides: TSlideItem[];
+  isAutoPlay?: boolean;
+
 }
 //  определим начальное состояние слайдера
 export const initialStateSlider: TSliderState  ={
@@ -17,6 +19,7 @@ export const initialStateSlider: TSliderState  ={
   isAnimating: false,
   transitionEnabled: true,
   preparedSlides: [],
+  isAutoPlay: true
 }
 
 // опишем действия 
@@ -28,9 +31,14 @@ export type TSliderAction =
     type: 'TRANSITION_END';
   }
 | {
-  type: 'SET_INDEX'; payload:number;
-} 
-| {type: 'SET_PREPARED_SLIDES'; payload:  TSlideItem[]}
+    type: 'SET_INDEX'; payload:number;
+  } 
+| {
+    type: 'SET_PREPARED_SLIDES'; payload:  TSlideItem[]
+  }
+| {
+    type: 'TOGGLE_AUTOPLAY'; payload: boolean
+  }
 
 
 
@@ -97,6 +105,12 @@ export const sliderReducer = (
         return {
           ...state,
           preparedSlides: action.payload,
+        }
+      };
+      case 'TOGGLE_AUTOPLAY': {
+        return {
+          ...state,
+          isAutoPlay: action.payload
         }
       }
       default:
