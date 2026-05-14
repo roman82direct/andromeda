@@ -1,5 +1,5 @@
 import { createContext, type ReactNode} from "react";
-import type { TSlideItemWithId, TActionSlide, ThemeSlide } from "../types";
+import type {  TActionSlide, ThemeSlide, TSlideItem } from "../types";
 //  создать отдельную папку с контекстами!!!
 //  связать состоянием слайдера в редюсере?
 export type TSliderStateContext = {
@@ -18,8 +18,8 @@ export type TSliderActionsContenxt = {
 
 export type TSlidesContext = {
   // TSlideItemWithId   убрать тип
-  slides: TSlideItemWithId[];
-  children: (slides: TSlideItemWithId[])=>ReactNode;
+  slides:  TSlideItem[];
+  children: (slides:  TSlideItem[])=>ReactNode;
 }
 
 

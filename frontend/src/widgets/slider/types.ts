@@ -29,11 +29,9 @@ export type TSlideItem = {
 export type TActionSlide = "increment" | "decrement";
 
 export type TSlide = "prev" | "current" | "next";
-//  убрать потом !!!
-export type TSlideItemWithId = { id?: string; typeSlide?: TSlide } & TSlideItem;
 
 export type TRenderSlides = {
-  [k in TSlide]: TSlideItemWithId;
+  [k in TSlide]:  TSlideItem;
 };
 
 export type TRenderIndexesSlides = {
