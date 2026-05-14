@@ -1,15 +1,11 @@
 import styles from "./home-page.module.css";
 import { Slider } from "@/widgets/slider";
-import { SlideUI } from "@/widgets/slider/components/slide/slide";
-import type { TSlideItem } from "@/widgets/slider/types";
-import { useMemo, type FC } from "react";
+import { renderedSlides } from "@/widgets/slider/utils/renderSlides";
+import {  type FC } from "react";
 
 export const HomePageUI: FC = () => {
 
-  const renderedSlides = (slides:TSlideItem[])=>{
-     return slides.map((slide, index) => {
-         return <SlideUI key={index} showingSlide={slide} />
- })  }
+
   return (
     <div className={styles.home}>
       <h1 className="visually-hidden">Andromeda Store — магазин керамической посуды и аксессуаров для дома</h1>

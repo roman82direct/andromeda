@@ -1,18 +1,6 @@
 import { createContext, type ReactNode} from "react";
 import type { TSlideItemWithId, TActionSlide, ThemeSlide } from "../types";
-// убрать лишние поля и возможно как то разделить контексты:
-// type TSliderContext = {
-//   slideNumber: number;
-//   slides: TSlideItemWithId[];
-//   dotsPag: number[];
-//   setIndexSlide: (index: number) => void;
-//   currentSlideTheme: ThemeSlide;
-//   handleChangeSlide: (action: TActionSlide) => void;
-//   transitionEnabled:boolean;
-//   handleTransitionEnd:()=>void;
-//   isAnimation: boolean;
-// };
-
+//  создать отдельную папку с контекстами!!!
 //  связать состоянием слайдера в редюсере?
 export type TSliderStateContext = {
   slideNumber: number;

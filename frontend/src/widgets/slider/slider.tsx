@@ -7,7 +7,7 @@ import {
     SliderStateContext, 
     SliderActionsContext,
     SlidesContext
-  } from "./utils/contexts";
+  } from "./model/contexts";
 
 
 export const SliderComponent = (
