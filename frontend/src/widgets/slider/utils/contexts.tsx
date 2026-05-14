@@ -1,4 +1,4 @@
-import { createContext} from "react";
+import { createContext, type ReactNode} from "react";
 import type { TSlideItemWithId, TActionSlide, ThemeSlide } from "../types";
 // убрать лишние поля и возможно как то разделить контексты:
 // type TSliderContext = {
@@ -29,7 +29,9 @@ export type TSliderActionsContenxt = {
 }
 
 export type TSlidesContext = {
+  // TSlideItemWithId   убрать тип
   slides: TSlideItemWithId[];
+  children: (slides: TSlideItemWithId[])=>ReactNode;
 }
 
 

@@ -1,5 +1,6 @@
 import type { TActionUser } from "@/shared/types/types";
 import type { TIconClassCssIcon } from "@/shared/types/ui/icon";
+import type { ReactNode } from "react";
 
 type TImageSrc = string;
 
@@ -28,7 +29,7 @@ export type TSlideItem = {
 export type TActionSlide = "increment" | "decrement";
 
 export type TSlide = "prev" | "current" | "next";
-
+//  убрать потом !!!
 export type TSlideItemWithId = { id?: string; typeSlide?: TSlide } & TSlideItem;
 
 export type TRenderSlides = {
@@ -46,6 +47,10 @@ export type TArrow = {
 };
 
 
+
+type slide = TSlideItem
+
+
 //   общие параметры слайдера 
 //  переделать слайдер под след настройки
 //  и выделать в типы слайдера
@@ -56,8 +61,14 @@ export type TConfigSliderProps = {
   autoPlay?: boolean;
   autoPlayTime?: number;
   // typeSlider?:'' --> попробуй масштабировать
-  // children: ReactNode; // что будем показывать ?
+  children: (slides:TSlideItem[]) => ReactNode;  // Явное определение функции
   pagePaginationSize?:number;
+  // width
+  // height
 }
 //  выделить в типы хука или слайдера
 export type TConfigChangeSlide =  Pick<TConfigSliderProps, 'autoPlay' | 'autoPlayTime' | 'pagePaginationSize'>;
+
+
+
+// TSlideItemWithId   убрать везде !!!

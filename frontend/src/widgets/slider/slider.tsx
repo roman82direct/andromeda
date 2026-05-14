@@ -1,4 +1,4 @@
-import { memo, useMemo, useState, type ReactNode } from "react";
+import { memo, useMemo, useState } from "react";
 import { SliderUI } from "./ui/slider";
 import type { TConfigChangeSlide, TConfigSliderProps, TSlideItem } from "./types";
 import { useChangeSlide } from "./hooks/useChangeSlide";
@@ -18,7 +18,7 @@ export const SliderComponent = (
     autoPlay,
     autoPlayTime,
   // typeSlider?:'' --> попробуй масштабировать
-  // children: ReactNode; // что будем показывать ?
+    children,// что будем показывать ?
     pagePaginationSize = 3 ,
   }:TConfigSliderProps
 ) => {
@@ -56,7 +56,8 @@ const getCurrentSlideTheme = useMemo(()=>{
 //  меняется редко поэтому выделим
   const valueSlides = useMemo(()=>({
     slides:  dataForSlider.preparedSlides,
-  }),[dataForSlider.preparedSlides,])
+    children
+  }),[dataForSlider.preparedSlides, children])
 // создадим действия 
    const valueSliderActions = useMemo(()=>({
     setIndexSlide: dataForSlider.setIndexSlide,

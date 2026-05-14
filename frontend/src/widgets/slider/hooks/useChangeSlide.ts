@@ -1,7 +1,6 @@
 import type { TConfigChangeSlide, TSlideItem} from "../types";
 import { useCallback,   useMemo, useReducer, useEffect} from "react";
 import type { TActionSlide } from "../types";
-// import { getNextIndexSlide } from "../utils/getIndexNextSlide";
 import { getPagIndexes } from "../utils/getPagIndexes";
 import { initialStateSlider, sliderReducer } from "../model/sliderReducer";
 
