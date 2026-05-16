@@ -2,6 +2,7 @@ import { IconButtonUI } from "@/shared/ui/icon-button";
 import styles from "./arrows.module.css";
 import type { TArrow } from "@/widgets/slider/types";
 import type { TThemeElementsPage } from "@/shared/types/types";
+import { memo } from "react";
 
 
 type ArrowUIProps = {
@@ -10,7 +11,7 @@ type ArrowUIProps = {
   isDisabled?: boolean;
 }
 
-export const ArrowsUI = (
+export const ArrowsUIComponent = (
   {
     arrows,
     themeArrows,
@@ -36,3 +37,7 @@ export const ArrowsUI = (
     </div>
   );
 };
+
+
+export const ArrowsUI = memo(ArrowsUIComponent);
+ArrowsUI.displayName = 'ArrowsUI';

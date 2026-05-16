@@ -51,6 +51,7 @@ export const useChangeSlide = (
  // определим пагинацию 
   const preparedIndexesForPag = useMemo(()=>{
     const currentIndexesPag = getPagIndexes(
+      // продумать часть бесконеч цикла
       stateSlader.indexSlide-1, 
       pagePaginationSize || 3, 
       slides.length
@@ -58,7 +59,8 @@ export const useChangeSlide = (
     return currentIndexesPag.map((dotIndex)=>(
       dotIndex+1
   ))},[stateSlader.indexSlide, slides.length, pagePaginationSize])
-
+  console.log(stateSlader.indexSlide-1,pagePaginationSize, slides.length )
+  // console.log(preparedIndexesForPag)
  //  отключить/включить автоматическое изменение картинок слайдера
   // const [interChangSlide, toggleIntervalSlide] = useState<boolean>(false);
 //  подготовка слайдов ксозданию 'бесконечной прокрутки'

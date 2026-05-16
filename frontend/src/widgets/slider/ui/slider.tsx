@@ -16,16 +16,15 @@ export const SliderComponentUI = (
 
   }: TSliderUIProps) => {
 
-  const handleToggleAutoPlayChangeSlide = (flag:boolean)=>{
-    return toggleAutoPlayChangeSlide ? () => toggleAutoPlayChangeSlide(flag) : ()=>{}
-  }
+  const handleMouseEnter = () => toggleAutoPlayChangeSlide?.(true);
+  const handleMouseLeave = () => toggleAutoPlayChangeSlide?.(false);
 
   return (
     <div
       className={styles.slider}
       // нужно сделать аналог на тач скринах
-      onMouseEnter={handleToggleAutoPlayChangeSlide(true)}
-      onMouseLeave={handleToggleAutoPlayChangeSlide(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <SlidesList />
       <div className={styles["slider-nav"]}>

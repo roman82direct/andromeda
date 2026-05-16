@@ -14,15 +14,4 @@
   inset-block-end: 40px;
   inset-inline-start: 32px;
 }
-/* убрать */
-.slider-arrows {
-  display: flex;
-  gap: 15px;
-}
-/* убрать */
-.slider-pag {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding-block-start: 15px;
-}
+

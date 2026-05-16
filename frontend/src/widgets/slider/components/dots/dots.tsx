@@ -20,7 +20,7 @@ export const Dots = () => {
     
   } = useSliderActionsContext();
 
-  // console.log(dotsPag)
+  const dotsLength = dotsPag.length-1;
   
   // console.log(slideNumber)
   // slideNumber -  номер текущего слайда котрый на "экране"
@@ -39,7 +39,7 @@ export const Dots = () => {
   return (
        <DotsUI 
           activeSlideNumber={slideNumber} 
-          dotsPag={dotsPag}  
+          dotsPag={dotsLength > 0 ? dotsPag : [1,2,3]}  
           currentDotsTheme={themePag} 
           onClick={handleSetSlide}
           isBlockClickForDots={isAnimation}
