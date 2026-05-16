@@ -1,11 +1,11 @@
 import { ButtonUI } from "@/shared/ui/button";
 import clsx from "clsx";
 import styles from "./slide.module.css";
-import type { TSlideItemWithId } from "@/widgets/slider/types";
+import type { TSlideItem } from "@/widgets/slider/types";
 import { memo, useMemo,  } from "react";
 
 export type SlideUIProps = {
-  showingSlide: TSlideItemWithId;
+  showingSlide: TSlideItem;
 };
 
 export const SlideUIComponent = ({ showingSlide }: SlideUIProps) => {

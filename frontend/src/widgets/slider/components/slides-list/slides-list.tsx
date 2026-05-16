@@ -17,7 +17,7 @@ export const SlidesList = () => {
   
   
   const stylesTranslate = useMemo(()=>({
-    transform: `translate3d(-${slideNumber * 100}%,0,0)`,
+    transform: `translateX(-${slideNumber * 100}%)`,
     transition:  transitionEnabled ? 'transform 0.5s ease-in-out' : 'none',
   }),[slideNumber, transitionEnabled]) as React.CSSProperties;
 //  сделать чилдрен функцию!!!!
