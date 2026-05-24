@@ -55,7 +55,13 @@ export const useChangeSlide = (
       })
   },[preparedSlides])
 
-
+// если слайдер не бесконечный скрывам стрелку  если слайд первый или последний
+  const isRightArrow =  !infiniteLoop && stateSlader.indexSlide === 0;
+  const isLeftArrow = !infiniteLoop &&  stateSlader.indexSlide === stateSlader.preparedSlides.length-1;
+  const isBlockArrow = {
+    isLeftArrow,
+    isRightArrow
+  }
  // определим пагинацию 
   const preparedIndexesForPag = useMemo(()=>{
     const currentIndexesPag = getPagIndexes(
@@ -125,6 +131,7 @@ export const useChangeSlide = (
     preparedIndexesForPag,
     // для автом смены слайда
     toggleAutoPlayChangeSlide:handleToggleRunAutoPlayShowSlides,
+    isBlockArrow
   };
 };
 

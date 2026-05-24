@@ -54,12 +54,14 @@ const getCurrentSlideTheme = useMemo(()=>{
     currentSlideTheme: getCurrentSlideTheme,
     transitionEnabled:dataForSlider.transitionEnabled,
     isAnimation:dataForSlider.isAnimating,
+    isBlockArrow: dataForSlider.isBlockArrow
   }),[
      dataForSlider.indexSlide,
      dataForSlider.isAnimating,
      dataForSlider.transitionEnabled,
      dataForSlider.preparedIndexesForPag,
-     getCurrentSlideTheme
+     getCurrentSlideTheme,
+     dataForSlider.isBlockArrow
   ])
 //  меняется редко поэтому выделим
   const valueSlides = useMemo(()=>({

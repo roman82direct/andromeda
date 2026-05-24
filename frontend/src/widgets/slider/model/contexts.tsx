@@ -2,12 +2,19 @@ import { createContext, type ReactNode} from "react";
 import type {  TActionSlide, ThemeSlide, TSlideItem } from "../types";
 //  создать отдельную папку с контекстами!!!
 //  связать состоянием слайдера в редюсере?
+
+export type TBlockArrow = {
+      isLeftArrow:boolean, 
+      isRightArrow: boolean
+    };
+
 export type TSliderStateContext = {
   slideNumber: number;
   dotsPag: number[];
   currentSlideTheme: ThemeSlide;
   transitionEnabled:boolean;
   isAnimation: boolean;
+  isBlockArrow: TBlockArrow;
 }
 
 export type TSliderActionsContenxt = {
