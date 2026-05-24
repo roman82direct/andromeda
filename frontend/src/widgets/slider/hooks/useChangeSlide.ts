@@ -39,8 +39,10 @@ export const useChangeSlide = (
     preparedSlides,
     // ленивая загрузка - функция вызывается один раз при монтир компоненте(передатьданные кот зависят от пропсов)
     (slides)=>{
+      const currentIndexSlide =  infiniteLoop ? initialStateSlider.indexSlide + 1 : initialStateSlider.indexSlide;
       return {
         ...initialStateSlider,
+        indexSlide:currentIndexSlide,
         preparedSlides:slides
       }
     }
@@ -63,16 +65,17 @@ export const useChangeSlide = (
     isRightArrow
   }
  // определим пагинацию 
+  
   const preparedIndexesForPag = useMemo(()=>{
     const currentIndexesPag = getPagIndexes(
       // продумать часть бесконеч цикла
-      stateSlader.indexSlide, 
+      infiniteLoop ? stateSlader.indexSlide-1 : stateSlader.indexSlide, 
       pagePaginationSize || 3, 
       slides.length
     );
     return currentIndexesPag.map((dotIndex)=>(
-      dotIndex
-  ))},[stateSlader.indexSlide, slides.length, pagePaginationSize])
+        infiniteLoop ? dotIndex+1 : dotIndex
+  ))},[stateSlader.indexSlide, slides.length, pagePaginationSize,infiniteLoop])
   // console.log(stateSlader.indexSlide-1,pagePaginationSize, slides.length )
   // console.log(preparedIndexesForPag)
  //  отключить/включить автоматическое изменение картинок слайдера
@@ -107,7 +110,6 @@ export const useChangeSlide = (
     // autoPlay  переменная должна задаваться обработчиком и если это нужно нам
     // если прогрмно автоматич смена слайдов отключена  или мышка на слайде
     if (!autoPlay || !stateSlader.isAutoPlay) return;
-    //  в зависимости от выключ или включ бесконеч цикла
     const intervalIdSliders = setInterval(() => {
       dispatch({type:'CHANGE_SLIDE', payload:'increment'})
     }, autoPlayTime);
