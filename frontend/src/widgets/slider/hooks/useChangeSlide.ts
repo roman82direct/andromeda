@@ -66,12 +66,12 @@ export const useChangeSlide = (
   const preparedIndexesForPag = useMemo(()=>{
     const currentIndexesPag = getPagIndexes(
       // продумать часть бесконеч цикла
-      stateSlader.indexSlide-1, 
+      stateSlader.indexSlide, 
       pagePaginationSize || 3, 
       slides.length
     );
     return currentIndexesPag.map((dotIndex)=>(
-      dotIndex+1
+      dotIndex
   ))},[stateSlader.indexSlide, slides.length, pagePaginationSize])
   // console.log(stateSlader.indexSlide-1,pagePaginationSize, slides.length )
   // console.log(preparedIndexesForPag)
@@ -107,6 +107,7 @@ export const useChangeSlide = (
     // autoPlay  переменная должна задаваться обработчиком и если это нужно нам
     // если прогрмно автоматич смена слайдов отключена  или мышка на слайде
     if (!autoPlay || !stateSlader.isAutoPlay) return;
+    //  в зависимости от выключ или включ бесконеч цикла
     const intervalIdSliders = setInterval(() => {
       dispatch({type:'CHANGE_SLIDE', payload:'increment'})
     }, autoPlayTime);

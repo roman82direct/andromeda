@@ -15,7 +15,7 @@ export type TSliderState = {
 //  определим начальное состояние слайдера
 export const initialStateSlider: TSliderState  ={
   //  текущий слайд который будем показывать
-  indexSlide: 1,
+  indexSlide: 0,
   isAnimating: false,
   transitionEnabled: true,
   preparedSlides: [],

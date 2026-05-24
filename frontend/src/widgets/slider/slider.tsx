@@ -15,7 +15,7 @@ import {
 
 export const SliderComponent = (
   {
-     infiniteLoop = false,
+    infiniteLoop = false,
   // showSlides: number;
     isPagination,
     autoPlay,

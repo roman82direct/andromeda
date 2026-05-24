@@ -31,7 +31,7 @@ export const ArrowsUIComponent = (
        
     <div className={styles["slider-arrows"]}>
         <IconButtonUI
-          key={'right'}
+          key={arrows.right.key}
           onClick={arrows.right.onClick}
           iconClass={arrows.right.icon}
           isActive={false}
