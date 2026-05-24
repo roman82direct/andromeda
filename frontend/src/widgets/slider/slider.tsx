@@ -9,10 +9,13 @@ import {
     SlidesContext
   } from "./model/contexts";
 
+// сделай пагинацию!!!!!!!!! 
+// с учетом бесконеч цикла
+//  и стрелки
 
 export const SliderComponent = (
   {
-     // infiniteLoop: boolean;
+     infiniteLoop = false,
   // showSlides: number;
     isPagination,
     autoPlay,
@@ -28,7 +31,12 @@ export const SliderComponent = (
   // функция вызывается один раз - ленивая загрузка - тяжелые вычисления
 const [slides] = useState<TSlideItem[]>(()=>sliderStore);
 
-const settingChangeSlide:TConfigChangeSlide = {autoPlay,autoPlayTime,pagePaginationSize};
+const settingChangeSlide:TConfigChangeSlide = {
+  autoPlay,
+  autoPlayTime,
+  pagePaginationSize,
+  infiniteLoop
+};
 
 const dataForSlider = useChangeSlide(slides, settingChangeSlide);
   // вычисляем тему слайда 1 раз 

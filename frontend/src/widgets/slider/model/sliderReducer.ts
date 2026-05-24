@@ -28,7 +28,7 @@ export type TSliderAction =
     type: 'CHANGE_SLIDE'; payload:TActionSlide;
   }
 | {
-    type: 'TRANSITION_END';
+    type: 'TRANSITION_END'; payload: boolean;
   }
 | {
     type: 'SET_INDEX'; payload:number;
@@ -67,29 +67,37 @@ export const sliderReducer = (
 
       };
       case 'TRANSITION_END': {
+        if(action.payload){
+           let defaultTransitionValue = state.transitionEnabled;
 
-        let defaultTransitionValue = state.transitionEnabled;
+          const currentIndex = state.indexSlide;
+          let nextIndexSlide = currentIndex;
+          if(currentIndex === 0){
+          
+            // если нулевой клон переходим к его настоящ(послед слайд)
+            //  или минус 2
+            nextIndexSlide = state.preparedSlides.length - 2; // оригинальный последний
+            defaultTransitionValue = false; 
+          }
+          if(currentIndex === state.preparedSlides.length-1){
+          
+            nextIndexSlide = 1
+            defaultTransitionValue = false;
+          }
 
-        const currentIndex = state.indexSlide;
-        let nextIndexSlide = currentIndex;
-        if(currentIndex === 0){
-         
-          // если нулевой клон переходим к его настоящ(послед слайд)
-          //  или минус 2
-          nextIndexSlide = state.preparedSlides.length - 2; // оригинальный последний
-          defaultTransitionValue = false; 
+          return {
+            ...state,
+            indexSlide: nextIndexSlide,
+            isAnimating: false,
+            transitionEnabled:defaultTransitionValue,
+            
+          }
         }
-        if(currentIndex === state.preparedSlides.length-1){
-         
-          nextIndexSlide = 1
-          defaultTransitionValue = false;
-        }
-
         return {
           ...state,
-          indexSlide: nextIndexSlide,
+          indexSlide: state.indexSlide,
           isAnimating: false,
-          transitionEnabled:defaultTransitionValue,
+          transitionEnabled: state.transitionEnabled,
           
         }
       };

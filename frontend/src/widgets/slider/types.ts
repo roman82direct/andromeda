@@ -46,14 +46,14 @@ export type TArrow = {
 
 
 
-type slide = TSlideItem
+// type slide = TSlideItem
 
 
 //   общие параметры слайдера 
 //  переделать слайдер под след настройки
 //  и выделать в типы слайдера
 export type TConfigSliderProps = {
-  // infiniteLoop: boolean;
+  infiniteLoop?: boolean;
   // showSlides: number;
   isPagination?: boolean;
   autoPlay?: boolean;
@@ -65,7 +65,7 @@ export type TConfigSliderProps = {
   // height
 }
 //  выделить в типы хука или слайдера
-export type TConfigChangeSlide =  Pick<TConfigSliderProps, 'autoPlay' | 'autoPlayTime' | 'pagePaginationSize'>;
+export type TConfigChangeSlide =  Pick<TConfigSliderProps, 'autoPlay' | 'autoPlayTime' | 'pagePaginationSize' | 'infiniteLoop'>;
 
 
 

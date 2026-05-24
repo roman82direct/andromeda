@@ -12,23 +12,31 @@ export const useChangeSlide = (
   {
     autoPlay, 
     autoPlayTime = 3000,
-    pagePaginationSize
+    pagePaginationSize,
+    infiniteLoop
   }:TConfigChangeSlide 
 ) => {
 
   // 1. Подготавливаем слайды с клонами 
   // (абстрагировать логику клонирования - допустим если нам это не надо)
-  const slidesWithClones = useMemo(() => {
-  if (slides.length === 0) return [];
-  return [slides[slides.length-1], ...slides, slides[0]];
-}, [slides]);
-
+//   const slidesWithClones = useMemo(() => {
+//   if (slides.length === 0) return [];
+//   return [slides[slides.length-1], ...slides, slides[0]];
+// }, [slides]);
+  const preparedSlides = useMemo(()=>{
+    if (slides.length === 0) return [];
+    if(infiniteLoop){
+      return [slides[slides.length-1], ...slides, slides[0]];
+    }else{
+      return slides
+    }
+  },[infiniteLoop, slides])
 
 
   const [stateSlader, dispatch] = useReducer(
     sliderReducer, 
     // на основе 2 обхектаинициализируем состояние 
-    slidesWithClones,
+    preparedSlides,
     // ленивая загрузка - функция вызывается один раз при монтир компоненте(передатьданные кот зависят от пропсов)
     (slides)=>{
       return {
@@ -43,9 +51,9 @@ export const useChangeSlide = (
   useEffect(()=>{
       dispatch({
         type:'SET_PREPARED_SLIDES',
-        payload: slidesWithClones
+        payload: preparedSlides 
       })
-  },[slidesWithClones])
+  },[preparedSlides])
 
 
  // определим пагинацию 
@@ -59,7 +67,7 @@ export const useChangeSlide = (
     return currentIndexesPag.map((dotIndex)=>(
       dotIndex+1
   ))},[stateSlader.indexSlide, slides.length, pagePaginationSize])
-  console.log(stateSlader.indexSlide-1,pagePaginationSize, slides.length )
+  // console.log(stateSlader.indexSlide-1,pagePaginationSize, slides.length )
   // console.log(preparedIndexesForPag)
  //  отключить/включить автоматическое изменение картинок слайдера
   // const [interChangSlide, toggleIntervalSlide] = useState<boolean>(false);
@@ -68,15 +76,14 @@ export const useChangeSlide = (
     (typeOperation: TActionSlide) => {
       
       dispatch({type:'CHANGE_SLIDE',payload:typeOperation})
-     
     },
     [],
   );
 
   const handleTransitionEnd = useCallback( ()=>{
     // сообщаем что анимация закончилась =>можно продолжить переключение слайдов
-    dispatch({type:'TRANSITION_END'})
-},[])
+    dispatch({type:'TRANSITION_END', payload: infiniteLoop || false})
+},[infiniteLoop])
 
 //  можем сменить слайд на тот который нам нужно
   const setIndexSlide = useCallback((indexSlide:number)=>{
