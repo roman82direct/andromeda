@@ -18,7 +18,7 @@ export const SliderComponent = (
     infiniteLoop = false,
   // showSlides: number;
     isPagination,
-    autoPlay,
+    autoPlay=true,
     autoPlayTime,
   // typeSlider?:'' --> попробуй масштабировать
     children,// что будем показывать ?

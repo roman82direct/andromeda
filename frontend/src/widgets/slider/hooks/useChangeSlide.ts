@@ -1,8 +1,9 @@
 import type { TConfigChangeSlide, TSlideItem} from "../types";
-import { useCallback,   useMemo, useReducer, useEffect} from "react";
+import { useCallback,   useMemo, useReducer, useEffect, useRef} from "react";
 import type { TActionSlide } from "../types";
 import { getPagIndexes } from "../utils/getPagIndexes";
 import { initialStateSlider, sliderReducer } from "../model/sliderReducer";
+import type { Interval } from "date-fns";
 
 
 
@@ -11,7 +12,7 @@ export const useChangeSlide = (
   slides: TSlideItem[], 
   {
     autoPlay, 
-    autoPlayTime = 3000,
+    autoPlayTime = 1000,
     pagePaginationSize,
     infiniteLoop
   }:TConfigChangeSlide 
@@ -64,11 +65,12 @@ export const useChangeSlide = (
     isLeftArrow,
     isRightArrow
   }
- // определим пагинацию 
+ // определим пагинацию
   
   const preparedIndexesForPag = useMemo(()=>{
     const currentIndexesPag = getPagIndexes(
-      // продумать часть бесконеч цикла
+      // бесконеч цикл это лишний первый или последний слайд
+      // поэтому подстраиваем совпадение пагинации
       infiniteLoop ? stateSlader.indexSlide-1 : stateSlader.indexSlide, 
       pagePaginationSize || 3, 
       slides.length
@@ -104,23 +106,52 @@ export const useChangeSlide = (
   const handleToggleRunAutoPlayShowSlides = ()=>{
     dispatch({type:'TOGGLE_AUTOPLAY', payload: !stateSlader.isAutoPlay})
   }
-  
+  //  используем направления автоплея если цикл не бесконечный
+  const directionRef = useRef(true);
   //  автоматич показ слайдов
   useEffect(() => {
     // autoPlay  переменная должна задаваться обработчиком и если это нужно нам
     // если прогрмно автоматич смена слайдов отключена  или мышка на слайде
     if (!autoPlay || !stateSlader.isAutoPlay) return;
-    const intervalIdSliders = setInterval(() => {
-      dispatch({type:'CHANGE_SLIDE', payload:'increment'})
-    }, autoPlayTime);
+    let intervalIdAutoPlay: ReturnType<typeof setInterval>;
+    
+    if(infiniteLoop){
+      intervalIdAutoPlay = setInterval(()=>{
+        dispatch({type:'CHANGE_SLIDE', payload:'increment'});
+
+      },autoPlayTime)
+    } else {
+
+      intervalIdAutoPlay = setInterval(()=>{
+           if(stateSlader.indexSlide === stateSlader.preparedSlides.length-1){
+                    directionRef.current = false
+            }
+             if(stateSlader.indexSlide ===0){
+                directionRef.current = true
+          }
+            if(directionRef.current){
+                     dispatch({type:'CHANGE_SLIDE', payload:'increment'});
+            } 
+             if(!directionRef.current){
+            dispatch({type:'CHANGE_SLIDE', payload:'decrement'});
+            
+          }
+      },autoPlayTime)
+        
+    }  
+    
+    
 
     return () => {
-      clearInterval(intervalIdSliders);
+      clearInterval(intervalIdAutoPlay);
     };
   }, [
       autoPlayTime, 
       autoPlay, 
-      stateSlader.isAutoPlay
+      stateSlader.isAutoPlay,
+      infiniteLoop,
+      stateSlader.preparedSlides.length,
+      stateSlader.indexSlide
     ]);
 
   return {
