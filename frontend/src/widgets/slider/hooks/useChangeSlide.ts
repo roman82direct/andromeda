@@ -3,7 +3,7 @@ import { useCallback,   useMemo, useReducer, useEffect, useRef} from "react";
 import type { TActionSlide } from "../types";
 import { getPagIndexes } from "../utils/getPagIndexes";
 import { initialStateSlider, sliderReducer } from "../model/sliderReducer";
-import type { Interval } from "date-fns";
+
 
 
 
@@ -12,7 +12,7 @@ export const useChangeSlide = (
   slides: TSlideItem[], 
   {
     autoPlay, 
-    autoPlayTime = 1000,
+    autoPlayTime,
     pagePaginationSize,
     infiniteLoop
   }:TConfigChangeSlide 
