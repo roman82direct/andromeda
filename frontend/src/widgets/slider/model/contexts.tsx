@@ -27,6 +27,7 @@ export type TSlidesContext = {
   // TSlideItemWithId   убрать тип
   slides:  TSlideItem[];
   children: (slides:  TSlideItem[])=>ReactNode;
+  quantityShowSlides?: number;
 }
 
 

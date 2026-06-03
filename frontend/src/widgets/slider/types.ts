@@ -54,7 +54,7 @@ export type TArrow = {
 //  и выделать в типы слайдера
 export type TConfigSliderProps = {
   infiniteLoop?: boolean;
-  // showSlides: number;
+  quantityShowSlides?:number;
   isPagination?: boolean;
   autoPlay?: boolean;
   autoPlayTime?: number;

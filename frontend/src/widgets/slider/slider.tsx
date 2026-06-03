@@ -15,14 +15,15 @@ import {
 
 export const SliderComponent = (
   {
-    infiniteLoop = true,
-  // showSlides: number;
+    infiniteLoop = false,
+    quantityShowSlides = 1,
     isPagination,
-    autoPlay=true,
+    autoPlay=false,
     autoPlayTime=3000,
   // typeSlider?:'' --> попробуй масштабировать
     children,// что будем показывать ?
     pagePaginationSize = 3 ,
+
   }:TConfigSliderProps
 ) => {
   // загружаем информацию о слайдах в наш компонент
@@ -66,8 +67,13 @@ const getCurrentSlideTheme = useMemo(()=>{
 //  меняется редко поэтому выделим
   const valueSlides = useMemo(()=>({
     slides:  dataForSlider.preparedSlides,
-    children
-  }),[dataForSlider.preparedSlides, children])
+    children,
+    quantityShowSlides
+  }),[
+      dataForSlider.preparedSlides, 
+      children,
+      quantityShowSlides
+    ])
 // создадим действия 
    const valueSliderActions = useMemo(()=>({
     setIndexSlide: dataForSlider.setIndexSlide,
