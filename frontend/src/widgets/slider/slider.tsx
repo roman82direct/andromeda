@@ -21,7 +21,6 @@ export const SliderComponent = (
     autoPlay=false,
     autoPlayTime=3000,
   // typeSlider?:'' --> попробуй масштабировать
-    children,// что будем показывать ?
     pagePaginationSize = 3 ,
 
   }:TConfigSliderProps
@@ -67,11 +66,11 @@ const getCurrentSlideTheme = useMemo(()=>{
 //  меняется редко поэтому выделим
   const valueSlides = useMemo(()=>({
     slides:  dataForSlider.preparedSlides,
-    children,
+    
     quantityShowSlides
   }),[
       dataForSlider.preparedSlides, 
-      children,
+      
       quantityShowSlides
     ])
 // создадим действия 

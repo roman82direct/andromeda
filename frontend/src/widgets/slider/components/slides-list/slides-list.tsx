@@ -1,5 +1,7 @@
 import styles from "./slides-list.module.css";
 import type React from "react";
+import { renderedSlides } from "@/widgets/slider/utils/renderSlides";
+
 // import { useContext } from "react";
 // import { SliderContext } from "@/widgets/slider/utils/contexts";
 import { 
@@ -14,7 +16,7 @@ export const SlidesList = () => {
   //  создать ui комопонент с чилдрен - модель универсальной карусели ??
   const { slideNumber, transitionEnabled } =useSliderStateContext();
   const {  handleTransitionEnd } = useSliderActionsContext();
-  const { slides, children, quantityShowSlides } = useGetSlidesContext();
+  const { slides, quantityShowSlides } = useGetSlidesContext();
   
   const showSlides = quantityShowSlides ? quantityShowSlides : 1;
   const stylesTranslate = useMemo(()=>({
@@ -33,7 +35,7 @@ export const SlidesList = () => {
 //         return <SlideUI key={index} showingSlide={slide} />
 // })
 //   },[slides])
- console.log(showSlides)
+
 
   return (
     <div 
@@ -43,7 +45,7 @@ export const SlidesList = () => {
           {/* здесь просто children */}
       {/* {renderedSlides} */}
       {/*  вставить сюда вместо чилдрен исходную функцию рендера */}
-      {children(slides)}
+      {renderedSlides(slides)}
     </div>
   );
 };

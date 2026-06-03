@@ -1,6 +1,6 @@
 import styles from "./home-page.module.css";
 import { Slider } from "@/widgets/slider";
-import { renderedSlides } from "@/widgets/slider/utils/renderSlides";
+// import { renderedSlides } from "@/widgets/slider/utils/renderSlides";
 import {  type FC } from "react";
 
 export const HomePageUI: FC = () => {
@@ -11,9 +11,8 @@ export const HomePageUI: FC = () => {
       <h1 className="visually-hidden">Andromeda Store — магазин керамической посуды и аксессуаров для дома</h1>
       <section className={styles["home-banner"]}>
         <h2 className="visually-hidden">Актуальные акции и предложения</h2>
-        <Slider isPagination={true}>
-             {renderedSlides}
-        </Slider>
+        <Slider isPagination={true}/>
+           
       </section>
     </div>
   );

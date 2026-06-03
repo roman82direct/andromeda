@@ -1,6 +1,5 @@
 import type { TActionUser } from "@/shared/types/types";
 import type { TIconClassCssIcon } from "@/shared/types/ui/icon";
-import type { ReactNode } from "react";
 
 type TImageSrc = string;
 
@@ -59,7 +58,7 @@ export type TConfigSliderProps = {
   autoPlay?: boolean;
   autoPlayTime?: number;
   // typeSlider?:'' --> попробуй масштабировать
-  children: (slides:TSlideItem[]) => ReactNode;  // Явное определение функции
+  // children: (slides:TSlideItem[]) => ReactNode;  // Явное определение функции
   pagePaginationSize?:number;
   // width
   // height
