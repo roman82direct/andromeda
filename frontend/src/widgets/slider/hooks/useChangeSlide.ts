@@ -3,7 +3,7 @@ import { useCallback,   useMemo, useReducer, useEffect} from "react";
 import type { TActionSlide } from "../types";
 import { getPagIndexes } from "../utils/getPagIndexes";
 import { initialStateSlider, sliderReducer } from "../model/sliderReducer";
-import { useAutoPlayShowSlides } from "./useAutoPlay";
+import { useAutoPlayShowSlides } from "./useAutoPlayShowSlides";
 
 
 

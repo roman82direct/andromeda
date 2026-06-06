@@ -58,6 +58,7 @@ export type TConfigSliderProps = {
   isPagination?: boolean;
   autoPlay?: boolean;
   autoPlayTime?: number;
+  // typeAnimation или transform ?
   // typeSlider?:'' --> попробуй масштабировать
   pagePaginationSize?:number;
   // width
