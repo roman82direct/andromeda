@@ -1,5 +1,6 @@
 import type { TActionUser } from "@/shared/types/types";
 import type { TIconClassCssIcon } from "@/shared/types/ui/icon";
+import type { TSliderAction } from "./model/sliderReducer";
 
 type TImageSrc = string;
 
@@ -58,14 +59,18 @@ export type TConfigSliderProps = {
   autoPlay?: boolean;
   autoPlayTime?: number;
   // typeSlider?:'' --> попробуй масштабировать
-  // children: (slides:TSlideItem[]) => ReactNode;  // Явное определение функции
   pagePaginationSize?:number;
   // width
   // height
 }
 //  выделить в типы хука или слайдера
 export type TConfigChangeSlide =  Pick<TConfigSliderProps, 'autoPlay' | 'autoPlayTime' | 'pagePaginationSize' | 'infiniteLoop'>;
-
-
+//  для хука автоплея слайдов
+export type TAutoPlaySetting = Pick<TConfigSliderProps,  'autoPlay' |  'infiniteLoop' | 'autoPlayTime'> & {
+    dispatch: (action: TSliderAction) => void;
+    indexSlide: number;
+    slidesArrLength: number;
+    isAutoPlayState?: boolean;
+}
 
 // TSlideItemWithId   убрать везде !!!

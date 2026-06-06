@@ -10,7 +10,6 @@ export type TSliderState = {
   transitionEnabled: boolean; //состояние перехода слайдов
   preparedSlides: TSlideItem[];
   isAutoPlay?: boolean;
-
 }
 //  определим начальное состояние слайдера
 export const initialStateSlider: TSliderState  ={
@@ -19,7 +18,7 @@ export const initialStateSlider: TSliderState  ={
   isAnimating: false,
   transitionEnabled: true,
   preparedSlides: [],
-  isAutoPlay: true
+  isAutoPlay: true,
 }
 
 // опишем действия 
@@ -120,7 +119,8 @@ export const sliderReducer = (
           ...state,
           isAutoPlay: action.payload
         }
-      }
+      };
+    
       default:
         return state
     }

@@ -18,8 +18,8 @@ export const SliderComponent = (
     infiniteLoop = false,
     quantityShowSlides = 1,
     isPagination,
-    autoPlay=false,
-    autoPlayTime=3000,
+    autoPlay = true,
+    autoPlayTime=1000,
   // typeSlider?:'' --> попробуй масштабировать
     pagePaginationSize = 3 ,
 
