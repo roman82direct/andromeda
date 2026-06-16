@@ -15,11 +15,11 @@ import {
 
 export const SliderComponent = (
   {
-    infiniteLoop = false,
+    infiniteLoop = true,
     quantityShowSlides = 1,
     isPagination,
-    autoPlay = true,
-    autoPlayTime=1000,
+    autoPlay = false,
+    autoPlayTime = 3000,
   // typeSlider?:'' --> попробуй масштабировать
     pagePaginationSize = 3 ,
 

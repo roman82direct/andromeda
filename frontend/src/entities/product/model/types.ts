@@ -37,3 +37,9 @@ export type TProductsDiapason = {
   next: TPaginationURL | null;
   previous: TPaginationURL | null;
 };
+
+//  карточка товара
+
+export type CardProduct = {
+  
+}

@@ -1,3 +1,4 @@
+import { CatalogTabs } from "@/widgets/catalog-tabs";
 import styles from "./home-page.module.css";
 import { Slider } from "@/widgets/slider";
 // import { renderedSlides } from "@/widgets/slider/utils/renderSlides";
@@ -12,8 +13,19 @@ export const HomePageUI: FC = () => {
       <section className={styles["home-banner"]}>
         <h2 className="visually-hidden">Актуальные акции и предложения</h2>
         <Slider isPagination={true}/>
-           
-      </section>
+       </section>
+       <section className={styles['review-categories']}>
+          <h2 className="visually-hidden">Обзор основных категорий товаров</h2>
+             <CatalogTabs/>
+            {/* <QuickTypesCards/> */}
+       </section>
+       <section className={styles['']}>
+          <h2 className="visually-hidden">Тренды и новинки</h2>
+           {/* <Slider/> */}
+            {/* <Slider/> */}
+       </section>
+       
+       
     </div>
   );
 };
