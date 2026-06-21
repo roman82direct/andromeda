@@ -1,18 +1,21 @@
 // import type { ReactNode } from "react
 
+// import type { CardProduct } from "@/entities/product/model/types";
+import type { TImage } from "@/shared/types/types";
 import type { JSX } from "react/jsx-runtime";
 
 
 
 export type TCatalogContent = {
-  image: string;
+  image: TImage;
   descpImage: string;
+  link:string
 }
 
-
+//  возможно для карточек
 export type Tab = {
   tabTitle: string;
-  tabContent: TCatalogContent[];
+  tabContent: TCatalogContent[]
   isActive?: boolean;
 
 }
