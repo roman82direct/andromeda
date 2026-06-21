@@ -15,7 +15,7 @@ export const HomePageUI: FC = () => {
         <Slider isPagination={true}/>
        </section>
        <section className={styles['review-categories']}>
-          <h2 className="visually-hidden">Обзор основных категорий товаров</h2>
+          <h2 className="visually-hidden">Обзор основных групп товаров</h2>
              <CatalogTabs/>
             {/* <QuickTypesCards/> */}
        </section>
