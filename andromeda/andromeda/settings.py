@@ -1,17 +1,24 @@
+import os
 from datetime import timedelta
-from import_export.formats.base_formats import CSV, XLSX
 from pathlib import Path
+
+from django.core.management.utils import get_random_secret_key
+from dotenv import load_dotenv
+from import_export.formats.base_formats import CSV, XLSX
+
+load_dotenv()
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SECRET_KEY = os.getenv('SECRET_KEY', get_random_secret_key())
+
+DEBUG = os.getenv('DEBUG', 'false').strip().lower() == 'true'
+
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1 localhost').split()
+
 IMPORT_FORMATS = [CSV, XLSX]
 
-SECRET_KEY = 'django-insecure-+^-_0_)$tazt+-6dmh#g9=ut0b1m41xr9+00p&g&!kmwbl^@hj'
-
-DEBUG = True
-
-ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.auth',
@@ -21,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
     'drf_spectacular',
     'django_google_fonts',
@@ -48,9 +56,7 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
-INTERNAL_IPS = [
-    '127.0.0.1',
-]
+INTERNAL_IPS = ['127.0.0.1',]
 
 ROOT_URLCONF = 'andromeda.urls'
 
@@ -77,11 +83,11 @@ WSGI_APPLICATION = 'andromeda.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'andromeda_db',
-        'USER': 'postgres',
-        'PASSWORD': 'root',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'NAME': os.getenv('POSTGRES_DB', 'postgres'),
+        'USER': os.getenv('POSTGRES_USER', 'postgres'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'root'),
+        'HOST': os.getenv('DB_HOST', '127.0.0.1'),
+        'PORT': int(os.getenv('DB_PORT', 5432))
     }
 }
 
@@ -118,20 +124,27 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-GOOGLE_FONTS = ["Nunito"]
+GOOGLE_FONTS = ['Nunito']
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'api.authentication.CookieJWTAuthentication',
     ],
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
+AUTH_COOKIE_SECURE = os.getenv('AUTH_COOKIE_SECURE', 'false').strip().lower() == 'true'
+
 SIMPLE_JWT = {
+    'AUTH_COOKIE_ACCESS': 'access_token',
+    'AUTH_COOKIE_REFRESH': 'refresh_token',
+    'AUTH_COOKIE_ACCESS_PATH': '/',
+    'AUTH_COOKIE_REFRESH_PATH': '/api/v1/auth/token-refresh/',
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': True,
 }
 
 CACHES = {
@@ -148,7 +161,8 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '1.0.0',
 }
 
-# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
 ]
@@ -158,9 +172,10 @@ CORS_URLS_REGEX = r'^/api/.*$'
 LOGGING = {
     'version': 1,
     'handlers': {
-        'console': {'level': 'DEBUG',
-                    'class': 'logging.StreamHandler'
-                    },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler'
+        },
     },
     'loggers': {
         'django.db.backends': {'level': 'INFO', 'handlers': ['console']},

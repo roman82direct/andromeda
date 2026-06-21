@@ -128,7 +128,6 @@ paths:
       tags:
       - schema
       security:
-      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -156,26 +155,35 @@ paths:
       description: |-
         Завершает пользовательскую сессию.
 
-        Требует действующий access-токен в заголовке Authorization: Bearer token.
-        Возвращает информацию о текущем пользователе и сообщение о разлогине.
-
-        Raises:
-            PermissionDenied: Если токен недействителен, истёк или пользователь
-            неактивен.
-            AuthenticationFailed: Если отсутствует или неверный token.
+        Удаляет информацию о токенах из cookies.
 
         Returns:
-            Response: JSON с номером телефона пользователя и сообщением
-            "Вы вышли из системы."
             Статус: 200 OK.
+            'detail': 'Выход выполнен.'
       summary: Выход - logout
       tags:
-      - "\U0001F465 Аутентификация"
+      - Аутентификация
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyCode'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/VerifyCode'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VerifyCode'
+        required: true
       security:
-      - jwtAuth: []
+      - {}
       responses:
         '200':
-          description: No response body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VerifyCode'
+          description: ''
   /api/v1/auth/send-code/:
     post:
       operationId: v1_auth_send_code_create
@@ -202,7 +210,7 @@ paths:
             400 Bad Request - неверный формат или номер телефона.
       summary: Получить OTP-код
       tags:
-      - "\U0001F465 Аутентификация"
+      - Аутентификация
       requestBody:
         content:
           application/json:
@@ -216,7 +224,6 @@ paths:
               $ref: '#/components/schemas/SendCode'
         required: true
       security:
-      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -228,10 +235,17 @@ paths:
   /api/v1/auth/token-refresh/:
     post:
       operationId: v1_auth_token_refresh_create
-      description: Обновление JWT-токена по refresh.
+      description: |-
+        Обновление JWT-токена по refresh.
+
+        Перезаписывает информацию о токенах в cookies.
+
+        Returns:
+            Статус: 200 OK.
+            'detail': 'Токен обновлён.'
       summary: Обновить JWT-токен
       tags:
-      - "\U0001F465 Аутентификация"
+      - Аутентификация
       requestBody:
         content:
           application/json:
@@ -259,7 +273,7 @@ paths:
 
         Проверяет код в Redis (TTL 5 мин), создаёт/возвращает User по телефону.
         Для новых пользователей: отключает парольную авторизацию.
-        Возвращает access/refresh токены для Bearer-аутентификации.
+        Сохраняет access/refresh токены в cookie.
 
         **Пример запроса:**
             POST /api/v1/auth/verify-code/
@@ -271,19 +285,17 @@ paths:
         **Успешный ответ:**
             200 OK:
             {
-                "phone": "+79123456789",
-                "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
-                "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+                'detail': 'Вход выполнен.,
             }
 
         **Ошибки:**
             - 400 Bad Request: неверный код/формат телефона
             - 500 Internal Server Error: JWT ошибка
 
-        Redis код удаляется после получения JWT-токена.
+        Redis-код удаляется после получения JWT-токена.
       summary: Получить JWT-токен по коду
       tags:
-      - "\U0001F465 Аутентификация"
+      - Аутентификация
       requestBody:
         content:
           application/json:
@@ -297,7 +309,6 @@ paths:
               $ref: '#/components/schemas/VerifyCode'
         required: true
       security:
-      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -336,9 +347,8 @@ paths:
         schema:
           type: integer
       tags:
-      - "\U0001F4E6 Товары"
+      - Товары
       security:
-      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -371,9 +381,8 @@ paths:
           title: Артикул
         required: true
       tags:
-      - "\U0001F4E6 Товары"
+      - Товары
       security:
-      - jwtAuth: []
       - {}
       responses:
         '200':
@@ -530,7 +539,6 @@ components:
           readOnly: true
         refresh:
           type: string
-          writeOnly: true
       required:
       - access
       - refresh
@@ -550,8 +558,3 @@ components:
       required:
       - code
       - phone
-  securitySchemes:
-    jwtAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
