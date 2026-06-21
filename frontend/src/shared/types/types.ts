@@ -15,3 +15,18 @@ export type TActionUser = TEventType & {
 
 
 export type TThemeElementsPage = 'primary' | 'secondary';
+
+//  для картинок 
+
+export type TImageSrc = string;
+
+export type TPathsImage = {
+  "1x": TImageSrc;
+  "2x": TImageSrc;
+};
+
+export type TImage = {
+  avif?: TPathsImage;
+  webp?: TPathsImage;
+  jpg: TPathsImage;
+};

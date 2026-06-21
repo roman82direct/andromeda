@@ -1,20 +1,6 @@
-import type { TActionUser } from "@/shared/types/types";
+import type { TActionUser, TImage } from "@/shared/types/types";
 import type { TIconClassCssIcon } from "@/shared/types/ui/icon";
 import type { TSliderAction } from "./model/sliderReducer";
-
-type TImageSrc = string;
-
-//   вывести в общий тип
-export type TPathsImage = {
-  "1x": TImageSrc;
-  "2x": TImageSrc;
-};
-//   вывести в общий тип
-export type TImage = {
-  avif: TPathsImage;
-  webp: TPathsImage;
-  jpg: TPathsImage;
-};
 
 export type ThemeSlide = "dark" | "light";
 
