@@ -5,20 +5,18 @@
   padding-block-start: 15px;
 }
 
-
 .dot {
   position: relative;
   width: 10px;
-  border: 2px solid ;
+  border: 2px solid;
   border-radius: 50%;
   aspect-ratio: 1;
 }
 
-
 .dot::after {
-  content: '';
+  content: "";
   position: absolute;
-  inset:0;
+  inset: 0;
   width: 100%;
   opacity: 0;
   background-color: transparent;
@@ -26,31 +24,25 @@
   aspect-ratio: 1;
 }
 
-.active-dot::after{
+.active-dot::after {
   opacity: 1;
 }
 
 .primary-dot {
-  border-color: var(--color-primary,#15242a);
+  border-color: var(--color-primary, #15242a);
 }
 
 .secondary-dot {
-  border-color: var(--color-secondary,#f8f9fa);
+  border-color: var(--color-secondary, #f8f9fa);
 }
 
 .primary-dot::after {
-  background-color: var(--color-primary,#15242a);
+  background-color: var(--color-primary, #15242a);
 }
 
 .secondary-dot::after {
-  background-color: var(--color-secondary,#f8f9fa);
+  background-color: var(--color-secondary, #f8f9fa);
 }
-
-
-
-
-
-
 
 /* .primary-dot.active-dot {
   background-color: var(--color-primary,#15242a);;

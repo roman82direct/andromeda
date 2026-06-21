@@ -13,10 +13,9 @@ export type TActionUser = TEventType & {
   title: string;
 };
 
+export type TThemeElementsPage = "primary" | "secondary";
 
-export type TThemeElementsPage = 'primary' | 'secondary';
-
-//  для картинок 
+//  для картинок
 
 export type TImageSrc = string;
 

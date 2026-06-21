@@ -18,14 +18,11 @@ const DotsUIComponent = ({
   currentDotsTheme = "primary",
   isBlockClickForDots = false,
 }: DotsProps) => {
-  
   // Стабильная фабрика обработчиков
   const createHandleClick = useCallback(
     (index: number) => () => onClick(index),
-    [onClick]
+    [onClick],
   );
-
- 
 
   return (
     <ul className={styles["dots-pag"]}>
@@ -41,16 +38,17 @@ const DotsUIComponent = ({
             type="button"
             isDisabled={isBlockClickForDots}
           /> */}
-           <button
-              onClick={createHandleClick(indexSlide)}
-              className={ 
-                  clsx(
-                        styles['dot'],
-                        currentDotsTheme === 'primary' ? styles['primary-dot'] :  styles['secondary-dot'],
-                        activeSlideNumber === indexSlide ? styles['active-dot'] : ''
-                    )}
-              type="button"
-              disabled={isBlockClickForDots}
+          <button
+            onClick={createHandleClick(indexSlide)}
+            className={clsx(
+              styles["dot"],
+              currentDotsTheme === "primary"
+                ? styles["primary-dot"]
+                : styles["secondary-dot"],
+              activeSlideNumber === indexSlide ? styles["active-dot"] : "",
+            )}
+            type="button"
+            disabled={isBlockClickForDots}
           />
         </li>
       ))}

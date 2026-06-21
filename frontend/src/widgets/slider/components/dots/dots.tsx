@@ -1,7 +1,10 @@
 // import { SliderContext } from "@/widgets/slider/utils/contexts";
-import { useCallback,  } from "react";
+import { useCallback } from "react";
 import { DotsUI } from "./ui/dots";
-import { useSliderActionsContext, useSliderStateContext } from "../../hooks/useInitialContext";
+import {
+  useSliderActionsContext,
+  useSliderStateContext,
+} from "../../hooks/useInitialContext";
 
 export const Dots = () => {
   const {
@@ -9,40 +12,32 @@ export const Dots = () => {
     dotsPag,
     // тема слайда влияет на тему отображения точек пагинации на фоне слайда
     currentSlideTheme,
-    isAnimation
-    
+    isAnimation,
   } = useSliderStateContext();
 
-  const {
-   
-    setIndexSlide,
-   
-    
-  } = useSliderActionsContext();
+  const { setIndexSlide } = useSliderActionsContext();
 
-  const dotsLength = dotsPag.length-1;
-  
+  const dotsLength = dotsPag.length - 1;
+
   // console.log(slideNumber)
   // slideNumber -  номер текущего слайда котрый на "экране"
   const handleSetSlide = useCallback(
-    
     (index: number) => {
       setIndexSlide(index);
-      
     },
     [setIndexSlide],
   );
   // на основе текущего слайда (его фона) определим тему точек
   const themePag = currentSlideTheme === "light" ? "primary" : "secondary";
   //  т к мы используем клоны для анимации бесконечного слайдера, "обманим" пагинацию
- 
+
   return (
-       <DotsUI 
-          activeSlideNumber={slideNumber} 
-          dotsPag={dotsLength > 0 ? dotsPag : [1,2,3]}  
-          currentDotsTheme={themePag} 
-          onClick={handleSetSlide}
-          isBlockClickForDots={isAnimation}
-        />
+    <DotsUI
+      activeSlideNumber={slideNumber}
+      dotsPag={dotsLength > 0 ? dotsPag : [1, 2, 3]}
+      currentDotsTheme={themePag}
+      onClick={handleSetSlide}
+      isBlockClickForDots={isAnimation}
+    />
   );
 };

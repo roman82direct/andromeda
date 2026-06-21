@@ -9,13 +9,10 @@ export type TSliderUIProps = {
   isPagination?: boolean;
 };
 
-export const SliderComponentUI = (
-  { 
-    toggleAutoPlayChangeSlide,
-    isPagination
-
-  }: TSliderUIProps) => {
-
+export const SliderComponentUI = ({
+  toggleAutoPlayChangeSlide,
+  isPagination,
+}: TSliderUIProps) => {
   const handleMouseEnter = () => toggleAutoPlayChangeSlide?.(true);
   const handleMouseLeave = () => toggleAutoPlayChangeSlide?.(false);
 
@@ -35,5 +32,5 @@ export const SliderComponentUI = (
   );
 };
 
-export const  SliderUI = memo(SliderComponentUI);
+export const SliderUI = memo(SliderComponentUI);
 SliderUI.displayName = "SliderUI";

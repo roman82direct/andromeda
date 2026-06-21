@@ -12,13 +12,9 @@
 
 .slides-list.show-quntity > * {
   /* width: calc(100% / 3); */
-  width: calc(100% / var(--show-quntity,1))
+  width: calc(100% / var(--show-quntity, 1));
 }
 
 /* .slides-list.show-4 > * {
   width: calc(100% / 4);
 } */
-
-
-
-

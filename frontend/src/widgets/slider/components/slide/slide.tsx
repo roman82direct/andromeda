@@ -2,14 +2,14 @@ import { ButtonUI } from "@/shared/ui/button";
 import clsx from "clsx";
 import styles from "./slide.module.css";
 import type { TSlideItem } from "@/widgets/slider/types";
-import { memo, useMemo,  } from "react";
+import { memo, useMemo } from "react";
 
 export type SlideUIProps = {
   showingSlide: TSlideItem;
 };
 
 export const SlideUIComponent = ({ showingSlide }: SlideUIProps) => {
-  const backgroundImageSrc =useMemo<React.CSSProperties>( () => {
+  const backgroundImageSrc = useMemo<React.CSSProperties>(() => {
     //  защита если картини нет
     if (!showingSlide.image) return {};
     return {
@@ -23,39 +23,40 @@ export const SlideUIComponent = ({ showingSlide }: SlideUIProps) => {
           url("${showingSlide.image.jpg["2x"]}") 2x
       )`,
     } as React.CSSProperties;
-  },[showingSlide.image]);
+  }, [showingSlide.image]);
 
   const themeSlideClass =
     showingSlide.typeTheme === "light" ? "is-light" : "is-dark";
   const colorBtn = showingSlide.typeTheme === "dark" ? "dark" : "";
 
-
   return (
     <article
-      className={clsx(
-                    styles["slider-item"], 
-                    styles[themeSlideClass],
-
-                  )}
+      className={clsx(styles["slider-item"], styles[themeSlideClass])}
       style={backgroundImageSrc}
     >
       {/* проблема переполнения текста  */}
       <div className={styles["slider-content"]}>
         <div className={styles["slider-text"]}>
-          <h3 
-              title={showingSlide.title}
-              className={clsx(
-                          styles["slider-title"],
-                          // оставить наслучай переполнения текста ?
-                          styles['clamp']
-                        )
-                        }>{showingSlide.title}</h3>
+          <h3
+            title={showingSlide.title}
+            className={clsx(
+              styles["slider-title"],
+              // оставить наслучай переполнения текста ?
+              styles["clamp"],
+            )}
+          >
+            {showingSlide.title}
+          </h3>
           {showingSlide.desc && (
-            <div className={clsx(
-                              styles["slider-desc"],
-            // оставить наслучай переполнения текста ?
-                              styles['clamp']
-                            )}>{showingSlide.desc}</div>
+            <div
+              className={clsx(
+                styles["slider-desc"],
+                // оставить наслучай переполнения текста ?
+                styles["clamp"],
+              )}
+            >
+              {showingSlide.desc}
+            </div>
           )}
         </div>
         <div className={styles["slider-actions"]}>
@@ -88,7 +89,6 @@ export const SlideUIComponent = ({ showingSlide }: SlideUIProps) => {
   );
 };
 
-
-export const SlideUI= memo(SlideUIComponent);
+export const SlideUI = memo(SlideUIComponent);
 
 SlideUI.displayName = "SlideUI";

@@ -19,9 +19,6 @@
   transform: translateX(0); /* база для анимации */
 }
 
-
-
-
 /* стилизация темного слайда */
 .is-dark {
   --text-color: var(--color-secondary);
@@ -58,7 +55,7 @@
 
 .slider-title {
   margin-bottom: 15px;
- 
+
   color: var(--text-color, #15242a);
   font-family: var(--title-font, "Cormorant SC");
   font-weight: var(--fw-title, 600);
@@ -76,15 +73,13 @@
 
 /* при переполнении текста */
 .clamp {
- display: -webkit-box;
-overflow: hidden;
-line-clamp: 2;
+  display: -webkit-box;
+  overflow: hidden;
+  line-clamp: 2;
   -webkit-line-clamp: 2;
   /* "размещай текст как обычные строки сверху вниз" */
   -webkit-box-orient: vertical;
 }
-
-
 
 .slider-desc {
   margin-bottom: 32px;
@@ -104,7 +99,6 @@ line-clamp: 2;
   display: flex;
   gap: 18px;
 }
-
 
 /* позиционирование слайда - сделано для анимации */
 /* .current {

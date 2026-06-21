@@ -1,11 +1,11 @@
 //  перенести функцию ниже в sliders/utils слайдера
 export const getPagIndexes = (
-  currentIndexSlide: number,// текущий индекс слайда (начинается с 0)
+  currentIndexSlide: number, // текущий индекс слайда (начинается с 0)
   showPagSize: number, // сколько точек показывать одновременно (обычно 3)
-  totalSlides: number,// общее количество слайдов
+  totalSlides: number, // общее количество слайдов
 ): number[] => {
   // 1. Создаём массив всех возможных индексов: [0, 1, 2, 3, ..., totalSlides-1]
-  const allIndexexSlides =Array.from({length:  totalSlides}, (_,i)=>i);
+  const allIndexexSlides = Array.from({ length: totalSlides }, (_, i) => i);
   // определяем начало тройки где находится тек индекс
 
   // В каком блоке по N элементов находится число?
@@ -23,5 +23,4 @@ export const getPagIndexes = (
   const endIndex = startIndex + showPagSize - 1;
   //  3. определим тройку
   return allIndexexSlides.slice(startIndex, endIndex + 1);
-  
 };

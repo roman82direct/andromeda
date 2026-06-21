@@ -17,12 +17,12 @@ export type TActionSlide = "increment" | "decrement";
 export type TSlide = "prev" | "current" | "next";
 
 export type TRenderSlides = {
-  [k in TSlide]:  TSlideItem;
+  [k in TSlide]: TSlideItem;
 };
 
 export type TRenderIndexesSlides = {
-  [k in TSlide]: number
-}
+  [k in TSlide]: number;
+};
 
 export type TArrow = {
   key: "right" | "left";
@@ -30,34 +30,37 @@ export type TArrow = {
   icon: TIconClassCssIcon;
 };
 
-
-
 // type slide = TSlideItem
 
-
-//   общие параметры слайдера 
+//   общие параметры слайдера
 //  переделать слайдер под след настройки
 //  и выделать в типы слайдера
 export type TConfigSliderProps = {
   infiniteLoop?: boolean;
-  quantityShowSlides?:number;
+  quantityShowSlides?: number;
   isPagination?: boolean;
   autoPlay?: boolean;
   autoPlayTime?: number;
   // typeAnimation или transform ?
   // typeSlider?:'' --> попробуй масштабировать
-  pagePaginationSize?:number;
+  pagePaginationSize?: number;
   // width
   // height
-}
+};
 //  выделить в типы хука или слайдера
-export type TConfigChangeSlide =  Pick<TConfigSliderProps, 'autoPlay' | 'autoPlayTime' | 'pagePaginationSize' | 'infiniteLoop'>;
+export type TConfigChangeSlide = Pick<
+  TConfigSliderProps,
+  "autoPlay" | "autoPlayTime" | "pagePaginationSize" | "infiniteLoop"
+>;
 //  для хука автоплея слайдов
-export type TAutoPlaySetting = Pick<TConfigSliderProps,  'autoPlay' |  'infiniteLoop' | 'autoPlayTime'> & {
-    dispatch: (action: TSliderAction) => void;
-    indexSlide: number;
-    slidesArrLength: number;
-    isAutoPlayState?: boolean;
-}
+export type TAutoPlaySetting = Pick<
+  TConfigSliderProps,
+  "autoPlay" | "infiniteLoop" | "autoPlayTime"
+> & {
+  dispatch: (action: TSliderAction) => void;
+  indexSlide: number;
+  slidesArrLength: number;
+  isAutoPlayState?: boolean;
+};
 
 // TSlideItemWithId   убрать везде !!!

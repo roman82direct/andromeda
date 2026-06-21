@@ -43,16 +43,16 @@ export type TProductsDiapason = {
 export type ReviewCard = {
   author: string;
   text: string;
-  advantages?:string;
-  disadvantages?:string;
+  advantages?: string;
+  disadvantages?: string;
   createdAt?: string;
   redactedAt?: string;
-}
+};
 // карточка продукта
 export type CardProduct = {
   price: number;
   productName: string;
-  reviews: ReviewCard[],
-  rating:number;
+  reviews: ReviewCard[];
+  rating: number;
   isFavorite: boolean;
-}
+};
