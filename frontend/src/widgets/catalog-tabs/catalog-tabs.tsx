@@ -1,36 +1,18 @@
 import { useState } from "react";
 import { CatalogTabsUI } from "./ui/catalog-tabs"
-import type { Tab } from "./types";
 import { renderTabContent } from "./utils/render-tab-content";
+import { catalog } from "./model/dataTabs";
 
 // фича или виджет
 export const CatalogTabs = ()=>{
 
   const [activeTab, setActiveTab] =useState(0);
-
+  //  см шаблон как правильно переключать ?????????????????
   const handleActiveTab = (numTab: number) => {
     setActiveTab(numTab);
   }
-//  как то получать табы
-  const catalog:Tab[] = [
-    {
-      tabTitle:'Категории',
-      tabContent: [{
-        image:'картинка 1',
-        descpImage:'Домашний текстиль'
-      }],
-      isActive: true
-    },
-    {
-      tabTitle: 'Коллекции',
-      tabContent:[ {
-        image:'картинка 2',
-        descpImage:'Посуда'
-      }],
-      isActive: false
-    },
-    
-  ]
+//  как то получать табы  catalog  ?
+
   return <>
      <CatalogTabsUI 
         tabs={catalog} 
