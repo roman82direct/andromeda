@@ -1,5 +1,3 @@
-import type { Tab } from "../types";
-
 import textileJPG1x from "@/assets/images/home-page/tabs/categories/link4/1x/textile.jpg";
 import textileJPG2x from "@/assets/images/home-page/tabs/categories/link4/2x/textile.jpg";
 import textileAvif1x from "@/assets/images/home-page/tabs/categories/link4/1x/textile.avif";
@@ -27,11 +25,12 @@ import kithenStorageAvif1x from "@/assets/images/home-page/tabs/categories/link3
 import kithenStorageAvif2x from "@/assets/images/home-page/tabs/categories/link3/2x/kithen-storage.avif";
 import kithenStorageWebp1x from "@/assets/images/home-page/tabs/categories/link3/1x/kithen-storage.webp";
 import kithenStorageWebp2x from "@/assets/images/home-page/tabs/categories/link3/2x/kithen-storage.webp";
+// import type { TabData } from "@/features/tabs/types";
 
-export const catalog: Tab[] = [
+export const catalog = [
   {
     tabTitle: "Категории",
-    tabContent: [
+    tabContents: [
       {
         image: {
           jpg: { "1x": textileJPG1x, "2x": textileJPG2x },
@@ -73,7 +72,7 @@ export const catalog: Tab[] = [
   },
   {
     tabTitle: "Коллекции",
-    tabContent: [
+    tabContents: [
       {
         image: {
           jpg: { "1x": textileJPG1x, "2x": textileJPG2x },

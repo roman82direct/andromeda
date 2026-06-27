@@ -11,14 +11,14 @@ export type TCatalogContent = {
 };
 
 //  возможно для карточек
-export type Tab = {
+export type CatalogTab = {
   tabTitle: string;
   tabContent: TCatalogContent[];
   isActive?: boolean;
 };
 
 export type TabProps = {
-  tabs: Tab[];
+  tabs: CatalogTab[];
   onTabsClick?: (numTab: number) => void;
   activeTab: number;
   renderTabContent: (tabContent: TCatalogContent[]) => JSX.Element;
