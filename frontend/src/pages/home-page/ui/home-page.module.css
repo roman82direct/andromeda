@@ -10,3 +10,8 @@
 .home-banner {
   background-color: var(--color-secondary, #f8f9fa);
 }
+
+.groups-products {
+  padding-block: 48px;
+  background-color: var(--color-secondary, #f8f9fa);
+}
