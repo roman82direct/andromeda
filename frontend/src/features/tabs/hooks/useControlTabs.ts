@@ -9,6 +9,6 @@ export const useControlTabs = () => {
 
   return {
     activeTab,
-    handleActiveTab 
-  }
-}
+    handleActiveTab,
+  };
+};

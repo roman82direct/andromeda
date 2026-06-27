@@ -5,13 +5,13 @@ import type { TCatalogContent } from "./types";
 import { renderCatalogTabTitles } from "./ui/components/catalog-tab-title/render-tab-titles";
 
 export const CatalogTabs = () => {
-    return (
-          <>
-            <Tabs<TCatalogContent[]> 
-              tabs={catalog} 
-              renderTabTitles={renderCatalogTabTitles} 
-              renderTabContent={renderCatalogTabContent}
-            />
-          </>
-        )
-    };
+  return (
+    <>
+      <Tabs<TCatalogContent[]>
+        tabs={catalog}
+        renderTabTitles={renderCatalogTabTitles}
+        renderTabContent={renderCatalogTabContent}
+      />
+    </>
+  );
+};

@@ -1,1 +1,1 @@
-export {CatalogTabTitle} from './catalog-tab-title';
+export { CatalogTabTitle } from "./catalog-tab-title";
