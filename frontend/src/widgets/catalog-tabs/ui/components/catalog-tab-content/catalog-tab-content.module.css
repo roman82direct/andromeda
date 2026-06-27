@@ -1,0 +1,6 @@
+.catalog-tab-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 28px;
+}
