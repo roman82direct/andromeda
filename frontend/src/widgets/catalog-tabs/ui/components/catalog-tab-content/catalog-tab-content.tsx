@@ -10,6 +10,7 @@ export type CatalogContentProps = {
 };
 // сделать анимацию появления и
 // исчезновения контента возможно абстрактно через tabs
+//  + доделать стили для этого компонента
 export const CatalogTabContent = ({
   index,
   link,
