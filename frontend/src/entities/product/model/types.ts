@@ -51,6 +51,7 @@ export type ReviewCard = {
 // карточка продукта
 export type CardProduct = {
   price: number;
+  oldPrice?: number;
   productName: string;
   reviews: ReviewCard[];
   rating: number;
