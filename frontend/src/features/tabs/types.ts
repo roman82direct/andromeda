@@ -15,7 +15,7 @@ export type TitleProps = {
   onTabClick: (index: number) => void;
 };
 
-export type renderContentCallback<T> = (content: T) => React.ReactNode;
+export type renderContentCallback<T> = (content: T, isAnimation?:boolean) => React.ReactNode;
 
 export type renderTitlesCallback = (dataTitles: TitleProps) => React.ReactNode;
 
@@ -25,6 +25,7 @@ export type TabPropsUI<T = unknown> = {
   activeTab: number;
   renderTabContent: renderContentCallback<T>;
   renderTabTitles: renderTitlesCallback;
+  isAnimation?: boolean;
 };
 
 export type TabsProps<T = unknown> = Omit<

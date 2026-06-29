@@ -9,7 +9,14 @@ export const Tabs = <T,>({
   renderTabTitles,
 }: TabsProps<T>) => {
   //  все в хук feature  переключает табы
-  const { activeTab, handleActiveTab } = useControlTabs();
+  const setAnimation = true;
+  
+  const { 
+    activeTab, 
+    handleActiveTab,
+    animation,
+    
+  } = useControlTabs(setAnimation);
   //  как то получать табы  catalog  ?
 
   return (
@@ -24,6 +31,7 @@ export const Tabs = <T,>({
         renderTabContent={renderTabContent}
         //  функция что нендерит табы
         renderTabTitles={renderTabTitles}
+        isAnimation={animation}
       />
     </>
   );

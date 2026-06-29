@@ -4,3 +4,29 @@
   justify-content: center;
   gap: 28px;
 }
+
+
+.catalog-tab-content-item {
+  text-align: center;
+}
+
+.wrapper-image {
+  margin-block-end: 24px;
+}
+
+.figcaption-catalog-image {
+color: var(--color-primary,#15242A);
+font-family: var(--main-font, 'Raleway');
+font-weight: var(--fw-text, 400);
+font-size: 16px;
+line-height: 1.1875;
+}
+
+.fadeInAnimation {
+    animation: fadeIn 1.5s;
+}
+
+@keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }

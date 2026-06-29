@@ -8,6 +8,7 @@ export const TabsUI = <T,>({
   onTabClick,
   renderTabContent,
   renderTabTitles,
+  isAnimation,
 }: TabPropsUI<T>) => {
   // выделяем титлы отдельно
   const tabTitles = useMemo(() => tabs.map((tab) => tab.tabTitle), [tabs]);
@@ -22,7 +23,7 @@ export const TabsUI = <T,>({
       </div>
       <div className={styles["container-tab-content"]}>
         {/* обособление таб контента */}
-        {renderTabContent(tabs[activeTab].tabContents)}
+        {renderTabContent(tabs[activeTab].tabContents,isAnimation)}
       </div>
     </div>
   );
