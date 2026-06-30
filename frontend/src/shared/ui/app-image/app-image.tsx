@@ -1,4 +1,6 @@
 import type { TImage } from "@/shared/types/types";
+import styles from './app-image.module.css';
+import clsx from "clsx";
 
 export type ImageProps = {
   descrImage?: string;
@@ -9,6 +11,8 @@ export type ImageProps = {
 //  придумать дефолт блок стайл для картинки?
 
 export const AppImage = ({ descrImage, srcImage, className }: ImageProps) => {
+  const styleClass = className ?  className : '';
+  const defaultClass = 'defaultClassImg';
   return (
     <picture>
       {srcImage.avif && (
@@ -24,7 +28,7 @@ export const AppImage = ({ descrImage, srcImage, className }: ImageProps) => {
         />
       )}
       <img
-        className={className}
+        className={clsx(styles[defaultClass],styles[styleClass] )}
         src={srcImage.jpg["1x"]}
         srcSet={`${srcImage.jpg["2x"]} 2x`}
         alt={descrImage ? descrImage : "здесь дб картинка"}
