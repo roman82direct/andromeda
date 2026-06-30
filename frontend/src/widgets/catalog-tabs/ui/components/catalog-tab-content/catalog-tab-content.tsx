@@ -30,7 +30,6 @@ export const CatalogTabContentItem = ({
           <AppImage
             srcImage={srcImage}
             descrImage={`изображение ${descpImage}`}
-            className={""}
           />
         </picture>
         {descpImage && <figcaption className={"figcaption-catalog-image"}>{descpImage}</figcaption>}
