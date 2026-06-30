@@ -56,4 +56,5 @@ export type CardProduct = {
   reviews: ReviewCard[];
   rating: number;
   isFavorite: boolean;
+  isNew?:boolean;
 };
