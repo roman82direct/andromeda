@@ -9,14 +9,14 @@ type CatalogTitleProps = {
 export const CatalogTabTitle = ({ tabTitle, activeTab }: CatalogTitleProps) => {
   return (
     <>
-      <h4
+      <span
         className={clsx(
           styles["catalog-tab-title"],
           activeTab ? styles["activeTabTitle"] : "",
         )}
       >
         {tabTitle}
-      </h4>
+      </span>
     </>
   );
 };

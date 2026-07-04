@@ -15,22 +15,30 @@ export const AppImage = ({ descrImage, srcImage, className }: ImageProps) => {
   const defaultClass = 'defaultClassImg';
   return (
     <picture>
-      {srcImage.avif && (
+      {srcImage?.avif?.['1x'] && (
         <source
-          srcSet={`${srcImage.avif["1x"]} 1x, ${srcImage.avif["2x"]} 2x`}
+          srcSet={ srcImage?.avif?.['2x'] 
+          ? `${srcImage?.avif?.["1x"]} 1x, ${srcImage.avif["2x"]} 2x` 
+          : srcImage?.avif?.["1x"]}
           type="image/avif"
         />
       )}
-      {srcImage.webp && (
+      {srcImage?.webp?.['1x'] && (
         <source
-          srcSet={`${srcImage.webp["1x"]} 1x,${srcImage.webp["2x"]} 2x`}
+          srcSet={ srcImage?.webp?.['2x'] 
+          ? `${srcImage?.webp?.["1x"]} 1x, ${srcImage.webp["2x"]} 2x` 
+           : srcImage?.webp?.["1x"]}
           type="image/webp"
         />
       )}
       <img
         className={clsx(styles[defaultClass],styles[styleClass] )}
-        src={srcImage.jpg["1x"]}
-        srcSet={`${srcImage.jpg["2x"]} 2x`}
+        src={srcImage?.jpg?.["1x"] || ''}
+        srcSet={
+         srcImage?.jpg?.['2x'] 
+          ? `${srcImage?.jpg?.["1x"]} 1x, ${srcImage.jpg["2x"]} 2x` 
+      : undefined
+        }
         alt={descrImage ? descrImage : "здесь дб картинка"}
         loading="lazy"
       />

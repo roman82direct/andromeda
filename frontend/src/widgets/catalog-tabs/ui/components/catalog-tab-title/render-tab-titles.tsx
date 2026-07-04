@@ -13,19 +13,22 @@ export const renderCatalogTabTitles = ({
   onTabClick,
 }: RenderTabTitles) => {
   return (
-    <div className={styles["catalog-tab-titles"]}>
+    <ul className={styles["catalog-tab-titles"]}>
       {
         //  заголовки показываем все и активный выделяем
 
         tabTitles.map((tabTitle, index) => (
-          <button key={index} onClick={() => onTabClick(index)}>
-            <CatalogTabTitle
-              tabTitle={tabTitle}
-              activeTab={activeTabIndex === index}
-            />
-          </button>
+          <li key={index}>
+             <button  onClick={() => onTabClick(index)}>
+              <CatalogTabTitle
+                tabTitle={tabTitle}
+                activeTab={activeTabIndex === index}
+              />
+            </button>
+          </li>
+         
         ))
       }
-    </div>
+    </ul>
   );
 };
