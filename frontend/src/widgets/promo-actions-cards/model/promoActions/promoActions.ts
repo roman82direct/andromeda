@@ -3,7 +3,7 @@ import news from '../../../../assets/images/home-page/catalog-cards/card1/jpg/1x
 import sales from '../../../../assets/images/home-page/catalog-cards/card2/1x/Rectangle 5 (1).jpg';
 import inStore from '../../../../assets/images/home-page/catalog-cards/card3/1x/Rectangle 5 (2).jpg';
 
-export const catalogCards:TDescriptWithImageLink[] =  [
+export const promoActions:TDescriptWithImageLink[] =  [
   {
     descpImage: 'Новинки',
     link:'',

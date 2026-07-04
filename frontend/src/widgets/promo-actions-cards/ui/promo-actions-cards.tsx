@@ -1,17 +1,17 @@
 import type { TDescriptWithImageLink } from "@/shared/types/types"
-import { CatalogCardUI } from "./catalog-card/catalog-card"
+import { PromoActionCardUI } from "./promo-action-card/promo-action-card"
 
 type CatalogCardsUIProps = {
   cards:TDescriptWithImageLink[]
 }
 
 
-export const CatalogCardsUI = ({cards}:CatalogCardsUIProps )=>{
+export const PromoActionsCardsUI = ({cards}:CatalogCardsUIProps )=>{
   return <ul>
       {
         cards.map((card,index)=>(
           <li key={index}>
-            <CatalogCardUI
+            <PromoActionCardUI
               link={card.link}
               srcImage={card.srcImage}
               descpImage={card.descpImage}

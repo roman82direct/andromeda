@@ -3,7 +3,7 @@ import styles from "./home-page.module.css";
 import { Slider } from "@/widgets/slider";
 // import { renderedSlides } from "@/widgets/slider/utils/renderSlides";
 import { type FC } from "react";
-import { CatalogCards } from "@/widgets/catalog-cards/catalog-cards";
+import { PromoActionsCards } from "@/widgets/promo-actions-cards/catalog-cards";
 
 export const HomePageUI: FC = () => {
   return (
@@ -18,7 +18,7 @@ export const HomePageUI: FC = () => {
       <section className={styles["groups-products"]}>
         <h2 className="visually-hidden">Обзор основных групп товаров</h2>
         <CatalogTabs />
-        <CatalogCards/>
+        <PromoActionsCards/>
       </section>
       <section className={styles[""]}>
         <h2 className="visually-hidden">Тренды и новинки</h2>

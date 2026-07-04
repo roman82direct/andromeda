@@ -8,7 +8,7 @@ import { Link } from "react-router-dom"
 //   description: str
 // }
 
-  export const CatalogCardUI = ({
+  export const PromoActionCardUI = ({
     link,
     srcImage,
     descpImage
