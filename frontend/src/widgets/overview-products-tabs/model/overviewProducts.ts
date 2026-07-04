@@ -27,7 +27,7 @@ import kithenStorageWebp1x from "@/assets/images/home-page/tabs/categories/link3
 import kithenStorageWebp2x from "@/assets/images/home-page/tabs/categories/link3/2x/kithen-storage.webp";
 // import type { TabData } from "@/features/tabs/types";
 
-export const catalog = [
+export const overviewProducts = [
   {
     tabTitle: "Категории",
     tabContents: [

@@ -1,4 +1,4 @@
-import { CatalogTabs } from "@/widgets/catalog-tabs";
+import { OverviewProductsTabs } from "@/widgets/overview-products-tabs";
 import styles from "./home-page.module.css";
 import { Slider } from "@/widgets/slider";
 // import { renderedSlides } from "@/widgets/slider/utils/renderSlides";
@@ -16,8 +16,8 @@ export const HomePageUI: FC = () => {
         <Slider isPagination={true} />
       </section>
       <section className={styles["groups-products"]}>
-        <h2 className="visually-hidden">Обзор основных групп товаров</h2>
-        <CatalogTabs />
+        <h2 className="visually-hidden">Обзор основных групп товаров и промоакций</h2>
+        <OverviewProductsTabs />
         <PromoActionsCards/>
       </section>
       <section className={styles[""]}>

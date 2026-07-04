@@ -1,5 +1,5 @@
-import { CatalogTabTitle } from "./catalog-tab-title";
-import styles from "./catalog-tab-title.module.css";
+import { OverviewProductTabTitle } from "./overview-product-tab-title";
+import styles from "./overview-product-tab-title.module.css";
 
 type RenderTabTitles = {
   tabTitles: string[];
@@ -20,7 +20,7 @@ export const renderCatalogTabTitles = ({
         tabTitles.map((tabTitle, index) => (
           <li key={index}>
              <button  onClick={() => onTabClick(index)}>
-              <CatalogTabTitle
+              <OverviewProductTabTitle
                 tabTitle={tabTitle}
                 activeTab={activeTabIndex === index}
               />

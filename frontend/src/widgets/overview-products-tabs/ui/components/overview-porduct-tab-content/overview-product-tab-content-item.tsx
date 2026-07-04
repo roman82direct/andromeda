@@ -1,21 +1,21 @@
 import type {  TDescriptWithImageLink } from "@/shared/types/types";
 import { AppImage } from "@/shared/ui/app-image/app-image";
 import { Link } from "react-router-dom";
-import styles from './catalog-tab-content.module.css';
+import styles from './overview-product-tab-content.module.css';
 
 
-export type CatalogContentProps = TDescriptWithImageLink & {
+export type OverviewProductContentProps = TDescriptWithImageLink & {
   isAnimation?: boolean;
 };
 // сделать анимацию появления и
 // исчезновения контента возможно абстрактно через tabs
 //  + доделать стили для этого компонента
-export const CatalogTabContentItem = ({
+export const OverviewProductContentItem = ({
   link,
   srcImage,
   descpImage,
  
-}: CatalogContentProps) => {
+}: OverviewProductContentProps) => {
 
 
   return (

@@ -1,9 +1,9 @@
 import clsx from "clsx";
 import type { TCatalogContent } from "../../../types";
-import { CatalogTabContentItem } from "./catalog-tab-content-item";
-import styles from "./catalog-tab-content.module.css";
+import { OverviewProductContentItem } from "./overview-product-tab-content-item";
+import styles from "./overview-product-tab-content.module.css";
 
-export const renderCatalogTabContent = (content: TCatalogContent[], isAnimation?: boolean) => {
+export const renderOverviewProductsTabContent = (content: TCatalogContent[], isAnimation?: boolean) => {
   return (
     <div 
       role={'tabpanel'}
@@ -16,7 +16,7 @@ export const renderCatalogTabContent = (content: TCatalogContent[], isAnimation?
       {content.map((contentItem, index) => {
         const key = contentItem.link || index;
         return (
-          <CatalogTabContentItem
+          <OverviewProductContentItem
             key={key}
             link={contentItem.link}
             srcImage={contentItem.image}

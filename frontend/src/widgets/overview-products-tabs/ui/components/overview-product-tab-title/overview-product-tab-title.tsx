@@ -1,12 +1,12 @@
 import clsx from "clsx";
-import styles from "./catalog-tab-title.module.css";
+import styles from "./overview-product-tab-title.module.css";
 
-type CatalogTitleProps = {
+type OverviewProductTabTitleProps = {
   tabTitle: string;
   activeTab: boolean;
 };
 
-export const CatalogTabTitle = ({ tabTitle, activeTab }: CatalogTitleProps) => {
+export const OverviewProductTabTitle = ({ tabTitle, activeTab }: OverviewProductTabTitleProps) => {
   return (
     <>
       <span
