@@ -1,0 +1,6 @@
+.overview-products-tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-block:40px;
+}
