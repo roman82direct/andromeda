@@ -3,7 +3,7 @@ import styles from "./home-page.module.css";
 import { Slider } from "@/widgets/slider";
 // import { renderedSlides } from "@/widgets/slider/utils/renderSlides";
 import { type FC } from "react";
-import { PromoActionsCards } from "@/widgets/promo-actions-cards/catalog-cards";
+import { PromoActionsCards } from "@/widgets/promo-actions-cards/promo-actions-cards";
 
 export const HomePageUI: FC = () => {
   return (

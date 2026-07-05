@@ -1,7 +1,7 @@
 import type { TDescriptWithImageLink} from "@/shared/types/types"
 import { AppImage } from "@/shared/ui/app-image/app-image"
 import { Link } from "react-router-dom"
-
+import styles from './promo-action-card.module.css';  
 
 // type CatalogCardsProps = {
 //   link:string;
@@ -13,16 +13,16 @@ import { Link } from "react-router-dom"
     srcImage,
     descpImage
   }:TDescriptWithImageLink)=>{
-    return <article>
+    return <article className={styles['promo-card']}>
 
-        <Link className="" to={link}>
+        <Link className={styles['promo-card-link']} to={link}>
         
             <AppImage
               srcImage={srcImage}
               descrImage={`изображение промо акции  ${descpImage}`}
             />
           
-          <h3 >{descpImage}</h3>
+          <h3 className={styles['promo-card-title']}>{descpImage}</h3>
         
         </Link>
       </article>
