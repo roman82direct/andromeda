@@ -160,3 +160,11 @@
 .arrow-top {
   --icon-url: url("../../../assets/icons/arrow-top.svg");
 }
+
+.star {
+  --icon-url: url("../../../assets/icons/star.svg");
+}
+
+.reviews {
+  --icon-url: url("../../../assets/icons/reviews.svg");
+}

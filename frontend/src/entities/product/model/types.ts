@@ -38,6 +38,8 @@ export type TProductsDiapason = {
   previous: TPaginationURL | null;
 };
 
+
+export  type TImages = {pathsImages:string[]};
 //  карточка товара
 //  отзыв ????
 export type ReviewCard = {
@@ -49,12 +51,13 @@ export type ReviewCard = {
   redactedAt?: string;
 };
 // карточка продукта
-export type CardProduct = {
+export type CardProductUIProps = {
   price: number;
   oldPrice?: number;
   productName: string;
-  reviews: ReviewCard[];
+  reviewsNum: number;
   rating: number;
   isFavorite: boolean;
   isNew?:boolean;
+  images?:TImages;
 };

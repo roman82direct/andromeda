@@ -19,7 +19,7 @@ type IconButtonUIProps = {
   colorIcon: TThemeElementsPage;
 };
 
-export const IconButtonUICopmonent: FC<IconButtonUIProps> = ({
+const IconButtonUICopmonent: FC<IconButtonUIProps> = ({
   isActive = false,
   iconActiveClass,
   iconClass,
