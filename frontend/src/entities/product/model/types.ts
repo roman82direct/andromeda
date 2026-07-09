@@ -60,4 +60,5 @@ export type CardProductUIProps = {
   isFavorite: boolean;
   isNew?:boolean;
   images?:TImages;
+  onClick?:(e:React.MouseEvent)=>void;
 };

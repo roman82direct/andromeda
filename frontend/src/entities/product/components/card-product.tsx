@@ -21,8 +21,20 @@ export const CardProduct = ({id = '1', path = 'catalog'}:CardProductProps)=>{
       isFavorite: false,
       isNew: true,
     }
+
+    //   const handleLike = (e: React.MouseEvent) => {
+//   e.preventDefault();
+//   e.stopPropagation();
+//   // Вызов вашей функции добавления в избранное    = > вешаем на иконку лайка
+// };
+
+    const handleAddToFavoriteProducts = (e:React.MouseEvent)=>{
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
       // возможность перехода
   return  <Link to={`/${path}/${id}`}>
-            <CardProductUI {...dataCard}/>
+            <CardProductUI {...dataCard} onClick={handleAddToFavoriteProducts}/>
           </Link>
 }
