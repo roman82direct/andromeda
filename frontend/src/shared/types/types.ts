@@ -15,7 +15,7 @@ export type TActionUser = TEventType & {
   title: string;
 };
 
-export type TThemeElementsPage = "primary" | "secondary";
+export type TThemeElementsPage = "primary" | "secondary"|"expressive-gray" | 'color-accent';
 
 //  для картинок
 
