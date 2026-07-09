@@ -17,7 +17,7 @@ export const CardProduct = ({id = '1', path = 'catalog'}:CardProductProps)=>{
       oldPrice: 99,
       productName: 'стул',
       reviewsNum: 500,
-      rating: 5,
+      rating: "5.0",
       isFavorite: false,
       isNew: true,
     }
@@ -31,6 +31,7 @@ export const CardProduct = ({id = '1', path = 'catalog'}:CardProductProps)=>{
     const handleAddToFavoriteProducts = (e:React.MouseEvent)=>{
       e.preventDefault();
       e.stopPropagation();
+      // дописать - используя глоб стор
     }
 
       // возможность перехода

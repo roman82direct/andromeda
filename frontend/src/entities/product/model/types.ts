@@ -55,10 +55,11 @@ export type CardProductUIProps = {
   price: number;
   oldPrice?: number;
   productName: string;
-  reviewsNum: number;
-  rating: number;
+  reviewsNum?: number;
+  rating?: string;
   isFavorite: boolean;
   isNew?:boolean;
   images?:TImages;
   onClick?:(e:React.MouseEvent)=>void;
+  currencyType?: string;
 };
