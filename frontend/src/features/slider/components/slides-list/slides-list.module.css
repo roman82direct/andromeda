@@ -1,0 +1,20 @@
+.slides-list {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  /* transition: transform 0.7s ease-in-out; */
+}
+/* возмонжо передавать как css переменную делитель  */
+/* .slides-list.show-2 > * {
+  width: 50%;
+} */
+
+.slides-list.show-quntity > * {
+  /* width: calc(100% / 3); */
+  width: calc(100% / var(--show-quntity, 1));
+}
+
+/* .slides-list.show-4 > * {
+  width: calc(100% / 4);
+} */
