@@ -14,7 +14,7 @@ export const AppImage = ({ descrImage, srcImage, className }: ImageProps) => {
   const styleClass = className ?  className : '';
   const defaultClass = 'defaultClassImg';
   return (
-    <picture>
+    <picture className={styles['pictureImg']}>
       {srcImage?.avif?.['1x'] && (
         <source
           srcSet={ srcImage?.avif?.['2x'] 
