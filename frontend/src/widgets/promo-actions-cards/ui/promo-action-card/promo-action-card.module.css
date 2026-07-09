@@ -7,8 +7,13 @@
 
 .promo-card-link {
   display: flex;
+  /* width: 178px; */
   border: 1px solid rgba(47, 77, 90, 0.5);
   background-color: var(--color-secondary, #f8f9fa);
+}
+
+.promo-image-wrapper {
+  flex: 1 0 auto;
 }
 
 .promo-card-title {

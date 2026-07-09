@@ -16,11 +16,13 @@ import styles from './promo-action-card.module.css';
     return <article className={styles['promo-card']}>
 
         <Link className={styles['promo-card-link']} to={link}>
-        
-            <AppImage
-              srcImage={srcImage}
-              descrImage={`изображение промо акции  ${descpImage}`}
-            />
+            <div className={styles['promo-image-wrapper']}>
+              <AppImage
+                srcImage={srcImage}
+                descrImage={`изображение промо акции  ${descpImage}`}
+              />
+            </div>
+          
           
           <h3 className={styles['promo-card-title']}>{descpImage}</h3>
         
