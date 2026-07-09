@@ -12,6 +12,8 @@ const colorsMap: Record<TColor, string> = {
   //  primary:{hover:'', active:'', default:''}
   primary: "var(--color-primary, #15242a)",
   secondary: "var(--color-secondary, #f8f9fa)",
+  'color-accent':'var(--color-accent, #67b0d1)',
+  "expressive-gray":'var(--expressive-gray, #848484)',
 };
 
 export type IconUIProps = {
