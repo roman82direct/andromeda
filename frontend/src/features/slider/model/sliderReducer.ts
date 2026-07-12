@@ -7,17 +7,22 @@ export type TSliderState<T> = {
   isAnimating: boolean; // общий процесса анимации(для блокировки кнопок)
   transitionEnabled: boolean; //состояние перехода слайдов
   preparedSlides: T[];
-  isAutoPlay?: boolean;
+  isAutoPlay: boolean;
 };
 //  определим начальное состояние слайдера
-export const initialStateSlider = {
-  //  текущий слайд который будем показывать
-  indexSlide: 0,
-  isAnimating: false,
-  transitionEnabled: true,
-  preparedSlides: [],
-  isAutoPlay: true,
-};
+//  для этого сделаем фабрику(чтобы можно передать параметром тип)
+export const createInitialStateSlider =  <T>(): TSliderState<T> => (
+  {
+    indexSlide: 0,
+    isAnimating: false,
+    transitionEnabled: true,
+    preparedSlides: [],
+    isAutoPlay: true,
+  }
+)
+
+
+
 
 // напишем редюсер для слайдера
 export const sliderReducer = <T>(

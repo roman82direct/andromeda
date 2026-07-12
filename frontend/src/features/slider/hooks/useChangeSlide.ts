@@ -2,10 +2,12 @@ import { SliderActionTypes,  type TConfigChangeSlide,  } from "../types";
 import { useCallback, useMemo, useReducer, useEffect } from "react";
 import type { TypeOperationFlip} from "../types";
 import { getPagIndexes } from "../utils//getPagIndexes";
-import { initialStateSlider, sliderReducer } from "../model/sliderReducer";
+import { createInitialStateSlider , sliderReducer } from "../model/sliderReducer";
 import { useAutoPlayShowSlides } from "./useAutoPlayShowSlides";
 
-export const useChangeSlide = <T extends object>(
+
+
+export const useChangeSlide = <T>(
   slides: T[],
   {
     autoPlay,
@@ -16,9 +18,8 @@ export const useChangeSlide = <T extends object>(
 ) => {
   // 1. Подготавливаем слайды с клонами
   // (абстрагировать логику клонирования - допустим если нам это не надо)
-
   const preparedSlides = useMemo(() => {
-    if (slides.length === 0) return [];
+    if (slides.length === 0) return  slides;
     if (infiniteLoop) {
       return [slides[slides.length - 1], ...slides, slides[0]];
     } else {
@@ -31,7 +32,10 @@ export const useChangeSlide = <T extends object>(
     // на основе 2 обхектаинициализируем состояние
     preparedSlides,
     // ленивая загрузка - функция вызывается один раз при монтир компоненте(передатьданные кот зависят от пропсов)
-    (slides) => {
+    (slides: T[]) => {
+      //  создадим изначальное состояние слайдера
+      const initialStateSlider = createInitialStateSlider<T>()
+
       const currentIndexSlide = infiniteLoop
         ? initialStateSlider.indexSlide + 1
         : initialStateSlider.indexSlide;
@@ -111,7 +115,7 @@ export const useChangeSlide = <T extends object>(
     indexSlide: stateSlader.indexSlide, // индексы:слайд текущий
     setIndexSlide, // для прыжка на люб слайд (пагинация)
     handleChangeSlide, // // Функция для кнопок "Вперед" и "Назад"
-    preparedSlides: stateSlader.preparedSlides as T,
+    preparedSlides: stateSlader.preparedSlides,
     isAnimating: stateSlader.isAnimating,
     transitionEnabled: stateSlader.transitionEnabled,
     handleTransitionEnd,
