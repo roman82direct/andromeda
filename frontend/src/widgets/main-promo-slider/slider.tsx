@@ -3,15 +3,19 @@ import { SliderUI } from "./ui/slider";
 import type {
   TConfigChangeSlide,
   TConfigSliderProps,
+  // TKeysSlideItem,
   TSlideItem,
+  // TValuesSlideItem,
 } from "./types";
-import { useChangeSlide } from "./hooks/useChangeSlide";
+// import { useChangeSlide } from "@/features/slider";
+import { useChangeSlide } from './delete-hooks/useChangeSlide';
+
 import { sliderStore } from "./model/sliderStore";
 import {
   SliderStateContext,
   SliderActionsContext,
   SlidesContext,
-} from "./model/contexts";
+} from "@/features/slider/model/contexts";
 
 // сделай пагинацию!!!!!!!!!как раб пагинация сучетом беск цикла
 // с учетом бесконеч цикла

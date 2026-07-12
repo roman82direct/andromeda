@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import type { TypeOperationFlip , } from "../types";
+import type { TActionSlide, ThemeSlide, TSlideItem } from "../types";
 //  создать отдельную папку с контекстами!!!
 //  связать состоянием слайдера в редюсере?
 
@@ -8,12 +8,10 @@ export type TBlockArrow = {
   isRightArrow: boolean;
 };
 
-export type ThemeSlide = 'dark' | 'light'; //пока заглушка нужнали она здесь ?
-
 export type TSliderStateContext = {
   slideNumber: number;
   dotsPag: number[];
-  currentSlideTheme?: ThemeSlide;
+  currentSlideTheme: ThemeSlide;
   transitionEnabled: boolean;
   isAnimation: boolean;
   isBlockArrow: TBlockArrow;
@@ -21,13 +19,13 @@ export type TSliderStateContext = {
 
 export type TSliderActionsContenxt = {
   setIndexSlide: (index: number) => void;
-  handleChangeSlide: (action: TypeOperationFlip) => void;
+  handleChangeSlide: (action: TActionSlide) => void;
   handleTransitionEnd: () => void;
 };
 
-export type TSlidesContext<T> = {
+export type TSlidesContext = {
   // TSlideItemWithId   убрать тип
-  slides: T[];
+  slides: TSlideItem[];
   quantityShowSlides?: number;
 };
 
@@ -38,7 +36,7 @@ export const SliderStateContext = createContext<TSliderStateContext | null>(
 export const SliderActionsContext =
   createContext<TSliderActionsContenxt | null>(null);
 
-export const SlidesContext = createContext<TSlidesContext<unknown> | null>(null);
+export const SlidesContext = createContext<TSlidesContext | null>(null);
 
 // export const SliderContext = createContext<TSliderContext>({
 //   slideNumber: 0,

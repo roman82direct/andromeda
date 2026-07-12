@@ -1,16 +1,16 @@
-import {     type TSliderAction, SliderActionTypes } from "../types";
-import { getNextIndexSlide } from '../utils/getIndexNextSlide';
+import type { TActionSlide, TSlideItem } from "../types";
+import { getNextIndexSlide } from "../utils/getIndexNextSlide";
 
 // опишем состояние
-export type TSliderState<T> = {
+export type TSliderState = {
   indexSlide: number;
   isAnimating: boolean; // общий процесса анимации(для блокировки кнопок)
   transitionEnabled: boolean; //состояние перехода слайдов
-  preparedSlides: T[];
+  preparedSlides: TSlideItem[];
   isAutoPlay?: boolean;
 };
 //  определим начальное состояние слайдера
-export const initialStateSlider = {
+export const initialStateSlider: TSliderState = {
   //  текущий слайд который будем показывать
   indexSlide: 0,
   isAnimating: false,
@@ -19,13 +19,36 @@ export const initialStateSlider = {
   isAutoPlay: true,
 };
 
-// напишем редюсер для слайдера
-export const sliderReducer = <T>(
-  state: TSliderState<T>,
-  action: TSliderAction<T>,
-): TSliderState<T> => {
+// опишем действия
+export type TSliderAction =
+  | {
+      type: "CHANGE_SLIDE";
+      payload: TActionSlide;
+    }
+  | {
+      type: "TRANSITION_END";
+      payload: boolean;
+    }
+  | {
+      type: "SET_INDEX";
+      payload: number;
+    }
+  | {
+      type: "SET_PREPARED_SLIDES";
+      payload: TSlideItem[];
+    }
+  | {
+      type: "TOGGLE_AUTOPLAY";
+      payload: boolean;
+    };
+
+// напишем редюсер
+export const sliderReducer = (
+  state: TSliderState,
+  action: TSliderAction,
+): TSliderState => {
   switch (action.type) {
-    case SliderActionTypes.changeSlide: {
+    case "CHANGE_SLIDE": {
       // пока идет анимация мы не можем сменить слайд еще раз
       if (state.isAnimating) return state;
       const nextIndexSlide = getNextIndexSlide({
@@ -40,7 +63,7 @@ export const sliderReducer = <T>(
         transitionEnabled: true,
       };
     }
-    case SliderActionTypes.transitionEnd: {
+    case "TRANSITION_END": {
       if (action.payload) {
         let defaultTransitionValue = state.transitionEnabled;
 
@@ -71,7 +94,7 @@ export const sliderReducer = <T>(
         transitionEnabled: state.transitionEnabled,
       };
     }
-    case SliderActionTypes.setIndex: {
+    case "SET_INDEX": {
       return {
         ...state,
         indexSlide: action.payload,
@@ -79,13 +102,13 @@ export const sliderReducer = <T>(
         transitionEnabled: true,
       };
     }
-    case SliderActionTypes.setPreparedSlides: {
+    case "SET_PREPARED_SLIDES": {
       return {
         ...state,
         preparedSlides: action.payload,
       };
     }
-    case SliderActionTypes.toggleAutoPlay: {
+    case "TOGGLE_AUTOPLAY": {
       return {
         ...state,
         isAutoPlay: action.payload,

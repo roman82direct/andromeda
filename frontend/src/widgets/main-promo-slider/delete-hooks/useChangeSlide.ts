@@ -1,12 +1,12 @@
-import { SliderActionTypes,  type TConfigChangeSlide,  } from "../types";
+import type { TConfigChangeSlide, TSlideItem } from "../types";
 import { useCallback, useMemo, useReducer, useEffect } from "react";
-import type { TypeOperationFlip} from "../types";
-import { getPagIndexes } from "../utils//getPagIndexes";
+import type { TActionSlide } from "../types";
+import { getPagIndexes } from "../utils/getPagIndexes";
 import { initialStateSlider, sliderReducer } from "../model/sliderReducer";
 import { useAutoPlayShowSlides } from "./useAutoPlayShowSlides";
 
-export const useChangeSlide = <T extends object>(
-  slides: T[],
+export const useChangeSlide = (
+  slides: TSlideItem[],
   {
     autoPlay,
     autoPlayTime,
@@ -46,7 +46,7 @@ export const useChangeSlide = <T extends object>(
   //  обновление слайдов(напр если они пришли с сервера снова)
   useEffect(() => {
     dispatch({
-      type: SliderActionTypes.setPreparedSlides,
+      type: "SET_PREPARED_SLIDES",
       payload: preparedSlides,
     });
   }, [preparedSlides]);
@@ -77,24 +77,24 @@ export const useChangeSlide = <T extends object>(
 
   //  отключить/включить автоматическое изменение картинок слайдера
   //  подготовка слайдов ксозданию 'бесконечной прокрутки'
-  const handleChangeSlide = useCallback((typeOperation: TypeOperationFlip) => {
-    dispatch({ type: SliderActionTypes.changeSlide, payload: typeOperation });
+  const handleChangeSlide = useCallback((typeOperation: TActionSlide) => {
+    dispatch({ type: "CHANGE_SLIDE", payload: typeOperation });
   }, []);
 
   const handleTransitionEnd = useCallback(() => {
     // сообщаем что анимация закончилась =>можно продолжить переключение слайдов
-    dispatch({ type: SliderActionTypes.transitionEnd, payload: infiniteLoop || false });
+    dispatch({ type: "TRANSITION_END", payload: infiniteLoop || false });
   }, [infiniteLoop]);
 
   //  можем сменить слайд на тот который нам нужно
   const setIndexSlide = useCallback((indexSlide: number) => {
-    dispatch({ type: SliderActionTypes.setIndex, payload: indexSlide });
+    dispatch({ type: "SET_INDEX", payload: indexSlide });
   }, []);
 
   // добавить флаг для остоновки автоматич пролистывания при наведении на слайд
   //  обработчик для onMouseOn onMouseEnter
   const handleToggleRunAutoPlayShowSlides = () => {
-    dispatch({ type: SliderActionTypes.toggleAutoPlay, payload: !stateSlader.isAutoPlay });
+    dispatch({ type: "TOGGLE_AUTOPLAY", payload: !stateSlader.isAutoPlay });
   };
   //  работа автопоказа слайдов
   useAutoPlayShowSlides({
@@ -109,9 +109,9 @@ export const useChangeSlide = <T extends object>(
 
   return {
     indexSlide: stateSlader.indexSlide, // индексы:слайд текущий
-    setIndexSlide, // для прыжка на люб слайд (пагинация)
+    setIndexSlide, // lдля прыжка на люб слайд (пагинация)
     handleChangeSlide, // // Функция для кнопок "Вперед" и "Назад"
-    preparedSlides: stateSlader.preparedSlides as T,
+    preparedSlides: stateSlader.preparedSlides,
     isAnimating: stateSlader.isAnimating,
     transitionEnabled: stateSlader.transitionEnabled,
     handleTransitionEnd,

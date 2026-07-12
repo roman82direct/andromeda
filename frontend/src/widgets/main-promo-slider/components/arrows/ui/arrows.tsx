@@ -3,7 +3,7 @@ import styles from "./arrows.module.css";
 
 import type { TThemeElementsPage } from "@/shared/types/types";
 import { memo } from "react";
-import type { TBlockArrow } from "@/widgets/slider/model/contexts";
+import type { TBlockArrow } from "@/widgets/main-promo-slider/model/contexts";
 import type { TArrows } from "../types";
 
 type ArrowUIProps = {

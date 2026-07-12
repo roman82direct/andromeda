@@ -1,28 +1,46 @@
-import type { TActionUser, TImage } from "@/shared/types/types";
 import type { TIconClassCssIcon } from "@/shared/types/ui/icon";
-import type { TSliderAction } from "./model/sliderReducer";
 
-export type ThemeSlide = "dark" | "light";
+export type KeySlideItem = string;
+export type TypeSlideValue = unknown;
 
-export type TSlideItem = {
-  image: TImage;
-  title: string;
-  desc?: string;
-  pathsForActions: TActionUser[];
-  typeTheme: ThemeSlide;
+export type TSlideItem<K extends KeySlideItem = KeySlideItem, T = TypeSlideValue> = {
+ [key in K]:T
+} | {
+  [key in K]?:T
 };
+//  тип  операции со слайдом
+export type TypeOperationFlip = "increment" | "decrement";
 
-export type TActionSlide = "increment" | "decrement";
+export const SliderActionTypes  = {
+ changeSlide: 'CHANGE_SLIDE',
+ transitionEnd: 'TRANSITION_END',
+ setIndex: 'SET_INDEX',
+ setPreparedSlides: 'SET_PREPARED_SLIDES',
+ toggleAutoPlay: 'TOGGLE_AUTOPLAY'
 
-export type TSlide = "prev" | "current" | "next";
-
-// export type TRenderSlides = {
-//   [k in TSlide]: TSlideItem;
-// };
-
-// export type TRenderIndexesSlides = {
-//   [k in TSlide]: number;
-// };
+} as const
+// опишем действия слайда
+export type TSliderAction<T> =
+  | {
+      type: typeof SliderActionTypes.changeSlide;
+      payload: TypeOperationFlip;
+    }
+  | {
+      type:  typeof SliderActionTypes.transitionEnd;
+      payload: boolean;
+    }
+  | {
+      type: typeof SliderActionTypes.setIndex;
+      payload: number;
+    }
+  | {
+      type: typeof SliderActionTypes.setPreparedSlides;
+      payload: T[];
+    }
+  | {
+      type: typeof SliderActionTypes.toggleAutoPlay;
+      payload: boolean;
+    };
 
 export type TArrow = {
   key: "right" | "left";
@@ -53,14 +71,14 @@ export type TConfigChangeSlide = Pick<
   "autoPlay" | "autoPlayTime" | "pagePaginationSize" | "infiniteLoop"
 >;
 //  для хука автоплея слайдов
-export type TAutoPlaySetting = Pick<
+export type TAutoPlaySetting<T> = Pick<
   TConfigSliderProps,
   "autoPlay" | "infiniteLoop" | "autoPlayTime"
 > & {
-  dispatch: (action: TSliderAction) => void;
+  dispatch: (action: TSliderAction<T>) => void;
   indexSlide: number;
   slidesArrLength: number;
   isAutoPlayState?: boolean;
 };
 
-// TSlideItemWithId   убрать везде !!!
+

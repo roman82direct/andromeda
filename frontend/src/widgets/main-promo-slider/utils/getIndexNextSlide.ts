@@ -1,7 +1,7 @@
-import type { TypeOperationFlip } from "../types";
+import type { TActionSlide } from "../types";
 
 type TSwitchIndexParams = {
-  typeOperation: TypeOperationFlip;
+  typeOperation: TActionSlide;
   prevIndex: number;
   ArrSizeSlides: number;
 };

@@ -1,6 +1,6 @@
 import styles from "./slides-list.module.css";
 import type React from "react";
-import { renderedSlides } from "@/widgets/slider/utils/renderSlides";
+import { renderedSlides } from "@/widgets/main-promo-slider/utils/renderSlides";
 
 // import { useContext } from "react";
 // import { SliderContext } from "@/widgets/slider/utils/contexts";
