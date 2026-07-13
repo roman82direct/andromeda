@@ -25,8 +25,8 @@ export type TIconClassCssIcon =
   | "ellipse-filled"
   | "burger"
   | "arrow-top"
-  | 'star'
-  | 'reviews';
+  | "star"
+  | "reviews";
 
 export type TIconType = {
   typeIcon: TIconClassCssIcon;

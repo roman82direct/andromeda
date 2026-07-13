@@ -10,13 +10,9 @@ export const Tabs = <T,>({
 }: TabsProps<T>) => {
   //  все в хук feature  переключает табы
   const setAnimation = true;
-  
-  const { 
-    activeTab, 
-    handleActiveTab,
-    animation,
-    
-  } = useControlTabs(setAnimation);
+
+  const { activeTab, handleActiveTab, animation } =
+    useControlTabs(setAnimation);
   //  как то получать табы  catalog  ?
 
   return (

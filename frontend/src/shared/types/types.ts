@@ -1,4 +1,3 @@
-
 export type Tlink = string;
 //  тип события при нажатии на иконку или кнопку с иконкой или просто кнопку
 export type TEventType =
@@ -15,7 +14,11 @@ export type TActionUser = TEventType & {
   title: string;
 };
 
-export type TThemeElementsPage = "primary" | "secondary"|"expressive-gray" | 'color-accent';
+export type TThemeElementsPage =
+  | "primary"
+  | "secondary"
+  | "expressive-gray"
+  | "color-accent";
 
 //  для картинок
 
@@ -33,17 +36,14 @@ export type TImage = {
   jpg: TPathsImage;
 };
 
-
 //  описание картинки с подписью
 
 export type TDescriptWithImage = {
   srcImage: TImage;
   descpImage: string;
-}
+};
 //  если нужна сслыка для перехода
 
 export type TDescriptWithImageLink = TDescriptWithImage & {
   link: Tlink;
-}
-
-
+};

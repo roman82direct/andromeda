@@ -1,12 +1,10 @@
 import { memo, useMemo, useState } from "react";
 import { MainPromoSliderUI } from "./ui/main-promo-slider";
-import type {
-  TPromoSlideItem,
-} from "./types";
+import type { TPromoSlideItem } from "./types";
 import type {
   TConfigChangeSlide,
-  TConfigSliderProps
-} from '@/features/slider/types';
+  TConfigSliderProps,
+} from "@/features/slider/types";
 import { useChangeSlide } from "@/features/slider/hooks/useChangeSlide";
 import { sliderStore } from "./model/sliderStore";
 import {
@@ -14,7 +12,6 @@ import {
   SliderActionsContext,
   SlidesContext,
 } from "@/features/slider/model/contexts";
-
 
 // сделай пагинацию!!!!!!!!!как раб пагинация сучетом беск цикла
 // с учетом бесконеч цикла

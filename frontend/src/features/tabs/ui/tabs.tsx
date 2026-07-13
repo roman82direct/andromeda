@@ -23,7 +23,7 @@ export const TabsUI = <T,>({
       </div>
       <div className={styles["container-tab-content"]}>
         {/* обособление таб контента */}
-        {renderTabContent(tabs[activeTab].tabContents,isAnimation)}
+        {renderTabContent(tabs[activeTab].tabContents, isAnimation)}
       </div>
     </div>
   );

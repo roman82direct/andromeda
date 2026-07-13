@@ -3,14 +3,13 @@ import type { TIconClassCssIcon } from "@/shared/types/ui/icon";
 //  тип  операции со слайдом
 export type TypeOperationFlip = "increment" | "decrement";
 
-export const SliderActionTypes  = {
- changeSlide: 'CHANGE_SLIDE',
- transitionEnd: 'TRANSITION_END',
- setIndex: 'SET_INDEX',
- setPreparedSlides: 'SET_PREPARED_SLIDES',
- toggleAutoPlay: 'TOGGLE_AUTOPLAY'
-
-} as const
+export const SliderActionTypes = {
+  changeSlide: "CHANGE_SLIDE",
+  transitionEnd: "TRANSITION_END",
+  setIndex: "SET_INDEX",
+  setPreparedSlides: "SET_PREPARED_SLIDES",
+  toggleAutoPlay: "TOGGLE_AUTOPLAY",
+} as const;
 // опишем действия слайда
 export type TSliderAction<T> =
   | {
@@ -18,7 +17,7 @@ export type TSliderAction<T> =
       payload: TypeOperationFlip;
     }
   | {
-      type:  typeof SliderActionTypes.transitionEnd;
+      type: typeof SliderActionTypes.transitionEnd;
       payload: boolean;
     }
   | {
@@ -72,5 +71,3 @@ export type TAutoPlaySetting<T> = Pick<
   slidesArrLength: number;
   isAutoPlayState?: boolean;
 };
-
-

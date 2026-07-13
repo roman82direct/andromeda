@@ -9,14 +9,3 @@ export type TPromoSlideItem = {
   pathsForActions: TActionUser[];
   typeTheme: ThemeSlide;
 };
-
-// export type TSlideItem = {
-//   image: TImage;
-//   title: string;
-//   desc?: string;
-//   pathsForActions: TActionUser[];
-//   typeTheme: ThemeSlide;
-// };
-
-
-

@@ -1,1 +1,1 @@
-export { useChangeSlide } from './hooks/useChangeSlide';
+export { useChangeSlide } from "./hooks/useChangeSlide";

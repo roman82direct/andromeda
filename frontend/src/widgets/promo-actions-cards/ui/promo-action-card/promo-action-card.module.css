@@ -4,7 +4,6 @@
   height: 100%;
 }
 
-
 .promo-card-link {
   display: block;
   width: 100%;
@@ -30,9 +29,9 @@
   justify-content: center;
   align-items: center;
   /* padding-inline: 64px; */
-  color: var(--color-primary, #15242A);
-  font-family: var(--title-font,'Cormorant SC');
-  font-weight: var(--fw-title,600);
+  color: var(--color-primary, #15242a);
+  font-family: var(--title-font, "Cormorant SC");
+  font-weight: var(--fw-title, 600);
   font-size: clamp(20px, 2.5vw, 32px);
   line-height: 1.22;
   text-align: center;

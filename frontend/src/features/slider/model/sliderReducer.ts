@@ -1,5 +1,5 @@
-import {     type TSliderAction, SliderActionTypes } from "../types";
-import { getNextIndexSlide } from '../utils/getIndexNextSlide';
+import { type TSliderAction, SliderActionTypes } from "../types";
+import { getNextIndexSlide } from "../utils/getIndexNextSlide";
 
 // опишем состояние
 export type TSliderState<T> = {
@@ -11,18 +11,13 @@ export type TSliderState<T> = {
 };
 //  определим начальное состояние слайдера
 //  для этого сделаем фабрику(чтобы можно передать параметром тип)
-export const createInitialStateSlider =  <T>(): TSliderState<T> => (
-  {
-    indexSlide: 0,
-    isAnimating: false,
-    transitionEnabled: true,
-    preparedSlides: [],
-    isAutoPlay: true,
-  }
-)
-
-
-
+export const createInitialStateSlider = <T>(): TSliderState<T> => ({
+  indexSlide: 0,
+  isAnimating: false,
+  transitionEnabled: true,
+  preparedSlides: [],
+  isAutoPlay: true,
+});
 
 // напишем редюсер для слайдера
 export const sliderReducer = <T>(

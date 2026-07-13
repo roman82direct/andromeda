@@ -6,7 +6,10 @@ type OverviewProductTabTitleProps = {
   activeTab: boolean;
 };
 
-export const OverviewProductTabTitle = ({ tabTitle, activeTab }: OverviewProductTabTitleProps) => {
+export const OverviewProductTabTitle = ({
+  tabTitle,
+  activeTab,
+}: OverviewProductTabTitleProps) => {
   return (
     <>
       <span

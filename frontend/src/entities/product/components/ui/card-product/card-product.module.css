@@ -18,8 +18,8 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items:center;
-  padding-inline:16px;
+  align-items: center;
+  padding-inline: 16px;
 }
 
 .card-favorite-wrapper {
@@ -28,20 +28,20 @@
   align-items: center;
   width: 48px;
   border-radius: 50%;
-  background-color: var(--color-secondary, #F8F9FA);
+  background-color: var(--color-secondary, #f8f9fa);
   aspect-ratio: 1;
 }
 
 .card-is-new {
   padding: 4px 8px;
-  color: var( --color-tertiary, #000000);
-  font-family: var(--main-font, 'Raleway');
+  color: var(--color-tertiary, #000000);
+  font-family: var(--main-font, "Raleway");
   font-weight: var(--fw-text, 400);
   font-size: 16px;
   line-height: 1.2;
   text-align: center;
-  text-transform:capitalize;
-  background-color: var(--light-gray, #CEDADF);
+  text-transform: capitalize;
+  background-color: var(--light-gray, #cedadf);
 }
 
 .card-is-old {
@@ -60,8 +60,8 @@
 }
 
 .price {
-  color: var(--color-primary, #15242A);
-  font-family: var(--main-font, 'Raleway');
+  color: var(--color-primary, #15242a);
+  font-family: var(--main-font, "Raleway");
   font-weight: var(--fw-title, 600);
   font-size: 20px;
   line-height: 1.15;
@@ -69,17 +69,17 @@
 }
 
 .old-price {
-  color:var(--color-primary-disabled, #848484);
-  text-decoration:line-through;
+  color: var(--color-primary-disabled, #848484);
+  text-decoration: line-through;
 }
 
 .new-price {
-  color:var(--color-sailing, #e1700e);
+  color: var(--color-sailing, #e1700e);
 }
 
 .card-product-name {
-  color: var(--color-dark-accent, #2F4D5A);
-  font-family: var(--main-font, 'Raleway');
+  color: var(--color-dark-accent, #2f4d5a);
+  font-family: var(--main-font, "Raleway");
   font-weight: 500;
   font-size: 20px;
   line-height: 1.15;
@@ -88,20 +88,20 @@
 .card-product-reviews-rating {
   display: flex;
   gap: 16px;
-  font-family: var(--main-font, 'Raleway');
+  font-family: var(--main-font, "Raleway");
   font-size: 20px;
 }
 
-.card-product-reviews,.card-product-rating {
+.card-product-reviews,
+.card-product-rating {
   display: flex;
-  align-items:flex-end;
+  align-items: flex-end;
   gap: 8px;
 }
 
 .card-product-rating {
-  color: var( --color-tertiary, #000000);
+  color: var(--color-tertiary, #000000);
 }
-
 
 .card-product-reviews {
   color: var(--expressive-gray, #848484);

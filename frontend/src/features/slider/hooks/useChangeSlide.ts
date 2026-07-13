@@ -1,12 +1,14 @@
-import { SliderActionTypes,  type TConfigChangeSlide,  } from "../types";
+import { SliderActionTypes, type TConfigChangeSlide } from "../types";
 import { useCallback, useMemo, useReducer, useEffect } from "react";
-import type { TypeOperationFlip} from "../types";
+import type { TypeOperationFlip } from "../types";
 import { getPagIndexes } from "../utils//getPagIndexes";
-import { createInitialStateSlider , sliderReducer } from "../model/sliderReducer";
+import {
+  createInitialStateSlider,
+  sliderReducer,
+} from "../model/sliderReducer";
 import { useAutoPlayShowSlides } from "./useAutoPlayShowSlides";
 
-
-
+// набросать событие onTouch по слайдам для мобилок ?
 export const useChangeSlide = <T>(
   slides: T[],
   {
@@ -19,7 +21,7 @@ export const useChangeSlide = <T>(
   // 1. Подготавливаем слайды с клонами
   // (абстрагировать логику клонирования - допустим если нам это не надо)
   const preparedSlides = useMemo(() => {
-    if (slides.length === 0) return  slides;
+    if (slides.length === 0) return slides;
     if (infiniteLoop) {
       return [slides[slides.length - 1], ...slides, slides[0]];
     } else {
@@ -34,7 +36,7 @@ export const useChangeSlide = <T>(
     // ленивая загрузка - функция вызывается один раз при монтир компоненте(передатьданные кот зависят от пропсов)
     (slides: T[]) => {
       //  создадим изначальное состояние слайдера
-      const initialStateSlider = createInitialStateSlider<T>()
+      const initialStateSlider = createInitialStateSlider<T>();
 
       const currentIndexSlide = infiniteLoop
         ? initialStateSlider.indexSlide + 1
@@ -87,7 +89,10 @@ export const useChangeSlide = <T>(
 
   const handleTransitionEnd = useCallback(() => {
     // сообщаем что анимация закончилась =>можно продолжить переключение слайдов
-    dispatch({ type: SliderActionTypes.transitionEnd, payload: infiniteLoop || false });
+    dispatch({
+      type: SliderActionTypes.transitionEnd,
+      payload: infiniteLoop || false,
+    });
   }, [infiniteLoop]);
 
   //  можем сменить слайд на тот который нам нужно
@@ -98,7 +103,10 @@ export const useChangeSlide = <T>(
   // добавить флаг для остоновки автоматич пролистывания при наведении на слайд
   //  обработчик для onMouseOn onMouseEnter
   const handleToggleRunAutoPlayShowSlides = () => {
-    dispatch({ type: SliderActionTypes.toggleAutoPlay, payload: !stateSlader.isAutoPlay });
+    dispatch({
+      type: SliderActionTypes.toggleAutoPlay,
+      payload: !stateSlader.isAutoPlay,
+    });
   };
   //  работа автопоказа слайдов
   useAutoPlayShowSlides({

@@ -1,1 +1,1 @@
-export {PromoActionsCards} from './promo-actions-cards';
+export { PromoActionsCards } from "./promo-actions-cards";

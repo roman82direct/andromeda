@@ -14,12 +14,14 @@ export const HomePageUI: FC = () => {
       <section className={styles["home-banner"]}>
         <h2 className="visually-hidden">Актуальные акции и предложения</h2>
         {/*  здесь можно получать слайды а можно в самом умном компоненте виджета */}
-        < MainPromoSlider isPagination={true} />
+        <MainPromoSlider isPagination={true} />
       </section>
       <section className={styles["groups-products"]}>
-        <h2 className="visually-hidden">Обзор основных групп товаров и промоакций</h2>
+        <h2 className="visually-hidden">
+          Обзор основных групп товаров и промоакций
+        </h2>
         <OverviewProductsTabs />
-        <PromoActionsCards/>
+        <PromoActionsCards />
       </section>
       <section className={styles[""]}>
         <h2 className="visually-hidden">Тренды и новинки</h2>

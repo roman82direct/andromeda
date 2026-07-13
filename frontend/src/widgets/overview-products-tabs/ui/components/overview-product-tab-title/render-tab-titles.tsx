@@ -19,14 +19,13 @@ export const renderCatalogTabTitles = ({
 
         tabTitles.map((tabTitle, index) => (
           <li key={index}>
-             <button  onClick={() => onTabClick(index)}>
+            <button onClick={() => onTabClick(index)}>
               <OverviewProductTabTitle
                 tabTitle={tabTitle}
                 activeTab={activeTabIndex === index}
               />
             </button>
           </li>
-         
         ))
       }
     </ul>

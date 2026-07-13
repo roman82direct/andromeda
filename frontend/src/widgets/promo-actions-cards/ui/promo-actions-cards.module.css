@@ -4,7 +4,7 @@
   justify-content: center;
   gap: 28px;
   margin: 0 auto;
-  padding-inline:5px;
+  padding-inline: 5px;
   padding-block-end: 48px;
   background-color: var(--color-secondary, #f8f9fa);
 }

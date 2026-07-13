@@ -38,8 +38,7 @@ export type TProductsDiapason = {
   previous: TPaginationURL | null;
 };
 
-
-export  type TImages = {pathsImages:string[]};
+export type TImages = { pathsImages: string[] };
 //  карточка товара
 //  отзыв ????
 export type ReviewCard = {
@@ -58,8 +57,8 @@ export type CardProductUIProps = {
   reviewsNum?: number;
   rating?: string;
   isFavorite: boolean;
-  isNew?:boolean;
-  images?:TImages;
-  onClick?:(e:React.MouseEvent)=>void;
+  isNew?: boolean;
+  images?: TImages;
+  onClick?: (e: React.MouseEvent) => void;
   currencyType?: string;
 };
