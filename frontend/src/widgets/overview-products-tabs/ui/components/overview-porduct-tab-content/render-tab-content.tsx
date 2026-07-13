@@ -14,7 +14,7 @@ export const renderOverviewProductsTabContent = (content: TCatalogContent[], isA
             )
         }>
       {content.map((contentItem, index) => {
-        const key = contentItem.link || index;
+        const key =  index;
         return (
           <OverviewProductContentItem
             key={key}
