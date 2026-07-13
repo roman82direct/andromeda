@@ -4,7 +4,7 @@ import { SlidesList } from "../components/slides-list/slides-list";
 import { Dots } from "../components/dots/dots";
 import { Arrows } from "../components/arrows/arrows";
 
-export type TSliderUIProps = {
+export type MainPromoSliderUIProps = {
   toggleAutoPlayChangeSlide?: (flag: boolean) => void;
   isPagination?: boolean;
 };
@@ -12,7 +12,7 @@ export type TSliderUIProps = {
 export const MainPromoSliderComponentUI = ({
   toggleAutoPlayChangeSlide,
   isPagination,
-}: TSliderUIProps) => {
+}: MainPromoSliderUIProps) => {
   const handleMouseEnter = () => toggleAutoPlayChangeSlide?.(true);
   const handleMouseLeave = () => toggleAutoPlayChangeSlide?.(false);
 
