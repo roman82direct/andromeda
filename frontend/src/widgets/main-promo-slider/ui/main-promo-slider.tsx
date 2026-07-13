@@ -1,4 +1,4 @@
-import styles from "./slider.module.css";
+import styles from "./main-promo-slider.module.css";
 import { memo } from "react";
 import { SlidesList } from "../components/slides-list/slides-list";
 import { Dots } from "../components/dots/dots";
@@ -9,7 +9,7 @@ export type TSliderUIProps = {
   isPagination?: boolean;
 };
 
-export const SliderComponentUI = ({
+export const MainPromoSliderComponentUI = ({
   toggleAutoPlayChangeSlide,
   isPagination,
 }: TSliderUIProps) => {
@@ -32,5 +32,5 @@ export const SliderComponentUI = ({
   );
 };
 
-export const SliderUI = memo(SliderComponentUI);
-SliderUI.displayName = "SliderUI";
+export const MainPromoSliderUI = memo(MainPromoSliderComponentUI);
+MainPromoSliderUI.displayName = "MainPromoSliderUI";

@@ -1,7 +1,7 @@
 import { ButtonUI } from "@/shared/ui/button";
 import clsx from "clsx";
 import styles from "./slide.module.css";
-import type { TSlideItem } from "@/widgets/slider/types";
+import type { TSlideItem } from "@/widgets/main-promo-slider/types";
 import { memo, useMemo } from "react";
 
 export type SlideUIProps = {

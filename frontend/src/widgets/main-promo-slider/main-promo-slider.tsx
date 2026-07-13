@@ -1,5 +1,5 @@
 import { memo, useMemo, useState } from "react";
-import { SliderUI } from "./ui/slider";
+import { MainPromoSliderUI } from "./ui/main-promo-slider";
 import type {
   TConfigChangeSlide,
   TConfigSliderProps,
@@ -17,7 +17,7 @@ import {
 // с учетом бесконеч цикла
 //  и стрелки и автоплей
 
-export const SliderComponent = ({
+export const MainPromoSliderComponent = ({
   infiniteLoop = true,
   quantityShowSlides = 1,
   isPagination,
@@ -93,7 +93,7 @@ export const SliderComponent = ({
     <SlidesContext.Provider value={valueSlides}>
       <SliderActionsContext.Provider value={valueSliderActions}>
         <SliderStateContext.Provider value={valueSliderState}>
-          <SliderUI
+          <MainPromoSliderUI
             toggleAutoPlayChangeSlide={dataForSlider.toggleAutoPlayChangeSlide}
             isPagination={isPagination}
           />
@@ -103,5 +103,5 @@ export const SliderComponent = ({
   );
 };
 
-export const Slider = memo(SliderComponent);
-Slider.displayName = "Slider";
+export const MainPromoSlider = memo(MainPromoSliderComponent);
+MainPromoSlider.displayName = "MainPromoSlider";
