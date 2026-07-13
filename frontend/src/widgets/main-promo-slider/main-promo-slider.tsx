@@ -1,7 +1,7 @@
 import { memo, useMemo, useState } from "react";
 import { MainPromoSliderUI } from "./ui/main-promo-slider";
 import type {
-  TSlideItem,
+  TPromoSlideItem,
 } from "./types";
 import type {
   TConfigChangeSlide,
@@ -33,7 +33,7 @@ export const MainPromoSliderComponent = ({
   //  если запрос на сервер можно создать стор с редукс или создадим какой то сервис
   // подтягиваем данные  мгновенно и только один раз
   // функция вызывается один раз - ленивая загрузка - тяжелые вычисления
-  const [slides] = useState<TSlideItem[]>(() => sliderStore);
+  const [slides] = useState<TPromoSlideItem[]>(() => sliderStore);
 
   const settingChangeSlide: TConfigChangeSlide = {
     autoPlay,

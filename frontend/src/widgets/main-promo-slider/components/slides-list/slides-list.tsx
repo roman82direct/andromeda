@@ -8,13 +8,13 @@ import {
 } from "@/features/slider/hooks/useInitialContext";
 import { useMemo } from "react";
 import clsx from "clsx";
-import type { TSlideItem } from "../../types";
+import type { TPromoSlideItem } from "../../types";
 
 export const SlidesList = () => {
   const { slideNumber, transitionEnabled } = useSliderStateContext();
   const { handleTransitionEnd } = useSliderActionsContext();
   // Хук → конкретизирует тип через generic <T>
-  const { slides, quantityShowSlides } = useGetSlidesContext<TSlideItem>(); // обязательно указать тип данных слайда
+  const { slides, quantityShowSlides } = useGetSlidesContext<TPromoSlideItem>(); // обязательно указать тип данных слайда
 
   const showSlides = quantityShowSlides ? quantityShowSlides : 1;
   const stylesTranslate = useMemo(
