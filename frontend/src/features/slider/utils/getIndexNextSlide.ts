@@ -22,13 +22,3 @@ export const getNextIndexSlide = ({
 
   return nextIndex;
 };
-
-//  на заметку  интересный способ
-// const changeSlide = (direction = 1) => {
-//   let slideNumber = 0;
-
-//   if (slide + direction < 0) {
-//     slideNumber = items.length - 1;
-//   } else {
-//     slideNumber = (slide + direction) % items.length;
-//   }

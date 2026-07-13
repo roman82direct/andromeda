@@ -9,6 +9,7 @@ export type MainPromoSliderUIProps = {
   isPagination?: boolean;
 };
 
+//  надо посмотреть как можно оптимизировать ?
 export const MainPromoSliderComponentUI = ({
   toggleAutoPlayChangeSlide,
   isPagination,
