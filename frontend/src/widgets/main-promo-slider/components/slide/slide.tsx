@@ -15,12 +15,12 @@ export const SlideUIComponent = ({ showingSlide }: SlideUIProps) => {
     return {
       "--fallback-bg": `url("${showingSlide.image.jpg["1x"]}")`,
       "--slide-bg": `image-set(
-          url("${showingSlide.image.avif["1x"]}") 1x,
-          url("${showingSlide.image.avif["2x"]}") 2x,
-          url("${showingSlide.image.webp["1x"]}") 1x,
-          url("${showingSlide.image.webp["2x"]}") 2x,
-          url("${showingSlide.image.jpg["1x"]}") 1x,
-          url("${showingSlide.image.jpg["2x"]}") 2x
+          url("${showingSlide.image?.avif?.["1x"]}") 1x,
+          url("${showingSlide.image?.avif?.["2x"]}") 2x,
+          url("${showingSlide.image?.webp?.["1x"]}") 1x,
+          url("${showingSlide.image?.webp?.["2x"]}") 2x,
+          url("${showingSlide.image?.jpg?.["1x"]}") 1x,
+          url("${showingSlide.image?.jpg?.["2x"]}") 2x
       )`,
     } as React.CSSProperties;
   }, [showingSlide.image]);
