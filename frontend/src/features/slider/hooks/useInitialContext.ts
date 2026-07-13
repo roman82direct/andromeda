@@ -3,6 +3,7 @@ import {
   SliderStateContext,
   SliderActionsContext,
   SlidesContext,
+  type TSlidesContext,
 } from "../model/contexts";
 
 // возможно объединить
@@ -22,8 +23,8 @@ export const useSliderActionsContext = () => {
   return contextActions;
 };
 
-export const useGetSlidesContext = () => {
-  const contextSlides = useContext(SlidesContext);
+export const useGetSlidesContext = <T = unknown>() => {
+  const contextSlides = useContext(SlidesContext) as TSlidesContext<T> | null;
   if (!contextSlides) {
     throw new Error("useGetSlidesContext must be used inside Provider");
   }

@@ -8,10 +8,16 @@ import type {
 import { useChangeSlide } from "@/features/slider/hooks/useChangeSlide";
 import { sliderStore } from "./model/sliderStore";
 import {
+  // SliderStateContext,
+  // SliderActionsContext,
+  // SlidesContext,
+} from "./model/contexts";
+import {
   SliderStateContext,
   SliderActionsContext,
   SlidesContext,
-} from "./model/contexts";
+} from "@/features/slider/model/contexts";
+
 
 // сделай пагинацию!!!!!!!!!как раб пагинация сучетом беск цикла
 // с учетом бесконеч цикла

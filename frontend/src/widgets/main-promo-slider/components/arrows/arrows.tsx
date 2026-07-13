@@ -4,7 +4,11 @@ import { ArrowsUI } from "./ui/arrows";
 import {
   useSliderActionsContext,
   useSliderStateContext,
-} from "../../hooks/useInitialContext";
+} from "@/features/slider/hooks/useInitialContext";
+// import {
+//   useSliderActionsContext,
+//   useSliderStateContext,
+// } from "../../hooks/useInitialContext";
 import type { TArrows } from "./types";
 
 export const Arrows = () => {

@@ -24,8 +24,8 @@ export type TSliderActionsContenxt = {
   handleChangeSlide: (action: TypeOperationFlip) => void;
   handleTransitionEnd: () => void;
 };
-
-export type TSlidesContext<T> = {
+// Главный generic контекст для слайдов
+export type TSlidesContext<T = unknown> = {
   // TSlideItemWithId   убрать тип
   slides: T[];
   quantityShowSlides?: number;
@@ -40,15 +40,4 @@ export const SliderActionsContext =
 
 export const SlidesContext = createContext<TSlidesContext<unknown> | null>(null);
 
-// export const SliderContext = createContext<TSliderContext>({
-//   slideNumber: 0,
-//   slides: [],
-//   dotsPag: [],
-//   setIndexSlide: () => {},
-//   // для пагинации если слайдчерный чтобы тема точек было белая допустим
-//   currentSlideTheme: "light",
-//   handleChangeSlide: () => {},
-//   transitionEnabled:true,
-//   handleTransitionEnd: ()=>{},
-//   isAnimation: false
-// });
+

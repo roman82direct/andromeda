@@ -1,11 +1,14 @@
 // import { SliderContext } from "@/widgets/slider/utils/contexts";
 import { useCallback } from "react";
 import { DotsUI } from "./ui/dots";
+// import {
+//   useSliderActionsContext,
+//   useSliderStateContext,
+// } from '../../hooks/useInitialContext';
 import {
   useSliderActionsContext,
   useSliderStateContext,
-} from "../../hooks/useInitialContext";
-
+} from '@/features/slider/hooks/useInitialContext';
 export const Dots = () => {
   const {
     slideNumber,

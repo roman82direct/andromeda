@@ -4,19 +4,26 @@ import { renderedSlides } from "@/widgets/main-promo-slider/utils/renderSlides";
 
 // import { useContext } from "react";
 // import { SliderContext } from "@/widgets/slider/utils/contexts";
+// import {
+//   useSliderStateContext,
+//   useSliderActionsContext,
+//   useGetSlidesContext,
+// } from "../../hooks/useInitialContext";
+
 import {
   useSliderStateContext,
   useSliderActionsContext,
   useGetSlidesContext,
-} from "../../hooks/useInitialContext";
+} from "@/features/slider/hooks/useInitialContext";
 import { useMemo } from "react";
 import clsx from "clsx";
+import type { TSlideItem } from "../../types";
 
 export const SlidesList = () => {
   //  создать ui комопонент с чилдрен - модель универсальной карусели ??
   const { slideNumber, transitionEnabled } = useSliderStateContext();
   const { handleTransitionEnd } = useSliderActionsContext();
-  const { slides, quantityShowSlides } = useGetSlidesContext();
+  const { slides, quantityShowSlides } = useGetSlidesContext<TSlideItem>();
 
   const showSlides = quantityShowSlides ? quantityShowSlides : 1;
   const stylesTranslate = useMemo(
