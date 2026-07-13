@@ -1,10 +1,12 @@
 import { memo, useMemo, useState } from "react";
 import { MainPromoSliderUI } from "./ui/main-promo-slider";
 import type {
-  TConfigChangeSlide,
-  TConfigSliderProps,
   TSlideItem,
 } from "./types";
+import type {
+  TConfigChangeSlide,
+  TConfigSliderProps
+} from '@/features/slider/types';
 import { useChangeSlide } from "@/features/slider/hooks/useChangeSlide";
 import { sliderStore } from "./model/sliderStore";
 import {
