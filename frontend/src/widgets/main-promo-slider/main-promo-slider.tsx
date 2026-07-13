@@ -8,11 +8,6 @@ import type {
 import { useChangeSlide } from "@/features/slider/hooks/useChangeSlide";
 import { sliderStore } from "./model/sliderStore";
 import {
-  // SliderStateContext,
-  // SliderActionsContext,
-  // SlidesContext,
-} from "./model/contexts";
-import {
   SliderStateContext,
   SliderActionsContext,
   SlidesContext,

@@ -31,13 +31,12 @@ export type TSlidesContext<T = unknown> = {
   quantityShowSlides?: number;
 };
 
+// ==================== CONTEXTS ====================
 export const SliderStateContext = createContext<TSliderStateContext | null>(
   null,
 );
 
 export const SliderActionsContext =
   createContext<TSliderActionsContenxt | null>(null);
-
+// Контекст объявлен с широким типом - те можем хранить слайды люб типа
 export const SlidesContext = createContext<TSlidesContext<unknown> | null>(null);
-
-

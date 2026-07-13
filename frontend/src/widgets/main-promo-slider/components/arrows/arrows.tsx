@@ -1,14 +1,9 @@
-// import { SliderContext } from "@/widgets/slider/utils/contexts";
 import { useCallback, useMemo } from "react";
 import { ArrowsUI } from "./ui/arrows";
 import {
   useSliderActionsContext,
   useSliderStateContext,
 } from "@/features/slider/hooks/useInitialContext";
-// import {
-//   useSliderActionsContext,
-//   useSliderStateContext,
-// } from "../../hooks/useInitialContext";
 import type { TArrows } from "./types";
 
 export const Arrows = () => {
