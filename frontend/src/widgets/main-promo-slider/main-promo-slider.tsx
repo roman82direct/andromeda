@@ -1,5 +1,5 @@
 import { memo, useMemo, useState } from "react";
-import { SliderUI } from "./ui/slider";
+import { MainPromoSliderUI } from "./ui/main-promo-slider";
 import type {
   TConfigChangeSlide,
   TConfigSliderProps,
@@ -14,20 +14,16 @@ import { sliderStore } from "./model/sliderStore";
 import {
   SliderStateContext,
   SliderActionsContext,
-  SlidesContext,
 } from "@/features/slider/model/contexts";
+import { SlidesContext } from "@/features/slider/model/contexts";
 
-// сделай пагинацию!!!!!!!!!как раб пагинация сучетом беск цикла
-// с учетом бесконеч цикла
-//  и стрелки и автоплей
 
-export const SliderComponent = ({
+export const MainPromoSliderComponent = ({
   infiniteLoop = true,
   quantityShowSlides = 1,
   isPagination,
   autoPlay = false,
   autoPlayTime = 3000,
-  // typeSlider?:'' --> попробуй масштабировать
   pagePaginationSize = 3,
 }: TConfigSliderProps) => {
   // загружаем информацию о слайдах в наш компонент
@@ -35,7 +31,7 @@ export const SliderComponent = ({
   // подтягиваем данные  мгновенно и только один раз
   // функция вызывается один раз - ленивая загрузка - тяжелые вычисления
   const [slides] = useState<TSlideItem[]>(() => sliderStore);
-
+ 
   const settingChangeSlide: TConfigChangeSlide = {
     autoPlay,
     autoPlayTime,
@@ -97,7 +93,7 @@ export const SliderComponent = ({
     <SlidesContext.Provider value={valueSlides}>
       <SliderActionsContext.Provider value={valueSliderActions}>
         <SliderStateContext.Provider value={valueSliderState}>
-          <SliderUI
+          <MainPromoSliderUI
             toggleAutoPlayChangeSlide={dataForSlider.toggleAutoPlayChangeSlide}
             isPagination={isPagination}
           />
@@ -107,5 +103,5 @@ export const SliderComponent = ({
   );
 };
 
-export const Slider = memo(SliderComponent);
-Slider.displayName = "Slider";
+export const MainPromoSlider = memo(MainPromoSliderComponent);
+MainPromoSlider.displayName = "MainPromoSlider";

@@ -1,13 +1,5 @@
 import type { TIconClassCssIcon } from "@/shared/types/ui/icon";
 
-export type KeySlideItem = string;
-export type TypeSlideValue = unknown;
-
-export type TSlideItem<K extends KeySlideItem = KeySlideItem, T = TypeSlideValue> = {
- [key in K]:T
-} | {
-  [key in K]?:T
-};
 //  тип  операции со слайдом
 export type TypeOperationFlip = "increment" | "decrement";
 
