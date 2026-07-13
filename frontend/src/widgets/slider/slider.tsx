@@ -5,7 +5,7 @@ import type {
   TConfigSliderProps,
   TSlideItem,
 } from "./types";
-import { useChangeSlide } from "./hooks/useChangeSlide";
+import { useChangeSlide } from "@/features/slider/hooks/useChangeSlide";
 import { sliderStore } from "./model/sliderStore";
 import {
   SliderStateContext,
