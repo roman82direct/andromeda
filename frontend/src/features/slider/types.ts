@@ -1,4 +1,5 @@
 import type { TIconClassCssIcon } from "@/shared/types/ui/icon";
+import type { ReactNode } from "react";
 
 //  тип  операции со слайдом
 export type TypeOperationFlip = "increment" | "decrement";
@@ -44,26 +45,43 @@ export type TArrow = {
 //   общие параметры слайдера
 //  переделать слайдер под след настройки
 //  и выделать в типы слайдера
-export type TConfigSliderProps = {
+
+export type ThemeSlide = "dark" | "light"; //пока заглушка нужнали она здесь ?
+
+
+export type BasedSlide = {
+  typeTheme?: ThemeSlide;
+}
+
+export type RenderSliderUIFunc = (props:{  toggleAutoPlayChangeSlide?: (flag: boolean) => void;
+  isPagination?: boolean})=> ReactNode;
+
+
+export type SliderCommonSettings = {
   infiniteLoop?: boolean;
   quantityShowSlides?: number;
   isPagination?: boolean;
   autoPlay?: boolean;
   autoPlayTime?: number;
-  // typeAnimation или transform ?
-  // typeSlider?:'' --> попробуй масштабировать
   pagePaginationSize?: number;
-  // width
-  // height
 };
+
+
+export type TSliderProps<T extends BasedSlide> = 
+  SliderCommonSettings & {
+  slides: T[],
+  children: RenderSliderUIFunc;
+};
+
+// возможно пробить тип дженерика дальше ?
 //  выделить в типы хука или слайдера
-export type TConfigChangeSlide = Pick<
-  TConfigSliderProps,
+export type ChangeSlideSettings = Pick<
+  SliderCommonSettings,
   "autoPlay" | "autoPlayTime" | "pagePaginationSize" | "infiniteLoop"
 >;
 //  для хука автоплея слайдов
-export type TAutoPlaySetting<T> = Pick<
-  TConfigSliderProps,
+export type AutoPlaySetting<T> = Pick<
+  SliderCommonSettings,
   "autoPlay" | "infiniteLoop" | "autoPlayTime"
 > & {
   dispatch: (action: TSliderAction<T>) => void;

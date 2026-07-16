@@ -1,4 +1,4 @@
-import { SliderActionTypes, type TConfigChangeSlide } from "../types";
+import { SliderActionTypes, type ChangeSlideSettings } from "../types";
 import { useCallback, useMemo, useReducer, useEffect } from "react";
 import type { TypeOperationFlip } from "../types";
 import { getPagIndexes } from "../utils//getPagIndexes";
@@ -16,7 +16,7 @@ export const useChangeSlide = <T>(
     autoPlayTime,
     pagePaginationSize,
     infiniteLoop,
-  }: TConfigChangeSlide,
+  }: ChangeSlideSettings,
 ) => {
   // 1. Подготавливаем слайды с клонами
   // (абстрагировать логику клонирования - допустим если нам это не надо)
@@ -109,7 +109,7 @@ export const useChangeSlide = <T>(
     });
   };
   //  работа автопоказа слайдов
-  useAutoPlayShowSlides({
+  useAutoPlayShowSlides<T>({
     indexSlide: stateSlader.indexSlide,
     infiniteLoop,
     autoPlay,

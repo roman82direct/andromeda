@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import type { TypeOperationFlip } from "../types";
+import type { TypeOperationFlip,ThemeSlide  } from "../types";
 //  создать отдельную папку с контекстами!!!
 //  связать состоянием слайдера в редюсере?
 
@@ -8,7 +8,6 @@ export type TBlockArrow = {
   isRightArrow: boolean;
 };
 
-export type ThemeSlide = "dark" | "light"; //пока заглушка нужнали она здесь ?
 
 export type TSliderStateContext = {
   slideNumber: number;

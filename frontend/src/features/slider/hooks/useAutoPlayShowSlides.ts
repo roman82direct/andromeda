@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
-import type { TAutoPlaySetting } from "../types";
+import type { AutoPlaySetting } from "../types";
 
-export const useAutoPlayShowSlides = ({
+export const useAutoPlayShowSlides = <T>({
   indexSlide,
   infiniteLoop,
   autoPlay,
@@ -9,7 +9,7 @@ export const useAutoPlayShowSlides = ({
   autoPlayTime,
   isAutoPlayState,
   dispatch,
-}: TAutoPlaySetting) => {
+}: AutoPlaySetting<T>) => {
   //  используем направления автоплея если цикл не бесконечный
   const directionRef = useRef(true);
   //  сделать отдельный хук для автоплея
