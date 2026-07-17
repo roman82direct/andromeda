@@ -12,7 +12,7 @@ import { sliderStore } from "./model/sliderStore";
 //   SliderActionsContext,
 //   SlidesContext,
 // } from "@/features/slider/model/contexts";
-import { Slider } from "@/features/slider/slider";
+import { Slider } from "@/features/slider";
 
 // сделай пагинацию!!!!!!!!!как раб пагинация сучетом беск цикла
 // с учетом бесконеч цикла
@@ -27,10 +27,11 @@ export const MainPromoSliderComponent = ({
   // typeSlider?:'' --> попробуй масштабировать
   pagePaginationSize = 3,
 }:  SliderCommonSettings) => {
-    const renderSlider = useCallback(
-  ({isPagination}: MainPromoSliderUIProps) => (
+    const renderSliderUI = useCallback(
+  ({isPagination,toggleAutoPlayChangeSlide}: MainPromoSliderUIProps) => (
     <MainPromoSliderUI 
       isPagination={isPagination}
+      toggleAutoPlayChangeSlide={toggleAutoPlayChangeSlide}
     />
   ),
   []
@@ -45,7 +46,7 @@ export const MainPromoSliderComponent = ({
           slides ={sliderStore}
           isPagination = {isPagination}
           >{
-           renderSlider
+           renderSliderUI
           
           }</Slider>
           

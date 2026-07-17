@@ -1,20 +1,21 @@
 import styles from "./slides-list.module.css";
 import type React from "react";
-import { renderedSlides } from "@/widgets/main-promo-slider/utils/renderSlides";
 import {
   useSliderStateContext,
   useSliderActionsContext,
   useGetSlidesContext,
 } from "@/features/slider/hooks/useInitialContext";
-import { useMemo } from "react";
+import { useMemo, type ReactNode } from "react";
 import clsx from "clsx";
-import type { TPromoSlideItem } from "../../types";
-// залить в фичу!!
-export const SlidesList = () => {
+
+export type SlidesListProps<T> = {
+  children:(slides:T[]) => ReactNode;
+}
+export const SlidesList = <T,>({children}:SlidesListProps<T>) => {
   const { slideNumber, transitionEnabled } = useSliderStateContext();
   const { handleTransitionEnd } = useSliderActionsContext();
   // Хук → конкретизирует тип через generic <T>
-  const { slides, quantityShowSlides } = useGetSlidesContext<TPromoSlideItem>(); // обязательно указать тип данных слайда
+  const { slides, quantityShowSlides } = useGetSlidesContext<T>(); // обязательно указать тип данных слайда
 
   const showSlides = quantityShowSlides ? quantityShowSlides : 1;
   const stylesTranslate = useMemo(
@@ -31,7 +32,7 @@ export const SlidesList = () => {
       className={clsx(styles["slides-list"], styles[`show-quntity`])}
       style={stylesTranslate}
     >
-      {renderedSlides(slides)}
+      {children(slides)}
     </div>
   );
 };

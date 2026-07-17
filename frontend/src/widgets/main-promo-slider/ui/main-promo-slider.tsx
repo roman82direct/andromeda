@@ -1,8 +1,9 @@
 import styles from "./main-promo-slider.module.css";
 import { memo } from "react";
-import { SlidesList } from "../components/slides-list/slides-list";
+import { SlidesList } from "@/features/slider/";
 import { Dots } from "../components/dots/dots";
 import { Arrows } from "../components/arrows/arrows";
+import {renderedSlides} from '../utils/renderSlides';
 
 export type MainPromoSliderUIProps = {
   toggleAutoPlayChangeSlide?: (flag: boolean) => void;
@@ -24,7 +25,7 @@ export const MainPromoSliderComponentUI = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <SlidesList />
+      <SlidesList>{renderedSlides}</SlidesList>
       <div className={styles["slider-nav"]}>
         <Arrows />
         {isPagination && <Dots />}

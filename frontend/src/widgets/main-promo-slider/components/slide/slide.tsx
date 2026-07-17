@@ -1,13 +1,13 @@
 import { ButtonUI } from "@/shared/ui/button";
 import clsx from "clsx";
 import styles from "./slide.module.css";
-import type { TSlideItem } from "@/widgets/main-promo-slider/types";
+import type { TPromoSlideItem } from "@/widgets/main-promo-slider/types";
 import { memo, useMemo } from "react";
 
 export type SlideUIProps = {
-  showingSlide: TSlideItem;
+  showingSlide: TPromoSlideItem;
 };
-
+//  переделеть названия компонента !!!
 export const SlideUIComponent = ({ showingSlide }: SlideUIProps) => {
   const backgroundImageSrc = useMemo<React.CSSProperties>(() => {
     //  защита если картини нет
