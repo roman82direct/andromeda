@@ -20,25 +20,12 @@ export const MainPromoSliderComponent = ({
 
   // убрать отдельно
     const renderSliderUI = useCallback(
-  ({isPagination,settingAutoPlay}: TArgsRenderMainPromoSliderUI ) => {
-
-    const {runAutoPlay, stopAutoPlay} = settingAutoPlay;
-
-    const onMouseEnterHandler = ()=>{
-          runAutoPlay()
-   
-  }
-
-   const onMouseLeaveHandler =  ()=>{
-        stopAutoPlay()
-  }
+  ({isPagination}: TArgsRenderMainPromoSliderUI ) => {
 
 
 
    return ( <MainPromoSliderUI 
       isPagination={isPagination}
-      onSubjectEnterHandler={onMouseEnterHandler}
-      onSubjectLeaveHandler={onMouseLeaveHandler }
     />)
    },
   []

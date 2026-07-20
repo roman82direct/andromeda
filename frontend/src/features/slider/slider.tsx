@@ -88,7 +88,10 @@ export const SliderComponent = <T extends BasedSlide,>({
   // для остановки или продолжения события автоплей
   // возможно сделать useCallback ?
 
-
+// useSliderInteraction нужен хук для :
+//  если мышка наведена остановить автоплей если нет продолжить автоплей
+//  если тач сделан один раз остановить автоплей и  если тач сделан в др месте продолжить автоплей
+//  свайпы?
   const runAutoPlay = useCallback(() => {
     // запуск автоматич перекл слайдов
     dataForSlider.toggleAutoPlayChangeSlide(true)
@@ -99,26 +102,31 @@ const stopAutoPlay = useCallback(() => {
     dataForSlider.toggleAutoPlayChangeSlide(false);
 }, [dataForSlider]);
 
-const settingAutoPlay = useMemo(() => ({
-    runAutoPlay,
-    stopAutoPlay,
-}), [runAutoPlay, stopAutoPlay]);
-  // console.log(settingAutoPlay)
+
   if (!slides.length) return <div>Сделать лоадер загрузки</div>;
   return (
     <SlidesContext.Provider value={valueSlides}>
       <SliderActionsContext.Provider value={valueSliderActions}>
         <SliderStateContext.Provider value={valueSliderState}>
-          {/* <MainPromoSliderUI
-            toggleAutoPlayChangeSlide={dataForSlider.toggleAutoPlayChangeSlide}
-            isPagination={isPagination}
-          /> */}
-          {children({
-            //  toggleAutoPlayChangeSlide: dataForSlider.toggleAutoPlayChangeSlide,
-              settingAutoPlay,
-              isPagination: isPagination,
-              
-          })}
+          <div
+               // начинаем взаимодействие с элементом - тач
+            onPointerDown={runAutoPlay}
+            
+            // заканчиваем взаимодействие с элементом - убираем тач
+            onPointerUp = {stopAutoPlay}
+          
+            // если произошло сторонне действие
+            onPointerCancel={stopAutoPlay}
+            //  лучше для мышки
+
+            onPointerEnter={runAutoPlay}
+            onPointerLeave={stopAutoPlay}
+            >
+            {children({
+                isPagination: isPagination,
+                
+            })}
+          </div>
         </SliderStateContext.Provider>
       </SliderActionsContext.Provider>
     </SlidesContext.Provider>
