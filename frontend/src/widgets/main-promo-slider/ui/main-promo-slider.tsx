@@ -1,36 +1,48 @@
 import styles from "./main-promo-slider.module.css";
-import { memo, useCallback } from "react";
+import { memo } from "react";
 import { SlidesList } from "@/features/slider/";
 import { Dots } from "../components/dots/dots";
 import { Arrows } from "../components/arrows/arrows";
 import {renderedSlides} from '../utils/renderSlides';
-import type { TSettingAutoplay } from "@/features/slider/types";
 
 export type MainPromoSliderUIProps = {
-  settingAutoPlay?: TSettingAutoplay
   isPagination?: boolean;
+  onSubjectEnterHandler?: ()=>void;
+  onSubjectLeaveHandler?: ()=>void;
 };
 
 //  надо посмотреть как можно оптимизировать ?
 export const MainPromoSliderComponentUI = ({
-  settingAutoPlay,
+  onSubjectEnterHandler,
+  onSubjectLeaveHandler,
   isPagination,
 }: MainPromoSliderUIProps) => {
   // передать сюдя функции веместо объекта чтобы избежать лишней мемоизации
-  const handlerOn = useCallback(()=>{
-    settingAutoPlay?.runAutoPlay()
+  // const onMouseEnterHandler = useCallback(()=>{
+  //   settingAutoPlay?.runAutoPlay()
    
-  },[settingAutoPlay])
+  // },[settingAutoPlay])
 
-   const handlerOff =  useCallback(()=>{
-    settingAutoPlay?.stopAutoPlay()
-  },[settingAutoPlay])
+  //  const onMouseLeaveHandler =  useCallback(()=>{
+  //   settingAutoPlay?.stopAutoPlay()
+  // },[settingAutoPlay])
+  //  есть смысл это тоже выделить в отдельную фичу
+  //  как навешиветель обработчиков в тч для touhc скринов!!
+  // сделать поинтеры вместо onTouch ????
+
+  const eventHandler = (e:React.TouchEvent)=>{
+    onSubjectEnterHandler?.()
+    console.log(e.type)
+  }
   return (
     <div
       className={styles.slider}
       // нужно сделать аналог на тач скринах+ перелистиывание слайдов рукой
-      onMouseEnter={handlerOn}
-      onMouseLeave={handlerOff}
+      onMouseEnter={onSubjectEnterHandler}
+      onMouseLeave={onSubjectLeaveHandler}
+      onTouchStart={eventHandler }
+      onTouchEnd={onSubjectLeaveHandler}
+      onTouchCancel={onSubjectLeaveHandler}
     >
       <SlidesList>{renderedSlides}</SlidesList>
       <div className={styles["slider-nav"]}>

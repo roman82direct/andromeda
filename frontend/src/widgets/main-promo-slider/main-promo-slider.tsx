@@ -1,22 +1,13 @@
 import { memo, useCallback, } from "react";
-import { MainPromoSliderUI, type MainPromoSliderUIProps } from "./ui/main-promo-slider";
-// import type { TPromoSlideItem } from "./types";
-import type {
-  SliderCommonSettings,
-//  ChangeSlideSettings,
-} from "@/features/slider/types";
-// import { useChangeSlide } from "@/features/slider/hooks/useChangeSlide";
+import { MainPromoSliderUI,  } from "./ui/main-promo-slider";
+import type { SliderCommonSettings} from "@/features/slider";
 import { sliderStore } from "./model/sliderStore";
-// import {
-//   SliderStateContext,
-//   SliderActionsContext,
-//   SlidesContext,
-// } from "@/features/slider/model/contexts";
 import { Slider } from "@/features/slider";
+import type { TArgsRenderMainPromoSliderUI } from "@/features/slider";
 
-// сделай пагинацию!!!!!!!!!как раб пагинация сучетом беск цикла
-// с учетом бесконеч цикла
-//  и стрелки и автоплей
+
+
+
 
 export const MainPromoSliderComponent = ({
   infiniteLoop = true,
@@ -24,16 +15,30 @@ export const MainPromoSliderComponent = ({
   isPagination,
   autoPlay = true,
   autoPlayTime = 3000,
-  // typeSlider?:'' --> попробуй масштабировать
   pagePaginationSize = 3,
 }:  SliderCommonSettings) => {
 
   // убрать отдельно
     const renderSliderUI = useCallback(
-  ({isPagination,settingAutoPlay}: MainPromoSliderUIProps) => {
+  ({isPagination,settingAutoPlay}: TArgsRenderMainPromoSliderUI ) => {
+
+    const {runAutoPlay, stopAutoPlay} = settingAutoPlay;
+
+    const onMouseEnterHandler = ()=>{
+          runAutoPlay()
+   
+  }
+
+   const onMouseLeaveHandler =  ()=>{
+        stopAutoPlay()
+  }
+
+
+
    return ( <MainPromoSliderUI 
       isPagination={isPagination}
-      settingAutoPlay={settingAutoPlay}
+      onSubjectEnterHandler={onMouseEnterHandler}
+      onSubjectLeaveHandler={onMouseLeaveHandler }
     />)
    },
   []

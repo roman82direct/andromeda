@@ -57,8 +57,14 @@ export type Callback = ()=>void;
 
 export type TSettingAutoplay = {runAutoPlay: Callback,stopAutoPlay: Callback };
 
-export type RenderSliderUIFunc = (props:{ settingAutoPlay: TSettingAutoplay ;
-  isPagination?: boolean})=> ReactNode;
+export type TArgsRenderMainPromoSliderUI = {
+  isPagination?: boolean;
+  settingAutoPlay: TSettingAutoplay
+}
+
+
+export type RenderSliderUIFunc = ({ settingAutoPlay,
+  isPagination}:TArgsRenderMainPromoSliderUI)=> ReactNode;
 
 
 export type SliderCommonSettings = {
