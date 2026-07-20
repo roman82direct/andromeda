@@ -3,7 +3,7 @@ import { DotsUI } from "./ui/dots";
 import {
   useSliderActionsContext,
   useSliderStateContext,
-} from "@/features/slider/hooks/useInitialContext";
+} from "@/features/slider/";
 export const Dots = () => {
   const {
     slideNumber,

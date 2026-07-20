@@ -16,15 +16,13 @@ export const MainPromoSliderComponentUI = ({
   settingAutoPlay,
   isPagination,
 }: MainPromoSliderUIProps) => {
-
+  // передать сюдя функции веместо объекта чтобы избежать лишней мемоизации
   const handlerOn = useCallback(()=>{
-    console.log('on mouse enter')
     settingAutoPlay?.runAutoPlay()
    
   },[settingAutoPlay])
 
    const handlerOff =  useCallback(()=>{
-    console.log('on mouse leave')
     settingAutoPlay?.stopAutoPlay()
   },[settingAutoPlay])
   return (

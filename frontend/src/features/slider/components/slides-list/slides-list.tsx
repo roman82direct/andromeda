@@ -11,7 +11,7 @@ import clsx from "clsx";
 export type SlidesListProps<T> = {
   children:(slides:T[]) => ReactNode;
 }
-export const SlidesList = <T,>({children}:SlidesListProps<T>) => {
+export const  SlidesList = <T,>({children}:SlidesListProps<T>) => {
   const { slideNumber, transitionEnabled } = useSliderStateContext();
   const { handleTransitionEnd } = useSliderActionsContext();
   // Хук → конкретизирует тип через generic <T>

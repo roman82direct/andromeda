@@ -1,9 +1,10 @@
 import { useCallback, useMemo } from "react";
 import { ArrowsUI } from "./ui/arrows";
+//  поменять 
 import {
   useSliderActionsContext,
   useSliderStateContext,
-} from "@/features/slider/hooks/useInitialContext";
+} from "@/features/slider/";
 import type { TArrows } from "./types";
 
 export const Arrows = () => {
