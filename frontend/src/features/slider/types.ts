@@ -53,7 +53,11 @@ export type BasedSlide = {
   typeTheme?: ThemeSlide;
 }
 
-export type RenderSliderUIFunc = (props:{  toggleAutoPlayChangeSlide?: (flag: boolean) => void;
+export type Callback = ()=>void;
+
+export type TSettingAutoplay = {runAutoPlay: Callback,stopAutoPlay: Callback };
+
+export type RenderSliderUIFunc = (props:{ settingAutoPlay: TSettingAutoplay ;
   isPagination?: boolean})=> ReactNode;
 
 

@@ -1,4 +1,4 @@
-import { memo, useMemo } from "react";
+import { memo, useCallback, useMemo } from "react";
 import type {
   BasedSlide,
   ChangeSlideSettings,
@@ -85,6 +85,25 @@ export const SliderComponent = <T extends BasedSlide,>({
       dataForSlider.handleTransitionEnd,
     ],
   );
+  // для остановки или продолжения события автоплей
+  // возможно сделать useCallback ?
+
+
+  const runAutoPlay = useCallback(() => {
+    // запуск автоматич перекл слайдов
+    dataForSlider.toggleAutoPlayChangeSlide(true)
+}, [dataForSlider]);
+
+const stopAutoPlay = useCallback(() => {
+  // отключение автоматич перекл слайдов
+    dataForSlider.toggleAutoPlayChangeSlide(false);
+}, [dataForSlider]);
+
+const settingAutoPlay = useMemo(() => ({
+    runAutoPlay,
+    stopAutoPlay,
+}), [runAutoPlay, stopAutoPlay]);
+  // console.log(settingAutoPlay)
   if (!slides.length) return <div>Сделать лоадер загрузки</div>;
   return (
     <SlidesContext.Provider value={valueSlides}>
@@ -95,7 +114,8 @@ export const SliderComponent = <T extends BasedSlide,>({
             isPagination={isPagination}
           /> */}
           {children({
-             toggleAutoPlayChangeSlide: dataForSlider.toggleAutoPlayChangeSlide,
+            //  toggleAutoPlayChangeSlide: dataForSlider.toggleAutoPlayChangeSlide,
+              settingAutoPlay,
               isPagination: isPagination,
               
           })}

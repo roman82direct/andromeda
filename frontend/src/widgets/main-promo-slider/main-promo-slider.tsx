@@ -22,18 +22,20 @@ export const MainPromoSliderComponent = ({
   infiniteLoop = true,
   quantityShowSlides = 1,
   isPagination,
-  autoPlay = false,
+  autoPlay = true,
   autoPlayTime = 3000,
   // typeSlider?:'' --> попробуй масштабировать
   pagePaginationSize = 3,
 }:  SliderCommonSettings) => {
+
+  // убрать отдельно
     const renderSliderUI = useCallback(
-  ({isPagination,toggleAutoPlayChangeSlide}: MainPromoSliderUIProps) => (
-    <MainPromoSliderUI 
+  ({isPagination,settingAutoPlay}: MainPromoSliderUIProps) => {
+   return ( <MainPromoSliderUI 
       isPagination={isPagination}
-      toggleAutoPlayChangeSlide={toggleAutoPlayChangeSlide}
-    />
-  ),
+      settingAutoPlay={settingAutoPlay}
+    />)
+   },
   []
 );
   return (

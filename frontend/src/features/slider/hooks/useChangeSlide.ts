@@ -29,7 +29,7 @@ export const useChangeSlide = <T>(
     }
   }, [infiniteLoop, slides]);
 
-  const [stateSlader, dispatch] = useReducer(
+  const [stateSlider, dispatch] = useReducer(
     sliderReducer,
     // на основе 2 обхектаинициализируем состояние
     preparedSlides,
@@ -58,10 +58,10 @@ export const useChangeSlide = <T>(
   }, [preparedSlides]);
 
   // если слайдер не бесконечный скрывам стрелку  если слайд первый или последний
-  const isRightArrow = !infiniteLoop && stateSlader.indexSlide === 0;
+  const isRightArrow = !infiniteLoop && stateSlider.indexSlide === 0;
   const isLeftArrow =
     !infiniteLoop &&
-    stateSlader.indexSlide === stateSlader.preparedSlides.length - 1;
+    stateSlider.indexSlide === stateSlider.preparedSlides.length - 1;
   const isBlockArrow = {
     isLeftArrow,
     isRightArrow,
@@ -72,14 +72,14 @@ export const useChangeSlide = <T>(
     const currentIndexesPag = getPagIndexes(
       // бесконеч цикл это лишний первый или последний слайд
       // поэтому подстраиваем совпадение пагинации
-      infiniteLoop ? stateSlader.indexSlide - 1 : stateSlader.indexSlide,
+      infiniteLoop ? stateSlider.indexSlide - 1 : stateSlider.indexSlide,
       pagePaginationSize || 3,
       slides.length,
     );
     return currentIndexesPag.map((dotIndex) =>
       infiniteLoop ? dotIndex + 1 : dotIndex,
     );
-  }, [stateSlader.indexSlide, slides.length, pagePaginationSize, infiniteLoop]);
+  }, [stateSlider.indexSlide, slides.length, pagePaginationSize, infiniteLoop]);
 
   //  отключить/включить автоматическое изменение картинок слайдера
   //  подготовка слайдов ксозданию 'бесконечной прокрутки'
@@ -102,30 +102,34 @@ export const useChangeSlide = <T>(
 
   // добавить флаг для остоновки автоматич пролистывания при наведении на слайд
   //  обработчик для onMouseOn onMouseEnter
-  const handleToggleRunAutoPlayShowSlides = () => {
+  //  useCallback 
+  const handleToggleRunAutoPlayShowSlides = useCallback((isPause: boolean) => {
+    // console.log(stateSlader)
+    
     dispatch({
       type: SliderActionTypes.toggleAutoPlay,
-      payload: !stateSlader.isAutoPlay,
+      payload: !isPause, // Если пауза (true), то автоплей станет false (выключен)
     });
-  };
+    
+  },[]);
   //  работа автопоказа слайдов
   useAutoPlayShowSlides<T>({
-    indexSlide: stateSlader.indexSlide,
+    indexSlide: stateSlider.indexSlide,
     infiniteLoop,
     autoPlay,
-    slidesArrLength: stateSlader.preparedSlides.length,
+    slidesArrLength: stateSlider.preparedSlides.length,
     autoPlayTime,
-    isAutoPlayState: stateSlader.isAutoPlay,
+    isAutoPlayState: stateSlider.isAutoPlay,
     dispatch,
   });
 
   return {
-    indexSlide: stateSlader.indexSlide, // индексы:слайд текущий
+    indexSlide: stateSlider.indexSlide, // индексы:слайд текущий
     setIndexSlide, // для прыжка на люб слайд (пагинация)
     handleChangeSlide, // // Функция для кнопок "Вперед" и "Назад"
-    preparedSlides: stateSlader.preparedSlides,
-    isAnimating: stateSlader.isAnimating,
-    transitionEnabled: stateSlader.transitionEnabled,
+    preparedSlides: stateSlider.preparedSlides,
+    isAnimating: stateSlider.isAnimating,
+    transitionEnabled: stateSlider.transitionEnabled,
     handleTransitionEnd,
     preparedIndexesForPag,
     // для автом смены слайда
