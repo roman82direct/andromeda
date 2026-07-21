@@ -1,6 +1,6 @@
 import styles from "./main-promo-slider.module.css";
 import { memo } from "react";
-import { SlidesList } from "@/features/slider/";
+import { SliderTrack } from "@/features/slider/";
 import { Dots } from "../components/dots/dots";
 import { Arrows } from "../components/arrows/arrows";
 import {renderedSlides} from '../utils/renderSlides';
@@ -19,7 +19,7 @@ export const MainPromoSliderComponentUI = ({
     <div
       className={styles.slider}
     >
-      <SlidesList>{renderedSlides}</SlidesList>
+      <SliderTrack>{renderedSlides}</SliderTrack>
       <div className={styles["slider-nav"]}>
         <Arrows />
         {isPagination && <Dots />}

@@ -8,10 +8,10 @@ import {
 import { useMemo, type ReactNode } from "react";
 import clsx from "clsx";
 
-export type SlidesListProps<T> = {
+export type SliderTrackProps<T> = {
   children:(slides:T[]) => ReactNode;
 }
-export const  SlidesList = <T,>({children}:SlidesListProps<T>) => {
+export const  SliderTrack = <T,>({children}: SliderTrackProps<T>) => {
   const { slideNumber, transitionEnabled } = useSliderStateContext();
   const { handleTransitionEnd } = useSliderActionsContext();
   // Хук → конкретизирует тип через generic <T>

@@ -117,14 +117,12 @@ const {
       <SliderActionsContext.Provider value={valueSliderActions}>
         <SliderStateContext.Provider value={valueSliderState}>
           <div
-          //  тач прикосновение
-          onPointerDown={onPointerDown}
-          onPointerUp = {onPointerUp}
-          // работа с мышкой границы
+           //  тач прикосновение
+            onPointerDown={onPointerDown}
+            onPointerUp = {onPointerUp}
+            // работа с мышкой границы
             onPointerEnter={onPointerEnter}
-          
             onPointerLeave={onPointerLeave}
-          
             onPointerCancel={onPointerCancel}
             >
             {children({
