@@ -11,6 +11,7 @@ import {
   SliderActionsContext,
   SlidesContext,
 } from "@/features/slider/model/contexts";
+import { useSliderInteractions } from "./hooks/useSliderInteraction";
 
 
 
@@ -44,6 +45,7 @@ export const SliderComponent = <T extends BasedSlide,>({
   }, [dataForSlider.indexSlide, dataForSlider.preparedSlides]);
 
   //  разделим контексты на действия и состояния
+  //  состояние элементов контроля 
   const valueSliderState = useMemo(
     () => ({
       slideNumber: dataForSlider.indexSlide,
@@ -64,6 +66,7 @@ export const SliderComponent = <T extends BasedSlide,>({
     ],
   );
   //  меняется редко поэтому выделим
+  //  сами слайды
   const valueSlides = useMemo(
     () => ({
       slides: dataForSlider.preparedSlides,
@@ -85,23 +88,28 @@ export const SliderComponent = <T extends BasedSlide,>({
       dataForSlider.handleTransitionEnd,
     ],
   );
-  // для остановки или продолжения события автоплей
-  // возможно сделать useCallback ?
-
-// useSliderInteraction нужен хук для :
-//  если мышка наведена остановить автоплей если нет продолжить автоплей
-//  если тач сделан один раз остановить автоплей и  если тач сделан в др месте продолжить автоплей
 //  свайпы?
-  const runAutoPlay = useCallback(() => {
-    // запуск автоматич перекл слайдов
+const stopAutoPlay = useCallback(() => {
+    // отключ автоматич перекл слайдов
     dataForSlider.toggleAutoPlayChangeSlide(true)
 }, [dataForSlider]);
 
-const stopAutoPlay = useCallback(() => {
-  // отключение автоматич перекл слайдов
-    dataForSlider.toggleAutoPlayChangeSlide(false);
+const runAutoPlay = useCallback(() => {
+  // запуск автоматич перекл слайдов
+  dataForSlider.toggleAutoPlayChangeSlide(false);
 }, [dataForSlider]);
 
+
+const {
+  onPointerEnter, 
+  onPointerLeave, 
+  onPointerUp,  
+  onPointerDown,
+  onPointerCancel
+} = useSliderInteractions({
+  callBackStop: stopAutoPlay,
+  callBackStart: runAutoPlay,
+})
 
   if (!slides.length) return <div>Сделать лоадер загрузки</div>;
   return (
@@ -109,18 +117,15 @@ const stopAutoPlay = useCallback(() => {
       <SliderActionsContext.Provider value={valueSliderActions}>
         <SliderStateContext.Provider value={valueSliderState}>
           <div
-               // начинаем взаимодействие с элементом - тач
-            onPointerDown={runAutoPlay}
-            
-            // заканчиваем взаимодействие с элементом - убираем тач
-            onPointerUp = {stopAutoPlay}
+          //  тач прикосновение
+          onPointerDown={onPointerDown}
+          onPointerUp = {onPointerUp}
+          // работа с мышкой границы
+            onPointerEnter={onPointerEnter}
           
-            // если произошло сторонне действие
-            onPointerCancel={stopAutoPlay}
-            //  лучше для мышки
-
-            onPointerEnter={runAutoPlay}
-            onPointerLeave={stopAutoPlay}
+            onPointerLeave={onPointerLeave}
+          
+            onPointerCancel={onPointerCancel}
             >
             {children({
                 isPagination: isPagination,
