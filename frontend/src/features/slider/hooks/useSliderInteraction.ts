@@ -2,17 +2,22 @@
 type ArgsForInteractions = {
   callBackStop: ()=>void;
   callBackStart: ()=>void;
+  enabled: boolean;
 }
 
-export const useSliderInteractions =  ({callBackStop, callBackStart}:ArgsForInteractions )=>{
-    //  работа с мышкой границы
+export const useSliderInteractions =  ({callBackStop, callBackStart, enabled}:ArgsForInteractions )=>{
+    
+   
+  //  работа с мышкой границы
     const handlePointerEnter = (e:React.PointerEvent)=>{
+       if(!enabled) return;
       if(e.pointerType === 'mouse') {
           callBackStop();
         }
     }
     
     const handlePointerLeave = (e:React.PointerEvent)=>{
+       if(!enabled) return;
       if(e.pointerType === 'mouse') {
         callBackStart();
       }
@@ -20,12 +25,14 @@ export const useSliderInteractions =  ({callBackStop, callBackStart}:ArgsForInte
 
     //   тач прикосновение
      const handlePointerUp  = (e:React.PointerEvent)=>{
+       if(!enabled) return;
         if(e.pointerType === 'touch' || e.pointerType === 'pen') {
           callBackStart();
         }
     }
 
     const handlePointerDown = (e:React.PointerEvent)=>{
+       if(!enabled) return;
         if(e.pointerType === 'touch' || e.pointerType === 'pen') {
           callBackStop();
         }

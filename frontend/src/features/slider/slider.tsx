@@ -90,14 +90,16 @@ export const SliderComponent = <T extends BasedSlide,>({
   );
 //  свайпы?
 const stopAutoPlay = useCallback(() => {
+  if(!autoPlay) return;
     // отключ автоматич перекл слайдов
     dataForSlider.toggleAutoPlayChangeSlide(true)
-}, [dataForSlider]);
+}, [dataForSlider, autoPlay]);
 
 const runAutoPlay = useCallback(() => {
+  if(!autoPlay) return;
   // запуск автоматич перекл слайдов
   dataForSlider.toggleAutoPlayChangeSlide(false);
-}, [dataForSlider]);
+}, [dataForSlider,autoPlay]);
 
 
 const {
@@ -107,6 +109,7 @@ const {
   onPointerDown,
   onPointerCancel
 } = useSliderInteractions({
+  enabled: autoPlay,
   callBackStop: stopAutoPlay,
   callBackStart: runAutoPlay,
 })
