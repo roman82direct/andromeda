@@ -1,7 +1,7 @@
 import { SliderActionTypes, type ChangeSlideSettings } from "../types";
 import { useCallback, useMemo, useReducer, useEffect } from "react";
 import type { TypeOperationFlip } from "../types";
-import { getPagIndexes } from "../utils//getPagIndexes";
+import { getPagIndexes } from "../utils/getPagIndexes";
 import {
   createInitialStateSlider,
   sliderReducer,

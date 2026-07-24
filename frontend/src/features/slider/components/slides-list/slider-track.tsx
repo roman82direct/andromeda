@@ -1,4 +1,4 @@
-import styles from "./slides-list.module.css";
+import styles from "./slider-track.module.css";
 import type React from "react";
 import {
   useSliderStateContext,

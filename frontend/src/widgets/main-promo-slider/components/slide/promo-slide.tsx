@@ -1,14 +1,14 @@
 import { ButtonUI } from "@/shared/ui/button";
 import clsx from "clsx";
-import styles from "./slide.module.css";
+import styles from "./promo-slide.module.css";
 import type { TPromoSlideItem } from "@/widgets/main-promo-slider/types";
 import { memo, useMemo } from "react";
 
-export type SlideUIProps = {
+export type PromoSlideUIProps = {
   showingSlide: TPromoSlideItem;
 };
 //  переделеть названия компонента !!!
-export const SlideUIComponent = ({ showingSlide }: SlideUIProps) => {
+export const PromoSlideUIComponent = ({ showingSlide }: PromoSlideUIProps) => {
   const backgroundImageSrc = useMemo<React.CSSProperties>(() => {
     //  защита если картини нет
     if (!showingSlide.image) return {};
@@ -31,16 +31,16 @@ export const SlideUIComponent = ({ showingSlide }: SlideUIProps) => {
 
   return (
     <article
-      className={clsx(styles["slider-item"], styles[themeSlideClass])}
+      className={clsx(styles["promo-slide-item"], styles[themeSlideClass])}
       style={backgroundImageSrc}
     >
       {/* проблема переполнения текста  */}
-      <div className={styles["slider-content"]}>
-        <div className={styles["slider-text"]}>
+      <div className={styles["promo-slide-content"]}>
+        <div className={styles["promo-slide-text"]}>
           <h3
             title={showingSlide.title}
             className={clsx(
-              styles["slider-title"],
+              styles["promo-slide-title"],
               // оставить наслучай переполнения текста ?
               styles["clamp"],
             )}
@@ -50,7 +50,7 @@ export const SlideUIComponent = ({ showingSlide }: SlideUIProps) => {
           {showingSlide.desc && (
             <div
               className={clsx(
-                styles["slider-desc"],
+                styles["promo-slide-desc"],
                 // оставить наслучай переполнения текста ?
                 styles["clamp"],
               )}
@@ -59,8 +59,8 @@ export const SlideUIComponent = ({ showingSlide }: SlideUIProps) => {
             </div>
           )}
         </div>
-        <div className={styles["slider-actions"]}>
-          <div className={styles["slider-buttons"]}>
+        <div className={styles["promo-slider-actions"]}>
+          <div className={styles["promo-slider-buttons"]}>
             {showingSlide.pathsForActions.map((source, index) =>
               source.trigger === "route" ? (
                 <ButtonUI
@@ -89,6 +89,6 @@ export const SlideUIComponent = ({ showingSlide }: SlideUIProps) => {
   );
 };
 
-export const SlideUI = memo(SlideUIComponent);
+export const PromoSlideUI = memo(PromoSlideUIComponent);
 
-SlideUI.displayName = "SlideUI";
+PromoSlideUI.displayName = "PromoSlideUI";

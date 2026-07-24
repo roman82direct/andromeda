@@ -17,10 +17,10 @@ export const MainPromoSliderComponentUI = ({
 
   return (
     <div
-      className={styles.slider}
+      className={styles['main-promo-slider']}
     >
       <SliderTrack>{renderedSlides}</SliderTrack>
-      <div className={styles["slider-nav"]}>
+      <div className={styles["main-promo-slider-nav"]}>
         <Arrows />
         {isPagination && <Dots />}
       </div>

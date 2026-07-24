@@ -1,8 +1,8 @@
-import { SlideUI } from "./slide";
+import { PromoSlideUI } from "./promo-slide.tsx";
 import type { TPromoSlideItem } from "../../types";
 
 export const renderedSlides = (slides: TPromoSlideItem[]) => {
   return slides.map((slide, index) => {
-    return <SlideUI key={index} showingSlide={slide} />;
+    return <PromoSlideUI key={index} showingSlide={slide} />;
   });
 };
