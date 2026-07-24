@@ -50,7 +50,8 @@ export type ReviewCard = {
   redactedAt?: string;
 };
 // карточка продукта
-export type CardProductUIProps = {
+export type CardProduct = {
+  articul: string;
   price: number;
   oldPrice?: number;
   productName: string;

@@ -1,5 +1,5 @@
 import { AppImage } from "@/shared/ui/app-image/app-image";
-import type { CardProductUIProps } from "../../../model/types";
+import type { CardProduct } from "../../../model/types";
 import styles from "./card-product.module.css";
 import { IconButtonUI } from "@/shared/ui/icon-button/icon-button";
 import { IconUI } from "@/shared/ui/icon";
@@ -20,7 +20,7 @@ export const CardProductUI = ({
   images = { pathsImages: [PLACEHOLDER_URL] },
   onClick,
   currencyType = "₽",
-}: CardProductUIProps) => {
+}: CardProduct) => {
   return (
     <article className={styles["card-product"]}>
       <div className={styles["card-images-container"]}>
