@@ -86,6 +86,10 @@ export const sliderReducer = <T>(
       };
     }
     case SliderActionTypes.toggleAutoPlay: {
+      //  если состояние такое же не создаем новый объект нашего состояния
+      if(action.payload === state.isAutoPlay) {
+        return state
+      }
       return {
         ...state,
         isAutoPlay: action.payload,
