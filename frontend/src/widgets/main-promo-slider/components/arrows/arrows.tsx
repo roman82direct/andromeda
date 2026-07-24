@@ -7,12 +7,17 @@ import {
 } from "@/features/slider/";
 import type { TArrows } from "./types";
 
-export const Arrows = () => {
-  const { currentSlideTheme, isAnimation, isBlockArrow } =
+type ArrowsProps = {
+  themeArrows?:string;
+}
+
+
+export const Arrows = ({themeArrows}:ArrowsProps) => {
+  const { isAnimation, isBlockArrow } =
     useSliderStateContext();
   const { handleChangeSlide } = useSliderActionsContext();
 
-  const themeArrows = currentSlideTheme === "light" ? "primary" : "secondary";
+  const theme = themeArrows === "light" ? "primary" : "secondary";
   const handleDecrementSlide = useCallback(() => {
     handleChangeSlide("decrement");
   }, [handleChangeSlide]);
@@ -49,7 +54,7 @@ export const Arrows = () => {
     //  надо ли мемоизировать компонент?
     <ArrowsUI
       arrows={arrows}
-      themeArrows={themeArrows}
+      themeArrows={theme}
       isDisabled={isAnimation}
       isBlockArrow={isBlockArrow}
     />

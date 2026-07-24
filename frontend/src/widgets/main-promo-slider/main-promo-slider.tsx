@@ -16,7 +16,8 @@ import { renderMainPromoSliderUI } from "./ui/render-main-promo-slider-ui";
   }
 
 export const MainPromoSliderComponent = () => {
-  return (
+
+return (
         <Slider {...DEFAULT_SLIDER_SETTINGS} slides={sliderStore}>{
            renderMainPromoSliderUI
         }</Slider>

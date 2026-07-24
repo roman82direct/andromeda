@@ -19,11 +19,11 @@ import slide3Img2xJpg from "@/assets/images/home-page/slider/slide3/2x/image2x.j
 import slide3Img2xAvif from "@/assets/images/home-page/slider/slide3/2x/image2x.avif";
 import slide3Img2xWebp from "@/assets/images/home-page/slider/slide3/2x/image2x.webp";
 
-import type { TSlideItem } from "../types";
+import type { TPromoSlideItem } from "../types";
 
 // как сделать оптимизацию работы с картинками ???
 
-export type TSliderStore = TSlideItem[];
+export type TSliderStore = TPromoSlideItem[];
 
 export const sliderStore: TSliderStore = [
   {

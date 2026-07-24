@@ -4,14 +4,23 @@ import {
   useSliderActionsContext,
   useSliderStateContext,
 } from "@/features/slider/";
-export const Dots = () => {
+import type { ThemeSlide } from "../../types";
+
+
+type DotsProps = {
+  themeDots?:  ThemeSlide;
+}
+
+
+export const Dots = ({themeDots}:DotsProps) => {
   const {
     slideNumber,
     dotsPag,
     // тема слайда влияет на тему отображения точек пагинации на фоне слайда
-    currentSlideTheme,
     isAnimation,
   } = useSliderStateContext();
+
+  //  нужен контекст чтобы получить тек тему слайда
 
   const { setIndexSlide } = useSliderActionsContext();
 
@@ -26,14 +35,14 @@ export const Dots = () => {
     [setIndexSlide],
   );
   // на основе текущего слайда (его фона) определим тему точек
-  const themePag = currentSlideTheme === "light" ? "primary" : "secondary";
+  const theme = themeDots === "light" ? "primary" : "secondary";
   //  т к мы используем клоны для анимации бесконечного слайдера, "обманим" пагинацию
 
   return (
     <DotsUI
       activeSlideNumber={slideNumber}
       dotsPag={dotsLength > 0 ? dotsPag : [1, 2, 3]}
-      currentDotsTheme={themePag}
+      currentDotsTheme={theme}
       onClick={handleSetSlide}
       isBlockClickForDots={isAnimation}
     />

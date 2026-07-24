@@ -1,6 +1,5 @@
 import { memo, useCallback, useMemo } from "react";
 import type {
-  BasedSlide,
   ChangeSlideSettings,
   TSliderProps,
 } from "@/features/slider/types";
@@ -15,7 +14,7 @@ import { useSliderInteractions } from "./hooks/useSliderInteraction";
 
 
 
-export const SliderComponent = <T extends BasedSlide,>({
+export const SliderComponent = <T,>({
   infiniteLoop = true,
   quantityShowSlides = 1,
   isPagination,
@@ -39,10 +38,10 @@ export const SliderComponent = <T extends BasedSlide,>({
 
   const dataForSlider = useChangeSlide<T>(slides, settingChangeSlide);
   // вычисляем тему слайда 1 раз
-  const getCurrentSlideTheme = useMemo(() => {
-    const currentSlide = dataForSlider.preparedSlides[dataForSlider.indexSlide];
-    return currentSlide?.typeTheme ??  'light';
-  }, [dataForSlider.indexSlide, dataForSlider.preparedSlides]);
+  // const getCurrentSlideTheme = useMemo(() => {
+  //   const currentSlide = dataForSlider.preparedSlides[dataForSlider.indexSlide];
+  //   return currentSlide?.typeTheme ??  'light';
+  // }, [dataForSlider.indexSlide, dataForSlider.preparedSlides]);
 
   //  разделим контексты на действия и состояния
   //  состояние элементов контроля 
@@ -50,8 +49,8 @@ export const SliderComponent = <T extends BasedSlide,>({
     () => ({
       slideNumber: dataForSlider.indexSlide,
       dotsPag: dataForSlider.preparedIndexesForPag,
-      // для пагинации если слайдчерный чтобы тема точек было белая допустим
-      currentSlideTheme: getCurrentSlideTheme,
+      // по ум тема слайда неизвестна - необходимо обработать это в виджете
+      // currentSlideTheme: 'unknown',
       transitionEnabled: dataForSlider.transitionEnabled,
       isAnimation: dataForSlider.isAnimating,
       isBlockArrow: dataForSlider.isBlockArrow,
@@ -61,7 +60,7 @@ export const SliderComponent = <T extends BasedSlide,>({
       dataForSlider.isAnimating,
       dataForSlider.transitionEnabled,
       dataForSlider.preparedIndexesForPag,
-      getCurrentSlideTheme,
+      // getCurrentSlideTheme,
       dataForSlider.isBlockArrow,
     ],
   );

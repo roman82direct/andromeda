@@ -46,12 +46,12 @@ export type TArrow = {
 //  переделать слайдер под след настройки
 //  и выделать в типы слайдера
 
-export type ThemeSlide = "dark" | "light"; //пока заглушка нужнали она здесь ?
+// export type ThemeSlide = "dark" | "light"; //пока заглушка нужнали она здесь ?
 
-
-export type BasedSlide = {
-  typeTheme?: ThemeSlide;
-}
+// //  перенести в main-promo-slider
+// export type BasedSlide = {
+//   typeTheme?: ThemeSlide;
+// }
 
 export type Callback = ()=>void;
 
@@ -77,7 +77,7 @@ export type SliderCommonSettings = {
 };
 
 
-export type TSliderProps<T extends BasedSlide> = 
+export type TSliderProps<T> = 
   SliderCommonSettings & {
   slides: T[],
   children: RenderSliderUIFunc;

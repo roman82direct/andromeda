@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import type { TypeOperationFlip,ThemeSlide  } from "../types";
+import type { TypeOperationFlip } from "../types";
 //  создать отдельную папку с контекстами!!!
 //  связать состоянием слайдера в редюсере?
 
@@ -12,7 +12,6 @@ export type TBlockArrow = {
 export type TSliderStateContext = {
   slideNumber: number;
   dotsPag: number[];
-  currentSlideTheme?: ThemeSlide;
   transitionEnabled: boolean;
   isAnimation: boolean;
   isBlockArrow: TBlockArrow;
