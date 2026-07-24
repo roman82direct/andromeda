@@ -3,7 +3,7 @@ import { memo } from "react";
 import { SliderTrack } from "@/features/slider/";
 import { Dots } from "../components/dots/dots";
 import { Arrows } from "../components/arrows/arrows";
-import {renderedSlides} from '../utils/renderSlides';
+import {renderedSlides} from '../components/slide/render-slides';
 
 export type MainPromoSliderUIProps = {
   isPagination?: boolean;

@@ -1,5 +1,5 @@
-import { SlideUI } from "../components/slide/slide";
-import type { TPromoSlideItem } from "../types";
+import { SlideUI } from "./slide";
+import type { TPromoSlideItem } from "../../types";
 
 export const renderedSlides = (slides: TPromoSlideItem[]) => {
   return slides.map((slide, index) => {

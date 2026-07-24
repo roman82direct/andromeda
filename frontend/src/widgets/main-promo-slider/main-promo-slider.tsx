@@ -1,48 +1,25 @@
-import { memo, useCallback, } from "react";
-import { MainPromoSliderUI,  } from "./ui/main-promo-slider";
+import { memo} from "react";
 import type { SliderCommonSettings} from "@/features/slider";
 import { sliderStore } from "./model/sliderStore";
 import { Slider } from "@/features/slider";
-import type { TArgsRenderMainPromoSliderUI } from "@/features/slider";
+import { renderMainPromoSliderUI } from "./ui/render-main-promo-slider-ui";
 
 
 
+ const DEFAULT_SLIDER_SETTINGS: SliderCommonSettings = {
+    infiniteLoop: true,
+    quantityShowSlides: 1,
+    isPagination: true,
+    autoPlay: false,
+    autoPlayTime: 3000,
+    pagePaginationSize: 3,
+  }
 
-
-export const MainPromoSliderComponent = ({
-  infiniteLoop = true,
-  quantityShowSlides = 1,
-  isPagination,
-  autoPlay = true,
-  autoPlayTime = 3000,
-  pagePaginationSize = 3,
-}:  SliderCommonSettings) => {
-
-  // убрать отдельно
-    const renderSliderUI = useCallback(
-  ({isPagination}: TArgsRenderMainPromoSliderUI ) => {
-
-
-
-   return ( <MainPromoSliderUI 
-      isPagination={isPagination}
-    />)
-   },
-  []
-);
+export const MainPromoSliderComponent = () => {
   return (
-        <Slider 
-          infiniteLoop = {infiniteLoop}
-          quantityShowSlides  = { quantityShowSlides }
-          autoPlay = { autoPlay}
-          autoPlayTime = {autoPlayTime}
-          pagePaginationSize = {pagePaginationSize}
-          slides ={sliderStore}
-          isPagination = {isPagination}
-          >{
-           renderSliderUI
-          
-          }</Slider>
+        <Slider {...DEFAULT_SLIDER_SETTINGS} slides={sliderStore}>{
+           renderMainPromoSliderUI
+        }</Slider>
           
         
   );
