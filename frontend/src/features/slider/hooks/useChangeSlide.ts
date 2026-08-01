@@ -86,7 +86,7 @@ export const useChangeSlide = <T>(
   const handleChangeSlide = useCallback((typeOperation: TypeOperationFlip) => {
     dispatch({ type: SliderActionTypes.changeSlide, payload: typeOperation });
   }, []);
-
+//  инкапсулируем логику переключения слайдов
   const handleGoNextSlide = useCallback(() => {
       handleChangeSlide('increment')
   }, [handleChangeSlide]);
@@ -113,13 +113,25 @@ export const useChangeSlide = <T>(
   //  useCallback 
   const handleToggleRunAutoPlayShowSlides = useCallback((isPause: boolean) => {
     // console.log(stateSlader)
-    
     dispatch({
       type: SliderActionTypes.toggleAutoPlay,
       payload: !isPause, // Если пауза (true), то автоплей станет false (выключен)
     });
     
   },[]);
+  // инкапсулируем логику включения или выключения состояния автоплея из состояния
+  // всего слайдера
+// включить автоплей
+  const turnOnAutoplay = useCallback(()=>{
+     if(!autoPlay) return;
+    handleToggleRunAutoPlayShowSlides(false);
+  },[handleToggleRunAutoPlayShowSlides, autoPlay])
+// выключить автоплей
+    const turnOffAutoplay = useCallback(()=>{
+     if(!autoPlay) return;
+    handleToggleRunAutoPlayShowSlides(true);
+  },[handleToggleRunAutoPlayShowSlides, autoPlay])
+
   //  работа автопоказа слайдов
   useAutoPlayShowSlides<T>({
     indexSlide: stateSlider.indexSlide,
@@ -141,13 +153,18 @@ export const useChangeSlide = <T>(
     handleTransitionEnd,
     preparedIndexesForPag,
     // для автом смены слайда - можно тоже абстрагировать !!!
-    toggleAutoPlayChangeSlide: handleToggleRunAutoPlayShowSlides,
+    // toggleAutoPlayChangeSlide: handleToggleRunAutoPlayShowSlides,
     isBlockArrow,
     // handleChangeSlide, // // Функция для кнопок "Вперед" и "Назад"
     //  абстрагируем смену слайдов от внешнего мира
     handlersForChangeSlide: {
       handleGoNextSlide,
       handleGoPrevSlide
+    },
+    // абстрагируем переключение автоплея слайдов от внешнего мира
+    handlersForAutoPlay: {
+      runAutoPlay: turnOnAutoplay,
+      stopAutoPlay: turnOffAutoplay
     }
     ,
    

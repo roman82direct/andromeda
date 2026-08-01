@@ -93,30 +93,15 @@ export const SliderComponent = React.memo(<T,>({
     ],
   );
 
-  //  параметры автоплея
-const stopAutoPlay = useCallback(() => {
-  if(!autoPlay) return;
-    // отключ автоматич перекл слайдов
-    dataForSlider.toggleAutoPlayChangeSlide(true)
-}, [dataForSlider, autoPlay]);
-
-const runAutoPlay = useCallback(() => {
-  if(!autoPlay) return;
-  // запуск автоматич перекл слайдов
-  dataForSlider.toggleAutoPlayChangeSlide(false);
-}, [dataForSlider,autoPlay]);
-
-
-
-  if (!slides.length) return <div>Сделать лоадер загрузки</div>;
+if (!slides.length) return <div>Сделать лоадер загрузки</div>;
   return (
     <SlidesContext.Provider value={valueSlides}>
       <SliderActionsContext.Provider value={valueSliderActions}>
         <SliderStateContext.Provider value={valueSliderState}>
           <SliderInteractions autoPlayParams={{
                                                 flag:autoPlay,
-                                                stopAutoPlay: stopAutoPlay,
-                                                runAutoPlay: runAutoPlay,
+                                                stopAutoPlay: dataForSlider.handlersForAutoPlay.stopAutoPlay,
+                                                runAutoPlay: dataForSlider.handlersForAutoPlay.runAutoPlay,
                                                 goNextSlide: dataForSlider.handlersForChangeSlide.handleGoNextSlide,
                                                 goPrevSlide:   dataForSlider.handlersForChangeSlide.handleGoPrevSlide
                                               }} >

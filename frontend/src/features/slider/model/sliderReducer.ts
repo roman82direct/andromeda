@@ -16,7 +16,7 @@ export const createInitialStateSlider = <T>(): TSliderState<T> => ({
   isAnimating: false,
   transitionEnabled: true,
   preparedSlides: [],
-  isAutoPlay: true,
+  isAutoPlay: false,
 });
 
 // напишем редюсер для слайдера

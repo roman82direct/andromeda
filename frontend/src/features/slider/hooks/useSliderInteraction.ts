@@ -8,6 +8,7 @@ type ArgsForInteractions = {
   backCallback:()=>void;
 }
 
+//  настроить обработку свайпов - урбать с мышки
 export const useSliderInteractions =  ({callBackStop, callBackStart, enabled, forwardCallback, backCallback}:ArgsForInteractions )=>{
     // состояние для свайпов 
    const [pointerPosition, setPointerPosition] = useState<number | null>(null);
