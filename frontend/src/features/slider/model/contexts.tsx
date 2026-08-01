@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import type { TypeOperationFlip } from "../types";
+
 //  создать отдельную папку с контекстами!!!
 //  связать состоянием слайдера в редюсере?
 
@@ -19,7 +19,10 @@ export type TSliderStateContext = {
 
 export type TSliderActionsContenxt = {
   setIndexSlide: (index: number) => void;
-  handleChangeSlide: (action: TypeOperationFlip) => void;
+  handlersForChangeSlide: {
+      handleGoNextSlide: ()=>void,
+      handleGoPrevSlide: ()=>void
+    }
   handleTransitionEnd: () => void;
 };
 // Главный generic контекст для слайдов

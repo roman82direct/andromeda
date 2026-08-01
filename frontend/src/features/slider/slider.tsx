@@ -78,11 +78,16 @@ export const SliderComponent = React.memo(<T,>({
   const valueSliderActions = useMemo(
     () => ({
       setIndexSlide: dataForSlider.setIndexSlide,
-      handleChangeSlide: dataForSlider.handleChangeSlide,
+      // handleChangeSlide: dataForSlider.handleChangeSlide,
+      handlersForChangeSlide: {
+       handleGoNextSlide: dataForSlider.handlersForChangeSlide.handleGoNextSlide,
+       handleGoPrevSlide: dataForSlider.handlersForChangeSlide.handleGoPrevSlide
+    },
       handleTransitionEnd: dataForSlider.handleTransitionEnd,
     }),
     [
-      dataForSlider.handleChangeSlide,
+      dataForSlider.handlersForChangeSlide.handleGoNextSlide,
+       dataForSlider.handlersForChangeSlide.handleGoPrevSlide,
       dataForSlider.setIndexSlide,
       dataForSlider.handleTransitionEnd,
     ],
@@ -100,14 +105,7 @@ const runAutoPlay = useCallback(() => {
   // запуск автоматич перекл слайдов
   dataForSlider.toggleAutoPlayChangeSlide(false);
 }, [dataForSlider,autoPlay]);
-//  перенести в хук useChangeSlide чтобы никто из др компонентов не знал его реализации
-const goNextSlide = ()=>{
-    dataForSlider.handleChangeSlide('increment')
-}
 
-const goPrevSlide = ()=>{
-    dataForSlider.handleChangeSlide('decrement')
-}
 
 
   if (!slides.length) return <div>Сделать лоадер загрузки</div>;
@@ -119,8 +117,8 @@ const goPrevSlide = ()=>{
                                                 flag:autoPlay,
                                                 stopAutoPlay: stopAutoPlay,
                                                 runAutoPlay: runAutoPlay,
-                                                goNextSlide: goNextSlide,
-                                                goPrevSlide: goPrevSlide
+                                                goNextSlide: dataForSlider.handlersForChangeSlide.handleGoNextSlide,
+                                                goPrevSlide:   dataForSlider.handlersForChangeSlide.handleGoPrevSlide
                                               }} >
               {children({
                   isPagination: isPagination,

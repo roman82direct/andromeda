@@ -1,4 +1,3 @@
-import { useCallback, useMemo } from "react";
 import { ArrowsUI } from "./ui/arrows";
 //  поменять 
 import {
@@ -6,6 +5,7 @@ import {
   useSliderStateContext,
 } from "@/features/slider/";
 import type { TArrows } from "./types";
+import { useMemo } from "react";
 
 type ArrowsProps = {
   themeArrows?:string;
@@ -15,40 +15,23 @@ type ArrowsProps = {
 export const Arrows = ({themeArrows}:ArrowsProps) => {
   const { isAnimation, isBlockArrow } =
     useSliderStateContext();
-  const { handleChangeSlide } = useSliderActionsContext();
+  const { handlersForChangeSlide } = useSliderActionsContext();
+
+  const { handleGoNextSlide, handleGoPrevSlide} = handlersForChangeSlide;
 
   const theme = themeArrows === "light" ? "primary" : "secondary";
-  const handleDecrementSlide = useCallback(() => {
-    handleChangeSlide("decrement");
-  }, [handleChangeSlide]);
-  const handleIncrementSlide = useCallback(() => {
-    handleChangeSlide("increment");
-  }, [handleChangeSlide]);
-
-  //  подумать надо ли memo
-  // const arrows  = useMemo<TArrow[]>(()=>[
-  //   {
-  //     key: "right",
-  //     onClick: handleDecrementSlide,
-  //     icon: "arrow-right",
-  //   },
-  //   {
-  //     key: "left",
-  //     onClick: handleIncrementSlide,
-  //     icon: "arrow-left",
-  //   },
-  // ],[handleDecrementSlide, handleIncrementSlide]);
+ 
 
   const arrows = useMemo<TArrows>(
     () => ({
       right: {
         key: "right",
-        onClick: handleDecrementSlide,
+        onClick: handleGoPrevSlide,
         icon: "arrow-right",
       },
-      left: { key: "left", onClick: handleIncrementSlide, icon: "arrow-left" },
+      left: { key: "left", onClick: handleGoNextSlide, icon: "arrow-left" },
     }),
-    [handleDecrementSlide, handleIncrementSlide],
+    [handleGoPrevSlide, handleGoNextSlide],
   );
   return (
     //  надо ли мемоизировать компонент?

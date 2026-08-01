@@ -87,6 +87,14 @@ export const useChangeSlide = <T>(
     dispatch({ type: SliderActionTypes.changeSlide, payload: typeOperation });
   }, []);
 
+  const handleGoNextSlide = useCallback(() => {
+      handleChangeSlide('increment')
+  }, [handleChangeSlide]);
+
+  const handleGoPrevSlide = useCallback(() => {
+      handleChangeSlide('decrement')
+  }, [handleChangeSlide]);
+
   const handleTransitionEnd = useCallback(() => {
     // сообщаем что анимация закончилась =>можно продолжить переключение слайдов
     dispatch({
@@ -126,14 +134,22 @@ export const useChangeSlide = <T>(
   return {
     indexSlide: stateSlider.indexSlide, // индексы:слайд текущий
     setIndexSlide, // для прыжка на люб слайд (пагинация)
-    handleChangeSlide, // // Функция для кнопок "Вперед" и "Назад"
+  
     preparedSlides: stateSlider.preparedSlides,
     isAnimating: stateSlider.isAnimating,
     transitionEnabled: stateSlider.transitionEnabled,
     handleTransitionEnd,
     preparedIndexesForPag,
-    // для автом смены слайда
+    // для автом смены слайда - можно тоже абстрагировать !!!
     toggleAutoPlayChangeSlide: handleToggleRunAutoPlayShowSlides,
     isBlockArrow,
+    // handleChangeSlide, // // Функция для кнопок "Вперед" и "Назад"
+    //  абстрагируем смену слайдов от внешнего мира
+    handlersForChangeSlide: {
+      handleGoNextSlide,
+      handleGoPrevSlide
+    }
+    ,
+   
   };
 };
