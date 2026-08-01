@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo } from "react";
+import React, { memo, useCallback, useMemo  } from "react";
 import type {
   ChangeSlideSettings,
   TSliderProps,
@@ -10,15 +10,15 @@ import {
   SliderActionsContext,
   SlidesContext,
 } from "@/features/slider/model/contexts";
-import { useSliderInteractions } from "./hooks/useSliderInteraction";
+
+import { SliderInteractions } from "./components/slider-interactions/slider-interactions";
 
 
-
-export const SliderComponent = <T,>({
+export const SliderComponent = React.memo(<T,>({
   infiniteLoop = true,
   quantityShowSlides = 1,
   isPagination,
-  autoPlay = false,
+  autoPlay = true,
   autoPlayTime = 3000,
   pagePaginationSize = 3,
   slides,
@@ -87,7 +87,8 @@ export const SliderComponent = <T,>({
       dataForSlider.handleTransitionEnd,
     ],
   );
-//  свайпы?
+
+  //  параметры автоплея
 const stopAutoPlay = useCallback(() => {
   if(!autoPlay) return;
     // отключ автоматич перекл слайдов
@@ -99,44 +100,38 @@ const runAutoPlay = useCallback(() => {
   // запуск автоматич перекл слайдов
   dataForSlider.toggleAutoPlayChangeSlide(false);
 }, [dataForSlider,autoPlay]);
+//  перенести в хук useChangeSlide чтобы никто из др компонентов не знал его реализации
+const goNextSlide = ()=>{
+    dataForSlider.handleChangeSlide('increment')
+}
 
+const goPrevSlide = ()=>{
+    dataForSlider.handleChangeSlide('decrement')
+}
 
-const {
-  onPointerEnter, 
-  onPointerLeave, 
-  onPointerUp,  
-  onPointerDown,
-  onPointerCancel
-} = useSliderInteractions({
-  enabled: autoPlay,
-  callBackStop: stopAutoPlay,
-  callBackStart: runAutoPlay,
-})
 
   if (!slides.length) return <div>Сделать лоадер загрузки</div>;
   return (
     <SlidesContext.Provider value={valueSlides}>
       <SliderActionsContext.Provider value={valueSliderActions}>
         <SliderStateContext.Provider value={valueSliderState}>
-          <div
-           //  тач прикосновение
-            onPointerDown={onPointerDown}
-            onPointerUp = {onPointerUp}
-            // работа с мышкой границы
-            onPointerEnter={onPointerEnter}
-            onPointerLeave={onPointerLeave}
-            onPointerCancel={onPointerCancel}
-            >
-            {children({
-                isPagination: isPagination,
-                
-            })}
-          </div>
+          <SliderInteractions autoPlayParams={{
+                                                flag:autoPlay,
+                                                stopAutoPlay: stopAutoPlay,
+                                                runAutoPlay: runAutoPlay,
+                                                goNextSlide: goNextSlide,
+                                                goPrevSlide: goPrevSlide
+                                              }} >
+              {children({
+                  isPagination: isPagination,
+                  
+              })}
+          </SliderInteractions>
         </SliderStateContext.Provider>
       </SliderActionsContext.Provider>
     </SlidesContext.Provider>
   );
-};
+});
 
 export const Slider = memo(SliderComponent);
 Slider.displayName = "Slider";

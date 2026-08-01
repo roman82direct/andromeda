@@ -10,7 +10,7 @@ import { renderMainPromoSliderUI } from "./ui/render-main-promo-slider-ui";
     infiniteLoop: true,
     quantityShowSlides: 1,
     isPagination: true,
-    autoPlay: false,
+    autoPlay: true,
     autoPlayTime: 3000,
     pagePaginationSize: 3,
   }
