@@ -8,7 +8,7 @@ type TCalback = () => void;
 type SliderInteractionsProps = {
   children: ReactNode;
   autoPlayParams: {
-    flag: boolean;
+    enabledAutoPlay: boolean;
     stopAutoPlay: TCalback;
     runAutoPlay: TCalback;
     goNextSlide: TCalback;
@@ -33,9 +33,9 @@ export const SliderInteractions = ({
     onPointerCancel,
     onPointerMove
   } = useSliderInteractions({
-    enabled: autoPlayParams.flag,
-    callBackStop: autoPlayParams.runAutoPlay,
-    callBackStart:  autoPlayParams.stopAutoPlay,
+    enabled: autoPlayParams.enabledAutoPlay,
+    pauseAutoPlay: autoPlayParams.runAutoPlay,
+    resumeAutoPlay:  autoPlayParams.stopAutoPlay,
     forwardCallback: ()=> autoPlayParams.goNextSlide(),
     backCallback: ()=> autoPlayParams.goPrevSlide(),
   })

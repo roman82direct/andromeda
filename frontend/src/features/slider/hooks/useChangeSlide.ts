@@ -6,14 +6,12 @@ import {
   createInitialStateSlider,
   sliderReducer,
 } from "../model/sliderReducer";
-import { useAutoPlayShowSlides } from "./useAutoPlayShowSlides";
 
 // набросать событие onTouch по слайдам для мобилок ?
 export const useChangeSlide = <T>(
   slides: T[],
   {
     autoPlay,
-    autoPlayTime,
     pagePaginationSize,
     infiniteLoop,
   }: ChangeSlideSettings,
@@ -111,11 +109,11 @@ export const useChangeSlide = <T>(
   // добавить флаг для остоновки автоматич пролистывания при наведении на слайд
   //  обработчик для onMouseOn onMouseEnter
   //  useCallback 
-  const handleToggleRunAutoPlayShowSlides = useCallback((isPause: boolean) => {
+  const handleToggleRunAutoPlayShowSlides = useCallback((flagAutoPlay: boolean) => {
     // console.log(stateSlader)
     dispatch({
       type: SliderActionTypes.toggleAutoPlay,
-      payload: !isPause, // Если пауза (true), то автоплей станет false (выключен)
+      payload: !flagAutoPlay, // Если пауза (true), то автоплей станет false (выключен)
     });
     
   },[]);
@@ -132,32 +130,18 @@ export const useChangeSlide = <T>(
     handleToggleRunAutoPlayShowSlides(false);
   },[handleToggleRunAutoPlayShowSlides, autoPlay])
 
-  //  работа автопоказа слайдов
-  useAutoPlayShowSlides({
-    indexSlide: stateSlider.indexSlide,
-    infiniteLoop,
-    autoPlay,
-    slidesArrLength: stateSlider.preparedSlides.length,
-    autoPlayTime,
-    isAutoPlayState: stateSlider.isAutoPlay,
-    goNextSlide: handleGoNextSlide,
-    goPrevSlide: handleGoPrevSlide
-    
-  });
+
 
   return {
     indexSlide: stateSlider.indexSlide, // индексы:слайд текущий
     setIndexSlide, // для прыжка на люб слайд (пагинация)
-  
+    isAutoPlay: stateSlider.isAutoPlay,
     preparedSlides: stateSlider.preparedSlides,
     isAnimating: stateSlider.isAnimating,
     transitionEnabled: stateSlider.transitionEnabled,
     handleTransitionEnd,
     preparedIndexesForPag,
-    // для автом смены слайда - можно тоже абстрагировать !!!
-    // toggleAutoPlayChangeSlide: handleToggleRunAutoPlayShowSlides,
     isBlockArrow,
-    // handleChangeSlide, // // Функция для кнопок "Вперед" и "Назад"
     //  абстрагируем смену слайдов от внешнего мира
     handlersForChangeSlide: {
       handleGoNextSlide,

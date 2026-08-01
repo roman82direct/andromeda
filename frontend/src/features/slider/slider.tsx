@@ -12,6 +12,7 @@ import {
 } from "@/features/slider/model/contexts";
 
 import { SliderInteractions } from "./components/slider-interactions/slider-interactions";
+import { useAutoPlayShowSlides } from "./hooks/useAutoPlayShowSlides";
 
 
 export const SliderComponent = React.memo(<T,>({
@@ -24,10 +25,6 @@ export const SliderComponent = React.memo(<T,>({
   slides,
   children
 }: TSliderProps<T>) => {
-  // загружаем информацию о слайдах в наш компонент
-  //  если запрос на сервер можно создать стор с редукс или создадим какой то сервис
-  // подтягиваем данные  мгновенно и только один раз
-  // функция вызывается один раз - ленивая загрузка - тяжелые вычисления
 
   const settingChangeSlide: ChangeSlideSettings = {
     autoPlay,
@@ -37,12 +34,6 @@ export const SliderComponent = React.memo(<T,>({
   };
 
   const dataForSlider = useChangeSlide<T>(slides, settingChangeSlide);
-  // вычисляем тему слайда 1 раз
-  // const getCurrentSlideTheme = useMemo(() => {
-  //   const currentSlide = dataForSlider.preparedSlides[dataForSlider.indexSlide];
-  //   return currentSlide?.typeTheme ??  'light';
-  // }, [dataForSlider.indexSlide, dataForSlider.preparedSlides]);
-
   //  разделим контексты на действия и состояния
   //  состояние элементов контроля 
   const valueSliderState = useMemo(
@@ -93,13 +84,27 @@ export const SliderComponent = React.memo(<T,>({
     ],
   );
 
+
+    //  работа автопоказа слайдов
+  useAutoPlayShowSlides({
+    indexSlide: dataForSlider.indexSlide,
+    infiniteLoop,
+    autoPlay,
+    slidesArrLength: dataForSlider.preparedSlides.length,
+    autoPlayTime,
+    isAutoPlayState: dataForSlider.isAutoPlay,
+    goNextSlide: dataForSlider.handlersForChangeSlide.handleGoNextSlide,
+    goPrevSlide: dataForSlider.handlersForChangeSlide.handleGoPrevSlide
+    
+  });
+
 if (!slides.length) return <div>Сделать лоадер загрузки</div>;
   return (
     <SlidesContext.Provider value={valueSlides}>
       <SliderActionsContext.Provider value={valueSliderActions}>
         <SliderStateContext.Provider value={valueSliderState}>
           <SliderInteractions autoPlayParams={{
-                                                flag:autoPlay,
+                                                enabledAutoPlay:autoPlay,
                                                 stopAutoPlay: dataForSlider.handlersForAutoPlay.stopAutoPlay,
                                                 runAutoPlay: dataForSlider.handlersForAutoPlay.runAutoPlay,
                                                 goNextSlide: dataForSlider.handlersForChangeSlide.handleGoNextSlide,
