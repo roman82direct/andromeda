@@ -19,7 +19,8 @@ export const useSliderInteractions =  ({callBackStop, callBackStart, enabled, fo
        if(!enabled) return;
          console.log('mouseEnter')
       if(e.pointerType === 'mouse') {
-      
+      //  д б колбэк стоп
+          // callBackStart();
           callBackStop();
         }
     }
@@ -28,6 +29,7 @@ export const useSliderInteractions =  ({callBackStop, callBackStart, enabled, fo
        if(!enabled) return;
       if(e.pointerType === 'mouse') {
         console.log('mouseLeave')
+        //  д б колбэк старт
         callBackStart();
       }
     }

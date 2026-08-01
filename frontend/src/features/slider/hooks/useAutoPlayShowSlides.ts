@@ -1,15 +1,17 @@
 import { useEffect, useRef } from "react";
 import type { AutoPlaySetting } from "../types";
 
-export const useAutoPlayShowSlides = <T>({
+export const useAutoPlayShowSlides = ({
   indexSlide,
   infiniteLoop,
   autoPlay,
   slidesArrLength,
   autoPlayTime,
   isAutoPlayState,
-  dispatch,
-}: AutoPlaySetting<T>) => {
+  goNextSlide,
+  goPrevSlide
+ ,
+}: AutoPlaySetting) => {
   //  используем направления автоплея если цикл не бесконечный
   const directionRef = useRef(true);
   //  сделать отдельный хук для автоплея
@@ -36,22 +38,33 @@ export const useAutoPlayShowSlides = <T>({
 
     if (infiniteLoop) {
       intervalIdAutoPlay = setInterval(() => {
-        dispatch({ type: "CHANGE_SLIDE", payload: "increment" });
+        // идем к след слайду
+       goNextSlide();
       }, autoPlayTime);
     } else {
+      //  если нет бесконечного цикла то ориентиремся на направление хода переключения слайдов
       //  проблема каждый раз при смене слайда создается новый таймер
       intervalIdAutoPlay = setInterval(() => {
         //  в зависимости от флага направления меняем смену слайда в ту или иную сторону
         if (directionRef.current) {
-          dispatch({ type: "CHANGE_SLIDE", payload: "increment" });
+          // идем к след слайду по направлению
+          goNextSlide();
         }
         if (!directionRef.current) {
-          dispatch({ type: "CHANGE_SLIDE", payload: "decrement" });
+          //  направление противоположное возвращаемся к пред слайду
+          goPrevSlide();
         }
       }, autoPlayTime);
     }
     return () => {
       clearInterval(intervalIdAutoPlay);
     };
-  }, [autoPlayTime, autoPlay, isAutoPlayState, infiniteLoop, dispatch]);
+  }, [
+      autoPlayTime, 
+      autoPlay, 
+      isAutoPlayState, 
+      infiniteLoop, 
+      goNextSlide, 
+      goPrevSlide
+    ]);
 };

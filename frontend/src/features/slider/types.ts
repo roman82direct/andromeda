@@ -90,11 +90,12 @@ export type ChangeSlideSettings = Pick<
   "autoPlay" | "autoPlayTime" | "pagePaginationSize" | "infiniteLoop"
 >;
 //  для хука автоплея слайдов
-export type AutoPlaySetting<T> = Pick<
+export type AutoPlaySetting = Pick<
   SliderCommonSettings,
   "autoPlay" | "infiniteLoop" | "autoPlayTime"
 > & {
-  dispatch: (action: TSliderAction<T>) => void;
+  goNextSlide: ()=>void;
+  goPrevSlide: ()=>void;
   indexSlide: number;
   slidesArrLength: number;
   isAutoPlayState?: boolean;

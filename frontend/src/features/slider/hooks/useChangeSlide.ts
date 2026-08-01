@@ -88,11 +88,11 @@ export const useChangeSlide = <T>(
   }, []);
 //  инкапсулируем логику переключения слайдов
   const handleGoNextSlide = useCallback(() => {
-      handleChangeSlide('increment')
+      handleChangeSlide('increment');
   }, [handleChangeSlide]);
 
   const handleGoPrevSlide = useCallback(() => {
-      handleChangeSlide('decrement')
+      handleChangeSlide('decrement');
   }, [handleChangeSlide]);
 
   const handleTransitionEnd = useCallback(() => {
@@ -122,25 +122,27 @@ export const useChangeSlide = <T>(
   // инкапсулируем логику включения или выключения состояния автоплея из состояния
   // всего слайдера
 // включить автоплей
-  const turnOnAutoplay = useCallback(()=>{
+  const turnOnAutoPlay = useCallback(()=>{
      if(!autoPlay) return;
-    handleToggleRunAutoPlayShowSlides(false);
+    handleToggleRunAutoPlayShowSlides(true);
   },[handleToggleRunAutoPlayShowSlides, autoPlay])
 // выключить автоплей
     const turnOffAutoplay = useCallback(()=>{
      if(!autoPlay) return;
-    handleToggleRunAutoPlayShowSlides(true);
+    handleToggleRunAutoPlayShowSlides(false);
   },[handleToggleRunAutoPlayShowSlides, autoPlay])
 
   //  работа автопоказа слайдов
-  useAutoPlayShowSlides<T>({
+  useAutoPlayShowSlides({
     indexSlide: stateSlider.indexSlide,
     infiniteLoop,
     autoPlay,
     slidesArrLength: stateSlider.preparedSlides.length,
     autoPlayTime,
     isAutoPlayState: stateSlider.isAutoPlay,
-    dispatch,
+    goNextSlide: handleGoNextSlide,
+    goPrevSlide: handleGoPrevSlide
+    
   });
 
   return {
@@ -163,7 +165,7 @@ export const useChangeSlide = <T>(
     },
     // абстрагируем переключение автоплея слайдов от внешнего мира
     handlersForAutoPlay: {
-      runAutoPlay: turnOnAutoplay,
+      runAutoPlay: turnOnAutoPlay,
       stopAutoPlay: turnOffAutoplay
     }
     ,

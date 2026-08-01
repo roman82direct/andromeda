@@ -34,8 +34,8 @@ export const SliderInteractions = ({
     onPointerMove
   } = useSliderInteractions({
     enabled: autoPlayParams.flag,
-    callBackStop: autoPlayParams.stopAutoPlay,
-    callBackStart: autoPlayParams.runAutoPlay,
+    callBackStop: autoPlayParams.runAutoPlay,
+    callBackStart:  autoPlayParams.stopAutoPlay,
     forwardCallback: ()=> autoPlayParams.goNextSlide(),
     backCallback: ()=> autoPlayParams.goPrevSlide(),
   })
