@@ -1,51 +1,33 @@
-import { useState } from "react";
+import { useRef } from "react";
+import { pointerHandleAutoPlay } from "../utils/pointerHandleAutoPlay";
 
 type ArgsForInteractions = {
+  // автоплей
   pauseAutoPlay: ()=>void;
   resumeAutoPlay: ()=>void;
   enabled: boolean;
   //  обработка переключения слайдов
   forwardCallback:()=>void;
   backCallback:()=>void;
-}
+};
 
+const POINTER_TYPE_MOUSE = [ 'mouse'];
+const TOUCH_POINTER_TYPES = ['touch', 'pen'];
+const SWIPE_THRESHOLD = 1;
 
 //  настроить обработку свайпов - урбать с мышки
 export const useSliderInteractions =  ({pauseAutoPlay, resumeAutoPlay, enabled, forwardCallback, backCallback}:ArgsForInteractions )=>{
     // состояние для свайпов 
-   const [pointerPosition, setPointerPosition] = useState<number | null>(null);
+   const pointerPositionRef = useRef<number | null>(null);
   //  эту функцию можно вывести в утилиты!!!
   //  обработчики остановки или возобновления автоплея мышкой
-
-
-
-
-
-
-  
-  
-  type ArgsHandleAutoPlay = {
-    eventName:string,
-    callback: ()=>void,
-    enabled:boolean,
-  }
-
-  const pointerHandleAutoPlay =  ({eventName, callback,enabled}:ArgsHandleAutoPlay)=>{
-    if(!enabled) return;
-    const eventsNames = ['touch', 'pen', 'mouse'];
-    if(eventsNames.includes(eventName)) {
-      callback();
-    }
-  }
-  
-    // если мышка над нашим объектом -останавливаем автоплей
+// если мышка над нашим объектом -останавливаем автоплей
   const mouseEnterHandleAutoPlay = (e:React.PointerEvent)=>{
-    
-    pointerHandleAutoPlay({eventName:e.pointerType, callback: pauseAutoPlay, enabled})
+    pointerHandleAutoPlay({pointerType:e.pointerType, callback: pauseAutoPlay, enabled, pointerTypes: POINTER_TYPE_MOUSE})
   }
   //  если мышка ушла с нашего объекта - возвращаем автоплей
 const mouseLeaveHandleAutoPlay = (e:React.PointerEvent)=>{
-    pointerHandleAutoPlay({eventName: e.pointerType, callback: resumeAutoPlay,  enabled })
+  pointerHandleAutoPlay({pointerType: e.pointerType, callback: resumeAutoPlay,  enabled, pointerTypes: POINTER_TYPE_MOUSE })
   }
 
 
@@ -54,54 +36,52 @@ const mouseLeaveHandleAutoPlay = (e:React.PointerEvent)=>{
     const touchDownHandleSwipeSlide = (e:React.PointerEvent)=>{
       //  игнорим первре прикосновение мыши 
          if(e.isPrimary &&
-  (e.pointerType === "touch" || e.pointerType === "pen")){
-          //  если это "первый" палец
-         const pointerDown = e.clientX;
-           
-           setPointerPosition(pointerDown)
+          TOUCH_POINTER_TYPES.includes(e.pointerType)
+  // (e.pointerType === "touch" || e.pointerType === "pen")
+  ){
+      //  если это "первый" палец
+    //  захватываем указатель при начале жеста - 
+    // чтобы гаранзитровано получить все события пальца (даже если палец ушел за границы элемента)
+      e.currentTarget.setPointerCapture(e.pointerId)
+      // запоминаем первую координату
+      const pointerDown = e.clientX;
+      pointerPositionRef.current = pointerDown;
+      // setPointerPosition(pointerDown)
       }
     }
 
      const touchMoveHandleSwipeSlide = (e:React.PointerEvent) => {
       //  отключим свайпы для мышки так как у нас есть стрелки на слайдере для этого
       //  т е сделаем поведение переключения слайдов более предсказуемым
-      if(pointerPosition === null || e.pointerType === 'mouse') return;
+      if(pointerPositionRef.current === null || POINTER_TYPE_MOUSE.includes(e.pointerType)) return;
     
         // вычеслим текущую  горизон позицию
         const currentDirection =e.clientX;
         // console.log(currentDirection)
         // получим разницу  в зависимости от не будем листать слайд в лево или право
-        const differencePositions = pointerPosition - currentDirection;
+        const differencePositions = pointerPositionRef.current - currentDirection;
       //  разница мала создаст ложный автоплей
-      if(differencePositions > 1){
+      if(differencePositions > SWIPE_THRESHOLD){
         // листаем вправо
         forwardCallback();
       }
-      if(differencePositions < -1){
+      if(differencePositions < - SWIPE_THRESHOLD){
         // листаем влево
         backCallback();
       }
       //  очищаем координату первого касания
-        setPointerPosition(null)
+        pointerPositionRef.current = null;
     };
 
 //  обработчики остановки или возобновления автоплея прикосновением
 // дотронулись
  const touchDownHandleAutoPlay = (e:React.PointerEvent)=>{
-      //    if(!enabled) return;
-      // //  подумать как не смешивать логику
-      //   //   работа автоплея
-      //   if(e.pointerType === 'touch' || e.pointerType === 'pen') {
-      //    pauseAutoPlay();
-      //   }
-
-        pointerHandleAutoPlay({eventName: e.pointerType, callback: pauseAutoPlay, enabled })
+    pointerHandleAutoPlay({pointerType: e.pointerType, callback: pauseAutoPlay, enabled, pointerTypes:  TOUCH_POINTER_TYPES })
   }
   // свайпать мышкой не нужно!!!!!
 // отпустили
   const touchUpHandleAutoPlay = (e:React.PointerEvent)=>{
-
-      pointerHandleAutoPlay({eventName: e.pointerType, callback: resumeAutoPlay, enabled })
+      pointerHandleAutoPlay({pointerType: e.pointerType, callback: resumeAutoPlay, enabled, pointerTypes:  TOUCH_POINTER_TYPES })
 
   }
 
@@ -118,8 +98,17 @@ const handlePointerEnter = (e:React.PointerEvent)=>{
     }
   // конец прикосновения
      const handlePointerUp  = (e:React.PointerEvent)=>{
-      //  отпустили кокретную "точку" объекта
+      // элемент удерживает захват указателя ?
+      if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+        // снимаем захват 
+        // "Если я захватил этот палец — отпускаю его" т е снимаю захват.
+        e.currentTarget.releasePointerCapture(e.pointerId);
+      }
+
+      //  отпустили кокретную  первую "точку"  касания объекта(начало свайпа)
       touchUpHandleAutoPlay(e);
+      // после эотпускания элемента сравниваем касания чтобыследать свайп
+      touchMoveHandleSwipeSlide(e);
     }
     //  начало прикосновения
     const handlePointerDown = (e:React.PointerEvent)=>{
@@ -138,7 +127,9 @@ const handlePointerEnter = (e:React.PointerEvent)=>{
     //  отдельно handlerPointerCancel!!!
     const handlePointerCancel = ()=>{
       //  в любом случае восстановим автоплей
-        resumeAutoPlay();
+      resumeAutoPlay();
+      //  сбрасиываем первую координату свайпа 
+      pointerPositionRef.current = null;
     }
 
   return {
