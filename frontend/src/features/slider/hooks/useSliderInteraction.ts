@@ -40,7 +40,7 @@ const mouseLeaveHandleAutoPlay = (e:React.PointerEvent<HTMLDivElement>)=>{
 //  дотрунулся до объекта (регистрация события свайпа)
     //   тач прикосновение
     const handleSwipeSlideStart = (e:React.PointerEvent<HTMLDivElement>)=>{
-      console.log('start swip')
+      // console.log('start swip')
       //  игнорим первре прикосновение мыши 
          if(e.isPrimary &&
           TOUCH_POINTER_TYPES.includes(e.pointerType)
@@ -58,7 +58,7 @@ const mouseLeaveHandleAutoPlay = (e:React.PointerEvent<HTMLDivElement>)=>{
     }
 
      const handleSwipeSlideEnd = (e:React.PointerEvent<HTMLDivElement>) => {
-       console.log('end swip')
+      //  console.log('end swip')
       //  отключим свайпы для мышки так как у нас есть стрелки на слайдере для этого
       //  т е сделаем поведение переключения слайдов более предсказуемым
       //  если указатель не является в списке событий TOUCH_POINTER_TYPES не ьудем ничего делать

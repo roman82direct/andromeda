@@ -1,4 +1,6 @@
 import type { CardProduct } from "@/entities/product/model/types";
+import testImage from '../../../assets/images/card-product/test-card/card-image-test.png';
+
 
 export const productsCardData: CardProduct[] = [
   {
@@ -7,6 +9,9 @@ export const productsCardData: CardProduct[] = [
     productName:
       "SATOSHI Стоун Сковорода литая d24см, антипригарное покрытие Мрамор, индукция",
     isFavorite: false,
+    images: {
+      pathsImages:[testImage]
+    }
   },
   {
     articul: "421-509",
@@ -14,6 +19,9 @@ export const productsCardData: CardProduct[] = [
     productName:
       "PROVANCE Нэви Комплект постельного белья евро (4 предмета), бязь, 100% хлопок, 2 дизайна",
     isFavorite: false,
+    images: {
+    pathsImages:[testImage]
+  }
   },
   {
     articul: "849-193",
@@ -21,6 +29,9 @@ export const productsCardData: CardProduct[] = [
     productName:
       'SATOSHI Буко Противень глубокий, 36,5х27х5,5см, угл.сталь, антипригарное покрытие "Мрамор"',
     isFavorite: false,
+    images: {
+    pathsImages:[testImage]
+  }
   },
   {
     articul: "847-110",
@@ -28,6 +39,9 @@ export const productsCardData: CardProduct[] = [
     productName:
       'VETTA Чайник стальной 2,5л "Гаро", индукция',
     isFavorite: false,
+    images: {
+    pathsImages:[testImage]
+  }
   },
   {
     articul: "822-064",
@@ -35,6 +49,9 @@ export const productsCardData: CardProduct[] = [
     productName:
       "VETTA Вена Кастрюля 20х11,5см. 3,6л. со стекл. крышкой, индукция",
     isFavorite: false,
+    images: {
+    pathsImages:[testImage]
+  }
   },
   {
     articul: "486-010",
@@ -42,6 +59,9 @@ export const productsCardData: CardProduct[] = [
     productName:
       "PROVANCE Эвкалипт Плед микрофибра, 180х200см, 300гр/м, зеленый",
     isFavorite: false,
+    images: {
+    pathsImages:[testImage]
+  }
   },
   {
     articul: "487-057",
@@ -49,6 +69,9 @@ export const productsCardData: CardProduct[] = [
     productName:
       "PROVANCE Нэви Покрывало стеганое 2х-стороннее 200х220см, 100% полиэстер, 2 цвета",
     isFavorite: false,
+    images: {
+    pathsImages:[testImage]
+  }
   },
   {
     articul: "434-160",
@@ -56,6 +79,9 @@ export const productsCardData: CardProduct[] = [
     productName:
       "PROVANCE Нэви Полотенце кухонное, 40х60см, 100% хлопок, полоски, 2 дизайна",
     isFavorite: false,
+    images: {
+    pathsImages:[testImage]
+  }
   },
   {
     articul: "806-094",
@@ -63,6 +89,9 @@ export const productsCardData: CardProduct[] = [
     productName:
       "MILLIMI Газета Кружка, 1л, фарфор",
     isFavorite: false,
+    images: {
+    pathsImages:[testImage]
+  }
   },
   {
     articul: "815-375",
@@ -70,6 +99,9 @@ export const productsCardData: CardProduct[] = [
     productName:
       "SATOSHI Багет Вилка столовая, 6 пр. на блистере",
     isFavorite: false,
+    images: {
+    pathsImages:[testImage]
+  }
   },
   {
     articul: "493-005",
@@ -77,6 +109,9 @@ export const productsCardData: CardProduct[] = [
     productName:
       "PROVANCE Эвкалипт Прихватка-варежка, 100% полиэстер, 17х27см, зелёный",
     isFavorite: false,
+    images: {
+    pathsImages:[testImage]
+  }
   },
   {
     articul: "824-179",
@@ -84,6 +119,9 @@ export const productsCardData: CardProduct[] = [
     productName:
       "MILLIMI Набор стол.посуды 16пр(тар26см*4, тар20см*4, салатн14см*4, кружка340мл*4) керамика, бежевый",
     isFavorite: false,
+     images: {
+      pathsImages:[testImage]
+    }
   },
   {
     articul: "802-574",
@@ -91,6 +129,9 @@ export const productsCardData: CardProduct[] = [
     productName:
       "Набор чайный 2 пр., 180мл, MILLIMI, Аквамарин, фарфор",
     isFavorite: false,
+    images: {
+    pathsImages:[testImage]
+  }
   },
   {
     articul: "484-147",
@@ -98,5 +139,8 @@ export const productsCardData: CardProduct[] = [
     productName:
       "PROVANCE Нэви Полотенце махровое, 100% хлопок, 50х90см, 500гр/м, синий",
     isFavorite: false,
+    images: {
+    pathsImages:[testImage]
+  }
   },
 ];
