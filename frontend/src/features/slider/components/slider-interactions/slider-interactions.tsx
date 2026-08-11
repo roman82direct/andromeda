@@ -1,6 +1,6 @@
 import { type ReactNode } from "react"
 import { useSliderInteractions } from "../../hooks/useSliderInteraction";
-
+import styles from './slider-interactions.module.css';
 
 
 type TCalback = () => void;
@@ -25,13 +25,15 @@ export const SliderInteractions = ({
 }:SliderInteractionsProps)=>{
 
 
+
+
   const {
     onPointerEnter, 
     onPointerLeave, 
     onPointerUp,  
     onPointerDown,
     onPointerCancel,
-    onPointerMove
+  
   } = useSliderInteractions({
     enabled: autoPlayParams.enabledAutoPlay,
     pauseAutoPlay: autoPlayParams.runAutoPlay,
@@ -42,6 +44,7 @@ export const SliderInteractions = ({
 
 
   return (<div
+            className={styles['slider-container']}
                //  тач прикосновение
             onPointerDown={onPointerDown}
             onPointerUp = {onPointerUp}
@@ -50,7 +53,7 @@ export const SliderInteractions = ({
             onPointerLeave={onPointerLeave}
             onPointerCancel={onPointerCancel}
             //  перелистывание пальцем свайпы
-            onPointerMove={onPointerMove}
+            // onPointerMove={onPointerMove}
           >
             {
               children
