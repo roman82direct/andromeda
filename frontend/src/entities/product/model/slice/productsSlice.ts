@@ -84,4 +84,4 @@ export const productsSlice = createSlice({
 
 // export default productsSlice;
 //  типизировать объекты промиса
-export default productsSlice.reducer;
+export const productsReducer = productsSlice.reducer;

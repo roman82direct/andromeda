@@ -4,20 +4,27 @@
   --fw-text: 400;
   --fw-title: 600;
   --color-primary: #15242a;
-  --color-primary-disabled: #848484;
+  --expressive-gray: #848484;
+  --color-primary-disabled: var(--expressive-gray);
   --color-secondary: #f8f9fa;
   --color-accent: #67b0d1;
   --color-dark-accent: #2f4d5a;
   --color-dark-acccent-rgb: 47, 77, 90;
   --color-tertiary: #000;
   --color-warning: #c83333;
+  --light-gray: #cedadf;
   /* надо отдельно выделить active  вместо #e1700e?? */
   --color-sailing: #e1700e;
   --color-light: #fff;
   --input-height: 50px;
   --letter-spacing-base: 0.05em;
+  --letter-spacing-main-title: 0.065em;
   --header-height: 69px;
   --footer-height: 391px;
+  --clamp-default-size: clamp(14px, calc(0.2vw + 13.25px), 16px);
+  --transition-duration: 0.2s;
+  /* переменные для media запросов */
+  --tablet: 768px;
   /* filters  - наверное надо будет убрать к стилям самого компонента фильтра потом?*/
   --color-beige-filter: #e5dbc0;
   --color-yellow-filter: #ede860;
@@ -30,5 +37,5 @@
   --color-red-filter: var(--color-warning, #c83333);
   --color-gray-filter: #929292;
   --color-lilac-filter: #e4c2e6;
-  --color-slider-filter: #cedadf;
+  --color-slider-filter: var(--light-gray, #cedadf);
 }

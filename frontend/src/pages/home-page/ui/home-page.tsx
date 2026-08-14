@@ -1,32 +1,35 @@
-import type { FC } from "react";
+import { OverviewProductsTabs } from "@/widgets/overview-products-tabs";
 import styles from "./home-page.module.css";
+import { MainPromoSlider } from "@/widgets/main-promo-slider";
+// import { renderedSlides } from "@/widgets/slider/utils/renderSlides";
+import { type FC } from "react";
+import { PromoActionsCards } from "@/widgets/promo-actions-cards/promo-actions-cards";
+import { ProductsSlider } from "@/widgets/products-slider/products-slider";
 
-type TDescriptionBanner ={
-  title: string;
-  description: string;
-  textLinks: string[];
-}
-
-
-type THomePageProps = {
-    banners?: TDescriptionBanner[];
-}
-
-export const HomePageUI: FC<THomePageProps> = () => {
+export const HomePageUI: FC = () => {
   return (
     <div className={styles.home}>
-      <section className={styles['home-banner']}>
-          <div className={styles.slider}>
-            <div className={styles['banner-content']}>
-              <h1 className={styles['banner-title']}>Скидки до 40% процентов на категорию “Распродажа”</h1>
-              <div className={styles['banner-text']}>Успейте купить по выгодной цене</div>
-              <div className="banner-actions"></div>
-              
-
-              </div>
-          </div>
+      <h1 className="visually-hidden">
+        Andromeda Store — магазин керамической посуды и аксессуаров для дома
+      </h1>
+      <section className={styles["home-banner"]}>
+        <h2 className="visually-hidden">Актуальные акции и предложения</h2>
+        {/*  здесь можно получать слайды а можно в самом умном компоненте виджета */}
+        <MainPromoSlider/>
       </section>
-      
+      <section className={styles["groups-products"]}>
+        <h2 className="visually-hidden">
+          Обзор основных групп товаров и промоакций
+        </h2>
+        <OverviewProductsTabs />
+        <PromoActionsCards />
+      </section>
+      <section className={styles["trands and new"]}>
+        <h2 className="visually-hidden">Тренды и новинки</h2>
+        <ProductsSlider/>
+        {/* <Slider/> */}
+        {/* <Slider/> */}
+      </section>
     </div>
   );
 };

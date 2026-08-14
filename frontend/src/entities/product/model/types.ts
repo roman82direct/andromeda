@@ -37,3 +37,30 @@ export type TProductsDiapason = {
   next: TPaginationURL | null;
   previous: TPaginationURL | null;
 };
+
+export type TImages = { pathsImages: string[] };
+//  карточка товара
+//  отзыв ????
+export type ReviewCard = {
+  author: string;
+  text: string;
+  advantages?: string;
+  disadvantages?: string;
+  createdAt?: string;
+  redactedAt?: string;
+};
+// карточка продукта
+export type TCardProduct = {
+  id: string;
+  articul: string;
+  price: number;
+  oldPrice?: number;
+  productName: string;
+  reviewsNum?: number;
+  rating?: string;
+  isFavorite: boolean;
+  isNew?: boolean;
+  images?: TImages;
+  onClick?: (e: React.MouseEvent) => void;
+  currencyType?: string;
+};

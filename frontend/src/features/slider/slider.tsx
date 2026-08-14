@@ -1,0 +1,125 @@
+import React, { memo,  useMemo  } from "react";
+import type {
+  ChangeSlideSettings,
+  TSliderProps,
+} from "@/features/slider/types";
+import { useChangeSlide } from "@/features/slider/hooks/useChangeSlide";
+
+import {
+  SliderStateContext,
+  SliderActionsContext,
+  SlidesContext,
+} from "@/features/slider/model/contexts";
+
+import { SliderInteractions } from "./components/slider-interactions/slider-interactions";
+import { useAutoPlayShowSlides } from "./hooks/useAutoPlayShowSlides";
+
+
+export const SliderComponent = React.memo(<T,>({
+  infiniteLoop = true,
+  quantityShowSlides = 1,
+  isPagination,
+  autoPlay = true,
+  autoPlayTime = 3000,
+  pagePaginationSize = 3,
+  slides,
+  children
+}: TSliderProps<T>) => {
+
+  const settingChangeSlide: ChangeSlideSettings = {
+    autoPlay,
+    autoPlayTime,
+    pagePaginationSize,
+    infiniteLoop,
+  };
+
+  const dataForSlider = useChangeSlide<T>(slides, settingChangeSlide);
+  //  разделим контексты на действия и состояния
+  //  состояние элементов контроля 
+  const valueSliderState = useMemo(
+    () => ({
+      slideNumber: dataForSlider.indexSlide,
+      dotsPag: dataForSlider.preparedIndexesForPag,
+      // по ум тема слайда неизвестна - необходимо обработать это в виджете
+      // currentSlideTheme: 'unknown',
+      transitionEnabled: dataForSlider.transitionEnabled,
+      isAnimation: dataForSlider.isAnimating,
+      isBlockArrow: dataForSlider.isBlockArrow,
+    }),
+    [
+      dataForSlider.indexSlide,
+      dataForSlider.isAnimating,
+      dataForSlider.transitionEnabled,
+      dataForSlider.preparedIndexesForPag,
+      // getCurrentSlideTheme,
+      dataForSlider.isBlockArrow,
+    ],
+  );
+  //  меняется редко поэтому выделим
+  //  сами слайды
+  const valueSlides = useMemo(
+    () => ({
+      slides: dataForSlider.preparedSlides,
+
+      quantityShowSlides,
+    }),
+    [dataForSlider.preparedSlides, quantityShowSlides],
+  );
+  // создадим действия
+  const valueSliderActions = useMemo(
+    () => ({
+      setIndexSlide: dataForSlider.setIndexSlide,
+      // handleChangeSlide: dataForSlider.handleChangeSlide,
+      handlersForChangeSlide: {
+       handleGoNextSlide: dataForSlider.handlersForChangeSlide.handleGoNextSlide,
+       handleGoPrevSlide: dataForSlider.handlersForChangeSlide.handleGoPrevSlide
+    },
+      handleTransitionEnd: dataForSlider.handleTransitionEnd,
+    }),
+    [
+      dataForSlider.handlersForChangeSlide.handleGoNextSlide,
+       dataForSlider.handlersForChangeSlide.handleGoPrevSlide,
+      dataForSlider.setIndexSlide,
+      dataForSlider.handleTransitionEnd,
+    ],
+  );
+
+
+    //  работа автопоказа слайдов
+  useAutoPlayShowSlides({
+    indexSlide: dataForSlider.indexSlide,
+    infiniteLoop,
+    autoPlay,
+    slidesArrLength: dataForSlider.preparedSlides.length,
+    autoPlayTime,
+    isAutoPlayState: dataForSlider.isAutoPlay,
+    goNextSlide: dataForSlider.handlersForChangeSlide.handleGoNextSlide,
+    goPrevSlide: dataForSlider.handlersForChangeSlide.handleGoPrevSlide
+    
+  });
+
+if (!slides.length) return <div>Сделать лоадер загрузки</div>;
+  return (
+    <SlidesContext.Provider value={valueSlides}>
+      <SliderActionsContext.Provider value={valueSliderActions}>
+        <SliderStateContext.Provider value={valueSliderState}>
+          <SliderInteractions autoPlayParams={{
+                                                enabledAutoPlay:autoPlay,
+                                                stopAutoPlay: dataForSlider.handlersForAutoPlay.stopAutoPlay,
+                                                runAutoPlay: dataForSlider.handlersForAutoPlay.runAutoPlay,
+                                                goNextSlide: dataForSlider.handlersForChangeSlide.handleGoNextSlide,
+                                                goPrevSlide:   dataForSlider.handlersForChangeSlide.handleGoPrevSlide
+                                              }} >
+              {children({
+                  isPagination: isPagination,
+                  
+              })}
+          </SliderInteractions>
+        </SliderStateContext.Provider>
+      </SliderActionsContext.Provider>
+    </SlidesContext.Provider>
+  );
+});
+
+export const Slider = memo(SliderComponent);
+Slider.displayName = "Slider";

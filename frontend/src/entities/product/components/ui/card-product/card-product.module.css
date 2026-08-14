@@ -1,0 +1,123 @@
+.card-product {
+  display: flex; 
+  flex-direction: column;
+  width: 100%;
+  max-width: 298px;
+  
+  min-height: 100%;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.card-images-container {
+  position: relative;
+  height: 300px;
+  margin-block-end: 24px;
+  overflow: hidden;
+}
+
+.card-icons-actions {
+  position: absolute;
+  inset: 16px 0 auto 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 16px;
+}
+
+.card-favorite-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  border-radius: 50%;
+  background-color: var(--color-secondary, #f8f9fa);
+  aspect-ratio: 1;
+}
+
+.card-is-new {
+  padding: 4px 8px;
+  color: var(--color-tertiary, #000000);
+  font-family: var(--main-font, "Raleway");
+  font-weight: var(--fw-text, 400);
+  font-size: 16px;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: capitalize;
+  background-color: var(--light-gray, #cedadf);
+}
+
+.card-is-old {
+  background-color: transparent;
+}
+
+.card-product-descrip {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  /* justify-content: space-between; */
+  gap: 8px;
+}
+
+.card-product-prices {
+  display: flex;
+  gap: 10px;
+}
+
+.price {
+  color: var(--color-primary, #15242a);
+  font-family: var(--main-font, "Raleway");
+  font-weight: var(--fw-title, 600);
+  font-size: 20px;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.old-price {
+  color: var(--color-primary-disabled, #848484);
+  text-decoration: line-through;
+}
+
+.new-price {
+  color: var(--color-sailing, #e1700e);
+}
+
+.card-product-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+  gap: 8px;
+}
+.card-product-name {
+  flex: 1 1  auto;
+  color: var(--color-dark-accent, #2f4d5a);
+  font-family: var(--main-font, "Raleway");
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.15;
+}
+
+.card-product-reviews-rating {
+  display: flex;
+  gap: 16px;
+    margin-top: auto;
+  font-family: var(--main-font, "Raleway");
+  font-size: 20px;
+}
+
+.card-product-reviews,
+.card-product-rating {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.card-product-rating {
+  color: var(--color-tertiary, #000000);
+}
+
+.card-product-reviews {
+  color: var(--expressive-gray, #848484);
+}
