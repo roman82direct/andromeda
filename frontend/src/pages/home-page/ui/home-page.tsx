@@ -4,6 +4,7 @@ import { MainPromoSlider } from "@/widgets/main-promo-slider";
 // import { renderedSlides } from "@/widgets/slider/utils/renderSlides";
 import { type FC } from "react";
 import { PromoActionsCards } from "@/widgets/promo-actions-cards/promo-actions-cards";
+import { ProductsSlider } from "@/widgets/products-slider/products-slider";
 
 export const HomePageUI: FC = () => {
   return (
@@ -23,8 +24,9 @@ export const HomePageUI: FC = () => {
         <OverviewProductsTabs />
         <PromoActionsCards />
       </section>
-      <section className={styles[""]}>
+      <section className={styles["trands and new"]}>
         <h2 className="visually-hidden">Тренды и новинки</h2>
+        <ProductsSlider/>
         {/* <Slider/> */}
         {/* <Slider/> */}
       </section>

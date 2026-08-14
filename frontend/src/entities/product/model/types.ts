@@ -50,7 +50,8 @@ export type ReviewCard = {
   redactedAt?: string;
 };
 // карточка продукта
-export type CardProduct = {
+export type TCardProduct = {
+  id: string;
   articul: string;
   price: number;
   oldPrice?: number;

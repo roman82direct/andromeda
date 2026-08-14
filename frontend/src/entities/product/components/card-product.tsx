@@ -1,29 +1,17 @@
 import { Link } from "react-router-dom";
 import { CardProductUI } from "./ui/card-product/card-product";
+import type { TCardProduct } from "../model/types";
 
 export type CardProductProps = {
-  id?: string;
   path?: string;
-};
+} & TCardProduct;
 
-export const CardProduct = ({
-  id = "1",
-  path = "catalog",
-}: CardProductProps) => {
-  // {id}:CardProductProps
-  // получаем данные карточки по id => сделать!
-  //  пока загушка
-  //  продумать - может это вообще монжо получать через пропсы
-  const dataCard = {
-    price: 100,
-    oldPrice: 99,
-    productName: "стул",
-    reviewsNum: 500,
-    rating: "5.0",
-    isFavorite: false,
-    isNew: true,
-  };
+export const CardProduct = (cardDataProd: CardProductProps) => {
 
+  //  подумать как настроить ссылкуперехода
+  // по id или articul ????
+    const {id, path, ...otherDataCardProd} = cardDataProd;
+    // const { id } = otherDataCardProd;
   //   const handleLike = (e: React.MouseEvent) => {
   //   e.preventDefault();
   //   e.stopPropagation();
@@ -39,7 +27,7 @@ export const CardProduct = ({
   // возможность перехода
   return (
     <Link to={`/${path}/${id}`}>
-      <CardProductUI {...dataCard} onClick={handleAddToFavoriteProducts} />
+      <CardProductUI {...otherDataCardProd} onClick={handleAddToFavoriteProducts} />
     </Link>
   );
 };

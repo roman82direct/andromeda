@@ -1,5 +1,5 @@
 import { AppImage } from "@/shared/ui/app-image/app-image";
-import type { CardProduct } from "../../../model/types";
+import type { TCardProduct } from "../../../model/types";
 import styles from "./card-product.module.css";
 import { IconButtonUI } from "@/shared/ui/icon-button/icon-button";
 import { IconUI } from "@/shared/ui/icon";
@@ -7,6 +7,11 @@ import clsx from "clsx";
 
 // убрать эту константу!
 const PLACEHOLDER_URL = "https://placehold.co";
+
+
+export type TCardProductUIProps = Omit<TCardProduct, 'id' | 'articul'>
+
+
 
 export const CardProductUI = ({
   price,
@@ -20,7 +25,7 @@ export const CardProductUI = ({
   images = { pathsImages: [PLACEHOLDER_URL] },
   onClick,
   currencyType = "₽",
-}: CardProduct) => {
+}: TCardProductUIProps) => {
   return (
     <article className={styles["card-product"]}>
       <div className={styles["card-images-container"]}>
@@ -50,37 +55,41 @@ export const CardProductUI = ({
           </div>
         </div>
       </div>
-      <div></div>
       <div className={styles["card-product-descrip"]}>
-        <div className={styles["card-product-prices"]}>
-          {oldPrice ? (
-            <>
-              <div className={clsx(styles["new-price"], styles["price"])}>
+        <div className={styles['card-product-info']}>
+          <div className={styles["card-product-prices"]}>
+            {oldPrice ? (
+              <>
+                <div className={clsx(styles["new-price"], styles["price"])}>
+                  {price} {`${currencyType}`}
+                </div>
+                <div className={clsx(styles["old-price"], styles["price"])}>
+                  {oldPrice} {`${currencyType}`}
+                </div>
+              </>
+            ) : (
+              <div className={styles["price"]}>
                 {price} {`${currencyType}`}
               </div>
-              <div className={clsx(styles["old-price"], styles["price"])}>
-                {oldPrice} {`${currencyType}`}
+            )}
+          </div>
+          <div className={styles["card-product-name"]}>{productName}</div>
+        </div>
+              <div className={styles["card-product-reviews-rating"]}>
+                <div className={styles["card-product-rating"]}>
+                  <IconUI iconClass={"star"} colorIcon={"color-accent"} />
+                  <span>{rating ? rating : "0"}</span>
+                </div>
+                <div className={styles["card-product-reviews"]}>
+                  <IconUI iconClass={"reviews"} colorIcon={"expressive-gray"} />
+                  <span>
+                    {reviewsNum && reviewsNum > 0 ? reviewsNum : "0"} отзывов
+                  </span>
+                </div>
               </div>
-            </>
-          ) : (
-            <div className={styles["price"]}>
-              {price} {`${currencyType}`}
-            </div>
-          )}
-        </div>
-        <div className={styles["card-product-name"]}>{productName}</div>
-        <div className={styles["card-product-reviews-rating"]}>
-          <div className={styles["card-product-rating"]}>
-            <IconUI iconClass={"star"} colorIcon={"color-accent"} />
-            <span>{rating ? rating : "0"}</span>
-          </div>
-          <div className={styles["card-product-reviews"]}>
-            <IconUI iconClass={"reviews"} colorIcon={"expressive-gray"} />
-            <span>
-              {reviewsNum && reviewsNum > 0 ? reviewsNum : "0"} отзывов
-            </span>
-          </div>
-        </div>
+              {/* e,htb */}
+    
+         
       </div>
     </article>
   );

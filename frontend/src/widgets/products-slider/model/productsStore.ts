@@ -1,9 +1,10 @@
-import type { CardProduct } from "@/entities/product/model/types";
+import type { TCardProduct } from "@/entities/product/model/types";
 import testImage from '../../../assets/images/card-product/test-card/card-image-test.png';
 
 
-export const productsCardData: CardProduct[] = [
-  {
+export const productsCardData: TCardProduct[] = [
+  { 
+    id: '1',
     articul: "846-333",
     price: 1242.201,
     productName:
@@ -13,7 +14,8 @@ export const productsCardData: CardProduct[] = [
       pathsImages:[testImage]
     }
   },
-  {
+  { 
+    id: '2',
     articul: "421-509",
     price: 3490,
     productName:
@@ -24,6 +26,7 @@ export const productsCardData: CardProduct[] = [
   }
   },
   {
+    id: '3',
     articul: "849-193",
     price: 584.378,
     productName:
@@ -34,6 +37,7 @@ export const productsCardData: CardProduct[] = [
   }
   },
   {
+    id: '4',
     articul: "847-110",
     price: 1711.25,
     productName:
@@ -43,7 +47,8 @@ export const productsCardData: CardProduct[] = [
     pathsImages:[testImage]
   }
   },
-  {
+  { 
+    id: '5',
     articul: "822-064",
     price: 1389.387,
     productName:
@@ -54,6 +59,7 @@ export const productsCardData: CardProduct[] = [
   }
   },
   {
+    id: '6',
     articul: "486-010",
     price: 1999,
     productName:
@@ -64,6 +70,7 @@ export const productsCardData: CardProduct[] = [
   }
   },
   {
+    id: '7',
     articul: "487-057",
     price: 990,
     productName:
@@ -74,6 +81,7 @@ export const productsCardData: CardProduct[] = [
   }
   },
   {
+    id: '8',
     articul: "434-160",
     price: 199,
     productName:
@@ -84,6 +92,7 @@ export const productsCardData: CardProduct[] = [
   }
   },
   {
+    id: '9',
     articul: "806-094",
     price: 527.25,
     productName:
@@ -94,6 +103,7 @@ export const productsCardData: CardProduct[] = [
   }
   },
   {
+    id: '10',
     articul: "815-375",
     price: 553.15,
     productName:
@@ -104,6 +114,7 @@ export const productsCardData: CardProduct[] = [
   }
   },
   {
+    id: '11',
     articul: "493-005",
     price: 149.5,
     productName:
@@ -114,6 +125,7 @@ export const productsCardData: CardProduct[] = [
   }
   },
   {
+    id: '12',
     articul: "824-179",
     price: 3311.5,
     productName:
@@ -124,6 +136,7 @@ export const productsCardData: CardProduct[] = [
     }
   },
   {
+    id: '13',
     articul: "802-574",
     price: 621.6,
     productName:
@@ -134,6 +147,7 @@ export const productsCardData: CardProduct[] = [
   }
   },
   {
+    id: '14',
     articul: "484-147",
     price: 249.2,
     productName:
