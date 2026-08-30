@@ -14,6 +14,7 @@ export const useChangeSlide = <T>(
     autoPlay,
     pagePaginationSize,
     infiniteLoop,
+    quantityShowSlides = 1
   }: ChangeSlideSettings,
 ) => {
   // 1. Подготавливаем слайды с клонами
@@ -21,6 +22,7 @@ export const useChangeSlide = <T>(
   const preparedSlides = useMemo(() => {
     if (slides.length === 0) return slides;
     if (infiniteLoop) {
+      // const maxIndexShow = slides.length - 
       return [slides[slides.length - 1], ...slides, slides[0]];
     } else {
       return slides;

@@ -88,7 +88,9 @@ export type TSliderProps<T> =
 export type ChangeSlideSettings = Pick<
   SliderCommonSettings,
   "autoPlay" | "autoPlayTime" | "pagePaginationSize" | "infiniteLoop"
->;
+> & {
+  quantityShowSlides: number
+};
 //  для хука автоплея слайдов
 export type AutoPlaySetting = Pick<
   SliderCommonSettings,

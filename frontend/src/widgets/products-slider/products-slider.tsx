@@ -12,29 +12,16 @@ const DEFAULT_PRODUCTS_SLIDER_SETTINGS: SliderCommonSettings ={
   pagePaginationSize: 3,
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // type ProductsSlidesProps = {
 //   slides: string[]
 // }
 
 // сделать возсожным передачу слайдов
 
-type ProductsSliderProps = {
-  nameSlider: string;
-  link: string;
-}
+// type ProductsSliderProps = {
+//   nameSlider: string;
+//   link: string;
+// }
 
 export const ProductsSlider = ()=>{
 

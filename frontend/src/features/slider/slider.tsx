@@ -31,9 +31,14 @@ export const SliderComponent = React.memo(<T,>({
     autoPlayTime,
     pagePaginationSize,
     infiniteLoop,
+    quantityShowSlides
   };
 
-  const dataForSlider = useChangeSlide<T>(slides, settingChangeSlide);
+  const dataForSlider = useChangeSlide<T>(
+    slides, 
+    settingChangeSlide,
+    
+  );
   //  разделим контексты на действия и состояния
   //  состояние элементов контроля 
   const valueSliderState = useMemo(
