@@ -17,13 +17,17 @@ export const MainPromoSliderComponentUI = <T extends TPromoSlideItem>({
   //  опредлеим тему такещуго слайда для стрелок и точек пагинации
   const { slides } = useGetSlidesContext<T>();
   const { slideNumber } = useSliderStateContext();
-  
+  const stylesPromoTrack = {
+    display: 'flex',
+  }  as React.CSSProperties
   const currentSlideTheme = slides[slideNumber].typeTheme;
   return (
     <div
       className={styles['main-promo-slider']}
     >
-      <SliderTrack>{renderedSlides}</SliderTrack>
+      <SliderTrack layOutTrackStyles={stylesPromoTrack}>
+        {renderedSlides}
+      </SliderTrack>
       <div className={styles["main-promo-slider-nav"]}>
         <Arrows themeArrows={currentSlideTheme }/>
         {isPagination && <Dots themeDots={currentSlideTheme} />}

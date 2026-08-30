@@ -2,7 +2,7 @@ import type { TCardProduct } from "@/entities/product/model/types";
 import testImage from '../../../assets/images/card-product/test-card/card-image-test.png';
 
 
-export const productsCardData: TCardProduct[] = [
+export const testProductsCardData: TCardProduct[] = [
   { 
     id: '1',
     articul: "846-333",
@@ -158,3 +158,10 @@ export const productsCardData: TCardProduct[] = [
   }
   },
 ];
+
+
+
+export const productsCardData = testProductsCardData.map((cardData,index)=>{
+  cardData.productName = index + '. '+cardData.productName
+  return cardData
+})
