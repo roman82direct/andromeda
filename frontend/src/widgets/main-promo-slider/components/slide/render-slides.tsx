@@ -18,6 +18,7 @@ export const renderSlides = <T,>(
   slides: T[],
   renderUIComponentOfSlide: (slide: T) => ReactNode
 ) => {
+ 
   //  использовать для id библиотеку
   return slides.map((slide, index) => (
     <React.Fragment key={index}>

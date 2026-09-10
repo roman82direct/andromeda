@@ -4,7 +4,7 @@ import { renderProductsSliderUI } from "./ui/render-products-slider";
 // import styles from './ui/products-slider.module.css';
 
 const DEFAULT_PRODUCTS_SLIDER_SETTINGS: SliderCommonSettings ={
-  infiniteLoop: false,
+  infiniteLoop: true,
   quantityShowSlides: 5,
   isPagination: true,
   autoPlay: false,

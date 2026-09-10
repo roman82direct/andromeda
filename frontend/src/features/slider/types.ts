@@ -6,10 +6,14 @@ export type TypeOperationFlip = "increment" | "decrement";
 
 export const SliderActionTypes = {
   changeSlide: "CHANGE_SLIDE",
-  transitionEnd: "TRANSITION_END",
+  setTransitionEnabled: "SET_TRANSITION_ENABLED",
   setIndex: "SET_INDEX",
   setPreparedSlides: "SET_PREPARED_SLIDES",
   toggleAutoPlay: "TOGGLE_AUTOPLAY",
+  //  для бесконечного слайда установим количество наст элментов
+  setTrueLengthSlides: 'SET_TRUE_LENGTH',
+  //  устанавливаем если есть необходимость в бесконечной карусели
+  setIsRepeating:  'SET_IS_REPEATING'
 } as const;
 // опишем действия слайда
 export type TSliderAction<T> =
@@ -18,7 +22,7 @@ export type TSliderAction<T> =
       payload: TypeOperationFlip;
     }
   | {
-      type: typeof SliderActionTypes.transitionEnd;
+      type: typeof SliderActionTypes.  setTransitionEnabled;
       payload: boolean;
     }
   | {
@@ -32,7 +36,17 @@ export type TSliderAction<T> =
   | {
       type: typeof SliderActionTypes.toggleAutoPlay;
       payload: boolean;
-    };
+    }
+  | {
+    type: typeof SliderActionTypes.setTrueLengthSlides;
+    payload: number;
+  }
+
+  | {
+    type: typeof SliderActionTypes.setIsRepeating;
+    payload: boolean;
+  }
+
 
 export type TArrow = {
   key: "right" | "left";
