@@ -327,8 +327,6 @@ export const useChangeSlide = <T>(
   const preparedSlides = useMemo(() => {
     if (slides.length === 0) return slides;
     if (infiniteLoop && slides.length >  quantityShowSlides) {
-      // const maxIndexShow = slides.length - quantityShowSlides;
-      
       const clonesFirstSlides = [];
       const clonesLastSlides = [];
       for(let i =0; i<quantityShowSlides; i++){
@@ -338,9 +336,6 @@ export const useChangeSlide = <T>(
        clonesLastSlides.reverse();
       // return [slides[slides.length - 1], ...slides, slides[0]];
       const slidesWithClones = [...clonesLastSlides, ...slides, ...clonesFirstSlides];
-      // console.log(slides.length);
-      // console.log(slidesWithClones.length)
-      // console.log(quantityShowSlides)
       return slidesWithClones
 
     } else {
@@ -451,27 +446,45 @@ export const useChangeSlide = <T>(
   //   dispatch({ type: SliderActionTypes.changeSlide, payload: typeOperation });
   // }, []);
 //  инкапсулируем логику переключения слайдов
+  const changeIndexSlide =  useCallback((index: number)=>{
+    //  если анимация перехода слайда идет, ничего не делаем
+    if (stateSlider.isAnimating) return;
+    //  меняем слайд
+    dispatch({type: SliderActionTypes.setIndex, payload: index})
+    // нужно поставить isAnimating в позицию true чтобы предотвратить быстрое ошибочное нажатие
+    dispatch({type: SliderActionTypes.setIsAnimating, payload: true})
+  },[
+      stateSlider.isAnimating,
+      dispatch
+    ]);
+
   const handleGoNextSlide = useCallback(() => {
       // handleChangeSlide('increment');
       if(stateSlider.isRepeating || 
           stateSlider.indexSlide < (stateSlider.lengthTrueSlides - quantityShowSlides)
         ){
-        dispatch({type: SliderActionTypes.setIndex, payload: stateSlider.indexSlide + 1})
+        const resultIncrement = stateSlider.indexSlide + 1;
+        changeIndexSlide(resultIncrement)
+        // dispatch({type: SliderActionTypes.setIndex, payload: stateSlider.indexSlide + 1})
       }
   }, [  
         stateSlider.isRepeating,
         stateSlider.indexSlide,
         stateSlider.lengthTrueSlides,
         quantityShowSlides,
+        changeIndexSlide
       ]);
 
   const handleGoPrevSlide = useCallback(() => {
       // handleChangeSlide('decrement');
       if(stateSlider.isRepeating || stateSlider.indexSlide > 0){
-         dispatch({type: SliderActionTypes.setIndex, payload: stateSlider.indexSlide - 1})
+        const resultDecrement = stateSlider.indexSlide - 1;
+        changeIndexSlide(resultDecrement)
+        //  dispatch({type: SliderActionTypes.setIndex, payload: stateSlider.indexSlide - 1})
       }
-  }, [ stateSlider.isRepeating,
+  }, [  stateSlider.isRepeating,
         stateSlider.indexSlide,
+        changeIndexSlide
       ]);
 
   const handleTransitionEnd = useCallback(() => {
@@ -501,6 +514,9 @@ export const useChangeSlide = <T>(
           })
 
       }
+      // нужно поставить isAnimating в позицию false чтобы разблокировать нажатие
+      //  тк анимация закончилась и это не приведет к ошибке
+      dispatch({type: SliderActionTypes.setIsAnimating, payload: false})
     }
     // dispatch({
     //   type: SliderActionTypes.setTransitionEnabled,

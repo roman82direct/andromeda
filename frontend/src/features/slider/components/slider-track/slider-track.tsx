@@ -33,16 +33,25 @@ export const  SliderTrack = <T,>(
   const stylesTranslateDefault = useMemo(
     () => ({
       //  подумать ,вдруг перемещение слайдов станет вертикальным ?
+      // вычтем все расстояние между элементами чтобы смещение было верным
+      // slideNumber * gap
 transform: `translateX(calc(
   -${(slideNumber * 100) / showSlides}%
   - ${slideNumber * gap}px
 ))`,
-      transition: transitionEnabled ? "transform 0.5s ease-in-out" : "none",
+      transition: transitionEnabled ? "transform 0.35s ease-in-out" : "none",
       "--show-quntity": quantityShowSlides,
       //  кастомзируем расположение слайдов
       ...  layOutTrackStyles
     }),
-    [slideNumber, transitionEnabled, showSlides, quantityShowSlides,  layOutTrackStyles],
+    [
+      slideNumber, 
+      transitionEnabled, 
+      showSlides, 
+      quantityShowSlides,  
+      layOutTrackStyles,
+      gap
+    ],
   ) as React.CSSProperties;
   return (
     <div

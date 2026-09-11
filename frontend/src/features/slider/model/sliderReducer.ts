@@ -45,19 +45,27 @@ export const sliderReducer = <T>(
           lengthTrueSlides: action.payload
       }
     }
-    case SliderActionTypes.changeSlide: {
-      // пока идет анимация мы не можем сменить слайд еще раз
-      if (state.isAnimating) return state;
-      const nextIndexSlide = getNextIndexSlide({
-        typeOperation: action.payload,
-        prevIndex: state.indexSlide,
-        ArrSizeSlides: state.preparedSlides.length,
-      });
+    // можно удалить этот метод
+    // case SliderActionTypes.changeSlide: {
+    //   // пока идет анимация мы не можем сменить слайд еще раз
+    //   if (state.isAnimating) return state;
+    //   const nextIndexSlide = getNextIndexSlide({
+    //     typeOperation: action.payload,
+    //     prevIndex: state.indexSlide,
+    //     ArrSizeSlides: state.preparedSlides.length,
+    //   });
+    //   return {
+    //     ...state,
+    //     indexSlide: nextIndexSlide,
+    //     isAnimating: true,
+    //     transitionEnabled: true,
+    //   };
+    // }
+    case SliderActionTypes.setIsAnimating: {
       return {
         ...state,
-        indexSlide: nextIndexSlide,
-        isAnimating: true,
-        transitionEnabled: true,
+        isAnimating: action.payload,
+       
       };
     }
     //  css анимация перехода
