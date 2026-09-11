@@ -1,9 +1,10 @@
 .slides-list {
+  gap: var(--gap);
   width: 100%;
   height: 100%;
 }
 
 /* поведение для масштабирования в фичу */
 .slides-list.show-quntity > * {
-  width: calc(100% / var(--show-quntity, 1));
+  width: calc((100% / var(--show-quntity, 1)));
 }

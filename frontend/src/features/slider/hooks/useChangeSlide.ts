@@ -326,8 +326,9 @@ export const useChangeSlide = <T>(
   // (абстрагировать логику клонирования - допустим если нам это не надо)
   const preparedSlides = useMemo(() => {
     if (slides.length === 0) return slides;
-    if (infiniteLoop) {
+    if (infiniteLoop && slides.length >  quantityShowSlides) {
       // const maxIndexShow = slides.length - quantityShowSlides;
+      
       const clonesFirstSlides = [];
       const clonesLastSlides = [];
       for(let i =0; i<quantityShowSlides; i++){
@@ -335,13 +336,12 @@ export const useChangeSlide = <T>(
           clonesLastSlides.push(slides[slides.length - 1- i])
       }
        clonesLastSlides.reverse();
-      // console.log("clonesFirstSlides",clonesFirstSlides.length);
-      // console.log("clonesLastSlides",clonesLastSlides.length);
-      // console.log([...clonesLastSlides, ...slides, ...clonesFirstSlides])
-      // console.log('slides',slides);
-      //  БАГ на верхнем слайде
       // return [slides[slides.length - 1], ...slides, slides[0]];
-      return [...clonesLastSlides, ...slides, ...clonesFirstSlides];
+      const slidesWithClones = [...clonesLastSlides, ...slides, ...clonesFirstSlides];
+      // console.log(slides.length);
+      // console.log(slidesWithClones.length)
+      // console.log(quantityShowSlides)
+      return slidesWithClones
 
     } else {
       return slides;

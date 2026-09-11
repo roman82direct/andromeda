@@ -6,13 +6,19 @@ export const ProductsSliderUI = ()=>{
   // название
   // пагинация
   // ссылка на все товары
+  const gap = 10;
   const stylesCardsTrack = {
       display: 'flex',
-      gap: '10px'
+      '--gap': `${gap}px`,
     } as React.CSSProperties
   return <div className={styles['product-slider']}>
     
-      <SliderTrack layOutTrackStyles={stylesCardsTrack}>
+      <SliderTrack 
+        layOutTrackStyles={stylesCardsTrack}
+        customStyles={
+          {gap}
+        }
+        >
           {renderProductSlides}
       </SliderTrack>
   </div>

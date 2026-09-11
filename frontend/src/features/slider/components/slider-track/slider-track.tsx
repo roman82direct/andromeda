@@ -12,19 +12,31 @@ import clsx from "clsx";
 //  абстрагировать - возможно слайдер может стать вертикальным в  будущем
 export type SliderTrackProps<T> = {
   children:(slides:T[]) => ReactNode;
-  layOutTrackStyles?: React.CSSProperties
+  layOutTrackStyles?: React.CSSProperties;
+  customStyles?: {
+    gap?:number;
+  }
 }
-export const  SliderTrack = <T,>({children,   layOutTrackStyles}: SliderTrackProps<T>) => {
+export const  SliderTrack = <T,>(
+  {
+    children,   
+    layOutTrackStyles,   
+    customStyles
+  }: SliderTrackProps<T>) => {
   const { slideNumber, transitionEnabled } = useSliderStateContext();
   const { handleTransitionEnd } = useSliderActionsContext();
   // Хук → конкретизирует тип через generic <T>
   const { slides, quantityShowSlides } = useGetSlidesContext<T>(); // обязательно указать тип данных слайда
-
+  
+  const gap = customStyles?.gap ?  customStyles?.gap : 1;
   const showSlides = quantityShowSlides ? quantityShowSlides : 1;
   const stylesTranslateDefault = useMemo(
     () => ({
       //  подумать ,вдруг перемещение слайдов станет вертикальным ?
-      transform: `translateX(-${(slideNumber * 100) / showSlides}%)`,
+transform: `translateX(calc(
+  -${(slideNumber * 100) / showSlides}%
+  - ${slideNumber * gap}px
+))`,
       transition: transitionEnabled ? "transform 0.5s ease-in-out" : "none",
       "--show-quntity": quantityShowSlides,
       //  кастомзируем расположение слайдов
