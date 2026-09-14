@@ -28,7 +28,7 @@ export const  SliderTrack = <T,>(
   // Хук → конкретизирует тип через generic <T>
   const { slides, quantityShowSlides } = useGetSlidesContext<T>(); // обязательно указать тип данных слайда
   
-  const gap = customStyles?.gap ?  customStyles?.gap : 1;
+  const gap = customStyles?.gap ?  customStyles?.gap : 0;
   const showSlides = quantityShowSlides ? quantityShowSlides : 1;
   const stylesTranslateDefault = useMemo(
     () => ({
@@ -37,11 +37,12 @@ export const  SliderTrack = <T,>(
       // slideNumber * gap
 transform: `translateX(calc(
   -${(slideNumber * 100) / showSlides}%
-  - ${slideNumber * gap}px
+  - ${slideNumber * gap }px
 ))`,
       transition: transitionEnabled ? "transform 0.35s ease-in-out" : "none",
       "--show-quntity": quantityShowSlides,
       //  кастомзируем расположение слайдов
+      "--gapTrack": `${gap}px`,
       ...  layOutTrackStyles
     }),
     [
@@ -50,6 +51,7 @@ transform: `translateX(calc(
       showSlides, 
       quantityShowSlides,  
       layOutTrackStyles,
+      // gapForTranslateMultiple,
       gap
     ],
   ) as React.CSSProperties;

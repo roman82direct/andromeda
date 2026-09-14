@@ -108,6 +108,7 @@ if (!slides.length) return <div>Сделать лоадер загрузки</di
     <SlidesContext.Provider value={valueSlides}>
       <SliderActionsContext.Provider value={valueSliderActions}>
         <SliderStateContext.Provider value={valueSliderState}>
+          {/* необходим рефактор пропсов */}
           <SliderInteractions autoPlayParams={{
                                                 enabledAutoPlay:autoPlay,
                                                 stopAutoPlay: dataForSlider.handlersForAutoPlay.stopAutoPlay,

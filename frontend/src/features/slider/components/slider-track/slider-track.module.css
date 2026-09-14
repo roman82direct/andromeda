@@ -1,5 +1,6 @@
 .slides-list {
-  gap: var(--gap);
+  /* --gap: 0; */
+  gap: var(--gapTrack, 0);
   width: 100%;
   height: 100%;
 }

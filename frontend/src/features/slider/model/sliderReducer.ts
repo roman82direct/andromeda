@@ -1,5 +1,4 @@
 import { type TSliderAction, SliderActionTypes } from "../types";
-import { getNextIndexSlide } from "../utils/getIndexNextSlide";
 
 // опишем состояние
 export type TSliderState<T> = {

@@ -7,7 +7,7 @@ const DEFAULT_PRODUCTS_SLIDER_SETTINGS: SliderCommonSettings ={
   infiniteLoop: true,
   quantityShowSlides: 5,
   isPagination: true,
-  autoPlay: false,
+  autoPlay: true,
   autoPlayTime: 3000,
   pagePaginationSize: 3,
 }
