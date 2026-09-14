@@ -95,7 +95,7 @@ export const useChangeSlide = <T>(
           //  кадр браузера №1 
           // transition: none => браузер зафиксировал новое положение
           // запланируем это действие следующий кадр отрисовки браузером
-          raf2 = requestAnimationFrame(()=>{
+          rafId2 = requestAnimationFrame(()=>{
             // кадр браузера №2
             // transition снова включается
             dispatch({
