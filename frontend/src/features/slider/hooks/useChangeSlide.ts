@@ -81,17 +81,23 @@ export const useChangeSlide = <T>(
   },[slides, infiniteLoop, quantityShowSlides])
 
 //  включаем анимацию по достиж опред условия:
+// рефактор перенести этот  useEffect в handleTransitionEnd 
   useEffect(()=>{
     let rafId:number | null = null;
-    let raf2:number | null = null;
+    let rafId2:number | null = null;
     if(stateSlider.isRepeating){
       if (
         stateSlider.indexSlide === quantityShowSlides ||
         stateSlider.indexSlide === stateSlider.lengthTrueSlides
       ) {
-        // запланируем следующий кадр анимации
+        // запланируем это действие следующий кадр отрисовки браузером
          rafId = requestAnimationFrame(()=>{
+          //  кадр браузера №1 
+          // transition: none => браузер зафиксировал новое положение
+          // запланируем это действие следующий кадр отрисовки браузером
           raf2 = requestAnimationFrame(()=>{
+            // кадр браузера №2
+            // transition снова включается
             dispatch({
             type: SliderActionTypes.setTransitionEnabled,
             payload: true
@@ -107,8 +113,8 @@ export const useChangeSlide = <T>(
       if(rafId){
         cancelAnimationFrame(rafId)
       }
-      if(raf2){
-        cancelAnimationFrame(raf2)
+      if(rafId2){
+        cancelAnimationFrame(rafId2)
       }
       
     })
