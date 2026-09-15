@@ -31,6 +31,26 @@ export const sliderReducer = <T>(
   switch (action.type) {
     // флаг повторения( если нужен бесконечный слайдер 
     // и кол-вослайдов больше чем места на экране)
+    case SliderActionTypes.resetToRealSlide: {
+      return {
+        ...state,
+        //  переходим на иднекс настоящего слайда
+        indexSlide: action.payload,
+        // отключаем блокировку кнопок (анимация сейчас нет)
+        // isAnimating: false,
+        //  отключаем саму анимацию перехода слайда
+        transitionEnabled: false
+      }
+    }
+    case SliderActionTypes.changeSlideStart: {
+      return {
+        ...state,
+        indexSlide: action.payload,
+        //  сообщим о начале смены слайда чтобы пока идет
+        //  анимациясменыслайда нельзя было перекл слайд
+        isAnimating:true
+      }
+    }
     case SliderActionTypes.setIsRepeating: {
       return {
         ...state,
@@ -60,6 +80,7 @@ export const sliderReducer = <T>(
     //     transitionEnabled: true,
     //   };
     // }
+    // возможно убрать ?
     case SliderActionTypes.setIsAnimating: {
       return {
         ...state,
@@ -81,7 +102,7 @@ export const sliderReducer = <T>(
       return {
         ...state,
         indexSlide: action.payload,
-        isAnimating: false,
+        //  isAnimating: true блокирует изменение пока не перейдемк др слайду
         // transitionEnabled: true,
       };
     }

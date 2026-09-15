@@ -20,7 +20,7 @@ export const MainPromoSliderComponentUI = <T extends TPromoSlideItem>({
   const stylesPromoTrack = {
     display: 'flex',
   }  as React.CSSProperties
-  const currentSlideTheme = slides[slideNumber].typeTheme;
+  const currentSlideTheme = slides[slideNumber]?.typeTheme ?? 'light';
   return (
     <div
       className={styles['main-promo-slider']}

@@ -5,6 +5,8 @@ import type { ReactNode } from "react";
 export type TypeOperationFlip = "increment" | "decrement";
 
 export const SliderActionTypes = {
+  changeSlideStart:'CHANGE_INDEX_SLIDE_START',
+  resetToRealSlide: 'RESET_TO_REAL_SLIDE',
   setIsAnimating: "SET_IS_ANIMATING",
   setTransitionEnabled: "SET_TRANSITION_ENABLED",
   setIndex: "SET_INDEX",
@@ -17,6 +19,15 @@ export const SliderActionTypes = {
 } as const;
 // опишем действия слайда
 export type TSliderAction<T> =
+    | {
+      //  создим тип на основе значения переменной
+      type: typeof SliderActionTypes.resetToRealSlide;
+      payload: number;
+    }
+    | {
+      type: typeof SliderActionTypes.changeSlideStart;
+      payload: number
+    }
   | {
       type: typeof SliderActionTypes.setIsAnimating;
       payload: boolean;

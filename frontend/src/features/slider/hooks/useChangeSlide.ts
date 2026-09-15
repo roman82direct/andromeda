@@ -83,46 +83,61 @@ export const useChangeSlide = <T>(
 //  включаем анимацию по достиж опред условия:
 // рефактор перенести этот  useEffect в handleTransitionEnd 
   useEffect(()=>{
-    let rafId:number | null = null;
-    let rafId2:number | null = null;
-    if(stateSlider.isRepeating){
-      if (
-        stateSlider.indexSlide === quantityShowSlides ||
-        stateSlider.indexSlide === stateSlider.lengthTrueSlides
-      ) {
-        // запланируем это действие следующий кадр отрисовки браузером
-         rafId = requestAnimationFrame(()=>{
-          //  кадр браузера №1 
-          // transition: none => браузер зафиксировал новое положение
-          // запланируем это действие следующий кадр отрисовки браузером
-          rafId2 = requestAnimationFrame(()=>{
-            // кадр браузера №2
-            // transition снова включается
-            dispatch({
-            type: SliderActionTypes.setTransitionEnabled,
-            payload: true
-            })
-          })
+    // let rafId:number | null = null;
+    // let rafId2:number | null = null;
+    // if(stateSlider.isRepeating){
+    //   if (
+    //     stateSlider.indexSlide === quantityShowSlides ||
+    //     stateSlider.indexSlide === stateSlider.lengthTrueSlides
+    //   ) {
+    //     // запланируем это действие следующий кадр отрисовки браузером
+    //      rafId = requestAnimationFrame(()=>{
+    //       //  кадр браузера №1 
+    //       // transition: none => браузер зафиксировал новое положение
+    //       // запланируем это действие следующий кадр отрисовки браузером
+    //       // rafId2 = requestAnimationFrame(()=>{
+    //         // кадр браузера №2
+    //         // transition снова включается
+    //         dispatch({
+    //         type: SliderActionTypes.setTransitionEnabled,
+    //         payload: true
+    //         })
+    //       // })
           
-        })
+    //     })
         
-      }
-    }
-
-    return (()=>{
+    //   }
+    // }
+    if(!stateSlider.transitionEnabled){
+      // запрашиваем у браузера кадр на отрисовку
+      const rafId =requestAnimationFrame(()=>{
+        // 1. Включаем обратно transition
+        dispatch({ type: SliderActionTypes.setTransitionEnabled, payload: true });
+        // 2. Разблокируем клики ТОЛЬКО ПОСЛЕ того как transition включился!!!!!
+        dispatch({ type: SliderActionTypes.setIsAnimating, payload: false });
+      })
+          return (()=>{
       if(rafId){
         cancelAnimationFrame(rafId)
       }
-      if(rafId2){
-        cancelAnimationFrame(rafId2)
-      }
+        // if(rafId2){
+        //   cancelAnimationFrame(rafId2)
+        // }a
       
     })
+    }
+
+    // return (()=>{
+    //   if(rafId){
+    //     cancelAnimationFrame(rafId)
+    //   }
+    //     // if(rafId2){
+    //     //   cancelAnimationFrame(rafId2)
+    //     // }
+      
+    // })
 },[
-    stateSlider.indexSlide, 
-    stateSlider.isRepeating,
-    stateSlider.lengthTrueSlides,
-    quantityShowSlides
+    stateSlider.transitionEnabled
   ]);
 
   // //  обновление слайдов(напр если они пришли с сервера снова)
@@ -172,19 +187,21 @@ export const useChangeSlide = <T>(
   const changeIndexSlide =  useCallback((index: number)=>{
     //  если анимация перехода слайда идет, ничего не делаем
     if (stateSlider.isAnimating) return;
-    //  меняем слайд
-    dispatch({type: SliderActionTypes.setIndex, payload: index})
+    //  начинаем менять слайд
+    dispatch({type: SliderActionTypes.changeSlideStart, payload: index})
     // нужно поставить isAnimating в позицию true чтобы предотвратить быстрое ошибочное нажатие
-    dispatch({type: SliderActionTypes.setIsAnimating, payload: true})
+    // dispatch({type: SliderActionTypes.setIsAnimating, payload: true})
   },[
       stateSlider.isAnimating,
       dispatch
     ]);
 
   const handleGoNextSlide = useCallback(() => {
-      if(stateSlider.isRepeating || 
-          stateSlider.indexSlide < (stateSlider.lengthTrueSlides - quantityShowSlides)
-        ){
+    //  рассчитаем макс индекс 
+    const maxIndex = stateSlider.isRepeating ? 
+    ( stateSlider.lengthTrueSlides + quantityShowSlides ) :
+    (stateSlider.lengthTrueSlides - quantityShowSlides)
+      if(stateSlider.indexSlide < maxIndex){
         const resultIncrement = stateSlider.indexSlide + 1;
         changeIndexSlide(resultIncrement)
       }
@@ -198,47 +215,67 @@ export const useChangeSlide = <T>(
 
   const handleGoPrevSlide = useCallback(() => {
       // handleChangeSlide('decrement');
-      if(stateSlider.isRepeating || stateSlider.indexSlide > 0){
+
+      if(stateSlider.indexSlide > 0){
         const resultDecrement = stateSlider.indexSlide - 1;
         changeIndexSlide(resultDecrement)
         //  dispatch({type: SliderActionTypes.setIndex, payload: stateSlider.indexSlide - 1})
       }
-  }, [  stateSlider.isRepeating,
-        stateSlider.indexSlide,
-        changeIndexSlide
-      ]);
+  }, [stateSlider.indexSlide,changeIndexSlide]);
 
   const handleTransitionEnd = useCallback(() => {
-    // сообщаем что анимация закончилась =>можно продолжить переключение слайдов
-    if(stateSlider.isRepeating) {
-      if(stateSlider.indexSlide ===0){
-        //  отключаем анимацию
-        dispatch({
-          type: SliderActionTypes.setTransitionEnabled,
-          payload: false
-        })
-        //  переходим на индекс слайда
-        dispatch({
-          type: SliderActionTypes.setIndex,
-          payload: stateSlider.lengthTrueSlides
-        })
-      } else if (stateSlider.indexSlide === stateSlider.lengthTrueSlides + quantityShowSlides){
-          //  отключаем анимацию
-          dispatch({
-            type: SliderActionTypes.setTransitionEnabled,
-            payload: false
-          })
-          //  переходим на индекс слайда
-          dispatch({
-            type: SliderActionTypes.setIndex,
-            payload: quantityShowSlides
-          })
-
-      }
+    if(!stateSlider.isRepeating){
+       
       // нужно поставить isAnimating в позицию false чтобы разблокировать нажатие
       //  тк анимация закончилась и это не приведет к ошибке
       dispatch({type: SliderActionTypes.setIsAnimating, payload: false})
+      return
     }
+    // ситуации с переходами с клонов на настоящие слайды
+    if(stateSlider.indexSlide ===0){
+    // Телепортируемся на настоящий слайд без анимации
+
+        dispatch({
+          type: SliderActionTypes.resetToRealSlide,
+          payload: stateSlider.lengthTrueSlides
+        })
+      //   //  отключаем анимацию
+      //   dispatch({
+      //     type: SliderActionTypes.setTransitionEnabled,
+      //     payload: false
+      //   })
+      // //  переходим на индекс настоящего слайда
+      // dispatch({
+      //     type: SliderActionTypes.setIndex,
+      //     payload: stateSlider.lengthTrueSlides
+      //   })
+      } else if (stateSlider.indexSlide === stateSlider.lengthTrueSlides + quantityShowSlides){
+        // Телепортируемся на настоящий слайд без анимации
+        dispatch({
+          type: SliderActionTypes.resetToRealSlide,
+          payload: quantityShowSlides
+        })
+        
+        //  отключаем анимацию
+          // dispatch({
+          //   type: SliderActionTypes.setTransitionEnabled,
+          //   payload: false
+          // })
+          // //  переходим на индекс настоящего слайда
+          // dispatch({
+          //   type: SliderActionTypes.setIndex,
+          //   payload: quantityShowSlides
+          // })
+
+      } else {
+              dispatch({type: SliderActionTypes.setIsAnimating, payload: false})
+
+      }
+    
+    
+    // по идее дб здесь
+    // dispatch({type: SliderActionTypes.setIsAnimating, payload: false})
+
     // dispatch({
     //   type: SliderActionTypes.setTransitionEnabled,
     //   payload: infiniteLoop || false,
