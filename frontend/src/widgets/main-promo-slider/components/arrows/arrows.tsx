@@ -1,5 +1,5 @@
 import { ArrowsUI } from "./ui/arrows";
-//  поменять 
+//  поменять
 import {
   useSliderActionsContext,
   useSliderStateContext,
@@ -8,19 +8,16 @@ import type { TArrows } from "./types";
 import { useMemo } from "react";
 
 type ArrowsProps = {
-  themeArrows?:string;
-}
+  themeArrows?: string;
+};
 
-
-export const Arrows = ({themeArrows}:ArrowsProps) => {
-  const { isAnimation, isBlockArrow } =
-    useSliderStateContext();
+export const Arrows = ({ themeArrows }: ArrowsProps) => {
+  const { isAnimation, isBlockArrow } = useSliderStateContext();
   const { handlersForChangeSlide } = useSliderActionsContext();
 
-  const { handleGoNextSlide, handleGoPrevSlide} = handlersForChangeSlide;
+  const { handleGoNextSlide, handleGoPrevSlide } = handlersForChangeSlide;
 
   const theme = themeArrows === "light" ? "primary" : "secondary";
- 
 
   const arrows = useMemo<TArrows>(
     () => ({

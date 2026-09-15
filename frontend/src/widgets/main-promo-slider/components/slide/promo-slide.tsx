@@ -11,7 +11,7 @@ export type PromoSlideUIProps = {
 export const PromoSlideUIComponent = ({ showingSlide }: PromoSlideUIProps) => {
   const backgroundImageSrc = useMemo<React.CSSProperties>(() => {
     //  защита если картини нет
-    console.log(showingSlide)
+    console.log(showingSlide);
     if (!showingSlide.image) return {};
     return {
       "--fallback-bg": `url("${showingSlide.image.jpg["1x"]}")`,
@@ -62,9 +62,7 @@ export const PromoSlideUIComponent = ({ showingSlide }: PromoSlideUIProps) => {
         </div>
         <div className={styles["promo-slider-actions"]}>
           <div className={styles["promo-slider-buttons"]}>
-            {
-              
-            showingSlide.pathsForActions.map((source, index) =>
+            {showingSlide.pathsForActions.map((source, index) =>
               source.trigger === "route" ? (
                 <ButtonUI
                   key={index}

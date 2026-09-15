@@ -8,7 +8,6 @@ export type TBlockArrow = {
   isRightArrow: boolean;
 };
 
-
 export type TSliderStateContext = {
   slideNumber: number;
   dotsPag: number[];
@@ -20,9 +19,9 @@ export type TSliderStateContext = {
 export type TSliderActionsContenxt = {
   setIndexSlide: (index: number) => void;
   handlersForChangeSlide: {
-      handleGoNextSlide: ()=>void,
-      handleGoPrevSlide: ()=>void
-    }
+    handleGoNextSlide: () => void;
+    handleGoPrevSlide: () => void;
+  };
   handleTransitionEnd: () => void;
 };
 // Главный generic контекст для слайдов

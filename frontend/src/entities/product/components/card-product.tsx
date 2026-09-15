@@ -7,11 +7,10 @@ export type CardProductProps = {
 } & TCardProduct;
 
 export const CardProduct = (cardDataProd: CardProductProps) => {
-
   //  подумать как настроить ссылкуперехода
   // по id или articul ????
-    const {id, path, ...otherDataCardProd} = cardDataProd;
-    // const { id } = otherDataCardProd;
+  const { id, path, ...otherDataCardProd } = cardDataProd;
+  // const { id } = otherDataCardProd;
   //   const handleLike = (e: React.MouseEvent) => {
   //   e.preventDefault();
   //   e.stopPropagation();
@@ -27,7 +26,10 @@ export const CardProduct = (cardDataProd: CardProductProps) => {
   // возможность перехода
   return (
     <Link to={`/${path}/${id}`}>
-      <CardProductUI {...otherDataCardProd} onClick={handleAddToFavoriteProducts} />
+      <CardProductUI
+        {...otherDataCardProd}
+        onClick={handleAddToFavoriteProducts}
+      />
     </Link>
   );
 };

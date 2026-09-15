@@ -1,2 +1,2 @@
 export { CardProduct } from "./components/card-product";
-export  { type TCardProduct} from './model/types'
+export { type TCardProduct } from "./model/types";

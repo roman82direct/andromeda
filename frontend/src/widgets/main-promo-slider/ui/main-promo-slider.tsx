@@ -1,9 +1,13 @@
 import styles from "./main-promo-slider.module.css";
 import { memo } from "react";
-import { SliderTrack, useGetSlidesContext, useSliderStateContext } from "@/features/slider/";
+import {
+  SliderTrack,
+  useGetSlidesContext,
+  useSliderStateContext,
+} from "@/features/slider/";
 import { Dots } from "../components/dots/dots";
 import { Arrows } from "../components/arrows/arrows";
-import {renderedSlides} from '../components/slide/render-slides';
+import { renderedSlides } from "../components/slide/render-slides";
 import type { TPromoSlideItem } from "../types";
 
 export type MainPromoSliderUIProps = {
@@ -18,18 +22,16 @@ export const MainPromoSliderComponentUI = <T extends TPromoSlideItem>({
   const { slides } = useGetSlidesContext<T>();
   const { slideNumber } = useSliderStateContext();
   const stylesPromoTrack = {
-    display: 'flex',
-  }  as React.CSSProperties
-  const currentSlideTheme = slides[slideNumber]?.typeTheme ?? 'light';
+    display: "flex",
+  } as React.CSSProperties;
+  const currentSlideTheme = slides[slideNumber]?.typeTheme ?? "light";
   return (
-    <div
-      className={styles['main-promo-slider']}
-    >
+    <div className={styles["main-promo-slider"]}>
       <SliderTrack layOutTrackStyles={stylesPromoTrack}>
         {renderedSlides}
       </SliderTrack>
       <div className={styles["main-promo-slider-nav"]}>
-        <Arrows themeArrows={currentSlideTheme }/>
+        <Arrows themeArrows={currentSlideTheme} />
         {isPagination && <Dots themeDots={currentSlideTheme} />}
       </div>
     </div>

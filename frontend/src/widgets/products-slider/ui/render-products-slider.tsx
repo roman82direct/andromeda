@@ -1,7 +1,5 @@
-import { ProductsSliderUI } from "./products-slider"
+import { ProductsSliderUI } from "./products-slider";
 
-export const renderProductsSliderUI =()=>{
-  return (
-    <ProductsSliderUI/>
-  )
-}
+export const renderProductsSliderUI = () => {
+  return <ProductsSliderUI />;
+};

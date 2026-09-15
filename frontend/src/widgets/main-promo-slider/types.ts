@@ -2,7 +2,7 @@ import type { TActionUser, TImage } from "@/shared/types/types";
 
 export type BasedSlide = {
   typeTheme?: ThemeSlide;
-}
+};
 export type ThemeSlide = "dark" | "light";
 
 export type TPromoSlideItem = {

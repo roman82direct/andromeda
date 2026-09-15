@@ -1,9 +1,9 @@
 .card-product {
-  display: flex; 
+  display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 298px;
-  
+
   min-height: 100%;
   overflow: hidden;
   cursor: pointer;
@@ -91,7 +91,7 @@
   gap: 8px;
 }
 .card-product-name {
-  flex: 1 1  auto;
+  flex: 1 1 auto;
   color: var(--color-dark-accent, #2f4d5a);
   font-family: var(--main-font, "Raleway");
   font-weight: 500;
@@ -102,7 +102,7 @@
 .card-product-reviews-rating {
   display: flex;
   gap: 16px;
-    margin-top: auto;
+  margin-top: auto;
   font-family: var(--main-font, "Raleway");
   font-size: 20px;
 }

@@ -15,7 +15,7 @@ export const HomePageUI: FC = () => {
       <section className={styles["home-banner"]}>
         <h2 className="visually-hidden">Актуальные акции и предложения</h2>
         {/*  здесь можно получать слайды а можно в самом умном компоненте виджета */}
-        <MainPromoSlider/>
+        <MainPromoSlider />
       </section>
       <section className={styles["groups-products"]}>
         <h2 className="visually-hidden">
@@ -26,7 +26,7 @@ export const HomePageUI: FC = () => {
       </section>
       <section className={styles["trands and new"]}>
         <h2 className="visually-hidden">Тренды и новинки</h2>
-        <ProductsSlider/>
+        <ProductsSlider />
         {/* <Slider/> */}
         {/* <Slider/> */}
       </section>

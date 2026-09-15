@@ -6,13 +6,11 @@ import {
 } from "@/features/slider/";
 import type { ThemeSlide } from "../../types";
 
-
 type DotsProps = {
-  themeDots?:  ThemeSlide;
-}
+  themeDots?: ThemeSlide;
+};
 
-
-export const Dots = ({themeDots}:DotsProps) => {
+export const Dots = ({ themeDots }: DotsProps) => {
   const {
     slideNumber,
     dotsPag,

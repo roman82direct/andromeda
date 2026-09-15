@@ -5,35 +5,35 @@ import type { ReactNode } from "react";
 export type TypeOperationFlip = "increment" | "decrement";
 
 export const SliderActionTypes = {
-  changeSlideStart:'CHANGE_INDEX_SLIDE_START',
-  resetToRealSlide: 'RESET_TO_REAL_SLIDE',
+  changeSlideStart: "CHANGE_INDEX_SLIDE_START",
+  resetToRealSlide: "RESET_TO_REAL_SLIDE",
   setIsAnimating: "SET_IS_ANIMATING",
   setTransitionEnabled: "SET_TRANSITION_ENABLED",
   setIndex: "SET_INDEX",
   setPreparedSlides: "SET_PREPARED_SLIDES",
   toggleAutoPlay: "TOGGLE_AUTOPLAY",
   //  для бесконечного слайда установим количество наст элментов
-  setTrueLengthSlides: 'SET_TRUE_LENGTH',
+  setTrueLengthSlides: "SET_TRUE_LENGTH",
   //  устанавливаем если есть необходимость в бесконечной карусели
-  setIsRepeating:  'SET_IS_REPEATING'
+  setIsRepeating: "SET_IS_REPEATING",
 } as const;
 // опишем действия слайда
 export type TSliderAction<T> =
-    | {
+  | {
       //  создим тип на основе значения переменной
       type: typeof SliderActionTypes.resetToRealSlide;
       payload: number;
     }
-    | {
+  | {
       type: typeof SliderActionTypes.changeSlideStart;
-      payload: number
+      payload: number;
     }
   | {
       type: typeof SliderActionTypes.setIsAnimating;
       payload: boolean;
     }
   | {
-      type: typeof SliderActionTypes.  setTransitionEnabled;
+      type: typeof SliderActionTypes.setTransitionEnabled;
       payload: boolean;
     }
   | {
@@ -49,15 +49,13 @@ export type TSliderAction<T> =
       payload: boolean;
     }
   | {
-    type: typeof SliderActionTypes.setTrueLengthSlides;
-    payload: number;
-  }
-
+      type: typeof SliderActionTypes.setTrueLengthSlides;
+      payload: number;
+    }
   | {
-    type: typeof SliderActionTypes.setIsRepeating;
-    payload: boolean;
-  }
-
+      type: typeof SliderActionTypes.setIsRepeating;
+      payload: boolean;
+    };
 
 export type TArrow = {
   key: "right" | "left";
@@ -78,19 +76,21 @@ export type TArrow = {
 //   typeTheme?: ThemeSlide;
 // }
 
-export type Callback = ()=>void;
+export type Callback = () => void;
 
-export type TSettingAutoplay = {runAutoPlay: Callback,stopAutoPlay: Callback };
+export type TSettingAutoplay = {
+  runAutoPlay: Callback;
+  stopAutoPlay: Callback;
+};
 
 export type TArgsRenderMainPromoSliderUI = {
   isPagination?: boolean;
   // settingAutoPlay: TSettingAutoplay
-}
-
+};
 
 export type RenderSliderUIFunc = ({
-  isPagination}:TArgsRenderMainPromoSliderUI)=> ReactNode;
-
+  isPagination,
+}: TArgsRenderMainPromoSliderUI) => ReactNode;
 
 export type SliderCommonSettings = {
   infiniteLoop?: boolean;
@@ -101,10 +101,8 @@ export type SliderCommonSettings = {
   pagePaginationSize?: number;
 };
 
-
-export type TSliderProps<T> = 
-  SliderCommonSettings & {
-  slides: T[],
+export type TSliderProps<T> = SliderCommonSettings & {
+  slides: T[];
   children: RenderSliderUIFunc;
 };
 
@@ -114,15 +112,15 @@ export type ChangeSlideSettings = Pick<
   SliderCommonSettings,
   "autoPlay" | "autoPlayTime" | "pagePaginationSize" | "infiniteLoop"
 > & {
-  quantityShowSlides: number
+  quantityShowSlides: number;
 };
 //  для хука автоплея слайдов
 export type AutoPlaySetting = Pick<
   SliderCommonSettings,
   "autoPlay" | "infiniteLoop" | "autoPlayTime"
 > & {
-  goNextSlide: ()=>void;
-  goPrevSlide: ()=>void;
+  goNextSlide: () => void;
+  goPrevSlide: () => void;
   indexSlide: number;
   slidesArrLength: number;
   isAutoPlayState?: boolean;

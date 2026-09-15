@@ -9,8 +9,7 @@ export const useAutoPlayShowSlides = ({
   autoPlayTime,
   isAutoPlayState,
   goNextSlide,
-  goPrevSlide
- ,
+  goPrevSlide,
 }: AutoPlaySetting) => {
   //  используем направления автоплея если цикл не бесконечный
   const directionRef = useRef(true);
@@ -39,7 +38,7 @@ export const useAutoPlayShowSlides = ({
     if (infiniteLoop) {
       intervalIdAutoPlay = setInterval(() => {
         // идем к след слайду
-       goNextSlide();
+        goNextSlide();
       }, autoPlayTime);
     } else {
       //  если нет бесконечного цикла то ориентиремся на направление хода переключения слайдов
@@ -60,11 +59,11 @@ export const useAutoPlayShowSlides = ({
       clearInterval(intervalIdAutoPlay);
     };
   }, [
-      autoPlayTime, 
-      autoPlay, 
-      isAutoPlayState, 
-      infiniteLoop, 
-      goNextSlide, 
-      goPrevSlide
-    ]);
+    autoPlayTime,
+    autoPlay,
+    isAutoPlayState,
+    infiniteLoop,
+    goNextSlide,
+    goPrevSlide,
+  ]);
 };

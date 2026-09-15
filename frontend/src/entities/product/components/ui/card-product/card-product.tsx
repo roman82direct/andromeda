@@ -8,10 +8,7 @@ import clsx from "clsx";
 // убрать эту константу!
 const PLACEHOLDER_URL = "https://placehold.co";
 
-
-export type TCardProductUIProps = Omit<TCardProduct, 'id' | 'articul'>
-
-
+export type TCardProductUIProps = Omit<TCardProduct, "id" | "articul">;
 
 export const CardProductUI = ({
   price,
@@ -56,7 +53,7 @@ export const CardProductUI = ({
         </div>
       </div>
       <div className={styles["card-product-descrip"]}>
-        <div className={styles['card-product-info']}>
+        <div className={styles["card-product-info"]}>
           <div className={styles["card-product-prices"]}>
             {oldPrice ? (
               <>
@@ -75,21 +72,19 @@ export const CardProductUI = ({
           </div>
           <div className={styles["card-product-name"]}>{productName}</div>
         </div>
-              <div className={styles["card-product-reviews-rating"]}>
-                <div className={styles["card-product-rating"]}>
-                  <IconUI iconClass={"star"} colorIcon={"color-accent"} />
-                  <span>{rating ? rating : "0"}</span>
-                </div>
-                <div className={styles["card-product-reviews"]}>
-                  <IconUI iconClass={"reviews"} colorIcon={"expressive-gray"} />
-                  <span>
-                    {reviewsNum && reviewsNum > 0 ? reviewsNum : "0"} отзывов
-                  </span>
-                </div>
-              </div>
-              {/* e,htb */}
-    
-         
+        <div className={styles["card-product-reviews-rating"]}>
+          <div className={styles["card-product-rating"]}>
+            <IconUI iconClass={"star"} colorIcon={"color-accent"} />
+            <span>{rating ? rating : "0"}</span>
+          </div>
+          <div className={styles["card-product-reviews"]}>
+            <IconUI iconClass={"reviews"} colorIcon={"expressive-gray"} />
+            <span>
+              {reviewsNum && reviewsNum > 0 ? reviewsNum : "0"} отзывов
+            </span>
+          </div>
+        </div>
+        {/* e,htb */}
       </div>
     </article>
   );

@@ -8,8 +8,8 @@ export type TSliderState<T> = {
   preparedSlides: T[];
   isAutoPlay: boolean;
   // lengthTrueElements: number;
-  lengthTrueSlides: number,
-  isRepeating: boolean,
+  lengthTrueSlides: number;
+  isRepeating: boolean;
 };
 //  определим начальное состояние слайдера
 //  для этого сделаем фабрику(чтобы можно передать параметром тип)
@@ -20,7 +20,7 @@ export const createInitialStateSlider = <T>(): TSliderState<T> => ({
   preparedSlides: [],
   isAutoPlay: true,
   lengthTrueSlides: 0,
-  isRepeating: false
+  isRepeating: false,
 });
 
 // напишем редюсер для слайдера
@@ -29,7 +29,7 @@ export const sliderReducer = <T>(
   action: TSliderAction<T>,
 ): TSliderState<T> => {
   switch (action.type) {
-    // флаг повторения( если нужен бесконечный слайдер 
+    // флаг повторения( если нужен бесконечный слайдер
     // и кол-вослайдов больше чем места на экране)
     case SliderActionTypes.resetToRealSlide: {
       return {
@@ -39,8 +39,8 @@ export const sliderReducer = <T>(
         // отключаем блокировку кнопок (анимация сейчас нет)
         // isAnimating: false,
         //  отключаем саму анимацию перехода слайда
-        transitionEnabled: false
-      }
+        transitionEnabled: false,
+      };
     }
     case SliderActionTypes.changeSlideStart: {
       return {
@@ -48,21 +48,21 @@ export const sliderReducer = <T>(
         indexSlide: action.payload,
         //  сообщим о начале смены слайда чтобы пока идет
         //  анимациясменыслайда нельзя было перекл слайд
-        isAnimating:true
-      }
+        isAnimating: true,
+      };
     }
     case SliderActionTypes.setIsRepeating: {
       return {
         ...state,
-        isRepeating: action.payload
-      }
+        isRepeating: action.payload,
+      };
     }
     // установим длину настоящих слайдов (необходимо для бесконеч цикла)
     case SliderActionTypes.setTrueLengthSlides: {
       return {
         ...state,
-          lengthTrueSlides: action.payload
-      }
+        lengthTrueSlides: action.payload,
+      };
     }
     // можно удалить этот метод
     // case SliderActionTypes.changeSlide: {
@@ -85,17 +85,14 @@ export const sliderReducer = <T>(
       return {
         ...state,
         isAnimating: action.payload,
-       
       };
     }
     //  css анимация перехода
     // setTransitionEnabled исправить название
     case SliderActionTypes.setTransitionEnabled: {
-     
       return {
         ...state,
         transitionEnabled: action.payload,
-
       };
     }
     case SliderActionTypes.setIndex: {
@@ -114,8 +111,8 @@ export const sliderReducer = <T>(
     }
     case SliderActionTypes.toggleAutoPlay: {
       //  если состояние такое же не создаем новый объект нашего состояния
-      if(action.payload === state.isAutoPlay) {
-        return state
+      if (action.payload === state.isAutoPlay) {
+        return state;
       }
       return {
         ...state,
