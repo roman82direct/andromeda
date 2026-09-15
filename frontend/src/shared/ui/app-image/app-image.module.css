@@ -1,0 +1,12 @@
+.pictureImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.defaultClassImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

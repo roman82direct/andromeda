@@ -1,16 +1,19 @@
-import type { CSSProperties, FC } from "react";
+import { memo, type CSSProperties } from "react";
 import styles from "./icon.module.css";
 import clsx from "clsx";
 import { CounterUI } from "../counter";
 import { type TIconClassCssIcon } from "@/shared/types/ui/icon";
+import type { TThemeElementsPage } from "@/shared/types/types";
 
-export type TColor = "secondary" | "primary";
+export type TColor = TThemeElementsPage;
 
 const colorsMap: Record<TColor, string> = {
   // если что можно расширить на  hover и active
   //  primary:{hover:'', active:'', default:''}
   primary: "var(--color-primary, #15242a)",
   secondary: "var(--color-secondary, #f8f9fa)",
+  "color-accent": "var(--color-accent, #67b0d1)",
+  "expressive-gray": "var(--expressive-gray, #848484)",
 };
 
 export type IconUIProps = {
@@ -24,7 +27,7 @@ export type IconUIProps = {
   colorIcon: TColor;
 };
 
-export const IconUI: FC<IconUIProps> = ({
+export const IconUIComponent = ({
   iconClass,
   sizeIcon = 20,
   turnIcon = 1,
@@ -33,7 +36,7 @@ export const IconUI: FC<IconUIProps> = ({
   counterQuantity,
   inheritColor,
   colorIcon = "primary",
-}) => {
+}: IconUIProps) => {
   const className = clsx(
     styles.icon,
     styles[iconClass],
@@ -60,3 +63,7 @@ export const IconUI: FC<IconUIProps> = ({
     </div>
   );
 };
+
+export const IconUI = memo(IconUIComponent);
+
+IconUI.displayName = "IconUI";

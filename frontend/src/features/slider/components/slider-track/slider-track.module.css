@@ -1,0 +1,11 @@
+.slides-list {
+  /* --gap: 0; */
+  gap: var(--gapTrack, 0);
+  width: 100%;
+  height: 100%;
+}
+
+/* поведение для масштабирования в фичу */
+.slides-list.show-quntity > * {
+  width: calc((100% / var(--show-quntity, 1)));
+}

@@ -1,12 +1,13 @@
 .button {
   display: flex;
   justify-content: center;
-  align-items: baseline;
+  align-items: center;
   gap: 5px;
-  padding: 14px 36px;
-  font-family: "Raleway";
-  font-weight: 400;
-  font-size: 16px;
+  min-height: 100%;
+  padding: 10px 28px;
+  font-family: var(--main-font, "Raleway"), Arial, Helvetica, sans-serif;
+  font-weight: var(--fw-text, 400);
+  font-size: var(--clamp-default-size, 16px);
   font-style: normal;
   line-height: 1.2;
   letter-spacing: var(--letter-spacing-base, 0.05em);
@@ -31,16 +32,58 @@
   background-color: var(--bg-btn, #15242a);
 }
 
+.button-filled.btn-color-dark {
+  --color-btn: var(--color-primary, #f8f9fa);
+  --bg-btn: var(--color-secondary, #f8f9fa);
+}
+
+.button-filled.btn-color-dark:hover {
+  --color-btn: var(--color-accent, #67b0d1);
+}
+
+.button-filled.btn-color-dark:disabled {
+  --color-btn: var(--color-primary-disabled, #848484);
+}
+
+.button-filled.btn-color-dark:active {
+  --color-btn: var(--color-sailing, #e1700e);
+}
+
 .button-outlined {
   border: 1px solid var(--border-color-btn, #15242a);
   color: var(--color-btn, #15242a);
   background-color: transparent;
 }
+
+.button-outlined.btn-color-dark {
+  --color-btn: var(--color-secondary, #f8f9fa);
+  --border-color-btn: var(--color-secondary, #f8f9fa);
+}
+
+.button-outlined.btn-color-dark:hover {
+  --color-btn: var(--color-accent, #67b0d1);
+  --border-color-btn: var(--color-accent, #67b0d1);
+}
+
+.button-outlined.btn-color-dark:disabled {
+  --color-btn: var(--color-primary-disabled, #848484);
+  --border-color-btn: var(--color-primary-disabled, #848484);
+}
+
+.button-outlined.btn-color-dark:active {
+  --color-btn: var(--color-sailing, #e1700e);
+  border-color: var(--color-sailing, #e1700e);
+}
+
 /*  на будущее */
 .button-text {
   border: none;
   color: var(--color-btn);
   background-color: transparent;
+}
+
+.button-text.btn-color-dark {
+  color: var(--color-secondary, #f8f9fa);
 }
 
 /*  меняем переменные в зависимости от 'типа цвета' */
@@ -84,26 +127,30 @@
   --border-color-btn: var(--color-sailing, #e1700e);
 }
 
-.btn-form-subscribe {
-  --color-btn: var(--color-secondary, #f8f9fa);
-  --border-color-btn: var(--color-secondary, #f8f9fa);
-}
-
-.btn-form-subscribe:hover {
-  --color-btn: var(--color-accent, #67b0d1);
-  --border-color-btn: var(--color-accent, #67b0d1);
-}
-
-.btn-form-subscribe:disabled {
-  --color-btn: var(--color-primary-disabled, #848484);
-  --border-color-btn: var(--color-primary-disabled, #848484);
-}
-
-.btn-form-subscribe:active {
-  --color-btn: var(--color-sailing, #e1700e);
-  --border-color-btn: var(--color-sailing, #e1700e);
-}
-
 .fullWidthBtn {
   width: 100%;
 }
+
+/* косяки  - поменяй структуру классов*/
+/* сделай по схему */
+/* задается структура */
+.button--filled {
+  color: var(--color-btn);
+  background: var(--bg-btn);
+}
+
+.button--outlined {
+  border: 1px solid var(--border-color-btn);
+  color: var(--color-btn);
+}
+
+/* черезцвета задаются значения переменных */
+
+.button--primary {
+  --bg-btn: var(--color-primary);
+  --color-btn: white;
+  --border-color-btn: "";
+}
+
+/* 3️⃣ использовать одну систему переменных для border-color */
+/* 4️⃣ не смешивать тип кнопки и цвет */

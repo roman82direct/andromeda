@@ -1,0 +1,41 @@
+.catalog-tab-titles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-block-end: 24px;
+}
+
+.catalog-tab-title {
+  position: relative;
+  padding-inline-end: 40px;
+  color: var(--color-primary-disabled, #848484);
+  font-family: var(--title-font, "Cormorant SC");
+  font-weight: var(--fw-title, 600);
+  font-size: 32px;
+  line-height: 1.21;
+  text-align: center;
+  transition: color 0.3s ease-in-out;
+}
+
+.catalog-tab-title.activeTabTitle {
+  color: var(--color-primary, #15242a);
+}
+
+.catalog-tab-title::after {
+  content: "";
+  position: absolute;
+  width: 5px;
+  border-radius: 50%;
+  opacity: 0;
+  background-color: currentColor;
+  transition: opacity 0.5s ease-in-out;
+  transform: scale(0);
+  inset-block-start: 50%;
+  inset-inline-end: 0px;
+  aspect-ratio: 1;
+}
+
+.catalog-tab-title.activeTabTitle::after {
+  opacity: 1;
+  transform: scale(1);
+}
