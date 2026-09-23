@@ -13,16 +13,18 @@ export const useAutoPlayShowSlides = ({
   quantityShowSlides
 }: AutoPlaySetting) => {
   // выносим  вычиcление необходимости бесконечной ленты
-  const isRepeating = infiniteLoop && slidesArrLength > quantityShowSlides
+  const isRepeatingAction = infiniteLoop && slidesArrLength > quantityShowSlides
+  //  или ее отсутствия
+  const nonRepeatingAction =  !infiniteLoop && slidesArrLength > quantityShowSlides
   //  используем направления автоплея если цикл не бесконечный
   const directionRef = useRef(true);
-  //  сделать отдельный хук для автоплея
+  
   useEffect(() => {
     //  меняем направления автоплея если слайдер достиг первого или послед слайда
     //
     // чтобылишний раз юзэффект не работал если стоит бесконечнй цикл или автоплея нет
     //  нам этот юзэффект не нужен
-    if (isRepeating  || !autoPlay) return;
+    if (isRepeatingAction  || !autoPlay) return;
 
     if (indexSlide === slidesArrLength - 1) {
       directionRef.current = false;
@@ -30,7 +32,7 @@ export const useAutoPlayShowSlides = ({
     if (indexSlide === 0) {
       directionRef.current = true;
     }
-  }, [indexSlide, slidesArrLength, isRepeating , autoPlay]);
+  }, [indexSlide, slidesArrLength, isRepeatingAction , autoPlay]);
   //  автоматич показ слайдов
   
   useEffect(() => {
@@ -39,12 +41,15 @@ export const useAutoPlayShowSlides = ({
     if (!autoPlay || !isAutoPlayState) return;
     let intervalIdAutoPlay: ReturnType<typeof setInterval>;
 
-    if (isRepeating) {
+    if (isRepeatingAction) {
       intervalIdAutoPlay = setInterval(() => {
         // идем к след слайду
         goNextSlide();
       }, autoPlayTime);
-    } else {
+    } 
+    if(nonRepeatingAction) {
+
+      
       //  если нет бесконечного цикла то ориентиремся на направление хода переключения слайдов
       //  проблема каждый раз при смене слайда создается новый таймер
       intervalIdAutoPlay = setInterval(() => {
@@ -66,7 +71,8 @@ export const useAutoPlayShowSlides = ({
     autoPlayTime,
     autoPlay,
     isAutoPlayState,
-    isRepeating ,
+    isRepeatingAction,
+    nonRepeatingAction,
     goNextSlide,
     goPrevSlide,
   ]);
