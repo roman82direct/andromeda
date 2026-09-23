@@ -8,8 +8,8 @@ const DEFAULT_SLIDER_SETTINGS: SliderCommonSettings = {
   infiniteLoop: true,
   quantityShowSlides: 1,
   isPagination: true,
-  autoPlay: false,
-  autoPlayTime: 3000,
+  autoPlay: true,
+  autoPlayTime: 1000,
   pagePaginationSize: 3,
 };
 
