@@ -32,7 +32,6 @@ export const SliderComponent = React.memo(
       infiniteLoop,
       quantityShowSlides,
     };
-    
 
     const dataForSlider = useChangeSlide<T>(slides, settingChangeSlide);
     //  разделим контексты на действия и состояния
@@ -97,7 +96,7 @@ export const SliderComponent = React.memo(
       isAutoPlayState: dataForSlider.isAutoPlay,
       goNextSlide: dataForSlider.handlersForChangeSlide.handleGoNextSlide,
       goPrevSlide: dataForSlider.handlersForChangeSlide.handleGoPrevSlide,
-      quantityShowSlides
+      quantityShowSlides,
     });
 
     if (!slides.length) return <div>Сделать лоадер загрузки</div>;
