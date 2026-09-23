@@ -10,7 +10,10 @@ export const useAutoPlayShowSlides = ({
   isAutoPlayState,
   goNextSlide,
   goPrevSlide,
+  quantityShowSlides
 }: AutoPlaySetting) => {
+  // выносим  вычиcление необходимости бесконечной ленты
+  const isRepeating = infiniteLoop && slidesArrLength > quantityShowSlides
   //  используем направления автоплея если цикл не бесконечный
   const directionRef = useRef(true);
   //  сделать отдельный хук для автоплея
@@ -19,7 +22,7 @@ export const useAutoPlayShowSlides = ({
     //
     // чтобылишний раз юзэффект не работал если стоит бесконечнй цикл или автоплея нет
     //  нам этот юзэффект не нужен
-    if (infiniteLoop || !autoPlay) return;
+    if (isRepeating  || !autoPlay) return;
 
     if (indexSlide === slidesArrLength - 1) {
       directionRef.current = false;
@@ -27,15 +30,16 @@ export const useAutoPlayShowSlides = ({
     if (indexSlide === 0) {
       directionRef.current = true;
     }
-  }, [indexSlide, slidesArrLength, infiniteLoop, autoPlay]);
+  }, [indexSlide, slidesArrLength, isRepeating , autoPlay]);
   //  автоматич показ слайдов
+  
   useEffect(() => {
     // autoPlay  переменная должна задаваться обработчиком и если это нужно нам
     // если прогрмно автоматич смена слайдов отключена  или мышка на слайде
     if (!autoPlay || !isAutoPlayState) return;
     let intervalIdAutoPlay: ReturnType<typeof setInterval>;
 
-    if (infiniteLoop) {
+    if (isRepeating) {
       intervalIdAutoPlay = setInterval(() => {
         // идем к след слайду
         goNextSlide();
@@ -62,7 +66,7 @@ export const useAutoPlayShowSlides = ({
     autoPlayTime,
     autoPlay,
     isAutoPlayState,
-    infiniteLoop,
+    isRepeating ,
     goNextSlide,
     goPrevSlide,
   ]);

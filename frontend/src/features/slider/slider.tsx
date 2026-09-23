@@ -32,6 +32,7 @@ export const SliderComponent = React.memo(
       infiniteLoop,
       quantityShowSlides,
     };
+    
 
     const dataForSlider = useChangeSlide<T>(slides, settingChangeSlide);
     //  разделим контексты на действия и состояния
@@ -85,7 +86,7 @@ export const SliderComponent = React.memo(
         dataForSlider.handleTransitionEnd,
       ],
     );
-
+    
     //  работа автопоказа слайдов
     useAutoPlayShowSlides({
       indexSlide: dataForSlider.indexSlide,

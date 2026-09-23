@@ -124,4 +124,5 @@ export type AutoPlaySetting = Pick<
   indexSlide: number;
   slidesArrLength: number;
   isAutoPlayState?: boolean;
+  quantityShowSlides: number;
 };
