@@ -86,7 +86,7 @@ export const SliderComponent = React.memo(
         dataForSlider.handleTransitionEnd,
       ],
     );
-    
+
     //  работа автопоказа слайдов
     useAutoPlayShowSlides({
       indexSlide: dataForSlider.indexSlide,
@@ -97,6 +97,7 @@ export const SliderComponent = React.memo(
       isAutoPlayState: dataForSlider.isAutoPlay,
       goNextSlide: dataForSlider.handlersForChangeSlide.handleGoNextSlide,
       goPrevSlide: dataForSlider.handlersForChangeSlide.handleGoPrevSlide,
+      quantityShowSlides
     });
 
     if (!slides.length) return <div>Сделать лоадер загрузки</div>;
