@@ -11,7 +11,6 @@ export type PromoSlideUIProps = {
 export const PromoSlideUIComponent = ({ showingSlide }: PromoSlideUIProps) => {
   const backgroundImageSrc = useMemo<React.CSSProperties>(() => {
     //  защита если картини нет
-    console.log(showingSlide);
     if (!showingSlide.image) return {};
     return {
       "--fallback-bg": `url("${showingSlide.image.jpg["1x"]}")`,

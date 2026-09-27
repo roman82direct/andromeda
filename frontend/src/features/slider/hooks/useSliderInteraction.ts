@@ -44,6 +44,7 @@ export const useSliderInteractions = ({
       enabled,
       pointerTypes: POINTER_TYPE_MOUSE,
     });
+    console.log('mouseleave')
   };
 
   //  дотрунулся до объекта (регистрация события свайпа)
