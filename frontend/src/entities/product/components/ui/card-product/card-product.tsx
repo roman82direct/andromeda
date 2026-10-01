@@ -23,6 +23,12 @@ export const CardProductUI = ({
   onClick,
   currencyType = "₽",
 }: TCardProductUIProps) => {
+    const stylesImage = {
+      // Отключает возможность выделять текст или элемент
+      "userSelect": 'none',
+      // Делает элемент «невидимым» для мыши и тача
+      "pointerEvents": 'none',
+    } as React.CSSProperties;
   return (
     <article className={styles["card-product"]}>
       <div className={styles["card-images-container"]}>
@@ -30,6 +36,7 @@ export const CardProductUI = ({
           // подумать надо ли добавлять разные форматы картинок
           srcImage={{ jpg: { "1x": images.pathsImages[0] } }}
           descrImage={`картинка ${productName}`}
+          otherStyles={stylesImage}
         />
         <div className={styles["card-icons-actions"]}>
           <div

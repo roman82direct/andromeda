@@ -27,8 +27,8 @@ export const SliderInteractions = ({
     onPointerCancel,
   } = useSliderInteractions({
     enabled: autoPlayParams.enabledAutoPlay,
-    pauseAutoPlay: autoPlayParams.runAutoPlay,
-    resumeAutoPlay: autoPlayParams.stopAutoPlay,
+    pauseAutoPlay: autoPlayParams.stopAutoPlay,
+    resumeAutoPlay: autoPlayParams.runAutoPlay,
     forwardCallback: () => autoPlayParams.goNextSlide(),
     backCallback: () => autoPlayParams.goPrevSlide(),
   });
@@ -36,8 +36,9 @@ export const SliderInteractions = ({
   return (
     <div
       className={styles["slider-container"]}
-      //  тач прикосновение
+      //  тач прикосновение = нажал или прикоснулся
       onPointerDown={onPointerDown}
+      //  оторвал палец или мышку от экрана
       onPointerUp={onPointerUp}
       // работа с мышкой границы
       onPointerEnter={onPointerEnter}

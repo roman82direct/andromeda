@@ -1,6 +1,13 @@
 import { useRef } from "react";
 import { pointerHandleAutoPlay } from "../utils/pointerHandleAutoPlay";
 
+
+
+//  в каких случах здесь уместно убирать захват событие на кокретном целевом элементе
+//  много обработчиков остановки и возоюноаления автоплея - разберись с этим
+
+
+
 type ArgsForInteractions = {
   // автоплей
   pauseAutoPlay: () => void;
@@ -28,7 +35,10 @@ export const useSliderInteractions = ({
   //  эту функцию можно вывести в утилиты!!!
   //  обработчики остановки или возобновления автоплея мышкой
   // если мышка над нашим объектом -останавливаем автоплей
-  const mouseEnterHandleAutoPlay = (e: React.PointerEvent<HTMLDivElement>) => {
+  
+  
+  //  переименовать обработчики !!!!
+  const stopHandleAutoPlay = (e: React.PointerEvent<HTMLDivElement>) => {
     pointerHandleAutoPlay({
       pointerType: e.pointerType,
       callback: pauseAutoPlay,
@@ -37,14 +47,14 @@ export const useSliderInteractions = ({
     });
   };
   //  если мышка ушла с нашего объекта - возвращаем автоплей
-  const mouseLeaveHandleAutoPlay = (e: React.PointerEvent<HTMLDivElement>) => {
+  const startHandleAutoPlay = (e: React.PointerEvent<HTMLDivElement>) => {
     pointerHandleAutoPlay({
       pointerType: e.pointerType,
       callback: resumeAutoPlay,
       enabled,
       pointerTypes: POINTER_TYPE_MOUSE,
     });
-    console.log('mouseleave')
+    // console.log('mouseleave')
   };
 
   //  дотрунулся до объекта (регистрация события свайпа)
@@ -66,6 +76,7 @@ export const useSliderInteractions = ({
       pointerPositionRef.current = pointerDown;
       // setPointerPosition(pointerDown)
     }
+    // console.log('touch')
   };
 
   const handleSwipeSlideEnd = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -98,11 +109,11 @@ export const useSliderInteractions = ({
     pointerPositionRef.current = null;
 
     // если элемент удерживает захват указателя  то снимаем его
-    // if (e.currentTarget.hasPointerCapture(e.pointerId)) {
-    //   // снимаем захват
-    //   // "Если я захватил этот палец — отпускаю его" т е снимаю захват.
-    //   e.currentTarget.releasePointerCapture(e.pointerId);
-    // }
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      // снимаем захват
+      // "Если я захватил этот палец — отпускаю его" т е снимаю захват.
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    }
   };
 
   //  обработчики остановки или возобновления автоплея прикосновением
@@ -124,21 +135,30 @@ export const useSliderInteractions = ({
       enabled,
       pointerTypes: TOUCH_POINTER_TYPES,
     });
+    console.log('touchUpHandleAutoPlay')
+    // console.log(resumeAutoPlay)
   };
 
   //  главные обработчики
 
   const handlePointerEnter = (e: React.PointerEvent<HTMLDivElement>) => {
     //  навели мышку на границы объекта
-    mouseEnterHandleAutoPlay(e);
+    //  чтобы остановить автоплей
+    stopHandleAutoPlay(e);
   };
 
   const handlePointerLeave = (e: React.PointerEvent<HTMLDivElement>) => {
     //  убрали мышку с границ объекта
-    mouseLeaveHandleAutoPlay(e);
+    //  возобнолвяем автоплей
+    startHandleAutoPlay(e);
   };
   // конец прикосновения
   const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    e.currentTarget.releasePointerCapture(e.pointerId)
+    //  после отпускания тача запускаем ленту
+    // возобновляем автоплей
+    startHandleAutoPlay(e);
+    console.log("UP:", e.pointerType, e.target);
     //  отпустили кокретную  первую "точку"  касания объекта(начало свайпа)
     touchUpHandleAutoPlay(e);
     // после эотпускания элемента сравниваем касания чтобыследать свайп
@@ -146,6 +166,9 @@ export const useSliderInteractions = ({
   };
   //  начало прикосновения
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    //  останавливаем движение ленты зажатием пальцы на ленте
+      stopHandleAutoPlay(e);
+      console.log("DOWN:", e.pointerType, e.target);
     //  регистрируем начало свайпа(свайпы слайдов)
     handleSwipeSlideStart(e);
     //  остановка автоплея прикосновением - дотронулись до кокрент
@@ -154,9 +177,12 @@ export const useSliderInteractions = ({
   };
 
   //  отдельно handlerPointerCancel!!!
-  const handlePointerCancel = () => {
+  const handlePointerCancel = (e:React.PointerEvent<HTMLDivElement>) => {
+    //  сбрасываем захват указателя
+    e.currentTarget.releasePointerCapture(e.pointerId)
+    console.log("CANCEL:", e.pointerType);
     //  в любом случае восстановим автоплей
-    resumeAutoPlay();
+    startHandleAutoPlay(e);
     //  сбрасиываем первую координату свайпа
     pointerPositionRef.current = null;
   };

@@ -5,14 +5,15 @@ import clsx from "clsx";
 export type ImageProps = {
   descrImage?: string;
   srcImage: TImage;
-  className?: string;
+  otherStyles?: React.CSSProperties;
 };
 
 //  придумать дефолт блок стайл для картинки?
 
-export const AppImage = ({ descrImage, srcImage, className }: ImageProps) => {
-  const styleClass = className ? className : "";
+export const AppImage = ({ descrImage, srcImage,  otherStyles }: ImageProps) => {
+  const styleClass =  otherStyles ?  otherStyles : {};
   const defaultClass = "defaultClassImg";
+
   return (
     <picture className={styles["pictureImg"]}>
       {srcImage?.avif?.["1x"] && (
@@ -36,7 +37,8 @@ export const AppImage = ({ descrImage, srcImage, className }: ImageProps) => {
         />
       )}
       <img
-        className={clsx(styles[defaultClass], styles[styleClass])}
+        className={clsx(styles[defaultClass])}
+        style={  styleClass }
         src={srcImage?.jpg?.["1x"] || ""}
         srcSet={
           srcImage?.jpg?.["2x"]

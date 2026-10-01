@@ -93,6 +93,7 @@ export const SliderComponent = React.memo(
       autoPlay,
       slidesArrLength: dataForSlider.preparedSlides.length,
       autoPlayTime,
+      // то что меняем в реальном времени выклю или вкл автоплей
       isAutoPlayState: dataForSlider.isAutoPlay,
       goNextSlide: dataForSlider.handlersForChangeSlide.handleGoNextSlide,
       goPrevSlide: dataForSlider.handlersForChangeSlide.handleGoPrevSlide,

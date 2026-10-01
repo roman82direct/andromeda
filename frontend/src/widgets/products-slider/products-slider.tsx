@@ -8,7 +8,7 @@ const DEFAULT_PRODUCTS_SLIDER_SETTINGS: SliderCommonSettings = {
   quantityShowSlides: 5,
   isPagination: true,
   autoPlay: true,
-  autoPlayTime: 3000,
+  autoPlayTime: 1000,
   pagePaginationSize: 3,
 };
 

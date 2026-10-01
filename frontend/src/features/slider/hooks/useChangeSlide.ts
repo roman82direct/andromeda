@@ -236,7 +236,7 @@ export const useChangeSlide = <T>(
       // console.log(stateSlader)
       dispatch({
         type: SliderActionTypes.toggleAutoPlay,
-        payload: !flagAutoPlay, // Если пауза (true), то автоплей станет false (выключен)
+        payload: flagAutoPlay, // Если пауза (true), то автоплей станет false (выключен)
       });
     },
     [],
