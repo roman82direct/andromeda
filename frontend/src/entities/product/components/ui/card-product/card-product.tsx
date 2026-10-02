@@ -52,7 +52,7 @@ export const CardProductUI = ({
               iconActiveClass={"full-heart"}
               isActive={isFavorite}
               colorIcon={"primary"}
-              //  возможно придется мемоизировать
+              //  возможно придется мемоизировать или сделать проп колбэк необяз
               onClick={() => onClick}
               sizeIcon={32}
             />

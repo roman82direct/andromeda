@@ -15,6 +15,5 @@ export const pointerHandleAutoPlay = ({
   if (pointerTypes.includes(pointerType)) {
     callback();
     // console.log(`тип  события ${pointerType} check pointerHandle`)
-    console.log(callback)
   }
 };
