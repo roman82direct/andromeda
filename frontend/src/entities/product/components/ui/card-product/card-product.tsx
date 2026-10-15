@@ -27,12 +27,14 @@ export const CardProductUI = ({
       // Отключает возможность выделять текст или элемент
       "userSelect": 'none',
       // Делает элемент «невидимым» для мыши и тача
-      "pointerEvents": 'none',
+      // "pointerEvents": 'none',
     } as React.CSSProperties;
   return (
     <article className={styles["card-product"]}>
       <div className={styles["card-images-container"]}>
         <AppImage
+        // в данном случае предотвращаем нежелательно перетикивание 
+          isDraggable={false}
           // подумать надо ли добавлять разные форматы картинок
           srcImage={{ jpg: { "1x": images.pathsImages[0] } }}
           descrImage={`картинка ${productName}`}
