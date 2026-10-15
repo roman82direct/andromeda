@@ -6,11 +6,12 @@ export type ImageProps = {
   descrImage?: string;
   srcImage: TImage;
   otherStyles?: React.CSSProperties;
+  isDraggable?: boolean;
 };
 
 //  придумать дефолт блок стайл для картинки?
 
-export const AppImage = ({ descrImage, srcImage,  otherStyles }: ImageProps) => {
+export const AppImage = ({ descrImage, srcImage,  otherStyles,  isDraggable }: ImageProps) => {
   const styleClass =  otherStyles ?  otherStyles : {};
   const defaultClass = "defaultClassImg";
 
@@ -37,6 +38,7 @@ export const AppImage = ({ descrImage, srcImage,  otherStyles }: ImageProps) => 
         />
       )}
       <img
+        draggable={isDraggable}
         className={clsx(styles[defaultClass])}
         style={  styleClass }
         src={srcImage?.jpg?.["1x"] || ""}
