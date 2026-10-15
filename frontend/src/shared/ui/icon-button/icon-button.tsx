@@ -9,7 +9,7 @@ type IconButtonUIProps = {
   isActive: boolean;
   iconActiveClass?: TIconClassCssIcon;
   iconClass: TIconClassCssIcon;
-  onClick?: () => void;
+  onClick?: (e: React.PointerEvent<HTMLButtonElement>) => void;
   label?: string;
   sizeIcon?: number;
   type?: "button" | "submit" | "reset";

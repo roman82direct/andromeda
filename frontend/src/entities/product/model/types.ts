@@ -61,6 +61,6 @@ export type TCardProduct = {
   isFavorite: boolean;
   isNew?: boolean;
   images?: TImages;
-  onClick?: (e: React.MouseEvent) => void;
+  onClick?: (e: React.PointerEvent) => void;
   currencyType?: string;
 };

@@ -200,6 +200,7 @@ export const useSliderInteractions = ({
     //  в любом случае возобновляем автоплей как дефолтное состояние 
     if(ALL_POINTER_TYPES.includes(e.pointerType)){
       resumeAutoPlay();
+    
     }
     
     //  сбрасиываем первую координату свайпа

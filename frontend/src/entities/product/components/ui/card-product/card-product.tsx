@@ -5,6 +5,7 @@ import { IconButtonUI } from "@/shared/ui/icon-button/icon-button";
 import { IconUI } from "@/shared/ui/icon";
 import clsx from "clsx";
 
+
 // убрать эту константу!
 const PLACEHOLDER_URL = "https://placehold.co";
 
@@ -27,8 +28,9 @@ export const CardProductUI = ({
       // Отключает возможность выделять текст или элемент
       "userSelect": 'none',
       // Делает элемент «невидимым» для мыши и тача
-      // "pointerEvents": 'none',
+      "pointerEvents": 'none',
     } as React.CSSProperties;
+   
   return (
     <article className={styles["card-product"]}>
       <div className={styles["card-images-container"]}>
@@ -54,8 +56,7 @@ export const CardProductUI = ({
               iconActiveClass={"full-heart"}
               isActive={isFavorite}
               colorIcon={"primary"}
-              //  возможно придется мемоизировать или сделать проп колбэк необяз
-              onClick={() => onClick}
+              onClick={onClick}
               sizeIcon={32}
             />
           </div>
