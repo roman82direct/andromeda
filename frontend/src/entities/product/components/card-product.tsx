@@ -25,15 +25,18 @@ export const CardProduct = (cardDataProd: CardProductProps) => {
 
   // возможность перехода
   return (
-    <Link to={`/${path}/${id}`}>
-      <CardProductUI
+    <>
+       <Link draggable={false} to={`/${path}/${id}`}>
+        <CardProductUI
+          {...otherDataCardProd}
+          onClick={handleAddToFavoriteProducts}
+        />
+     </Link>
+     {/* <CardProductUI
         {...otherDataCardProd}
         onClick={handleAddToFavoriteProducts}
-      />
-    </Link>
-    //  <CardProductUI
-    //     {...otherDataCardProd}
-    //     onClick={handleAddToFavoriteProducts}
-    //   />
+      /> */}
+    </>
+  
   );
 };

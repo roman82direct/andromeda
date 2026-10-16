@@ -28,7 +28,7 @@ export const CardProductUI = ({
       // Отключает возможность выделять текст или элемент
       "userSelect": 'none',
       // Делает элемент «невидимым» для мыши и тача
-      "pointerEvents": 'none',
+      // "pointerEvents": 'none',
     } as React.CSSProperties;
    
   return (
