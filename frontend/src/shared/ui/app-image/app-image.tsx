@@ -16,7 +16,7 @@ export const AppImage = ({ descrImage, srcImage,  otherStyles,  isDraggable }: I
   const defaultClass = "defaultClassImg";
 
   return (
-    <picture draggable={isDraggable} className={styles["pictureImg"]}>
+    <picture  className={styles["pictureImg"]}>
       {srcImage?.avif?.["1x"] && (
         <source
           srcSet={
@@ -38,7 +38,7 @@ export const AppImage = ({ descrImage, srcImage,  otherStyles,  isDraggable }: I
         />
       )}
       <img
-        
+        draggable={isDraggable}
         className={clsx(styles[defaultClass])}
         style={  styleClass }
         src={srcImage?.jpg?.["1x"] || ""}
