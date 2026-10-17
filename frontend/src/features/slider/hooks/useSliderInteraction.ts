@@ -32,8 +32,9 @@ export const useSliderInteractions = ({
   backCallback,
 }: ArgsForInteractions) => {
   // состояние для свайпов
-  const pointerPositionRef = useRef<number | null>(null);
-  const isSwipingRef = useRef<boolean>(false);
+  const startXRef = useRef<number | null>(null);
+// const directionRef = useRef<"left" | "right" | null>(null);
+// const isSwipingRef = useRef<boolean>(false);
   //  эту функцию можно вывести в утилиты!!!
   //  обработчики остановки или возобновления автоплея мышкой
   // если мышка над нашим объектом -останавливаем автоплей
@@ -77,8 +78,8 @@ export const useSliderInteractions = ({
           // запоминаем первую координату
           const pointerDown = e.clientX;
         
-          pointerPositionRef.current = pointerDown;
-          isSwipingRef.current = false;
+          startXRef.current = pointerDown;
+          // isSwipingRef.current = false;
         }
 
   };
@@ -88,23 +89,27 @@ export const useSliderInteractions = ({
     //  если это не первый палец или реф первой координат тача отсутсвует или устройсов ввода не распознано
     if (
       !e.isPrimary ||
-      pointerPositionRef.current === null ||
-      !TOUCH_POINTER_TYPES.includes(e.pointerType) || 
-      isSwipingRef.current
+      startXRef.current === null ||
+      !TOUCH_POINTER_TYPES.includes(e.pointerType) 
+    
+      //  || lastSwitchXRef.current === null
+      // isSwipingRef.current
       )
      { 
       // 
-      pointerPositionRef.current = null;
+      startXRef.current = null;
       return;
     }
 
     // выяисляем тек горизонт позицию
     const currentDirection = e.clientX;
     //  определим разницу первой и тек координат
-    const differencePositions = pointerPositionRef.current - currentDirection;
+    const differencePositions = startXRef.current - currentDirection;
+    // lastSwitchXRef.current = currentDirection
+  
     //  определим свайп ли это или простой тач
     //  те пересёк ли жест порог свайпа
-    console.log(`текущ ${currentDirection}, первая ${pointerPositionRef.current}, разница ${differencePositions}`)
+    console.log(`текущ ${currentDirection}, первая ${startXRef.current}, разница ${differencePositions}`)
 
       //  мы поняли что это не просто тач а начало свайпа
       // чтобы гаранзитровано получить все события пальца (даже если палец ушел за границы элемента)
@@ -113,16 +118,20 @@ export const useSliderInteractions = ({
       if (differencePositions > SWIPE_THRESHOLD) {
         // листаем вправо
         forwardCallback();
-          isSwipingRef.current = true
+        //  обновляем координату первого касания
+         startXRef.current = e.clientX;
+          // isSwipingRef.current = true
         console.log(`${differencePositions} больше ${ SWIPE_THRESHOLD}`)
       
         console.log('to left')
     } else if (differencePositions < - SWIPE_THRESHOLD) {
         // листаем влево
         backCallback();
-          console.log(`${differencePositions} меньше минус  ${ SWIPE_THRESHOLD}`)
-          console.log('to right')
-          isSwipingRef.current = true
+        console.log(`${differencePositions} меньше минус  ${ SWIPE_THRESHOLD}`)
+        console.log('to right')
+        //  обновляем координату первого касания
+        startXRef.current = e.clientX;
+          // isSwipingRef.current = true
     }
   //  если мы изменили движение мы должнв обновить действие
 
@@ -176,8 +185,8 @@ export const useSliderInteractions = ({
     // после эотпускания элемента сравниваем касания чтобыследать свайп
     // handleSwipeSlideEnd(e);
     //  очищаем координату первого касания
-    pointerPositionRef.current = null;
-    isSwipingRef.current = false;
+    startXRef.current = null;
+    // isSwipingRef.current = false;
   };
   //  начало прикосновения
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -230,8 +239,8 @@ console.log(`движение ${e.pointerType}`)
     }
     
     //  сбрасиываем первую координату свайпа
-    pointerPositionRef.current = null;
-    isSwipingRef.current = false;
+    startXRef.current = null;
+    // isSwipingRef.current = false;
   };
 
   return {
