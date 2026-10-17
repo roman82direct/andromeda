@@ -25,8 +25,9 @@ export const SliderInteractions = ({
     onPointerUp,
     onPointerDown,
     onPointerCancel,
+    onPointerMove
   } = useSliderInteractions({
-    enabled: autoPlayParams.enabledAutoPlay,
+    enabled: autoPlayParams.enabledAutoPlay, // тумблер
     pauseAutoPlay: autoPlayParams.stopAutoPlay,
     resumeAutoPlay: autoPlayParams.runAutoPlay,
     forwardCallback: () => autoPlayParams.goNextSlide(),
@@ -44,8 +45,8 @@ export const SliderInteractions = ({
       onPointerEnter={onPointerEnter}
       onPointerLeave={onPointerLeave}
       onPointerCancel={onPointerCancel}
-      //  перелистывание пальцем свайпы
-      // onPointerMove={onPointerMove}
+      //  зажатие  пальцем или движение мышки над объектом
+      onPointerMove={onPointerMove}
     >
       {children}
     </div>

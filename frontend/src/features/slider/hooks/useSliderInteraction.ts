@@ -33,6 +33,7 @@ export const useSliderInteractions = ({
 }: ArgsForInteractions) => {
   // состояние для свайпов
   const pointerPositionRef = useRef<number | null>(null);
+  const isSwipingRef = useRef<boolean>(false);
   //  эту функцию можно вывести в утилиты!!!
   //  обработчики остановки или возобновления автоплея мышкой
   // если мышка над нашим объектом -останавливаем автоплей
@@ -62,66 +63,75 @@ export const useSliderInteractions = ({
     // console.log('mouseleave')
   };
 
-  //  дотрунулся до объекта (регистрация события свайпа)
-  //   тач прикосновение
-  const handleSwipeSlideStart = (e: React.PointerEvent<HTMLDivElement>) => {
-    // console.log('start swip')
-    //  игнорим первре прикосновение мыши
-    if (
+
+ 
+  const recordCoordinateFirstTouch = (e: React.PointerEvent<HTMLElement>) => {
+    //  для события down 
+    //   здесь запомним координату перввого касания
+      if (
       e.isPrimary &&
       TOUCH_POINTER_TYPES.includes(e.pointerType)
       // (e.pointerType === "touch" || e.pointerType === "pen")
-    ) {
-      //  если это "первый" палец
-      //  захватываем указатель при начале жеста -
-      // чтобы гаранзитровано получить все события пальца (даже если палец ушел за границы элемента)
-      e.currentTarget.setPointerCapture(e.pointerId);
-      // запоминаем первую координату
-      const pointerDown = e.clientX;
-      pointerPositionRef.current = pointerDown;
-      // setPointerPosition(pointerDown)
-    }
-    // console.log('touch')
-  };
+      ) {
+          //  если это "первый" палец
+          // запоминаем первую координату
+          const pointerDown = e.clientX;
+        
+          pointerPositionRef.current = pointerDown;
+          isSwipingRef.current = false;
+        }
 
-  const handleSwipeSlideEnd = (e: React.PointerEvent<HTMLDivElement>) => {
-    //  console.log('end swip')
-    //  отключим свайпы для мышки так как у нас есть стрелки на слайдере для этого
-    //  т е сделаем поведение переключения слайдов более предсказуемым
-    //  если указатель не является в списке событий TOUCH_POINTER_TYPES не ьудем ничего делать
-    //  и если не первое прикосновение
+  };
+  // определить свайп это или просто тач к примеру с целью остановить ленту
+  const handleSwipeOrTouch = (e: React.PointerEvent<HTMLElement>)=>{
+    //  оставим это для move ?
+    //  если это не первый палец или реф первой координат тача отсутсвует или устройсов ввода не распознано
     if (
       !e.isPrimary ||
       pointerPositionRef.current === null ||
-      !TOUCH_POINTER_TYPES.includes(e.pointerType)
-    )
+      !TOUCH_POINTER_TYPES.includes(e.pointerType) || 
+      isSwipingRef.current
+      )
      { 
       // 
       pointerPositionRef.current = null;
       return;
     }
 
-    // вычеслим текущую  горизон позицию
+    // выяисляем тек горизонт позицию
     const currentDirection = e.clientX;
-    // console.log(currentDirection)
-    // получим разницу  в зависимости от не будем листать слайд в лево или право
+    //  определим разницу первой и тек координат
     const differencePositions = pointerPositionRef.current - currentDirection;
-    //  разница мала создаст ложный автоплей
-    if (differencePositions > SWIPE_THRESHOLD) {
-      // листаем вправо
-      forwardCallback();
-    } else if (differencePositions < -SWIPE_THRESHOLD) {
-      // листаем влево
-      backCallback();
-    }
-    //  очищаем координату первого касания
-    pointerPositionRef.current = null;
+    //  определим свайп ли это или простой тач
+    //  те пересёк ли жест порог свайпа
+    console.log(`текущ ${currentDirection}, первая ${pointerPositionRef.current}, разница ${differencePositions}`)
 
- 
-  };
+      //  мы поняли что это не просто тач а начало свайпа
+      // чтобы гаранзитровано получить все события пальца (даже если палец ушел за границы элемента)
+      // e.currentTarget.setPointerCapture(e.pointerId);
+     
+      if (differencePositions > SWIPE_THRESHOLD) {
+        // листаем вправо
+        forwardCallback();
+          isSwipingRef.current = true
+        console.log(`${differencePositions} больше ${ SWIPE_THRESHOLD}`)
+      
+        console.log('to left')
+    } else if (differencePositions < - SWIPE_THRESHOLD) {
+        // листаем влево
+        backCallback();
+          console.log(`${differencePositions} меньше минус  ${ SWIPE_THRESHOLD}`)
+          console.log('to right')
+          isSwipingRef.current = true
+    }
+  //  если мы изменили движение мы должнв обновить действие
+
+  }
+
+  
 
   //  главные обработчики
-
+  //  для мышки
   const handlePointerEnter = (e: React.PointerEvent<HTMLDivElement>) => {
     //  навели мышку на границы объекта
     //  чтобы остановить автоплей
@@ -150,42 +160,58 @@ export const useSliderInteractions = ({
     //  после отпускания тача запускаем ленту
     // возобновляем автоплей
    
-     console.log("UP", {
-    target: e.target,
-    currentTarget: e.currentTarget,
-    pointerId: e.pointerId,
-    pointerType: e.pointerType,
-    isPrimary: e.isPrimary,
-  })
-    
+  //    console.log("UP", {
+  //   target: e.target,
+  //   currentTarget: e.currentTarget,
+  //   pointerId: e.pointerId,
+  //   pointerType: e.pointerType,
+  //   isPrimary: e.isPrimary,
+  // })
+    //  возобновляем автоплей
       startHandleAutoPlay(e)({
                             runAutoPlay: resumeAutoPlay,
                             pointerTypes: TOUCH_POINTER_TYPES
                           });
     //  отпустили кокретную  первую "точку"  касания объекта(начало свайпа)
     // после эотпускания элемента сравниваем касания чтобыследать свайп
-    handleSwipeSlideEnd(e);
+    // handleSwipeSlideEnd(e);
+    //  очищаем координату первого касания
+    pointerPositionRef.current = null;
+    isSwipingRef.current = false;
   };
   //  начало прикосновения
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     //  останавливаем движение ленты зажатием пальцы на ленте
       // stopHandleAutoPlay(e);
-     console.log("DOWN", {
-      target: e.target,
-      currentTarget: e.currentTarget,
-      pointerId: e.pointerId,
-      pointerType: e.pointerType,
-      isPrimary: e.isPrimary,
-});
+//      console.log("DOWN", {
+//       target: e.target,
+//       currentTarget: e.currentTarget,
+//       pointerId: e.pointerId,
+//       pointerType: e.pointerType,
+//       isPrimary: e.isPrimary,
+// });
     //  регистрируем начало свайпа(свайпы слайдов)
-    handleSwipeSlideStart(e);
-    //  остановка автоплея прикосновением - дотронулись до кокрент
-    //  точки объекта
-     stopHandleAutoPlay(e)({
-                            stopAutoPlay: pauseAutoPlay, 
-                            pointerTypes: TOUCH_POINTER_TYPES 
-                        });
+    // handleSwipeSlideStart(e);
+    // 1. запоминаем первую координату 
+    recordCoordinateFirstTouch(e);
+    // 2. остановка автоплея прикосновением - дотронулись до кокрент
+    stopHandleAutoPlay(e)({
+                          stopAutoPlay: pauseAutoPlay, 
+                          pointerTypes: TOUCH_POINTER_TYPES 
+                      });
   };
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLElement>) => {
+//         console.log("MOVE", {
+//       target: e.target,
+//       currentTarget: e.currentTarget,
+//       pointerId: e.pointerId,
+//       pointerType: e.pointerType,
+//       isPrimary: e.isPrimary,
+// });
+console.log(`движение ${e.pointerType}`)
+        handleSwipeOrTouch(e);
+  }
 
   //  отдельно handlerPointerCancel!!!
   const handlePointerCancel = (e:React.PointerEvent<HTMLDivElement>) => {
@@ -205,6 +231,7 @@ export const useSliderInteractions = ({
     
     //  сбрасиываем первую координату свайпа
     pointerPositionRef.current = null;
+    isSwipingRef.current = false;
   };
 
   return {
@@ -213,5 +240,7 @@ export const useSliderInteractions = ({
     onPointerUp: handlePointerUp,
     onPointerDown: handlePointerDown,
     onPointerCancel: handlePointerCancel, // продумать расширить!!!!
+
+    onPointerMove: handlePointerMove
   };
 };
