@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { pointerHandleAutoPlay } from "../utils/pointerHandleAutoPlay";
+import { defineSwipeDirection } from "../utils/defineSwipeDirection";
 
 
 
@@ -65,7 +66,9 @@ export const useSliderInteractions = ({
   };
 
 
- 
+//   определяем направление движения свайпа
+// вынести  в утилиты
+
   const recordCoordinateFirstTouch = (e: React.PointerEvent<HTMLElement>) => {
     //  для события down 
     //   здесь запомним координату перввого касания
@@ -106,7 +109,10 @@ export const useSliderInteractions = ({
     //  определим разницу первой и тек координат
     const differencePositions = startXRef.current - currentDirection;
     // lastSwitchXRef.current = currentDirection
-  
+    console.log(defineSwipeDirection({
+      currentCoordinateX: e.clientX, 
+      lastCoordinateX:  startXRef.current 
+    }))
     //  определим свайп ли это или простой тач
     //  те пересёк ли жест порог свайпа
     console.log(`текущ ${currentDirection}, первая ${startXRef.current}, разница ${differencePositions}`)
@@ -123,12 +129,12 @@ export const useSliderInteractions = ({
           // isSwipingRef.current = true
         console.log(`${differencePositions} больше ${ SWIPE_THRESHOLD}`)
       
-        console.log('to left')
+        // console.log('to left')
     } else if (differencePositions < - SWIPE_THRESHOLD) {
         // листаем влево
         backCallback();
         console.log(`${differencePositions} меньше минус  ${ SWIPE_THRESHOLD}`)
-        console.log('to right')
+        // console.log('to right')
         //  обновляем координату первого касания
         startXRef.current = e.clientX;
           // isSwipingRef.current = true
@@ -218,7 +224,7 @@ export const useSliderInteractions = ({
 //       pointerType: e.pointerType,
 //       isPrimary: e.isPrimary,
 // });
-console.log(`движение ${e.pointerType}`)
+        // console.log(defineSwipeDirection(e))
         handleSwipeOrTouch(e);
   }
 
