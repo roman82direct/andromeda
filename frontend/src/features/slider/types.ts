@@ -126,3 +126,12 @@ export type AutoPlaySetting = Pick<
   isAutoPlayState?: boolean;
   quantityShowSlides: number;
 };
+
+
+
+
+
+export type TSwipeCoordinates = {
+  currentCoordinate:number,  
+  lastCoordinate:number
+}

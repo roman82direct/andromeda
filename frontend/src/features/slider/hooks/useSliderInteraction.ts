@@ -1,18 +1,20 @@
 import { useRef } from "react";
 import { pointerHandleAutoPlay } from "../utils/pointerHandleAutoPlay";
-import { defineSwipeDirection } from "../utils/defineSwipeDirection";
+import { defineSwipeDirection } from "../utils/swipe";
 
 
 
 //  в каких случах здесь уместно убирать захват событие на кокретном целевом элементе
 //  много обработчиков остановки и возоюноаления автоплея - разберись с этим
-//  тест на открытие карточки !!!
 
+
+//  здесь должеыы остаться только назначение обработчикво - остальоные вычсления в хэлпер и утилиты
 
 type ArgsForInteractions = {
   // автоплей
   pauseAutoPlay: () => void;
   resumeAutoPlay: () => void;
+  // тумблер
   enabled: boolean;
   //  обработка переключения слайдов
   forwardCallback: () => void;
@@ -87,7 +89,7 @@ export const useSliderInteractions = ({
 
   };
   // определить свайп это или просто тач к примеру с целью остановить ленту
-  const handleSwipeOrTouch = (e: React.PointerEvent<HTMLElement>)=>{
+  const handleTouchSwipe = (e: React.PointerEvent<HTMLElement>)=>{
     //  оставим это для move ?
     //  если это не первый палец или реф первой координат тача отсутсвует или устройсов ввода не распознано
     if (
@@ -110,8 +112,8 @@ export const useSliderInteractions = ({
     const differencePositions = startXRef.current - currentDirection;
     // lastSwitchXRef.current = currentDirection
     console.log(defineSwipeDirection({
-      currentCoordinateX: e.clientX, 
-      lastCoordinateX:  startXRef.current 
+      currentCoordinate: e.clientX, 
+      lastCoordinate:  startXRef.current 
     }))
     //  определим свайп ли это или простой тач
     //  те пересёк ли жест порог свайпа
@@ -225,7 +227,7 @@ export const useSliderInteractions = ({
 //       isPrimary: e.isPrimary,
 // });
         // console.log(defineSwipeDirection(e))
-        handleSwipeOrTouch(e);
+        handleTouchSwipe(e);
   }
 
   //  отдельно handlerPointerCancel!!!
