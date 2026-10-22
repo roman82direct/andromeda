@@ -20,7 +20,7 @@ export const doSwipe = (
     backCallback: ()=> void,
     threshold: number = 30,
   ):boolean=>{
-    //  вычисляем разницу координат начальной точки  и текущей 
+    //  после запомининия координаты в вычисляем разницу координат начальной точки  и текущей 
     // чтобы понять надо ли делать свайп
     const differencePositions = lastCoordinate - currentCoordinate;
     let isUpdatelastCoordinate: boolean = false;
@@ -36,5 +36,28 @@ export const doSwipe = (
         backCallback();
        isUpdatelastCoordinate = true;
     }
+
+   
     return  isUpdatelastCoordinate
   }
+
+//  запись координаты при событии down
+
+   export const recordCoordinateFirstTouch = (e: React.PointerEvent<HTMLElement>,touchPointerTypes:string[]) => {
+    //  для события down 
+    //   здесь запомним координату перввого касания
+      if (
+      e.isPrimary &&
+        touchPointerTypes.includes(e.pointerType)
+      // (e.pointerType === "touch" || e.pointerType === "pen")
+      ) {
+          //  если это "первый" палец
+          // запоминаем первую координату
+          const pointerDown = e.clientX;
+          // возвращаем ее 
+          return pointerDown
+          // isSwipingRef.current = false;
+        }
+        return null
+
+  };
