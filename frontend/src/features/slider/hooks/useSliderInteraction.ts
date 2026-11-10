@@ -24,7 +24,7 @@ const POINTER_TYPE_MOUSE = ["mouse"];
 const TOUCH_POINTER_TYPES = ["touch", "pen"];
 const ALL_POINTER_TYPES = [...POINTER_TYPE_MOUSE, ...TOUCH_POINTER_TYPES];
 const SWIPE_THRESHOLD = 30;
-const ENTRY_SIZE_EDGE_SLIDER = 30;
+const ENTRY_SIZE_EDGE_SLIDER = 48;
 
 //  настроить обработку свайпов - урбать с мышки
 export const useSliderInteractions = ({
@@ -34,45 +34,87 @@ export const useSliderInteractions = ({
   forwardCallback,
   backCallback,
 }: ArgsForInteractions) => {
-    //  интервал запуска слайдера (для множестве тача)
+// состояние для свайпов - работа с первой координатой касания
+//  например а нажат ли палец
+const startXRef = useRef<number | null>(null);
 
-const edgeCallbackRef = useRef<(() => void) | null>(null);
+// const edgeCallbackRef = useRef<(() => void) | null>(null);
+const edgeDirectionRef = useRef<'left' | 'right' | null>(null);
 
-    const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);//   определяем направление движения свайпа
-  const stopEdgeInterval = ()=>{
+const forwardRef = useRef<(()=>void) | null>(null);
+
+const backRef = useRef<(()=>void) | null>(null);
+
+const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);//   определяем направление движения свайпа
+
+const stopEdgeInterval = ()=>{
       const idIntervel = intervalRef.current
     if( idIntervel!== null){
       clearInterval(idIntervel)
       intervalRef.current = null
     }
+    // сбрасываем направление
+    edgeDirectionRef.current = null;
   }
 
 //  обновляем коллбэк чтобы не было устаревшего замыкания 
-  useEffect(()=>{
-    edgeCallbackRef.current = forwardCallback;
-  },[forwardCallback])
+//  //  при размонтировании очищаем таймер 
+    useEffect(()=>{
+      forwardRef.current = forwardCallback
+       backRef.current =  backCallback;
+      return(()=>{
+        // в люб случае при размонтировании убираем таймер
+        //  stopEdgeInterval();
+      })
+    },[forwardCallback,  backCallback])
+  // useEffect(()=>{
+  //   edgeCallbackRef.current = forwardCallback;
+  // },[forwardCallback])
   
-  const startEdgeInterval =() => {
-    console.log('ffff')
-    //  обновление коллбека чтобы не мешало старое состояние редюсера
-  if (intervalRef.current !== null) return;
-      if( !edgeCallbackRef.current) return
-  intervalRef.current = setInterval(()=>{
-     console.log('timer tick');
-     if( edgeCallbackRef.current){
-      edgeCallbackRef.current();
-     }
+//   const startEdgeInterval =() => {
+//     console.log('ffff')
+//     //  обновление коллбека чтобы не мешало старое состояние редюсера
+//   if (intervalRef.current !== null) return;
+//       if( !edgeCallbackRef.current) return
+//   intervalRef.current = setInterval(()=>{
+//      console.log('timer tick');
+//      if( edgeCallbackRef.current){
+//       edgeCallbackRef.current();
+//      }
     
-    // console.log(
-    //   'running'
-    // )
-    console.log('callback called');
+//     // console.log(
+//     //   'running'
+//     // )
+//     console.log('callback called');
+//   }, 600);
+// };
+    type TDirectionTo ='left' | 'right';
+
+ const startEdgeInterval =(directionTo:   TDirectionTo) => {
+   console.log('startEdgeInterval');
+    //  если интервал смен слайда уже запущен  и напрвление известно и не изменилось - ничего не делаем
+    //  чтобы не плодить лишние таймеры
+    if (intervalRef.current !== null && edgeDirectionRef.current === directionTo) return;
+    //   если направление сменилось 
+    //  остановка старого предыдущего таймера направления  интервала
+    // stopEdgeInterval();
+    //  обновляем направление
+    edgeDirectionRef.current = directionTo
+  intervalRef.current = setInterval(()=>{
+       console.log('startInterval');
+     if( forwardRef.current && directionTo === 'right'){
+      console.log('right')
+      forwardRef.current();
+     }
+     if(backRef.current && directionTo == 'left'){
+      backRef.current();
+      console.log('left')
+     }  
   }, 600);
 };
 
 
-  // состояние для свайпов
-  const startXRef = useRef<number | null>(null);
+
 
 // вынести  в утилиты
   // определить свайп это или просто тач к примеру с целью остановить ленту
@@ -80,8 +122,11 @@ const edgeCallbackRef = useRef<(() => void) | null>(null);
     //  оставим это для move ?
     //  если это не первый палец или реф первой координат тача отсутсвует или устройсов ввода не распознано
     if (
+      // это не первое касание
       !e.isPrimary ||
+      //  или палец не нажат
       startXRef.current === null ||
+      //  защита от непредвиденных устройств напр мыши
       !TOUCH_POINTER_TYPES.includes(e.pointerType) 
       )
      { 
@@ -130,6 +175,8 @@ if(swiping && startXRef.current!==null) {
                             runAutoPlay: resumeAutoPlay,
                             pointerTypes: POINTER_TYPE_MOUSE
                           },enabled);
+                          // останавливаем интервал
+    // stopEdgeInterval()
   };
   // конец прикосновения
   const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -156,6 +203,10 @@ if(swiping && startXRef.current!==null) {
   };
   //  начало прикосновения
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    //  необходим захват указателя!!!
+    e.currentTarget.setPointerCapture(e.pointerId)
+
+
     // 1. запоминаем первую координату 
     const recordingCoordinateX = recordCoordinateFirstTouch(e, TOUCH_POINTER_TYPES, );
     startXRef.current = recordingCoordinateX
@@ -180,16 +231,28 @@ if(swiping && startXRef.current!==null) {
       //   console.log(rightEdgeSlider)
       //  handleTouchSwipe(e);!
       // doSwipeByEdge(e, { forwardCallback,backCallback  })
-        const edgePosition = defineEdgePosition(e);
+
+  const edgePosition = defineEdgePosition(e, ENTRY_SIZE_EDGE_SLIDER);
+    //  защита от мыши - подумать ?? а если нам нужна будет здесь мышь длячего то ??
+ // и  если палец не нажат
+  // if (!TOUCH_POINTER_TYPES.includes(e.pointerType) ||
+  //     startXRef.current === null
+  
+  
+  // ) return;
+ 
 
  if (edgePosition.isNearLeftEdge) {
-  console.log(';;;')
-    startEdgeInterval();
+ 
+    startEdgeInterval('left');
   } else if (edgePosition.isNearRightEdge) {
-    startEdgeInterval();
+    startEdgeInterval('right');
   } else {
     // в любом др случае нам этот таймер не нужен при данном событии
+    //  те пока указатель не в краевое зоне ленту крутить не надо
     stopEdgeInterval();
+    //  работает обычный свайп
+    handleTouchSwipe(e);
   }
 
    
@@ -205,8 +268,8 @@ if(swiping && startXRef.current!==null) {
     //  сбрасиываем первую координату свайпа
     startXRef.current = null;
 
-      //   stopEdgeInterval 
-    stopEdgeInterval()
+      //  в любом непредвиденном случае остановить интервал
+    // stopEdgeInterval();
   };
 
   return {
