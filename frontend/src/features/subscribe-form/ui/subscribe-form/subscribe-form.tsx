@@ -43,7 +43,7 @@ export const SubscribeFormUI: FC<SubscribeFormUIProps> = ({
           isDisabled={isDisabled}
           fullSize
           variant={"outlined"}
-          color={"subscribe"}
+          color={"dark"}
           type={"submit"}
           onClick={() => {}}
         >
