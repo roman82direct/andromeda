@@ -1,7 +1,7 @@
 import type { TSwipeCoordinates } from "../types";
 
 
-
+// !!!! Также добавьте useEffect(() => stopEdgeInterval, []), чтобы интервал очищался при размонтировании.
 
 export const defineSwipeDirection = ({currentCoordinate, lastCoordinate}:TSwipeCoordinates)=>{
     if(lastCoordinate === null) return;
@@ -70,12 +70,14 @@ export const doSwipeBetweenTwoDots = (
 //  определение краев свайпа
 export const defineEdgePosition = (
   e: React.PointerEvent<HTMLElement>,
-  sizeToEdge = 30
+  sizeToEdge = 48
 ): TEdgePosition => {
   const rect = e.currentTarget.getBoundingClientRect();
+    // если размер не задан берем 15 от ширины  ленты слайдера  но не менее 48 или не более 96
+  const valueZoneEdge = sizeToEdge ?? Math.min(96, Math.max(48, rect.width * 0.15))
 
   return {
-    isNearLeftEdge: e.clientX <= rect.left + sizeToEdge,
-    isNearRightEdge: e.clientX >= rect.right - sizeToEdge,
+    isNearLeftEdge: e.clientX <= rect.left + valueZoneEdge,
+    isNearRightEdge: e.clientX >= rect.right - valueZoneEdge,
   };
 };

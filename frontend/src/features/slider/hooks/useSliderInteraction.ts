@@ -47,10 +47,11 @@ const edgeCallbackRef = useRef<(() => void) | null>(null);
     }
   }
 
-
+//  обновляем коллбэк чтобы не было устаревшего замыкания 
   useEffect(()=>{
     edgeCallbackRef.current = forwardCallback;
   },[forwardCallback])
+  
   const startEdgeInterval =() => {
     console.log('ffff')
     //  обновление коллбека чтобы не мешало старое состояние редюсера
@@ -66,7 +67,7 @@ const edgeCallbackRef = useRef<(() => void) | null>(null);
     //   'running'
     // )
     console.log('callback called');
-  }, 1000);
+  }, 600);
 };
 
 
@@ -148,6 +149,7 @@ if(swiping && startXRef.current!==null) {
     startXRef.current = null;
     // isSwipingRef.current = false;
     //   stopEdgeInterval 
+    //  остановка движения лента слайдера по краю
     stopEdgeInterval()
 
     
@@ -186,11 +188,10 @@ if(swiping && startXRef.current!==null) {
   } else if (edgePosition.isNearRightEdge) {
     startEdgeInterval();
   } else {
-    //  это нужно ли ?
-    // stopEdgeInterval();
+    // в любом др случае нам этот таймер не нужен при данном событии
+    stopEdgeInterval();
   }
-//  мешала эта строчка ?
-//  startEdgeInterval();
+
    
   } 
 
