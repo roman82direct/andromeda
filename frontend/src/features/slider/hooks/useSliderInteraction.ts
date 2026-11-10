@@ -7,7 +7,13 @@ import { doSwipeBetweenTwoDots, defineEdgePosition, recordCoordinateFirstTouch }
 // https://chatgpt.com/c/6ad35944-1f58-83ed-86b1-a6b299828b72
 // e.currentTarget.getBoundingClientRect() !!!!
 
-
+//  замечания
+// 1. в слайдере перепутаны направления при работе с разными функциями
+// 2. код слишком сцеплен:
+//  необходиморазделение устройств
+//  разделение обычного свайпа и свайпа у края, который реализован через интервал
+//  3. при зажатии у края не учтено в какую стороу мы свайп делаем 
+// => необходима работа над разницей точек
 
 type ArgsForInteractions = {
   // автоплей
@@ -59,35 +65,15 @@ const stopEdgeInterval = ()=>{
 
 //  обновляем коллбэк чтобы не было устаревшего замыкания 
 //  //  при размонтировании очищаем таймер 
-    useEffect(()=>{
-      forwardRef.current = forwardCallback
-       backRef.current =  backCallback;
-      return(()=>{
-        // в люб случае при размонтировании убираем таймер
-        //  stopEdgeInterval();
-      })
-    },[forwardCallback,  backCallback])
-  // useEffect(()=>{
-  //   edgeCallbackRef.current = forwardCallback;
-  // },[forwardCallback])
-  
-//   const startEdgeInterval =() => {
-//     console.log('ffff')
-//     //  обновление коллбека чтобы не мешало старое состояние редюсера
-//   if (intervalRef.current !== null) return;
-//       if( !edgeCallbackRef.current) return
-//   intervalRef.current = setInterval(()=>{
-//      console.log('timer tick');
-//      if( edgeCallbackRef.current){
-//       edgeCallbackRef.current();
-//      }
-    
-//     // console.log(
-//     //   'running'
-//     // )
-//     console.log('callback called');
-//   }, 600);
-// };
+useEffect(()=>{
+  forwardRef.current = forwardCallback
+  backRef.current =  backCallback;
+  return(()=>{
+    // в люб случае при размонтировании убираем таймер
+    //  stopEdgeInterval();
+  })
+},[forwardCallback,  backCallback])
+
     type TDirectionTo ='left' | 'right';
 
  const startEdgeInterval =(directionTo:   TDirectionTo) => {
@@ -102,12 +88,14 @@ const stopEdgeInterval = ()=>{
     edgeDirectionRef.current = directionTo
   intervalRef.current = setInterval(()=>{
        console.log('startInterval');
-     if( forwardRef.current && directionTo === 'right'){
+     if( backRef.current && directionTo === 'right'){
       console.log('right')
-      forwardRef.current();
-     }
-     if(backRef.current && directionTo == 'left'){
       backRef.current();
+      
+     }
+     if(forwardRef.current && directionTo == 'left'){
+      forwardRef.current();
+      
       console.log('left')
      }  
   }, 600);
@@ -221,18 +209,10 @@ if(swiping && startXRef.current!==null) {
   };
 
   const handlePointerMove = (e: React.PointerEvent<HTMLElement>) => {
-        // console.log(e.currentTarget.getBoundingClientRect());
-
-      // const sliderWindowCoordinates =  e.currentTarget.getBoundingClientRect();
-      //  const  leftEdgeSlider = sliderWindowCoordinates.x;
-      //  const  rightEdgeSlider = sliderWindowCoordinates.x + sliderWindowCoordinates.width
-      //   console.log(leftEdgeSlider)
-      //   console.log(e.clientX);
-      //   console.log(rightEdgeSlider)
-      //  handleTouchSwipe(e);!
-      // doSwipeByEdge(e, { forwardCallback,backCallback  })
+     
 
   const edgePosition = defineEdgePosition(e, ENTRY_SIZE_EDGE_SLIDER);
+
     //  защита от мыши - подумать ?? а если нам нужна будет здесь мышь длячего то ??
  // и  если палец не нажат
   // if (!TOUCH_POINTER_TYPES.includes(e.pointerType) ||
@@ -241,7 +221,7 @@ if(swiping && startXRef.current!==null) {
   
   // ) return;
  
-
+    console.log(edgePosition)
  if (edgePosition.isNearLeftEdge) {
  
     startEdgeInterval('left');
