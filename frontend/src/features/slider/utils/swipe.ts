@@ -14,6 +14,7 @@ export const defineSwipeDirection = ({currentCoordinate, lastCoordinate}:TSwipeC
     }
 }
 
+
 export const doSwipeBetweenTwoDots = (
     {currentCoordinate, lastCoordinate}:TSwipeCoordinates, 
     forwardCallback: ()=> void,

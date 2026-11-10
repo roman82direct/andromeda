@@ -1,18 +1,23 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { startHandleAutoPlay, stopHandleAutoPlay } from "../utils/pointersHandlers";
-import { doSwipeBetweenTwoDots, defineEdgePosition, recordCoordinateFirstTouch } from "../utils/swipe";
+import { doSwipeBetweenTwoDots, defineEdgePosition, recordCoordinateFirstTouch, defineSwipeDirection } from "../utils/swipe";
 
 // !!!!!нужен ли здесь вообще захват указателя ?
 // https://learn.javascript.ru/coordinates  изучить
 // https://chatgpt.com/c/6ad35944-1f58-83ed-86b1-a6b299828b72
 // e.currentTarget.getBoundingClientRect() !!!!
 
-//  замечания
+//  Замечания:
 // 1. в слайдере перепутаны направления при работе с разными функциями
 // 2. код слишком сцеплен:
-//  необходиморазделение устройств
-//  разделение обычного свайпа и свайпа у края, который реализован через интервал
-//  3. при зажатии у края не учтено в какую стороу мы свайп делаем 
+//  - разделение кода на утилиты и кастомные хуки
+//  - необходиморазделение устройств
+//  - разделение обычного свайпа и свайпа у края, который реализован через интервал
+//  - выделение отделльно типизации
+//  - сделать left и right контстантами
+//  - изучить случае остановки таймера 
+//  3. при зажатии у края не учтено в какую стороу мы свайп делаем  учтено 
+// - необходимо обработать случай если в прелделах краямы свайпаем в противоположную сторону
 // => необходима работа над разницей точек
 
 type ArgsForInteractions = {
@@ -89,14 +94,14 @@ useEffect(()=>{
   intervalRef.current = setInterval(()=>{
        console.log('startInterval');
      if( backRef.current && directionTo === 'right'){
-      console.log('right')
+      // console.log('right')
       backRef.current();
       
      }
      if(forwardRef.current && directionTo == 'left'){
       forwardRef.current();
       
-      console.log('left')
+      // console.log('left')
      }  
   }, 600);
 };
@@ -215,17 +220,23 @@ if(swiping && startXRef.current!==null) {
 
     //  защита от мыши - подумать ?? а если нам нужна будет здесь мышь длячего то ??
  // и  если палец не нажат
-  // if (!TOUCH_POINTER_TYPES.includes(e.pointerType) ||
-  //     startXRef.current === null
+  if (!TOUCH_POINTER_TYPES.includes(e.pointerType) ||
+      startXRef.current === null
   
   
-  // ) return;
+  ) return;
  
-    console.log(edgePosition)
- if (edgePosition.isNearLeftEdge) {
+    // console.log(edgePosition)
+    // const differencePositions = lastCoordinate - currentCoordinate;
+    //  определяем 2 точки касания:
+        const currentDot = e.clientX;
+        const firstDot = startXRef.current;
+   const directionTouch =  defineSwipeDirection({currentCoordinate:currentDot,lastCoordinate:firstDot })
+   console.log("directionTouch", directionTouch)
+ if (edgePosition.isNearLeftEdge && directionTouch === 'left') {
  
     startEdgeInterval('left');
-  } else if (edgePosition.isNearRightEdge) {
+  } else if (edgePosition.isNearRightEdge && directionTouch === 'right') {
     startEdgeInterval('right');
   } else {
     // в любом др случае нам этот таймер не нужен при данном событии
