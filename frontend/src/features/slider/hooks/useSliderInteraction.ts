@@ -1,6 +1,6 @@
-import { useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { startHandleAutoPlay, stopHandleAutoPlay } from "../utils/pointersHandlers";
-import {  doSwipe, recordCoordinateFirstTouch } from "../utils/swipe";
+import { doSwipeBetweenTwoDots, defineEdgePosition, recordCoordinateFirstTouch } from "../utils/swipe";
 
 // !!!!!нужен ли здесь вообще захват указателя ?
 // https://learn.javascript.ru/coordinates  изучить
@@ -24,6 +24,7 @@ const POINTER_TYPE_MOUSE = ["mouse"];
 const TOUCH_POINTER_TYPES = ["touch", "pen"];
 const ALL_POINTER_TYPES = [...POINTER_TYPE_MOUSE, ...TOUCH_POINTER_TYPES];
 const SWIPE_THRESHOLD = 30;
+const ENTRY_SIZE_EDGE_SLIDER = 30;
 
 //  настроить обработку свайпов - урбать с мышки
 export const useSliderInteractions = ({
@@ -33,10 +34,45 @@ export const useSliderInteractions = ({
   forwardCallback,
   backCallback,
 }: ArgsForInteractions) => {
+    //  интервал запуска слайдера (для множестве тача)
+
+const edgeCallbackRef = useRef<(() => void) | null>(null);
+
+    const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);//   определяем направление движения свайпа
+  const stopEdgeInterval = ()=>{
+      const idIntervel = intervalRef.current
+    if( idIntervel!== null){
+      clearInterval(idIntervel)
+      intervalRef.current = null
+    }
+  }
+
+
+  useEffect(()=>{
+    edgeCallbackRef.current = forwardCallback;
+  },[forwardCallback])
+  const startEdgeInterval =() => {
+    console.log('ffff')
+    //  обновление коллбека чтобы не мешало старое состояние редюсера
+  if (intervalRef.current !== null) return;
+      if( !edgeCallbackRef.current) return
+  intervalRef.current = setInterval(()=>{
+     console.log('timer tick');
+     if( edgeCallbackRef.current){
+      edgeCallbackRef.current();
+     }
+    
+    // console.log(
+    //   'running'
+    // )
+    console.log('callback called');
+  }, 1000);
+};
+
+
   // состояние для свайпов
   const startXRef = useRef<number | null>(null);
 
-//   определяем направление движения свайпа
 // вынести  в утилиты
   // определить свайп это или просто тач к примеру с целью остановить ленту
   const handleTouchSwipe = (e: React.PointerEvent<HTMLElement>)=>{
@@ -56,7 +92,7 @@ export const useSliderInteractions = ({
     // выяисляем тек горизонт позицию
     const currentDirection = e.clientX;
     //  считаем разницу чтобы понять нужен ли нам перелистивыние ленты слайдера вообще ?
-    const swiping = doSwipe(
+    const swiping = doSwipeBetweenTwoDots(
       {
       currentCoordinate:currentDirection,  
       lastCoordinate:startXRef.current,
@@ -70,7 +106,6 @@ if(swiping && startXRef.current!==null) {
   //  обновляем координату если свайп продолжается без "отпускания"
    startXRef.current = e.clientX
 } 
-  
   }
 
   
@@ -84,7 +119,7 @@ if(swiping && startXRef.current!==null) {
                             stopAutoPlay: pauseAutoPlay, 
                             pointerTypes: POINTER_TYPE_MOUSE 
                         }, enabled);
-                        console.log('ffff')
+                  
   };
 
   const handlePointerLeave = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -112,6 +147,10 @@ if(swiping && startXRef.current!==null) {
     //  очищаем координату первого касания
     startXRef.current = null;
     // isSwipingRef.current = false;
+    //   stopEdgeInterval 
+    stopEdgeInterval()
+
+    
   };
   //  начало прикосновения
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -123,12 +162,37 @@ if(swiping && startXRef.current!==null) {
                           stopAutoPlay: pauseAutoPlay, 
                           pointerTypes: TOUCH_POINTER_TYPES 
                       },enabled);
+                    
+
+
   };
 
   const handlePointerMove = (e: React.PointerEvent<HTMLElement>) => {
+        // console.log(e.currentTarget.getBoundingClientRect());
 
-        handleTouchSwipe(e);
+      // const sliderWindowCoordinates =  e.currentTarget.getBoundingClientRect();
+      //  const  leftEdgeSlider = sliderWindowCoordinates.x;
+      //  const  rightEdgeSlider = sliderWindowCoordinates.x + sliderWindowCoordinates.width
+      //   console.log(leftEdgeSlider)
+      //   console.log(e.clientX);
+      //   console.log(rightEdgeSlider)
+      //  handleTouchSwipe(e);!
+      // doSwipeByEdge(e, { forwardCallback,backCallback  })
+        const edgePosition = defineEdgePosition(e);
+
+ if (edgePosition.isNearLeftEdge) {
+  console.log(';;;')
+    startEdgeInterval();
+  } else if (edgePosition.isNearRightEdge) {
+    startEdgeInterval();
+  } else {
+    //  это нужно ли ?
+    // stopEdgeInterval();
   }
+//  мешала эта строчка ?
+//  startEdgeInterval();
+   
+  } 
 
   //  отдельно handlerPointerCancel!!!
   const handlePointerCancel = (e:React.PointerEvent<HTMLDivElement>) => {
@@ -139,6 +203,9 @@ if(swiping && startXRef.current!==null) {
     
     //  сбрасиываем первую координату свайпа
     startXRef.current = null;
+
+      //   stopEdgeInterval 
+    stopEdgeInterval()
   };
 
   return {

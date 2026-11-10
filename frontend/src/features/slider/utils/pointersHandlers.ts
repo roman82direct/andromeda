@@ -16,7 +16,7 @@ export const pointerHandleAutoPlay = ({
     callback();
   }
 };
-
+// применение карирования
 //  если мышка или тач на объекте останавливаем автоплей
 export   const stopHandleAutoPlay = (e: React.PointerEvent<HTMLDivElement>)=>(
     {stopAutoPlay, pointerTypes}:{stopAutoPlay:()=> void, pointerTypes:string[]},

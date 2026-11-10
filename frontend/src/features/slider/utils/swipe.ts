@@ -14,7 +14,7 @@ export const defineSwipeDirection = ({currentCoordinate, lastCoordinate}:TSwipeC
     }
 }
 
-export const doSwipe = (
+export const doSwipeBetweenTwoDots = (
     {currentCoordinate, lastCoordinate}:TSwipeCoordinates, 
     forwardCallback: ()=> void,
     backCallback: ()=> void,
@@ -61,3 +61,21 @@ export const doSwipe = (
         return null
 
   };
+
+ type TEdgePosition = {
+  isNearLeftEdge: boolean;
+  isNearRightEdge: boolean;
+};
+
+//  определение краев свайпа
+export const defineEdgePosition = (
+  e: React.PointerEvent<HTMLElement>,
+  sizeToEdge = 30
+): TEdgePosition => {
+  const rect = e.currentTarget.getBoundingClientRect();
+
+  return {
+    isNearLeftEdge: e.clientX <= rect.left + sizeToEdge,
+    isNearRightEdge: e.clientX >= rect.right - sizeToEdge,
+  };
+};
